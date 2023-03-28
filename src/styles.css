@@ -1,0 +1,13 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+.logo-container {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+
