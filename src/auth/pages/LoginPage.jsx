@@ -22,10 +22,10 @@ import {
 
 // esto lo ponemos fuera de LoginPage
 // si lo ponemos dentro, da un error porque rerrenderiza esto de forma constante
-const formData = {
+/* const formData = {
   email: "",
   password: "",
-};
+}; */
 
 export const LoginPage = () => {
   /*  const { status, errorMessage } = useSelector((state) => state.auth); //extraigo el status del auth del state
