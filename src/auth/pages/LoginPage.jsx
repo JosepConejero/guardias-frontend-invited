@@ -13,6 +13,7 @@ import {
 import "../../styles.css";
 
 import { AuthLayout } from "../layout/AuthLayout";
+import { useForm } from "../../hooks";
 
 /* import { useForm } from "../../hooks";
 import {
@@ -26,6 +27,10 @@ import {
   email: "",
   password: "",
 }; */
+const formFields = {
+  email: "",
+  password: "",
+};
 
 export const LoginPage = () => {
   /*  const { status, errorMessage } = useSelector((state) => state.auth); //extraigo el status del auth del state
@@ -50,11 +55,22 @@ export const LoginPage = () => {
     dispatch(startGoogleSignIn());
   }; */
 
+  const { email, password, onInputChange } = useForm(formFields);
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    console.log({ email, password });
+    //! No es esta la acción a despachar
+    //dispatch(checkingAuthentication());
+    //dispatch(startLoginWithEmailPassword(formState));
+    //console.log("formState: ", formState);
+  };
+
   return (
     <AuthLayout title="Login">
       <form
         aria-label="submit-form"
-        /* onSubmit={onSubmit} */
+        onSubmit={onSubmit}
         className="animate__animated animate__fadeIn animate__faster"
       >
         <Grid container>
@@ -65,8 +81,8 @@ export const LoginPage = () => {
               placeholder="correo@google.com"
               fullWidth
               name="email"
-              /*   value={email}
-              onChange={onInputChange} */
+              value={email}
+              onChange={onInputChange}
             />
           </Grid>
           <Grid item xs={12} sx={{ mt: 2 }}>
@@ -77,8 +93,8 @@ export const LoginPage = () => {
               fullWidth
               inputProps={{ "data-testid": "password" }}
               name="password"
-              /*   value={password}
-              onChange={onInputChange} */
+              value={password}
+              onChange={onInputChange}
             />
           </Grid>
 

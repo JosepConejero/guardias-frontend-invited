@@ -1,15 +1,21 @@
+import { Provider } from "react-redux";
+import { store } from "./store";
+
 import { BrowserRouter } from "react-router-dom";
 import { AppRouter } from "./router";
-import "./styles.css";
 import { AppTheme } from "./theme";
+
+import "./styles.css";
 
 function AgendaTecnicosApp() {
   return (
-    <BrowserRouter>
-      <AppTheme>
-        <AppRouter />
-      </AppTheme>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <AppTheme>
+          <AppRouter />
+        </AppTheme>
+      </BrowserRouter>
+    </Provider>
   );
 }
 

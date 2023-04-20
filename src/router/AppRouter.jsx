@@ -5,7 +5,7 @@ import { GuardiasPage } from "../guardias/pages/GuardiasPage";
 import { LogoPage } from "../ui";
 
 export const AppRouter = () => {
-  //  const authStatus = "authenticated";
+  //  const authStatus = "authenticated"; // "not-authenticated"; "checking";
   const authStatus = "not-authenticated";
 
   return (
