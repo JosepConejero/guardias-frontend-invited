@@ -88,7 +88,7 @@ export const LoginPage = () => {
             <Grid item xs={12}>
               <Alert severity="error"></Alert>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={12}>
               <Button
                 /* disabled={isAuthenticating} */
                 type="submit"
@@ -98,7 +98,7 @@ export const LoginPage = () => {
                 Login
               </Button>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={6} display="none">
               <Button
                 /* disabled={isAuthenticating} */
                 variant="contained"
