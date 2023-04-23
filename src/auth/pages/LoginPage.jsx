@@ -1,70 +1,34 @@
-/* import { useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux"; */
 import { Link as RouterLink } from "react-router-dom";
 import Google from "@mui/icons-material/Google";
-import {
-  Alert,
-  Button,
-  Grid,
-  Link,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Grid, Link, TextField, Typography } from "@mui/material";
 import "../../styles.css";
 
 import { AuthLayout } from "../layout/AuthLayout";
-import { useForm } from "../../hooks";
+import { useAuthStore, useForm } from "../../hooks";
+import { useEffect, useMemo } from "react";
+import Swal from "sweetalert2";
 
-/* import { useForm } from "../../hooks";
-import {
-  startGoogleSignIn,
-  startLoginWithEmailPassword,
-} from "../../store/auth"; */
-
-// esto lo ponemos fuera de LoginPage
-// si lo ponemos dentro, da un error porque rerrenderiza esto de forma constante
-/* const formData = {
-  email: "",
-  password: "",
-}; */
 const formFields = {
   email: "",
   password: "",
 };
 
 export const LoginPage = () => {
-  /*  const { status, errorMessage } = useSelector((state) => state.auth); //extraigo el status del auth del state
-
-  const dispatch = useDispatch();
-
-  const { email, password, onInputChange, formState } = useForm(formData);
-
+  const { status, startLogin, errorMessage } = useAuthStore();
   const isAuthenticating = useMemo(() => status === "checking", [status]);
-
-  const onSubmit = (event) => {
-    event.preventDefault();
-    //console.log({ email, password });
-    //! No es esta la acción a despachar
-    //dispatch(checkingAuthentication());
-    dispatch(startLoginWithEmailPassword(formState));
-    //console.log("formState: ", formState);
-  };
-
-  const onGoogleSignIn = () => {
-    console.log("onGoogleSignIn");
-    dispatch(startGoogleSignIn());
-  }; */
 
   const { email, password, onInputChange } = useForm(formFields);
 
   const onSubmit = (event) => {
     event.preventDefault();
-    console.log({ email, password });
-    //! No es esta la acción a despachar
-    //dispatch(checkingAuthentication());
-    //dispatch(startLoginWithEmailPassword(formState));
-    //console.log("formState: ", formState);
+    startLogin({ email, password });
   };
+
+  useEffect(() => {
+    if (errorMessage !== undefined) {
+      Swal.fire("Error en la autenticación", errorMessage, "error");
+    }
+  }, [errorMessage]);
 
   return (
     <AuthLayout title="Login">
@@ -99,14 +63,12 @@ export const LoginPage = () => {
           </Grid>
 
           <Grid container spacing={2} sx={{ mb: 2, mt: 1 }}>
-            {/* <Grid item xs={12} display={!!errorMessage ? "" : "none"}>
-              <Alert severity="error">{errorMessage}</Alert> */}
-            <Grid item xs={12}>
-              <Alert severity="error"></Alert>
-            </Grid>
+            {/*       <Grid item xs={12} display={!!errorMessage ? "" : "none"}>
+              <Alert severity="error">{errorMessage}</Alert>
+            </Grid> */}
             <Grid item xs={12} sm={12}>
               <Button
-                /* disabled={isAuthenticating} */
+                disabled={isAuthenticating}
                 type="submit"
                 variant="contained"
                 fullWidth

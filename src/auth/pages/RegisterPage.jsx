@@ -1,72 +1,78 @@
-/* import { useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux"; */
 import { Link as RouterLink } from "react-router-dom";
-import {
-  Alert,
-  Button,
-  Grid,
-  Link,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Grid, Link, TextField, Typography } from "@mui/material";
 import { AuthLayout } from "../layout/AuthLayout";
-/* import { useForm } from "../../hooks";
-import { startCreatingUserWithEmailPassword } from "../../store/auth";
+import { useAuthStore, useForm } from "../../hooks";
+import Swal from "sweetalert2";
+import { useEffect, useMemo, useState } from "react";
 
-const formData = {
+const formFields = {
+  name: "",
   email: "",
   password: "",
-  displayName: "",
+  password2: "",
 };
 
 const formValidations = {
   email: [(value) => value.includes("@"), "El correo debe tener una @"],
   password: [
     (value) => value.length >= 6,
-    "El password debe tener más de 6 letras",
+    "El password debe tener como mínimo 6 letras",
   ],
-  displayName: [(value) => value.length >= 1, "El nombre es obligatorio"],
-}; */
+  password2: [
+    (value) => value.length >= 6,
+    "El password debe tener como mínimo 6 letras",
+  ],
+  name: [(value) => value.length >= 1, "El nombre es obligatorio"],
+};
 
 export const RegisterPage = () => {
-  /*   const dispatch = useDispatch();
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const { status, startRegister, errorMessage } = useAuthStore();
 
-  const { status, errorMessage } = useSelector((state) => state.auth);
   const isCheckingAuthentication = useMemo(
     () => status === "checking",
     [status]
   );
 
   const {
-    formState,
-    displayName,
+    name,
     email,
     password,
+    password2,
     onInputChange,
     isFormValid,
-    displayNameValid,
+    nameValid,
     emailValid,
     passwordValid,
-  } = useForm(formData, formValidations);
-
-  //console.log({ displayNameValid, emailValid, passwordValid });
+    password2Valid,
+  } = useForm(formFields, formValidations);
 
   const onSubmit = (event) => {
     event.preventDefault();
-
     setFormSubmitted(true);
-    if (!isFormValid) return; // esto es para que no haga submit si hay un error en algún input
-    //console.log(formState);
-    // si el form es válido, hago el dispatch de la acción startCreatingUserWithEmailPassword
-    dispatch(startCreatingUserWithEmailPassword(formState));
-  }; */
+    if (password !== password2) {
+      Swal.fire(
+        "Error en el registro",
+        "Las contraseñas son distintas",
+        "error"
+      );
+      return;
+    }
+    if (!isFormValid) return;
+    startRegister({ name, email, password });
+  };
+
+  useEffect(() => {
+    if (errorMessage !== undefined) {
+      Swal.fire("Error en la autenticación", errorMessage, "error");
+    }
+  }, [errorMessage]);
 
   return (
     <AuthLayout title="Register">
       {/*  <h1>FormValid: {isFormValid ? "Válido" : "Incorrecto"}</h1> */}
       <form
-        /* onSubmit={onSubmit} */
+        onSubmit={onSubmit}
         className="animate__animated animate__fadeIn animate__faster"
       >
         <Grid container>
@@ -74,13 +80,13 @@ export const RegisterPage = () => {
             <TextField
               label="Nombre completo"
               type="text"
-              placeholder="Nombre completo de verdad"
+              placeholder="Nombre completo"
               fullWidth
-              name="displayName"
-              /* value={displayName}
+              name="name"
+              value={name}
               onChange={onInputChange}
-              error={!!displayNameValid && formSubmitted}
-              helperText={formSubmitted && displayNameValid} */
+              error={!!nameValid && formSubmitted}
+              helperText={formSubmitted && nameValid}
             />
           </Grid>
 
@@ -91,10 +97,10 @@ export const RegisterPage = () => {
               placeholder="correo@google.com"
               fullWidth
               name="email"
-              /*  value={email}
+              value={email}
               onChange={onInputChange}
               error={!!emailValid && formSubmitted}
-              helperText={formSubmitted && emailValid} */
+              helperText={formSubmitted && emailValid}
             />
           </Grid>
 
@@ -105,36 +111,34 @@ export const RegisterPage = () => {
               placeholder="Contraseña"
               fullWidth
               name="password"
-              /*  value={password}
+              value={password}
               onChange={onInputChange}
               error={!!passwordValid && formSubmitted}
-              helperText={formSubmitted && passwordValid} */
+              helperText={formSubmitted && passwordValid}
             />
           </Grid>
 
           <Grid item xs={12} sx={{ mt: 2 }}>
             <TextField
-              label="Contraseña2"
+              label="Repita la contraseña"
               type="password"
-              placeholder="Contraseña2"
+              placeholder="Repita la contraseña"
               fullWidth
               name="password2"
-              /*  value={password}
+              value={password2}
               onChange={onInputChange}
-              error={!!passwordValid && formSubmitted}
-              helperText={formSubmitted && passwordValid} */
+              error={!!password2Valid && formSubmitted}
+              helperText={formSubmitted && password2Valid}
             />
           </Grid>
 
           <Grid container spacing={2} sx={{ mb: 2, mt: 1 }}>
             {/* <Grid item xs={12} display={!!errorMessage ? "" : "none"}>
-              <Alert severity="error">{errorMessage}</Alert> */}
-            <Grid item xs={12}>
-              <Alert severity="error">{}</Alert>
-            </Grid>
+              <Alert severity="error">{errorMessage}</Alert>
+            </Grid> */}
             <Grid item xs={12}>
               <Button
-                /*  disabled={isCheckingAuthentication} */
+                disabled={isCheckingAuthentication}
                 type="submit"
                 variant="contained"
                 fullWidth

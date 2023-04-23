@@ -1,18 +1,30 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Navigate, Route, Routes } from "react-router-dom";
 import { LoginPage } from "../auth/pages/LoginPage";
 import { RegisterPage } from "../auth/pages/RegisterPage";
 import { GuardiasPage } from "../guardias/pages/GuardiasPage";
 import { LogoPage } from "../ui";
+import { useAuthStore } from "../hooks";
+import { useEffect } from "react";
 
 export const AppRouter = () => {
   //  const authStatus = "authenticated"; // "not-authenticated"; "checking";
-  const authStatus = "not-authenticated";
+  //const authStatus = "not-authenticated";
+  const { status, checkAuthToken } = useAuthStore();
+
+  useEffect(() => {
+    checkAuthToken();
+  }, []);
+
+  if (status === "checking") {
+    return <h3>Cargando...</h3>;
+  }
 
   return (
     <>
       <Routes>
         <Route path="/" element={<LogoPage />} />
-        {authStatus === "not-authenticated" ? (
+        {status === "not-authenticated" ? (
           <>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />

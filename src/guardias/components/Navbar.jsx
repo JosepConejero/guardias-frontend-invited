@@ -1,13 +1,10 @@
 import { CalendarMonth, LogoutOutlined } from "@mui/icons-material";
 import { AppBar, Grid, IconButton, Toolbar, Typography } from "@mui/material";
+import { useAuthStore } from "../../hooks";
 
 //export const Navbar = ({ drawerWidth = 240 }) => {
 export const Navbar = () => {
-  // const dispatch = useDispatch();
-  const onLogout = () => {
-    //console.log("logout");
-    // dispatch(startLogout());
-  };
+  const { startLogout, user } = useAuthStore();
 
   return (
     <AppBar
@@ -35,9 +32,9 @@ export const Navbar = () => {
           alignItems="center"
         >
           <Typography variant="h6" noWrap component="div">
-            Calendario de guardias
+            Calendario de guardias - ({user.name})
           </Typography>
-          <IconButton color="error" onClick={onLogout}>
+          <IconButton color="error" onClick={startLogout}>
             <LogoutOutlined />
           </IconButton>
         </Grid>
