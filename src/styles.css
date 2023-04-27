@@ -10,4 +10,13 @@
   height: 100vh;
 }
 
+.mes{
+  color: red;
+  margin-top: 80px;
+}
 
+.day-format{
+  border: 2px solid black;
+  width: 100px;
+  height: 100px;
+}
