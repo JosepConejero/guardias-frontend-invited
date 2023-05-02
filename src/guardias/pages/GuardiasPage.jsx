@@ -1,13 +1,13 @@
-import { Calendar } from "react-big-calendar";
+//import { Calendar } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../../styles.css";
 
-import { addHours } from "date-fns";
+//import { addHours } from "date-fns";
 
 import { Month, Navbar } from "../components";
-import { localizer, getMessagesES } from "../../helpers";
+//import { localizer, getMessagesES } from "../../helpers";
 
-const events = [
+/* const events = [
   {
     title: "título",
     notas: "notas",
@@ -19,7 +19,7 @@ const events = [
       name: "Fernando",
     },
   },
-];
+]; */
 
 export const GuardiasPage = () => {
   return (
