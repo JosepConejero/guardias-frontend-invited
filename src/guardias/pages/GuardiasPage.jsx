@@ -1,11 +1,8 @@
-//import { Calendar } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../../styles.css";
+import { Grid } from "@mui/material";
 
-//import { addHours } from "date-fns";
-
-import { Month, Navbar } from "../components";
-//import { localizer, getMessagesES } from "../../helpers";
+import { Navbar, MonthBox, PruebasEstadisticas } from "../components";
 
 /* const events = [
   {
@@ -25,17 +22,37 @@ export const GuardiasPage = () => {
   return (
     <>
       <Navbar />
-      <Month />
-
-      {/*  <Calendar
-        culture="es"
-        localizer={localizer}
-        events={events}
-        startAccessor="start"
-        endAccessor="end"
-        style={{ height: "calc( 100vh - 80px )", marginTop: "80px" }}
-        messages={getMessagesES()}
-      /> */}
+      <Grid
+        container
+        spacing={0}
+        alignItems="flex-start"
+        justifyContent="center"
+        sx={{
+          minHeight: `100vh`,
+          backgroundColor: "yellow",
+          pt: 9,
+        }}
+      >
+        <Grid
+          item
+          container
+          sx={{
+            width: { sm: 1300 },
+            backgroundColor: "cyan",
+            borderRadius: 2,
+          }}
+        >
+          <Grid item md={2}>
+            <PruebasEstadisticas />
+          </Grid>
+          <Grid item md={8}>
+            <MonthBox />
+          </Grid>
+          <Grid item md={2}>
+            <PruebasEstadisticas />
+          </Grid>
+        </Grid>
+      </Grid>
     </>
   );
 };

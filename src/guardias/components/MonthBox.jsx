@@ -1,13 +1,12 @@
 //import "../../styles.css";
-import {
-  officeDate,
-  monthNames,
-  getDayOfWeekText,
-} from "../../helpers/myCalendar";
-import { Day } from "./Day";
+import { Grid } from "@mui/material";
 import { useState } from "react";
 
-export const Month = () => {
+import { officeDate } from "../../helpers/myCalendar";
+import { MonthControls } from "./MonthControls";
+import { MonthDays } from "./MonthDays";
+
+export const MonthBox = () => {
   const [showedDate, setShowDate] = useState(new Date());
   const [showedDays, setShowedDays] = useState(
     officeDate(showedDate.getFullYear(), showedDate.getMonth())
@@ -33,22 +32,14 @@ export const Month = () => {
 
   return (
     <>
-      <div className="mes">
-        <button onClick={onPreviousMonth}>prev</button>
-        <span>
-          {" "}
-          {monthNames[showedDate.getMonth()]} {showedDate.getFullYear()}{" "}
-        </span>
-        <button onClick={onNextMonth}>next</button>
-        <hr />
-        {showedDays.map((date, index) => (
-          <Day
-            key={index}
-            date={date}
-            dayOfWeekText={getDayOfWeekText(index)}
-          />
-        ))}
-      </div>
+      <Grid container sx={{ borderRadius: 2, bgcolor: "maroon" }}>
+        <MonthControls
+          onPreviousMonth={onPreviousMonth}
+          onNextMonth={onNextMonth}
+          showedDate={showedDate}
+        />
+        <MonthDays showedDays={showedDays} />
+      </Grid>
     </>
   );
 };

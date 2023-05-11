@@ -74,6 +74,11 @@ export const getDayOfWeekText = (index) => {
   if (index < 7 * 6) return dayNames[index - 7 * 5];
 };
 
+export const isWeekend = (index) =>
+  (index + 1) % 7 === 0 || (index + 2) % 7 === 0;
+
+export const isSunday = (index) => (index + 1) % 7 === 0;
+
 export const officeDate = (newYear, newMonth) => {
   let date = new Date(newYear, newMonth);
   let year = date.getFullYear();
