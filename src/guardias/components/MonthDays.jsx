@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
 import { Grid } from "@mui/material";
 import { Day } from "./Day";
@@ -11,6 +12,7 @@ import { useSelector } from "react-redux";
 import { DayModal } from "./DayModal";
 import { useUiStore } from "../../hooks/useUiStore";
 import { useCalendarStore } from "../../hooks/useCalendarStore";
+import { useEffect } from "react";
 
 export const MonthDays = ({ showedDays }) => {
   const { openDayModal } = useUiStore();
@@ -22,6 +24,10 @@ export const MonthDays = ({ showedDays }) => {
     setActiveGuardDay({ day, month, year });
     openDayModal();
   };
+
+  /*  useEffect(() => {
+    startLoadingGuardDays();
+  }, []); */
 
   return (
     <Grid>

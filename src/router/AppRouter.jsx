@@ -6,6 +6,7 @@ import { GuardiasPage } from "../guardias/pages/GuardiasPage";
 import { LogoPage } from "../ui";
 import { useAuthStore } from "../hooks";
 import { useEffect } from "react";
+import { SettingsPage } from "../guardias/pages/SettingsPage";
 
 export const AppRouter = () => {
   //  const authStatus = "authenticated"; // "not-authenticated"; "checking";
@@ -33,6 +34,7 @@ export const AppRouter = () => {
         ) : (
           <>
             <Route path="/guardias" element={<GuardiasPage />} />
+            <Route path="/settings" element={<SettingsPage />} />
             <Route path="/*" element={<Navigate to="/guardias" />} />
           </>
         )}

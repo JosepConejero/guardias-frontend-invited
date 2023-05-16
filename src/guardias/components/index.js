@@ -5,3 +5,6 @@ export * from "./MonthDays";
 export * from "./PruebasEstadisticas";
 export * from "./Day";
 export * from "./DayModal";
+export * from "./CoursesSettings";
+export * from "./UsersSettings";
+export * from "./ListItemCourses";

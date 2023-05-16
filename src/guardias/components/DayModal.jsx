@@ -1,9 +1,18 @@
-import { Button, Divider, Grid, TextField, Typography } from "@mui/material";
+/* eslint-disable react-hooks/exhaustive-deps */
+import {
+  Button,
+  Divider,
+  Grid,
+  Switch,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { useUiStore } from "../../hooks/useUiStore";
 import { useCalendarStore } from "../../hooks/useCalendarStore";
-import { useDispatch } from "react-redux";
+
+import { monthNames } from "../../helpers";
 
 const customStyles = {
   content: {
@@ -21,10 +30,10 @@ Modal.setAppElement("#root");
 const emptyGuardDay = {
   simpleDate: { year: 2999, month: 0, day: 0 },
   technicians: [],
-  holiday: false,
-  twoHoursCourse: false,
-  note: "día vacío",
-  cantTechnicians: [],
+  isHoliday: false,
+  isThereOffice2h: false,
+  note: "",
+  techniciansOut: [],
 };
 
 export const DayModal = () => {
@@ -41,15 +50,15 @@ export const DayModal = () => {
   //podría ser necesario aquí un useMemo que incluyera formSubmitted
 
   const onInputChange = ({ target }) => {
-    setFormValues({ ...formValues, [target.name]: [target.value] });
+    setFormValues({ ...formValues, [target.name]: target.value });
   };
 
   const onSubmit = async (event) => {
     event.preventDefault();
     setFormSubmitted(true);
     //aquí haría validaciones que podrían poner el formSubmitted a false (vídeo 357 '5 más o menos)
+    console.log(formValues);
     await startSavingGuardDay(formValues);
-
     onCloseModal();
     setFormSubmitted(false);
   };
@@ -102,12 +111,19 @@ export const DayModal = () => {
           >
             <Grid item sm={12}>
               <Typography sx={{ textAlign: "center" }}>
-                Guardias y formaciones
+                DÍA DE LA SEMANA, {formValues.simpleDate.day} de{" "}
+                {monthNames[formValues.simpleDate.month].toUpperCase()} de{" "}
+                {formValues.simpleDate.year}
               </Typography>
             </Grid>
             <Grid item sm={12}>
-              <Typography sx={{ textAlign: "center" }}>
-                {`${formValues.simpleDate.year}-${formValues.simpleDate.month}-${formValues.simpleDate.day} `}
+              <Typography sx={{ textAlign: "left" }}>
+                {"¿ES FIESTA?"}
+                <Switch />
+              </Typography>
+              <Typography sx={{ textAlign: "left" }}>
+                {"¿HAY FORMACIONES DE 2 HORAS?"}
+                <Switch />
               </Typography>
             </Grid>
             <Divider />

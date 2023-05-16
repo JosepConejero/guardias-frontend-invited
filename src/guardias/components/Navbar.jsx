@@ -1,6 +1,11 @@
+import { Link as RouterLink } from "react-router-dom";
+
 import { CalendarMonth, LogoutOutlined } from "@mui/icons-material";
+import SettingsIcon from "@mui/icons-material/Settings";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { AppBar, Grid, IconButton, Toolbar, Typography } from "@mui/material";
 import { useAuthStore } from "../../hooks";
+import { Link } from "@mui/material";
 
 //export const Navbar = ({ drawerWidth = 240 }) => {
 export const Navbar = () => {
@@ -34,9 +39,22 @@ export const Navbar = () => {
           <Typography variant="h6" noWrap component="div">
             Calendario de guardias - ({user.name})
           </Typography>
-          <IconButton color="error" onClick={startLogout}>
-            <LogoutOutlined />
-          </IconButton>
+
+          <Grid item>
+            <Link component={RouterLink} color="inherit" to="/guardias">
+              <IconButton color="inherit">
+                <CalendarMonthIcon />
+              </IconButton>
+            </Link>
+            <Link component={RouterLink} color="inherit" to="/settings">
+              <IconButton color="inherit">
+                <SettingsIcon />
+              </IconButton>
+            </Link>
+            <IconButton color="error" onClick={startLogout}>
+              <LogoutOutlined />
+            </IconButton>
+          </Grid>
         </Grid>
       </Toolbar>
     </AppBar>

@@ -3,22 +3,17 @@ import "../../styles.css";
 import { Grid } from "@mui/material";
 
 import { Navbar, MonthBox, PruebasEstadisticas } from "../components";
-
-/* const events = [
-  {
-    title: "título",
-    notas: "notas",
-    start: new Date(),
-    end: addHours(new Date(), 2),
-    bgColor: "@fafafa",
-    user: {
-      _id: "123",
-      name: "Fernando",
-    },
-  },
-]; */
+import { useEffect } from "react";
+import { useCalendarStore } from "../../hooks";
 
 export const GuardiasPage = () => {
+  const { startLoadingGuardDays } = useCalendarStore();
+
+  useEffect(() => {
+    console.log("pasa por el useEffect");
+    startLoadingGuardDays();
+  }, []);
+
   return (
     <>
       <Navbar />

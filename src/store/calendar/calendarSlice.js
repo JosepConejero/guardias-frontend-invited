@@ -1,43 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const guarDaysDePrueba = [
-  {
-    _id: new Date().getTime(),
-    simpleDate: { year: 2023, month: 4, day: 10 },
-    technicians: [],
-    holiday: false,
-    twoHoursCourse: false,
-    note: "nota 1",
-    cantTechnicians: [],
-  },
-  {
-    _id: new Date().getTime() + 1000,
-    simpleDate: { year: 2023, month: 4, day: 8 },
-    technicians: [],
-    holiday: false,
-    twoHoursCourse: false,
-    note: "nota 2",
-    cantTechnicians: [],
-  },
-  {
-    _id: new Date().getTime() + 2000,
-    simpleDate: { year: 2023, month: 4, day: 2 },
-    technicians: [],
-    holiday: false,
-    twoHoursCourse: false,
-    note: "nota 3",
-    cantTechnicians: [],
-  },
-];
-
 export const calendarSlice = createSlice({
   name: "calendar",
   initialState: {
     isLoadingGuardDays: true, //crearé una ppdad isLoadingGuardDays para saber cuándo está cargando las guardDays y así poner alguna pantalla de Loading...
-    /* guardDays: [
-      //
-    ], */
-    guardDays: guarDaysDePrueba,
+    guardDays: [],
     activeGuardDay: null,
   },
   reducers: {
@@ -50,7 +17,7 @@ export const calendarSlice = createSlice({
     },
     onUpdateGuardDay: (state, { payload }) => {
       state.guardDays = state.guardDays.map((guardDay) => {
-        if (guardDay._id === payload._id) {
+        if (guardDay.id === payload.id) {
           return payload;
         }
         return guardDay;
@@ -68,12 +35,11 @@ export const calendarSlice = createSlice({
       }
     }, */
     onLoadGuardDays: (state, { payload = [] }) => {
-      //ESTE SE HA DE REVISAR PORQUE NO ESTÁ CLARO QUE FUNCIONE     <<<<<<--------------------------
-      state.isLoadingEvents = false;
+      state.isLoadingGuardDays = false;
       //state.events = payload; // esto sería correcto
       // pero si lo hago como sigue, solo insertará en events el evento que no esté ya en el events (lo hará por el id)
       payload.forEach((guardDay) => {
-        const exists = state.events.some(
+        const exists = state.guardDays.some(
           (dbGuardDay) => dbGuardDay.id === guardDay.id
         );
         if (!exists) {
@@ -82,7 +48,7 @@ export const calendarSlice = createSlice({
       });
     },
     onLogoutCalendar: (state) => {
-      state.isLoadingEvents = true;
+      state.isLoadingGuardDays = true;
       state.guardDays = [];
       //state.activeEvent = null;
     },
