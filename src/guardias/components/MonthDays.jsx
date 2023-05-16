@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 import { DayModal } from "./DayModal";
 import { useUiStore } from "../../hooks/useUiStore";
 import { useCalendarStore } from "../../hooks/useCalendarStore";
-import { useEffect } from "react";
+//import { useEffect } from "react";
 
 export const MonthDays = ({ showedDays }) => {
   const { openDayModal } = useUiStore();

@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Button, Grid, Tab, Tabs } from "@mui/material";
 
 import { CoursesSettings, Navbar, UsersSettings } from "../components";
 import "../../styles.css";

@@ -43,6 +43,7 @@ export const DayModal = () => {
     useCalendarStore();
 
   /*  const [isOpen, setIsOpen] = useState(true); */
+  // eslint-disable-next-line no-unused-vars
   const [formSubmitted, setFormSubmitted] = useState(false); //TO DO: esto lo necesitaré para controlar validaciones del formulario
 
   const [formValues, setFormValues] = useState(emptyGuardDay);

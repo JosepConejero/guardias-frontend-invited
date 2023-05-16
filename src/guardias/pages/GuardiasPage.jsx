@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../../styles.css";
 import { Grid } from "@mui/material";
