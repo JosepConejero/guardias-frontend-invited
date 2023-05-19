@@ -1,31 +1,79 @@
 import { useDispatch, useSelector } from "react-redux";
-import { onLoadCourses } from "../store/course/courseSlice";
+import {
+  onAddNewCourse,
+  onDeleteCourse,
+  onLoadCourses,
+  onSetActiveCourse,
+  onSetInactiveCourse,
+  onUpdateCourse,
+} from "../store/course/courseSlice";
 import calendarApi from "../api/calendarApi";
+import Swal from "sweetalert2";
 
 export const useCoursesStore = () => {
   const dispatch = useDispatch();
-  const { courses } = useSelector((state) => state.course);
+  const { courses, activeCourse } = useSelector((state) => state.course);
+
+  const setActiveCourse = (course) => {
+    dispatch(onSetActiveCourse(course));
+  };
+
+  const setInactiveCourse = () => {
+    dispatch(onSetInactiveCourse());
+  };
 
   const startLoadingCourses = async () => {
-    console.log("entra aquí");
     try {
       const { data } = await calendarApi.get("/courses");
       dispatch(onLoadCourses(data.cursos));
-      //console.log("undefined aquí", data.cursos);
     } catch (error) {
       console.log("Error cargando cursos");
       console.log(error);
     }
   };
 
-  const startDeletingCourse = async () => {
-    console.log("empieza a borrar un curso");
+  const startSavingCourse = async (course) => {
+    try {
+      if (course.id) {
+        await calendarApi.put(`/courses/${course.id}`, course);
+        dispatch(onUpdateCourse({ ...course }));
+        return;
+      }
+      const { data } = await calendarApi.post("/courses", course);
+      //console.log({ data });
+      dispatch(onAddNewCourse({ ...course, id: data.curso.id }));
+    } catch (error) {
+      console.log(error);
+      Swal.fire(
+        "Error al guardar o actualizar un curso",
+        error.response.data?.msg,
+        "error"
+      );
+    }
+  };
+
+  const startDeletingCourse = async (course) => {
+    try {
+      await calendarApi.delete(`/courses/${course.id}`);
+      dispatch(onDeleteCourse(course));
+    } catch (error) {
+      console.log(error);
+      Swal.fire(
+        "Error al eliminar un curso",
+        error.response.data?.msg,
+        "error"
+      );
+    }
   };
 
   return {
     //properties
     courses,
+    activeCourse,
     //methods
+    setActiveCourse,
+    setInactiveCourse,
+    startSavingCourse,
     startLoadingCourses,
     startDeletingCourse,
   };

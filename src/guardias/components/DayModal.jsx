@@ -12,18 +12,7 @@ import Modal from "react-modal";
 import { useUiStore } from "../../hooks/useUiStore";
 import { useCalendarStore } from "../../hooks/useCalendarStore";
 
-import { monthNames } from "../../helpers";
-
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-  },
-};
+import { customStyles, monthNames } from "../../helpers";
 
 Modal.setAppElement("#root");
 

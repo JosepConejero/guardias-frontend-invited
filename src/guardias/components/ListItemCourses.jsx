@@ -3,21 +3,32 @@ import { Checkbox, IconButton, ListItem, ListItemText } from "@mui/material";
 import { useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useCoursesStore } from "../../hooks/useCoursesStore";
+import { useUiStore } from "../../hooks/useUiStore";
 
 export const ListItemCourses = ({ course }) => {
+  const { openCourseModal } = useUiStore();
   const [flcChecked, setFlcChecked] = useState(true);
   const [frequentChecked, setFrequentChecked] = useState(true);
-  const { startDeletingCourse } = useCoursesStore();
+  const { startDeletingCourse, setActiveCourse, startSavingCourse } =
+    useCoursesStore();
 
-  const handleFlcChange = (event) => {
-    setFlcChecked(event.target.checked);
+  const handleTitleChange = () => {
+    setActiveCourse(course);
+    openCourseModal();
   };
-  const handleFrequentChange = (event) => {
+
+  const handleFlcChange = async (event) => {
+    setFlcChecked(event.target.checked);
+    await startSavingCourse({ ...course, flc: event.target.checked });
+  };
+
+  const handleFrequentChange = async (event) => {
     setFrequentChecked(event.target.checked);
+    await startSavingCourse({ ...course, frequent: event.target.checked });
   };
 
   const onDeleteItem = () => {
-    startDeletingCourse();
+    startDeletingCourse(course);
   };
 
   useEffect(() => {
@@ -27,7 +38,9 @@ export const ListItemCourses = ({ course }) => {
 
   return (
     <ListItem>
-      <ListItemText>{course.title}</ListItemText>
+      <ListItemText onDoubleClick={handleTitleChange}>
+        {course.title}
+      </ListItemText>
       <Checkbox onChange={handleFlcChange} checked={flcChecked} />
       <Checkbox onChange={handleFrequentChange} checked={frequentChecked} />
       <IconButton onClick={onDeleteItem}>

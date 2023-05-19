@@ -8,3 +8,4 @@ export * from "./DayModal";
 export * from "./CoursesSettings";
 export * from "./UsersSettings";
 export * from "./ListItemCourses";
+export * from "./CourseNameModal";

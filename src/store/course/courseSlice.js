@@ -5,8 +5,15 @@ export const courseSlice = createSlice({
   initialState: {
     isLoadingCourses: true,
     courses: [],
+    activeCourse: null,
   },
   reducers: {
+    onSetActiveCourse: (state, { payload }) => {
+      state.activeCourse = payload;
+    },
+    onSetInactiveCourse: (state) => {
+      state.activeCourse = null;
+    },
     onAddNewCourse: (state, { payload }) => {
       state.courses.push(payload);
     },
@@ -29,18 +36,19 @@ export const courseSlice = createSlice({
         }
       });
     },
-    onDeleteCourse: (state) => {
-      /*  if (state.activeEvent) {
-        state.events = state.events.filter(
-          (event) => event.id !== state.activeEvent.id
-        );
-        state.activeEvent = null;
-      } else {
-        console.log("no hay notas activas");
-      } */
+    onDeleteCourse: (state, { payload }) => {
+      state.courses = state.courses.filter(
+        (course) => course.id !== payload.id
+      );
     },
   },
 });
 
-export const { onAddNewCourse, onUpdateCourse, onLoadCourses, onDeleteCourse } =
-  courseSlice.actions;
+export const {
+  onSetActiveCourse,
+  onSetInactiveCourse,
+  onAddNewCourse,
+  onUpdateCourse,
+  onLoadCourses,
+  onDeleteCourse,
+} = courseSlice.actions;

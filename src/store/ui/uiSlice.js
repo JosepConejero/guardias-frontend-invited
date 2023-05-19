@@ -4,6 +4,8 @@ export const uiSlice = createSlice({
   name: "ui",
   initialState: {
     isDayModalOpen: false,
+    isCourseModalOpen: false,
+    isUsersModalOpen: false,
   },
   reducers: {
     onOpenDayModal: (state) => {
@@ -12,7 +14,26 @@ export const uiSlice = createSlice({
     onCloseDayModal: (state) => {
       state.isDayModalOpen = false;
     },
+    onOpenCourseModal: (state) => {
+      state.isCourseModalOpen = true;
+    },
+    onCloseCourseModal: (state) => {
+      state.isCourseModalOpen = false;
+    },
+    onOpenUsersModal: (state) => {
+      state.isUsersModalOpen = true;
+    },
+    onCloseUsersModal: (state) => {
+      state.isUsersModalOpen = false;
+    },
   },
 });
 
-export const { onOpenDayModal, onCloseDayModal } = uiSlice.actions;
+export const {
+  onOpenDayModal,
+  onCloseDayModal,
+  onOpenCourseModal,
+  onCloseCourseModal,
+  onOpenUsersModal,
+  onCloseUsersModal,
+} = uiSlice.actions;
