@@ -41,7 +41,11 @@ export const ListItemCourses = ({ course }) => {
       <ListItemText onDoubleClick={handleTitleChange}>
         {course.title}
       </ListItemText>
-      <Checkbox onChange={handleFlcChange} checked={flcChecked} />
+      <Checkbox
+        /* sx={{ bgcolor: "red" }} */
+        onChange={handleFlcChange}
+        checked={flcChecked}
+      />
       <Checkbox onChange={handleFrequentChange} checked={frequentChecked} />
       <IconButton onClick={onDeleteItem}>
         <DeleteIcon />

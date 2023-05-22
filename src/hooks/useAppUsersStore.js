@@ -9,6 +9,7 @@ import {
   onSetInactiveAppUser,
   onUpdateAppUser,
 } from "../store/appUser/appUserSlice";
+import { deletePassword } from "../helpers/deletePassword";
 
 export const useAppUsersStore = () => {
   const dispatch = useDispatch();
@@ -24,8 +25,9 @@ export const useAppUsersStore = () => {
 
   const startLoadingAppUsers = async () => {
     try {
-      //const { data } = await calendarApi.get("/courses");//sería /users?????
-      //dispatch(onLoadAppUsers(data.cursos));//cursos sería usuarios????
+      const { data } = await calendarApi.get("/users");
+      const newUsers = deletePassword(data.usuarios);
+      dispatch(onLoadAppUsers(newUsers));
     } catch (error) {
       console.log("Error cargando usuarios");
       console.log(error);
@@ -35,8 +37,8 @@ export const useAppUsersStore = () => {
   const startSavingAppUser = async (appUser) => {
     try {
       if (appUser.id) {
-        //await calendarApi.put(`/courses/${appUser.id}`, appUser); //sería usuarios en vez de courses
-        //dispatch(onUpdateAppUser({ ...appUser }));
+        await calendarApi.put(`/users/${appUser.id}`, appUser);
+        dispatch(onUpdateAppUser({ ...appUser }));
         return;
       }
       /* const { data } = await calendarApi.post("/courses", appUser);
@@ -54,8 +56,8 @@ export const useAppUsersStore = () => {
 
   const startDeletingAppUser = async (appUser) => {
     try {
-      //await calendarApi.delete(`/courses/${appUser.id}`); //sería users en vez de courses
-      //dispatch(onDeleteAppUser(appUser));
+      await calendarApi.delete(`/users/${appUser.id}`);
+      dispatch(onDeleteAppUser(appUser));
     } catch (error) {
       console.log(error);
       Swal.fire(
