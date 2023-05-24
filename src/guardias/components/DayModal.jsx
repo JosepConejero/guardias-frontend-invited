@@ -47,7 +47,7 @@ export const DayModal = () => {
     event.preventDefault();
     setFormSubmitted(true);
     //aquí haría validaciones que podrían poner el formSubmitted a false (vídeo 357 '5 más o menos)
-    console.log(formValues);
+    // console.log(formValues);
     await startSavingGuardDay(formValues);
     onCloseModal();
     setFormSubmitted(false);

@@ -5,7 +5,7 @@ export const uiSlice = createSlice({
   initialState: {
     isDayModalOpen: false,
     isCourseModalOpen: false,
-    isUsersModalOpen: false,
+    isAppUsersModalOpen: false,
   },
   reducers: {
     onOpenDayModal: (state) => {
@@ -20,11 +20,11 @@ export const uiSlice = createSlice({
     onCloseCourseModal: (state) => {
       state.isCourseModalOpen = false;
     },
-    onOpenUsersModal: (state) => {
-      state.isUsersModalOpen = true;
+    onOpenAppUsersModal: (state) => {
+      state.isAppUsersModalOpen = true;
     },
-    onCloseUsersModal: (state) => {
-      state.isUsersModalOpen = false;
+    onCloseAppUsersModal: (state) => {
+      state.isAppUsersModalOpen = false;
     },
   },
 });
@@ -34,6 +34,6 @@ export const {
   onCloseDayModal,
   onOpenCourseModal,
   onCloseCourseModal,
-  onOpenUsersModal,
-  onCloseUsersModal,
+  onOpenAppUsersModal,
+  onCloseAppUsersModal,
 } = uiSlice.actions;

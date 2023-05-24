@@ -1,10 +1,97 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Checkbox, Grid, IconButton, Typography } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useAppUsersStore } from "../../hooks/useAppUsersStore";
+import { useEffect, useState } from "react";
+import { useUiStore } from "../../hooks/useUiStore";
 
 export default function UserItem({ appUser }) {
-  const onDeleteItem = () => {
-    console.log("borra un usuario");
+  const { openAppUserModal } = useUiStore();
+  const { startDeletingAppUser, startSavingAppUser, setActiveAppUser } =
+    useAppUsersStore();
+  const [isAdminChecked, setIsAdminChecked] = useState(false);
+  const [isActivatedChecked, setIsActivatedChecked] = useState(false);
+  const [isDataModifierChecked, setIsDataModifierChecked] = useState(false);
+  const [isTechnicianChecked, setIsTechnicianChecked] = useState(false);
+  const [canFLCChecked, setCanFLCChecked] = useState(false);
+  const [canSeeStatisticsChecked, setCanSeeStatisticsChecked] = useState(false);
+  const [isStillWorkingChecked, setIsStillWorkingChecked] = useState(false);
+
+  const handleInputChange = () => {
+    setActiveAppUser(appUser);
+    openAppUserModal();
   };
+
+  const handleIsAdminChange = async (event) => {
+    setIsAdminChecked(event.target.checked);
+    await startSavingAppUser({
+      ...appUser,
+      [event.target.name]: event.target.checked,
+      /* shortName: "prueba", */
+    });
+  };
+
+  const handleIsActivatedChange = async (event) => {
+    setIsActivatedChecked(event.target.checked);
+    await startSavingAppUser({
+      ...appUser,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
+  const handleIsDataModifierChange = async (event) => {
+    setIsDataModifierChecked(event.target.checked);
+    await startSavingAppUser({
+      ...appUser,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
+  const handleIsTechnicianChange = async (event) => {
+    setIsTechnicianChecked(event.target.checked);
+    await startSavingAppUser({
+      ...appUser,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
+  const handleCanFLCChange = async (event) => {
+    setCanFLCChecked(event.target.checked);
+    await startSavingAppUser({
+      ...appUser,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
+  const handleCanSeeStatisticsChange = async (event) => {
+    setCanSeeStatisticsChecked(event.target.checked);
+    await startSavingAppUser({
+      ...appUser,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
+  const handleIsStillWorkingChange = async (event) => {
+    setIsStillWorkingChecked(event.target.checked);
+    await startSavingAppUser({
+      ...appUser,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
+  const onDeleteItem = () => {
+    startDeletingAppUser(appUser);
+  };
+
+  useEffect(() => {
+    setIsAdminChecked(appUser.isAdmin);
+    setIsActivatedChecked(appUser.isActivated);
+    setIsDataModifierChecked(appUser.isDataModifier);
+    setIsTechnicianChecked(appUser.isTechnician);
+    setCanFLCChecked(appUser.canFLC);
+    setCanSeeStatisticsChecked(appUser.canSeeStatistics);
+    setIsStillWorkingChecked(appUser.isStillWorking);
+  }, []);
 
   return (
     <Grid
@@ -30,6 +117,7 @@ export default function UserItem({ appUser }) {
         }}
       >
         <Typography
+          onDoubleClick={handleInputChange}
           sx={{
             /* fontWeight: 'bold', */
             /* border: '1px solid black',
@@ -60,6 +148,7 @@ export default function UserItem({ appUser }) {
         }}
       >
         <Typography
+          onDoubleClick={handleInputChange}
           sx={
             {
               /* fontWeight: 'bold' */
@@ -69,6 +158,7 @@ export default function UserItem({ appUser }) {
           {appUser.shortName}
         </Typography>
       </Grid>
+
       <Grid
         item
         md={1}
@@ -80,8 +170,15 @@ export default function UserItem({ appUser }) {
           alignSelf: "center",
         }}
       >
-        <Checkbox size="small" checked={appUser.isAdmin ? true : false} />
+        {/* <Checkbox size="small" checked={appUser.isAdmin ? true : false} /> */}
+        <Checkbox
+          size="small"
+          checked={isAdminChecked}
+          onChange={handleIsAdminChange}
+          name="isAdmin"
+        />
       </Grid>
+
       <Grid
         item
         md={1}
@@ -93,8 +190,14 @@ export default function UserItem({ appUser }) {
           alignSelf: "center",
         }}
       >
-        <Checkbox size="small" checked={appUser.isActivated ? true : false} />
+        <Checkbox
+          size="small"
+          checked={isActivatedChecked}
+          onChange={handleIsActivatedChange}
+          name="isActivated"
+        />
       </Grid>
+
       <Grid
         item
         md={1}
@@ -108,9 +211,12 @@ export default function UserItem({ appUser }) {
       >
         <Checkbox
           size="small"
-          checked={appUser.isDataModifier ? true : false}
+          checked={isDataModifierChecked}
+          onChange={handleIsDataModifierChange}
+          name="isDataModifier"
         />
       </Grid>
+
       <Grid
         item
         md={1}
@@ -122,8 +228,14 @@ export default function UserItem({ appUser }) {
           alignSelf: "center",
         }}
       >
-        <Checkbox size="small" checked={appUser.isTechnician ? true : false} />
+        <Checkbox
+          size="small"
+          checked={isTechnicianChecked}
+          onChange={handleIsTechnicianChange}
+          name="isTechnician"
+        />
       </Grid>
+
       <Grid
         item
         md={1}
@@ -135,8 +247,14 @@ export default function UserItem({ appUser }) {
           alignSelf: "center",
         }}
       >
-        <Checkbox size="small" checked={appUser.canFLC ? true : false} />
+        <Checkbox
+          size="small"
+          checked={canFLCChecked}
+          onChange={handleCanFLCChange}
+          name="canFLC"
+        />
       </Grid>
+
       <Grid
         item
         md={1}
@@ -150,9 +268,12 @@ export default function UserItem({ appUser }) {
       >
         <Checkbox
           size="small"
-          checked={appUser.canSeeStatistics ? true : false}
+          checked={canSeeStatisticsChecked}
+          onChange={handleCanSeeStatisticsChange}
+          name="canSeeStatistics"
         />
       </Grid>
+
       <Grid
         item
         md={1}
@@ -166,9 +287,12 @@ export default function UserItem({ appUser }) {
       >
         <Checkbox
           size="small"
-          checked={appUser.isStillWorking ? true : false}
+          checked={isStillWorkingChecked}
+          onChange={handleIsStillWorkingChange}
+          name="isStillWorking"
         />
       </Grid>
+
       <Grid
         item
         md={1}
@@ -180,7 +304,7 @@ export default function UserItem({ appUser }) {
           alignSelf: "center",
         }}
       >
-        <IconButton onClick={onDeleteItem}>
+        <IconButton sx={{ color: "red" }} onClick={onDeleteItem}>
           <DeleteIcon />
         </IconButton>
       </Grid>

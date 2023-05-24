@@ -11,7 +11,7 @@ export const GuardiasPage = () => {
   const { startLoadingGuardDays } = useCalendarStore();
 
   useEffect(() => {
-    console.log("pasa por el useEffect");
+    //console.log("pasa por el useEffect");
     startLoadingGuardDays();
   }, []);
 

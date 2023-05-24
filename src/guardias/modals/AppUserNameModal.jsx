@@ -4,22 +4,29 @@ import { useUiStore } from "../../hooks/useUiStore";
 import Modal from "react-modal";
 import { customStyles } from "../../helpers";
 import { useEffect, useState } from "react";
-import { useCoursesStore } from "../../hooks/useCoursesStore";
+import { useAppUsersStore } from "../../hooks/useAppUsersStore";
 
 Modal.setAppElement("#root");
 
-const emptyCourse = {
-  title: "",
-  flc: true,
-  frequent: false,
+const emptyAppUser = {
+  name: "",
+  shortName: "",
+  email: "",
+  isAdmin: false,
+  isActivated: false,
+  isDataModifier: false,
+  isTechnician: false,
+  canFLC: false,
+  canSeeStatistics: false,
+  isStillWorking: false,
 };
 
-export const CourseNameModal = () => {
-  const { isCourseModalOpen, closeCourseModal } = useUiStore();
-  const { startSavingCourse, activeCourse, setInactiveCourse } =
-    useCoursesStore();
+export const AppUserNameModal = () => {
+  const { isAppUsersModalOpen, closeAppUserModal } = useUiStore();
+  const { startSavingAppUser, activeAppUser, setInactiveAppUser } =
+    useAppUsersStore();
 
-  const [formValues, setFormValues] = useState(emptyCourse);
+  const [formValues, setFormValues] = useState(emptyAppUser);
   const [formSubmitted, setFormSubmitted] = useState(false); //TO DO: esto lo necesitaré para controlar validaciones del formulario
 
   const onInputChange = ({ target }) => {
@@ -30,28 +37,28 @@ export const CourseNameModal = () => {
     event.preventDefault();
     setFormSubmitted(true);
     //aquí haría validaciones que podrían poner el formSubmitted a false (vídeo 357 '5 más o menos)
-    await startSavingCourse(formValues);
+    await startSavingAppUser(formValues);
     onCloseModal();
-    setFormValues(emptyCourse);
+    setFormValues(emptyAppUser);
     setFormSubmitted(false);
   };
 
   useEffect(() => {
-    if (activeCourse !== null) {
-      setFormValues({ ...activeCourse });
+    if (activeAppUser !== null) {
+      setFormValues({ ...activeAppUser });
     } else {
-      setFormValues({ ...emptyCourse });
+      setFormValues({ ...emptyAppUser });
     }
-  }, [activeCourse]);
+  }, [activeAppUser]);
 
   const onCloseModal = () => {
-    setInactiveCourse();
-    closeCourseModal();
+    setInactiveAppUser();
+    closeAppUserModal();
   };
   return (
     <>
       <Modal
-        isOpen={isCourseModalOpen}
+        isOpen={isAppUsersModalOpen}
         onRequestClose={onCloseModal}
         style={customStyles}
         className="modal"
@@ -72,12 +79,23 @@ export const CourseNameModal = () => {
           >
             <Grid item sm={12} sx={{ mt: 1 }}>
               <TextField
-                label="Nombre del curso"
+                label="Nombre completo del usuario"
                 type="text"
-                placeholder="Anota el nombre del curso aquí"
+                placeholder="Anota el nombre del usuario"
                 fullWidth
-                name="title"
-                value={formValues.title}
+                name="name"
+                value={formValues.name}
+                onChange={onInputChange}
+              />
+            </Grid>
+            <Grid item sm={12} sx={{ mt: 1 }}>
+              <TextField
+                label="Nombre corto del usuario"
+                type="text"
+                placeholder="Anota el nombre corto del usuario"
+                fullWidth
+                name="shortName"
+                value={formValues.shortName}
                 onChange={onInputChange}
               />
             </Grid>

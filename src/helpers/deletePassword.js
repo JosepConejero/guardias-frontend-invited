@@ -3,7 +3,6 @@ export const deletePassword = (usuarios = []) => {
   if (newUsuarios) {
     newUsuarios.map((usuario) => {
       delete usuario.password;
-      console.log(usuario);
       return usuario;
     });
   }

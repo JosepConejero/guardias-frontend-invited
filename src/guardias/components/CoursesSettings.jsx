@@ -12,7 +12,7 @@ export const CoursesSettings = () => {
   const { startLoadingCourses, courses } = useCoursesStore();
 
   const onAddCourse = () => {
-    console.log("añade curso");
+    //    console.log("añade curso");
     //abre el modal
     openCourseModal();
   };

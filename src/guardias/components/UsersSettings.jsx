@@ -1,16 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import UsersBox from "../userSettings/UsersBox";
 import { useAppUsersStore } from "../../hooks/useAppUsersStore";
+import { AppUserNameModal } from "../modals/AppUserNameModal";
 
 export const UsersSettings = () => {
-  //const { openCourseModal } = useUiStore();
   const { startLoadingAppUsers } = useAppUsersStore();
-
-  /* const onAddCourse = () => {
-    console.log("añade curso");
-    //abre el modal
-    openCourseModal();
-  }; */
 
   useEffect(() => {
     startLoadingAppUsers();
@@ -18,6 +13,7 @@ export const UsersSettings = () => {
   return (
     <>
       <UsersBox />
+      <AppUserNameModal />
     </>
   );
 };

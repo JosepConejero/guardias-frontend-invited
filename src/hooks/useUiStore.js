@@ -4,16 +4,15 @@ import {
   onCloseDayModal,
   onOpenCourseModal,
   onCloseCourseModal,
-  onOpenUsersModal,
-  onCloseUsersModal,
+  onOpenAppUsersModal,
+  onCloseAppUsersModal,
 } from "../store/ui/uiSlice";
 
 export const useUiStore = () => {
   const dispatch = useDispatch();
 
-  const { isDayModalOpen, isCourseModalOpen, isUsersModalOpen } = useSelector(
-    (state) => state.ui
-  );
+  const { isDayModalOpen, isCourseModalOpen, isAppUsersModalOpen } =
+    useSelector((state) => state.ui);
 
   const openDayModal = () => {
     dispatch(onOpenDayModal());
@@ -29,26 +28,26 @@ export const useUiStore = () => {
   const closeCourseModal = () => {
     dispatch(onCloseCourseModal());
   };
-  const openUserModal = () => {
-    dispatch(onOpenUsersModal());
+  const openAppUserModal = () => {
+    dispatch(onOpenAppUsersModal());
   };
 
-  const closeUserModal = () => {
-    dispatch(onCloseUsersModal());
+  const closeAppUserModal = () => {
+    dispatch(onCloseAppUsersModal());
   };
 
   return {
     //properties
     isDayModalOpen,
     isCourseModalOpen,
-    isUsersModalOpen,
+    isAppUsersModalOpen,
 
     //methods
     openDayModal,
     closeDayModal,
     openCourseModal,
     closeCourseModal,
-    openUserModal,
-    closeUserModal,
+    openAppUserModal,
+    closeAppUserModal,
   };
 };
