@@ -5,7 +5,7 @@ import { ListItemCourses } from "./ListItemCourses";
 import { useCoursesStore } from "../../hooks/useCoursesStore";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { useUiStore } from "../../hooks/useUiStore";
-import { CourseNameModal } from "./CourseNameModal";
+import { CourseNameModal } from "../modals/CourseNameModal";
 
 export const CoursesSettings = () => {
   const { openCourseModal } = useUiStore();

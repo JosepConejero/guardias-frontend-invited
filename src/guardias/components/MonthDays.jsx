@@ -9,7 +9,7 @@ import {
 } from "../../helpers/myCalendar";
 
 import { useSelector } from "react-redux";
-import { DayModal } from "./DayModal";
+import { DayModal } from "../modals/DayModal";
 import { useUiStore } from "../../hooks/useUiStore";
 import { useCalendarStore } from "../../hooks/useCalendarStore";
 //import { useEffect } from "react";
