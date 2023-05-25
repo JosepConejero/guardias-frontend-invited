@@ -21,6 +21,8 @@ const emptyGuardDay = {
   technicians: [],
   isHoliday: false,
   isThereOffice2h: false,
+  isThereExtraMeeting: false,
+  extraMeetingText: "",
   note: "",
   techniciansOut: [],
 };

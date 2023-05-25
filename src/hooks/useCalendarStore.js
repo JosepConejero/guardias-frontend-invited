@@ -30,20 +30,28 @@ export const useCalendarStore = () => {
   };
 
   const startSavingGuardDay = async (calendarGuardDay) => {
-    //TODO: LLEGAR AL BACKEND
-    //SI TODO VA BIEN
-    if (calendarGuardDay.id) {
-      //actualizando
+    try {
+      if (calendarGuardDay.id) {
+        //actualizando
+        // const { data } =
+        //console.log("intenta actualizar un día", calendarGuardDay);
+        await calendarApi.put(
+          `/events/${calendarGuardDay.id}`,
+          calendarGuardDay
+        );
+        dispatch(onUpdateGuardDay({ ...calendarGuardDay }));
+        return;
+      }
 
-      // const { data } =
-      await calendarApi.put(`/events/${calendarGuardDay.id}`, calendarGuardDay);
-
-      dispatch(onUpdateGuardDay({ ...calendarGuardDay }));
-    } else {
       //Creando
+      //console.log("intenta crear un día", calendarGuardDay);
+      //await calendarApi.post("/events", calendarGuardDay);
       const { data } = await calendarApi.post("/events", calendarGuardDay);
-
+      //console.log("aquí no llega", data);
       dispatch(onAddNewGuardDay({ ...calendarGuardDay, id: data.evento.id }));
+    } catch (error) {
+      console.log("Error guardando/actualizando día de guardia");
+      console.log(error);
     }
   };
 
