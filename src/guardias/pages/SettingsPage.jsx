@@ -1,6 +1,8 @@
 import { Box, Button, Grid, Tab, Tabs } from "@mui/material";
+import { Navbar } from "../components";
+import { UsersSettings } from "../usersSettings";
+import { CoursesSettings } from "../coursesSettings";
 
-import { CoursesSettings, Navbar, UsersSettings } from "../components";
 import "../../styles.css";
 import { useState } from "react";
 

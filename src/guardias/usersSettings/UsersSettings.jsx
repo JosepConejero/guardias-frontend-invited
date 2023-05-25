@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
-import UsersBox from "../userSettings/UsersBox";
+import UsersBox from "./UsersBox";
 import { useAppUsersStore } from "../../hooks/useAppUsersStore";
 import { AppUserNameModal } from "../modals/AppUserNameModal";
 

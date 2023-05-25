@@ -3,9 +3,11 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../../styles.css";
 import { Grid } from "@mui/material";
 
-import { Navbar, MonthBox, PruebasEstadisticas } from "../components";
 import { useEffect } from "react";
 import { useCalendarStore } from "../../hooks";
+import { Navbar } from "../components/Navbar";
+import { PruebasEstadisticas } from "../components/PruebasEstadisticas";
+import { MonthBox } from "../monthGuards/MonthBox";
 
 export const GuardiasPage = () => {
   const { startLoadingGuardDays } = useCalendarStore();
