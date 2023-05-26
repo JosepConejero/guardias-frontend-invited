@@ -1,8 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {
   Button,
+  Checkbox,
   Divider,
+  FormControlLabel,
   Grid,
+  Stack,
   Switch,
   TextField,
   Typography,
@@ -13,6 +16,10 @@ import { useUiStore } from "../../hooks/useUiStore";
 import { useCalendarStore } from "../../hooks/useCalendarStore";
 
 import { customStyles, monthNames } from "../../helpers";
+import { Check } from "@mui/icons-material";
+import { CheckboxesBox } from "./dayModalComponents/CheckboxesBox";
+import { UserTechniciansBox } from "./dayModalComponents/UserTechniciansBox";
+import { UsersGuardsBox } from "./dayModalComponents/UsersGuardsBox";
 
 Modal.setAppElement("#root");
 
@@ -85,7 +92,7 @@ export const DayModal = () => {
         isOpen={isDayModalOpen}
         onRequestClose={onCloseModal}
         style={customStyles}
-        className="modal"
+        /* className="modal" */
         overlayClassName="modal-fondo"
         closeTimeoutMS={200}
       >
@@ -94,55 +101,126 @@ export const DayModal = () => {
           onSubmit={onSubmit}
           className="animate__animated animate__fadeIn animate__faster"
         >
-          <Grid
-            container
-            direction="row"
-            alignItems="center"
-            justifyContent="center"
-            /* sx={{ boxShadow: 10 }} */
-          >
-            <Grid item sm={12}>
+          <Stack>
+            <Grid
+              container
+              sx={{
+                display: "flex" /* , minWidth: "auto", maxWidth: "auto" */,
+                /* width: "600px", */
+                width: { xs: "100%", md: "auto" },
+                /*  bgcolor: "black", */
+              }}
+            ></Grid>
+            <Grid item>
               <Typography sx={{ textAlign: "center" }}>
                 DÍA DE LA SEMANA, {formValues.simpleDate.day} de{" "}
                 {monthNames[formValues.simpleDate.month].toUpperCase()} de{" "}
                 {formValues.simpleDate.year}
               </Typography>
             </Grid>
-            <Grid item sm={12}>
-              <Typography sx={{ textAlign: "left" }}>
-                {"¿ES FIESTA?"}
-                <Switch />
-              </Typography>
-              <Typography sx={{ textAlign: "left" }}>
-                {"¿HAY FORMACIONES DE 2 HORAS?"}
-                <Switch />
-              </Typography>
+            <Grid
+              container
+              direction="row"
+              sx={{
+                display: "flex" /* , minWidth: "auto", maxWidth: "auto" */,
+                /* width: "600px", */
+                width: { xs: "100%", md: "auto" },
+                /*  bgcolor: "black", */
+              }}
+              /* spacing={1 / 2} */
+            >
+              <Grid item xs={12} md={9} p={1}>
+                <UsersGuardsBox />
+              </Grid>
+              <Grid item xs={12} md={3} p={1}>
+                <UserTechniciansBox />
+              </Grid>
+              <Grid item xs={12} md={12} p={1}>
+                <CheckboxesBox />
+              </Grid>
             </Grid>
-            <Divider />
-            <Grid item sm={12} sx={{ mt: 1 }}>
-              <TextField
-                label="Notas"
-                type="text"
-                placeholder="Anote algo aquí"
-                fullWidth
-                name="note"
-                value={formValues.note}
-                onChange={onInputChange}
-              />
+
+            <Grid
+              container
+              sx={{
+                display: "flex",
+
+                width: { xs: "100%", md: "auto" },
+              }}
+            >
+              <Grid item>
+                <Button
+                  /* disabled={isAuthenticating} */
+                  onClick={onCloseModal}
+                  variant="contained"
+                  fullWidth
+                >
+                  CANCELAR
+                </Button>
+              </Grid>
+              <Grid item>
+                <Button
+                  /* disabled={isAuthenticating} */
+                  type="submit"
+                  variant="contained"
+                  fullWidth
+                >
+                  GUARDAR
+                </Button>
+              </Grid>
             </Grid>
-            <Grid item sm={6} sx={{ mt: 1 }}>
-              <Button
-                /* disabled={isAuthenticating} */
-                type="submit"
-                variant="contained"
-                fullWidth
-              >
-                Guardar
-              </Button>
-            </Grid>
-          </Grid>
+          </Stack>
         </form>
       </Modal>
     </>
   );
 };
+
+// <Grid
+//                 item
+//                 container
+//                 sx={{ flexDirection: "column", bgcolor: "green" }}
+//               >
+//
+//               </Grid>
+
+// {/* GRID 2A */}
+// <Grid
+//   item
+//   xs={12}
+//   md={6}
+//   sx={{
+//     /* boxShadow: 300, */
+//     bgcolor: "red",
+//     border: "5px black solid",
+//     /* height: "500px",
+//     width: "500px", */
+//     /* m: 10, */
+//   }}
+// >
+//   <Stack>
+//     <Typography>
+//       MECAGON L'HOSTIA PUTA JODER REDEU ASDFASDF ASD FAS
+//     </Typography>
+//     <Typography>TONI</Typography>
+//     <Typography>TONI</Typography>
+//     <Typography>TONI</Typography>
+//     <Typography>TONI</Typography>
+//     <Typography>TONI</Typography>
+//     <Typography>TONI</Typography>
+//   </Stack>
+// </Grid>
+// {/* GRID 2B */}
+// <Grid
+//   item
+//   xs={12}
+//   md={6}
+//   sx={{
+//     /* display: { xs: "none", md: "flex" }, */
+//     bgcolor: "blueviolet",
+//     /*  flexDirection: "column", */
+//   }}
+//   /*     m={10} */
+// >
+//
+// </Grid>
