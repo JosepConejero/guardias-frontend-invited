@@ -1,25 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {
-  Button,
-  Checkbox,
-  Divider,
-  FormControlLabel,
-  Grid,
-  Stack,
-  Switch,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Grid, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { useUiStore } from "../../hooks/useUiStore";
 import { useCalendarStore } from "../../hooks/useCalendarStore";
 
 import { customStyles, monthNames } from "../../helpers";
-import { Check } from "@mui/icons-material";
+
 import { CheckboxesBox } from "./dayModalComponents/CheckboxesBox";
 import { UserTechniciansBox } from "./dayModalComponents/UserTechniciansBox";
 import { UsersGuardsBox } from "./dayModalComponents/UsersGuardsBox";
+import { useDispatch } from "react-redux";
+import { onDeactivateGuardDay } from "../../store/calendar/calendarSlice";
 
 Modal.setAppElement("#root");
 
@@ -35,12 +27,11 @@ const emptyGuardDay = {
 };
 
 export const DayModal = () => {
-  /*   const dispatch = useDispatch(); */
+  const dispatch = useDispatch();
   const { isDayModalOpen, closeDayModal } = useUiStore();
   const { activeGuardDay, guardDayInformation, startSavingGuardDay } =
     useCalendarStore();
 
-  /*  const [isOpen, setIsOpen] = useState(true); */
   // eslint-disable-next-line no-unused-vars
   const [formSubmitted, setFormSubmitted] = useState(false); //TO DO: esto lo necesitaré para controlar validaciones del formulario
 
@@ -48,14 +39,27 @@ export const DayModal = () => {
 
   //podría ser necesario aquí un useMemo que incluyera formSubmitted
 
+  /*   const titleClass = useMemo(() => {
+    if (!formSubmitted) return "";
+    // si la persona no ha ingresado el título o el título está vacío, mostraré el input en rojo (error)
+    return formValues.notas.length > 0 ? "is-valid" : "is-invalid"; // puedo quitar el is-valid pq cn se hace el submit del formulario, ya no hace falta
+  }, [formValues.notas, formSubmitted]); */
+
   const onInputChange = ({ target }) => {
     setFormValues({ ...formValues, [target.name]: target.value });
+  };
+
+  const onCheckboxChangeFormValues = (target) => {
+    setFormValues(() => ({ ...formValues, [target.name]: target.checked }));
+
+    //console.log(formValues);
   };
 
   const onSubmit = async (event) => {
     event.preventDefault();
     setFormSubmitted(true);
     //aquí haría validaciones que podrían poner el formSubmitted a false (vídeo 357 '5 más o menos)
+    //if (formValues.note.length <= 0) return;
     // console.log(formValues);
     await startSavingGuardDay(formValues);
     onCloseModal();
@@ -64,15 +68,18 @@ export const DayModal = () => {
 
   const onCloseModal = () => {
     //antes de cerrar el modal tengo que hacer que activeGuardDay valga null
-    //dispatch(setActiveGuardDay(null));
+    dispatch(onDeactivateGuardDay());
     closeDayModal();
   };
 
   useEffect(() => {
     if (activeGuardDay !== null) {
+      //console.log(activeGuardDay);
       const newFormValues = guardDayInformation(activeGuardDay);
+      //console.log(newFormValues);
       if (newFormValues) {
         setFormValues({ ...newFormValues });
+        //console.log("formValues", formValues);
       } else {
         setFormValues({
           ...emptyGuardDay,
@@ -84,6 +91,10 @@ export const DayModal = () => {
         });
       }
     }
+  }, [activeGuardDay]);
+
+  useEffect(() => {
+    console.log("otro useefeect", formValues);
   }, [activeGuardDay]);
 
   return (
@@ -130,13 +141,17 @@ export const DayModal = () => {
               /* spacing={1 / 2} */
             >
               <Grid item xs={12} md={9} p={1}>
-                <UsersGuardsBox />
+                <UsersGuardsBox formValues={formValues} />
               </Grid>
               <Grid item xs={12} md={3} p={1}>
-                <UserTechniciansBox />
+                <UserTechniciansBox formValues={formValues} />
               </Grid>
               <Grid item xs={12} md={12} p={1}>
-                <CheckboxesBox />
+                <CheckboxesBox
+                  formValues={formValues}
+                  onInputChange={onInputChange}
+                  onCheckboxChangeFormValues={onCheckboxChangeFormValues}
+                />
               </Grid>
             </Grid>
 
@@ -144,7 +159,6 @@ export const DayModal = () => {
               container
               sx={{
                 display: "flex",
-
                 width: { xs: "100%", md: "auto" },
               }}
             >

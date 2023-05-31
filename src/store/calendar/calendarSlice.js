@@ -11,6 +11,9 @@ export const calendarSlice = createSlice({
     onSetActiveGuardDay: (state, { payload }) => {
       state.activeGuardDay = payload;
     },
+    onDeactivateGuardDay: (state) => {
+      state.activeGuardDay = null;
+    },
     onAddNewGuardDay: (state, { payload }) => {
       state.guardDays.push(payload);
       state.activeGuardDay = null;
@@ -57,6 +60,7 @@ export const calendarSlice = createSlice({
 
 export const {
   onSetActiveGuardDay,
+  onDeactivateGuardDay,
   onAddNewGuardDay,
   onUpdateGuardDay,
   onLoadGuardDays,

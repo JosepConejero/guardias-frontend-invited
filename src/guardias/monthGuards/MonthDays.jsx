@@ -21,6 +21,7 @@ export const MonthDays = ({ showedDays }) => {
   const { daysInWeek } = useSelector((state) => state.month);
 
   const onDayClick = (day, month, year) => {
+    // console.log(day, month, year);
     setActiveGuardDay({ day, month, year });
     openDayModal();
   };
