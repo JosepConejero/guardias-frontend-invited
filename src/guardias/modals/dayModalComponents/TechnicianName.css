@@ -1,0 +1,5 @@
+.selected {
+  color: gainsboro;
+  background-color: rgb(184, 184, 184);
+  font-style: italic;
+}

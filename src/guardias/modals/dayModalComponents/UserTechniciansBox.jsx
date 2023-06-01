@@ -1,6 +1,8 @@
 import { Stack, Typography } from "@mui/material";
 
-const technicians = [
+import { TechnicianName } from "./TechnicianName";
+
+let technicians = [
   "TONI",
   "JOSEP",
   "MIGUEL",
@@ -12,7 +14,21 @@ const technicians = [
   "LLUISA",
 ];
 
-export const UserTechniciansBox = () => {
+export const UserTechniciansBox = ({ formValues }) => {
+  console.log(formValues.techniciansOut);
+  //TODO CREAR UN USESTATE PARA AÑADIR AL ARRAY DE LOS COJONES
+  const newArray = formValues.techniciansOut;
+
+  const modifyArray = (name) => {
+    const found = newA.some((value) => value === name);
+    if (found) {
+      console.log("lo encontró");
+    } else {
+      console.log("no lo encontró");
+      formValues.techniciansOut.push(name);
+    }
+  };
+
   return (
     <>
       <Stack sx={{ borderRadius: "5px", border: "1px grey solid", p: "10px" }}>
@@ -20,119 +36,12 @@ export const UserTechniciansBox = () => {
           Técnicos que están
         </Typography>
         {technicians.map((technician) => (
-          <Typography
+          <TechnicianName
             key={technician}
-            px={1}
-            mb={1 / 2}
-            sx={{
-              border: "1px grey solid",
-              borderRadius: "4px",
-              textAlign: "center",
-            }}
-          >
-            {technician}
-          </Typography>
+            name={technician}
+            modifyArray={modifyArray}
+          />
         ))}
-        {/*   <Typography
-          px={1}
-          mb={1 / 2}
-          sx={{
-            border: "1px grey solid",
-            borderRadius: "4px",
-            textAlign: "center",
-          }}
-        >
-          TONI
-        </Typography>
-
-        <Typography
-          px={1}
-          mb={1 / 2}
-          sx={{
-            border: "1px grey solid",
-            borderRadius: "4px",
-            textAlign: "center",
-          }}
-        >
-          JOSEP
-        </Typography>
-        <Typography
-          px={1}
-          mb={1 / 2}
-          sx={{
-            border: "1px grey solid",
-            borderRadius: "4px",
-            textAlign: "center",
-          }}
-        >
-          PILI
-        </Typography>
-        <Typography
-          px={1}
-          mb={1 / 2}
-          sx={{
-            border: "1px grey solid",
-            borderRadius: "4px",
-            textAlign: "center",
-          }}
-        >
-          MIGUEL
-        </Typography>
-        <Typography
-          px={1}
-          mb={1 / 2}
-          sx={{
-            border: "1px grey solid",
-            borderRadius: "4px",
-            textAlign: "center",
-          }}
-        >
-          ALBA
-        </Typography>
-        <Typography
-          px={1}
-          mb={1 / 2}
-          sx={{
-            border: "1px grey solid",
-            borderRadius: "4px",
-            textAlign: "center",
-          }}
-        >
-          CRISTINA
-        </Typography>
-        <Typography
-          px={1}
-          mb={1 / 2}
-          sx={{
-            border: "1px grey solid",
-            borderRadius: "4px",
-            textAlign: "center",
-          }}
-        >
-          ROSER
-        </Typography>
-        <Typography
-          px={1}
-          mb={1 / 2}
-          sx={{
-            border: "1px grey solid",
-            borderRadius: "4px",
-            textAlign: "center",
-          }}
-        >
-          LLUISA
-        </Typography>
-        <Typography
-          px={1}
-          mb={1 / 2}
-          sx={{
-            border: "1px grey solid",
-            borderRadius: "4px",
-            textAlign: "center",
-          }}
-        >
-          M. ÁNGEL
-        </Typography> */}
       </Stack>
     </>
   );

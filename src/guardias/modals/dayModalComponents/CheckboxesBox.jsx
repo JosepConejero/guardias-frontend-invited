@@ -1,47 +1,39 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Checkbox, FormControlLabel, Grid, TextField } from "@mui/material";
-import { useState } from "react";
+import { useCheckboxes } from "../../../hooks/useCheckboxes";
+import { useEffect, useState } from "react";
 
 export const CheckboxesBox = ({
   formValues,
   onInputChange,
   onCheckboxChangeFormValues,
 }) => {
-  const [isHolidayChecked, setIsHolidayChecked] = useState(
+  //console.log(formValues);
+
+  const [isHolidayChecked, setCheckedCheckboxisHoliday] = useState(
     formValues.isHoliday
   );
-  const [isThereOffice2hChecked, setIsThereOffice2hChecked] = useState(
-    formValues.isThereOffice2h
-  );
-  const [isThereExtraMeetingChecked, setIsThereExtraMeetingChecked] = useState(
-    formValues.isThereExtraMeeting
-  );
-
-  /*   useEffect(() => {
-    setIsHolidayChecked(formValues.isHoliday);
-    setIsThereOffice2hChecked(formValues.isThereOffice2h);
-    setIsThereExtraMeetingChecked(formValues.isThereExtraMeeting);
-  }, []); */
-
-  const onCheckboxChange = ({ target }) => {
-    //console.log(target.checked);
-
-    //console.log(target.name, target.checked);
-    switch (target.name) {
-      case "isHoliday":
-        setIsHolidayChecked(target.checked);
-        break;
-      case "isThereOffice2h":
-        setIsThereOffice2hChecked(target.checked);
-        break;
-      case "isThereExtraMeeting":
-        setIsThereExtraMeetingChecked(target.checked);
-        break;
-      default:
-        break;
-    }
-    onCheckboxChangeFormValues(target);
+  const onHandleClickIsHoliday = () => {
+    setCheckedCheckboxisHoliday(!isHolidayChecked);
   };
+  //console.log("formValues 1 dentro del checkboxesbox: ", formValues);
+  /* const {
+    checkedCheckbox: isHolidayChecked,
+    onHandleClick: onHandleClickIsHoliday,
+  } = useCheckboxes(formValues.isHoliday); */
+  const {
+    checkedCheckbox: isThereOffice2hChecked,
+    onHandleClick: onHandleClickIsThereOffice2h,
+  } = useCheckboxes(formValues.isThereOffice2h);
+  const {
+    checkedCheckbox: isThereExtraMeetingChecked,
+    onHandleClick: onHandleClickIsThereExtraMeeting,
+  } = useCheckboxes(formValues.isThereExtraMeeting);
+  //console.log("formValues 2 dentro del checkboxesbox: ", formValues);
+
+  useEffect(() => {
+    /*    setCheckedCheckboxisHoliday(formValues.isHoliday); */
+  }, []);
 
   return (
     <Grid
@@ -63,7 +55,10 @@ export const CheckboxesBox = ({
             <Checkbox
               checked={isHolidayChecked}
               name="isHoliday"
-              onChange={onCheckboxChange}
+              /*  onChange={onCheckboxChange} */
+              onClick={onHandleClickIsHoliday}
+              onChange={onCheckboxChangeFormValues}
+              value={formValues.isHoliday}
             />
           }
           label="Es fiesta"
@@ -75,7 +70,9 @@ export const CheckboxesBox = ({
             <Checkbox
               checked={isThereOffice2hChecked}
               name="isThereOffice2h"
-              onChange={onCheckboxChange}
+              /* onChange={onCheckboxChange} */
+              onClick={onHandleClickIsThereOffice2h}
+              onChange={onCheckboxChangeFormValues}
             />
           }
           label="Hay formación de 2 horas"
@@ -89,7 +86,9 @@ export const CheckboxesBox = ({
             <Checkbox
               checked={isThereExtraMeetingChecked}
               name="isThereExtraMeeting"
-              onChange={onCheckboxChange}
+              /* onChange={onCheckboxChange} */
+              onClick={onHandleClickIsThereExtraMeeting}
+              onChange={onCheckboxChangeFormValues}
             />
           }
           label="Hay reunión extra"

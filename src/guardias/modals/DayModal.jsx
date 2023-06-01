@@ -31,11 +31,17 @@ export const DayModal = () => {
   const { isDayModalOpen, closeDayModal } = useUiStore();
   const { activeGuardDay, guardDayInformation, startSavingGuardDay } =
     useCalendarStore();
+  //console.log("entra en el modal", guardDayInformation(activeGuardDay));
+  /*  if (activeGuardDay !== null) {
+    const emptyGuardDay2 = guardDayInformation(activeGuardDay);
+    console.log(emptyGuardDay2);
+  } */
 
   // eslint-disable-next-line no-unused-vars
   const [formSubmitted, setFormSubmitted] = useState(false); //TO DO: esto lo necesitaré para controlar validaciones del formulario
 
   const [formValues, setFormValues] = useState(emptyGuardDay);
+  //console.log("formValues al ppi del modal: ", formValues);
 
   //podría ser necesario aquí un useMemo que incluyera formSubmitted
 
@@ -49,21 +55,19 @@ export const DayModal = () => {
     setFormValues({ ...formValues, [target.name]: target.value });
   };
 
-  const onCheckboxChangeFormValues = (target) => {
-    setFormValues(() => ({ ...formValues, [target.name]: target.checked }));
-
-    //console.log(formValues);
+  const onCheckboxChangeFormValues = ({ target }) => {
+    setFormValues({ ...formValues, [target.name]: target.checked });
   };
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    setFormSubmitted(true);
+    ////setFormSubmitted(true);
     //aquí haría validaciones que podrían poner el formSubmitted a false (vídeo 357 '5 más o menos)
     //if (formValues.note.length <= 0) return;
-    // console.log(formValues);
+    //console.log(formValues);
     await startSavingGuardDay(formValues);
     onCloseModal();
-    setFormSubmitted(false);
+    ////setFormSubmitted(false);
   };
 
   const onCloseModal = () => {
@@ -74,12 +78,9 @@ export const DayModal = () => {
 
   useEffect(() => {
     if (activeGuardDay !== null) {
-      //console.log(activeGuardDay);
       const newFormValues = guardDayInformation(activeGuardDay);
-      //console.log(newFormValues);
       if (newFormValues) {
         setFormValues({ ...newFormValues });
-        //console.log("formValues", formValues);
       } else {
         setFormValues({
           ...emptyGuardDay,
@@ -91,10 +92,6 @@ export const DayModal = () => {
         });
       }
     }
-  }, [activeGuardDay]);
-
-  useEffect(() => {
-    console.log("otro useefeect", formValues);
   }, [activeGuardDay]);
 
   return (
@@ -189,52 +186,3 @@ export const DayModal = () => {
     </>
   );
 };
-
-// <Grid
-//                 item
-//                 container
-//                 sx={{ flexDirection: "column", bgcolor: "green" }}
-//               >
-//
-//               </Grid>
-
-// {/* GRID 2A */}
-// <Grid
-//   item
-//   xs={12}
-//   md={6}
-//   sx={{
-//     /* boxShadow: 300, */
-//     bgcolor: "red",
-//     border: "5px black solid",
-//     /* height: "500px",
-//     width: "500px", */
-//     /* m: 10, */
-//   }}
-// >
-//   <Stack>
-//     <Typography>
-//       MECAGON L'HOSTIA PUTA JODER REDEU ASDFASDF ASD FAS
-//     </Typography>
-//     <Typography>TONI</Typography>
-//     <Typography>TONI</Typography>
-//     <Typography>TONI</Typography>
-//     <Typography>TONI</Typography>
-//     <Typography>TONI</Typography>
-//     <Typography>TONI</Typography>
-//   </Stack>
-// </Grid>
-// {/* GRID 2B */}
-// <Grid
-//   item
-//   xs={12}
-//   md={6}
-//   sx={{
-//     /* display: { xs: "none", md: "flex" }, */
-//     bgcolor: "blueviolet",
-//     /*  flexDirection: "column", */
-//   }}
-//   /*     m={10} */
-// >
-//
-// </Grid>
