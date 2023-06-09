@@ -4,16 +4,29 @@ import "../../styles.css";
 import { Grid } from "@mui/material";
 
 import { useEffect } from "react";
-import { useCalendarStore } from "../../hooks";
+import {
+  useAppUsersStore,
+  useCalendarStore,
+  useCoursesStore,
+} from "../../hooks";
 import { Navbar } from "../components/Navbar";
 import { PruebasEstadisticas } from "../components/PruebasEstadisticas";
 import { MonthBox } from "../monthGuards/MonthBox";
 
 export const GuardiasPage = () => {
   const { startLoadingGuardDays } = useCalendarStore();
+  const { startLoadingAppUsers } = useAppUsersStore();
+  const { startLoadingCourses } = useCoursesStore();
 
   useEffect(() => {
-    //console.log("pasa por el useEffect");
+    startLoadingAppUsers();
+  }, []);
+
+  useEffect(() => {
+    startLoadingCourses();
+  }, []);
+
+  useEffect(() => {
     startLoadingGuardDays();
   }, []);
 

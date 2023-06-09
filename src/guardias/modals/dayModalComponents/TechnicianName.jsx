@@ -1,15 +1,19 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Typography } from "@mui/material";
 
 import "./TechnicianName.css";
 import { useState } from "react";
 
-export const TechnicianName = ({ name, modifyArray }) => {
-  const [classSelected, setClassSelected] = useState(false);
+export const TechnicianName = ({ name, isOut, updateTechniciansList }) => {
+  const [classSelected, setClassSelected] = useState(isOut);
   const handleClick = () => {
-    setClassSelected((prevState) => !classSelected);
-    //updateArray(name, classSelected);
-    modifyArray(name);
+    updateTechniciansList(name);
+    setClassSelected((prevState) => !prevState);
   };
+
+  /*   useEffect(() => {
+    setClassSelected(isOut);
+  }, []); */
 
   return (
     <Typography

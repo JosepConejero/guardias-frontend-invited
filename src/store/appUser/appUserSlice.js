@@ -18,6 +18,9 @@ export const appUserSlice = createSlice({
     /* onAddNewAppUser: (state, { payload }) => {
       state.appUsers.push(payload);
     }, */
+    /* onGetShortNameUsers: (state, {payload})=>{
+
+    }, */
     onUpdateAppUser: (state, { payload }) => {
       state.appUsers = state.appUsers.map((appUser) => {
         if (appUser.id === payload.id) {
@@ -48,6 +51,7 @@ export const appUserSlice = createSlice({
 export const {
   onSetActiveAppUser,
   onSetInactiveAppUser,
+  /* onGetShortNameUsers, */
   onUpdateAppUser,
   onLoadAppUsers,
   onDeleteAppUser,

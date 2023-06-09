@@ -1,39 +1,32 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Checkbox, FormControlLabel, Grid, TextField } from "@mui/material";
 import { useCheckboxes } from "../../../hooks/useCheckboxes";
-import { useEffect, useState } from "react";
 
 export const CheckboxesBox = ({
-  formValues,
+  formValuesCheckbox,
+  formValuesTextField,
   onInputChange,
   onCheckboxChangeFormValues,
 }) => {
-  //console.log(formValues);
-
-  const [isHolidayChecked, setCheckedCheckboxisHoliday] = useState(
+  /* const [isHolidayChecked, setCheckedCheckboxisHoliday] = useState(
     formValues.isHoliday
   );
   const onHandleClickIsHoliday = () => {
     setCheckedCheckboxisHoliday(!isHolidayChecked);
-  };
-  //console.log("formValues 1 dentro del checkboxesbox: ", formValues);
-  /* const {
+  }; */
+
+  const {
     checkedCheckbox: isHolidayChecked,
     onHandleClick: onHandleClickIsHoliday,
-  } = useCheckboxes(formValues.isHoliday); */
+  } = useCheckboxes(formValuesCheckbox.isHoliday);
   const {
     checkedCheckbox: isThereOffice2hChecked,
     onHandleClick: onHandleClickIsThereOffice2h,
-  } = useCheckboxes(formValues.isThereOffice2h);
+  } = useCheckboxes(formValuesCheckbox.isThereOffice2h);
   const {
     checkedCheckbox: isThereExtraMeetingChecked,
     onHandleClick: onHandleClickIsThereExtraMeeting,
-  } = useCheckboxes(formValues.isThereExtraMeeting);
-  //console.log("formValues 2 dentro del checkboxesbox: ", formValues);
-
-  useEffect(() => {
-    /*    setCheckedCheckboxisHoliday(formValues.isHoliday); */
-  }, []);
+  } = useCheckboxes(formValuesCheckbox.isThereExtraMeeting);
 
   return (
     <Grid
@@ -55,10 +48,8 @@ export const CheckboxesBox = ({
             <Checkbox
               checked={isHolidayChecked}
               name="isHoliday"
-              /*  onChange={onCheckboxChange} */
               onClick={onHandleClickIsHoliday}
               onChange={onCheckboxChangeFormValues}
-              value={formValues.isHoliday}
             />
           }
           label="Es fiesta"
@@ -70,7 +61,6 @@ export const CheckboxesBox = ({
             <Checkbox
               checked={isThereOffice2hChecked}
               name="isThereOffice2h"
-              /* onChange={onCheckboxChange} */
               onClick={onHandleClickIsThereOffice2h}
               onChange={onCheckboxChangeFormValues}
             />
@@ -86,7 +76,6 @@ export const CheckboxesBox = ({
             <Checkbox
               checked={isThereExtraMeetingChecked}
               name="isThereExtraMeeting"
-              /* onChange={onCheckboxChange} */
               onClick={onHandleClickIsThereExtraMeeting}
               onChange={onCheckboxChangeFormValues}
             />
@@ -102,9 +91,9 @@ export const CheckboxesBox = ({
           placeholder="Indique el tipo de reunión"
           name="extraMeetingText"
           fullWidth
-          value={formValues.extraMeetingText}
+          value={formValuesTextField.extraMeetingText}
           onChange={onInputChange}
-        ></TextField>
+        />
       </Grid>
       <Grid item md={12}>
         <TextField
@@ -114,7 +103,7 @@ export const CheckboxesBox = ({
           placeholder="Anote algo aquí"
           fullWidth
           name="note"
-          value={formValues.note}
+          value={formValuesTextField.note}
           onChange={onInputChange}
         />
       </Grid>

@@ -31,17 +31,28 @@ export const DayModal = () => {
   const { isDayModalOpen, closeDayModal } = useUiStore();
   const { activeGuardDay, guardDayInformation, startSavingGuardDay } =
     useCalendarStore();
-  //console.log("entra en el modal", guardDayInformation(activeGuardDay));
-  /*  if (activeGuardDay !== null) {
-    const emptyGuardDay2 = guardDayInformation(activeGuardDay);
-    console.log(emptyGuardDay2);
-  } */
+
+  let newFormValues = {};
+  if (activeGuardDay) {
+    newFormValues = guardDayInformation(activeGuardDay);
+
+    if (!newFormValues) {
+      newFormValues = {
+        ...emptyGuardDay,
+        simpleDate: {
+          day: activeGuardDay.day,
+          month: activeGuardDay.month,
+          year: activeGuardDay.year,
+        },
+      };
+    }
+  } else {
+    newFormValues = emptyGuardDay;
+  }
 
   // eslint-disable-next-line no-unused-vars
   const [formSubmitted, setFormSubmitted] = useState(false); //TO DO: esto lo necesitaré para controlar validaciones del formulario
-
-  const [formValues, setFormValues] = useState(emptyGuardDay);
-  //console.log("formValues al ppi del modal: ", formValues);
+  const [formValues, setFormValues] = useState(newFormValues);
 
   //podría ser necesario aquí un useMemo que incluyera formSubmitted
 
@@ -57,6 +68,20 @@ export const DayModal = () => {
 
   const onCheckboxChangeFormValues = ({ target }) => {
     setFormValues({ ...formValues, [target.name]: target.checked });
+  };
+
+  const onTechniciansOutChange = (technicians) => {
+    setFormValues({
+      ...formValues,
+      techniciansOut: [...technicians],
+    });
+  };
+
+  const onTechniciansChange = (technicians) => {
+    setFormValues({
+      ...formValues,
+      technicians: [...technicians],
+    });
   };
 
   const onSubmit = async (event) => {
@@ -77,8 +102,10 @@ export const DayModal = () => {
   };
 
   useEffect(() => {
-    if (activeGuardDay !== null) {
+    //if (activeGuardDay !== null) {
+    if (activeGuardDay) {
       const newFormValues = guardDayInformation(activeGuardDay);
+
       if (newFormValues) {
         setFormValues({ ...newFormValues });
       } else {
@@ -138,14 +165,21 @@ export const DayModal = () => {
               /* spacing={1 / 2} */
             >
               <Grid item xs={12} md={9} p={1}>
-                <UsersGuardsBox formValues={formValues} />
+                <UsersGuardsBox
+                  formValues={newFormValues}
+                  onTechniciansChange={onTechniciansChange}
+                />
               </Grid>
               <Grid item xs={12} md={3} p={1}>
-                <UserTechniciansBox formValues={formValues} />
+                <UserTechniciansBox
+                  formValues={newFormValues}
+                  onTechniciansOutChange={onTechniciansOutChange}
+                />
               </Grid>
               <Grid item xs={12} md={12} p={1}>
                 <CheckboxesBox
-                  formValues={formValues}
+                  formValuesCheckbox={newFormValues}
+                  formValuesTextField={formValues}
                   onInputChange={onInputChange}
                   onCheckboxChangeFormValues={onCheckboxChangeFormValues}
                 />

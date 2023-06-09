@@ -15,8 +15,48 @@ export const useAppUsersStore = () => {
   const dispatch = useDispatch();
   const { appUsers, activeAppUser } = useSelector((state) => state.appUser);
 
-  const setActiveAppUser = (course) => {
-    dispatch(onSetActiveAppUser(course));
+  const getTechniciansShortNames = () => {
+    let techniciansShortNames = [];
+    techniciansShortNames = appUsers
+      .filter((technician) => technician.isTechnician)
+      .map((technician) => technician.shortName);
+    return techniciansShortNames;
+  };
+
+  const techniciansShortNames = getTechniciansShortNames();
+
+  const technicianShortNameById = (id) => {
+    const found = appUsers.find((technician) => technician.id === id);
+    return found.shortName;
+  };
+
+  const getTechniciansOutShortNames = (techniciansOut) => {
+    let techniciansOutShortNames = [];
+    techniciansOut.forEach((technician) => {
+      techniciansOutShortNames = [
+        ...techniciansOutShortNames,
+        technicianShortNameById(technician.technicianId),
+      ];
+      //techniciansOutShortNames.push(  technicianShortNameById(technician.technicianId) );
+    });
+    return [...techniciansOutShortNames];
+  };
+
+  const technicianIdByShortName = (shortName) => {
+    const found = appUsers.find(
+      (technician) => technician.shortName === shortName
+    );
+    return found.id;
+  };
+
+  const getTechniciansOutIdsByShortName = (techniciansOutShortNames) => {
+    return techniciansOutShortNames.map((technicianShortName) => ({
+      technicianId: technicianIdByShortName(technicianShortName),
+    }));
+  };
+
+  const setActiveAppUser = (appUser) => {
+    dispatch(onSetActiveAppUser(appUser));
   };
 
   const setInactiveAppUser = () => {
@@ -71,10 +111,15 @@ export const useAppUsersStore = () => {
   return {
     //properties
     appUsers,
+    techniciansShortNames,
     activeAppUser,
     //methods
     setActiveAppUser,
     setInactiveAppUser,
+    getTechniciansOutShortNames,
+    /*     technicianShortNameById,
+    technicianIdByShortName, */
+    getTechniciansOutIdsByShortName,
     startSavingAppUser,
     startLoadingAppUsers,
     startDeletingAppUser,

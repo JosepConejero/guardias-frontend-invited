@@ -1,6 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { IconButton, List, ListSubheader } from "@mui/material";
-import { useEffect } from "react";
 import { ListItemCourses } from "./ListItemCourses";
 import { useCoursesStore } from "../../hooks/useCoursesStore";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -9,17 +7,12 @@ import { CourseNameModal } from "../modals/CourseNameModal";
 
 export const CoursesSettings = () => {
   const { openCourseModal } = useUiStore();
-  const { startLoadingCourses, courses } = useCoursesStore();
+  const { courses } = useCoursesStore();
 
   const onAddCourse = () => {
-    //    console.log("añade curso");
-    //abre el modal
     openCourseModal();
   };
 
-  useEffect(() => {
-    startLoadingCourses();
-  }, []);
   return (
     <>
       <List

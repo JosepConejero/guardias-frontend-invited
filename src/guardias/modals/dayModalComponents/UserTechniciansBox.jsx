@@ -1,32 +1,58 @@
 import { Stack, Typography } from "@mui/material";
 
 import { TechnicianName } from "./TechnicianName";
+import { useAppUsersStore } from "../../../hooks/useAppUsersStore";
+import { useState } from "react";
 
-let technicians = [
-  "TONI",
-  "JOSEP",
-  "MIGUEL",
-  "PILI",
-  "ROSER",
-  "CRISTINA",
-  "ALBA",
-  "M. ÁNGEL",
-  "LLUISA",
-];
+export const UserTechniciansBox = ({ formValues, onTechniciansOutChange }) => {
+  const {
+    techniciansShortNames,
+    getTechniciansOutIdsByShortName,
+    getTechniciansOutShortNames,
+  } = useAppUsersStore();
 
-export const UserTechniciansBox = ({ formValues }) => {
-  console.log(formValues.techniciansOut);
-  //TODO CREAR UN USESTATE PARA AÑADIR AL ARRAY DE LOS COJONES
-  const newArray = formValues.techniciansOut;
+  let techniciansOut = [...formValues.techniciansOut];
+  const [techniciansOutShortNames, setTechniciansOutShortNames] = useState(
+    getTechniciansOutShortNames(techniciansOut)
+  );
+  let newTechniciansOutShortNames = [...techniciansOutShortNames];
 
-  const modifyArray = (name) => {
-    const found = newA.some((value) => value === name);
-    if (found) {
-      console.log("lo encontró");
+  const updateTechniciansList = (technicianShortName) => {
+    if (
+      techniciansOutShortNames.some(
+        (technician) => technician === technicianShortName
+      )
+    ) {
+      newTechniciansOutShortNames = [
+        ...newTechniciansOutShortNames.filter(
+          (technician) => technician !== technicianShortName
+        ),
+      ];
+      setTechniciansOutShortNames((techniciansOutShortNames) =>
+        techniciansOutShortNames.filter(
+          (technician) => technician !== technicianShortName
+        )
+      );
     } else {
-      console.log("no lo encontró");
-      formValues.techniciansOut.push(name);
+      newTechniciansOutShortNames = [
+        ...newTechniciansOutShortNames,
+        technicianShortName,
+      ];
+      setTechniciansOutShortNames((techniciansOutShortNames) => [
+        ...techniciansOutShortNames,
+        technicianShortName,
+      ]);
     }
+
+    onTechniciansOutChange(
+      getTechniciansOutIdsByShortName(newTechniciansOutShortNames)
+    );
+  };
+
+  const isInTechniciansOutShortNames = (technicianShortName) => {
+    return techniciansOutShortNames.some(
+      (shortName) => shortName === technicianShortName
+    );
   };
 
   return (
@@ -35,13 +61,15 @@ export const UserTechniciansBox = ({ formValues }) => {
         <Typography sx={{ mb: "3px", textAlign: "center", fontWeight: "bold" }}>
           Técnicos que están
         </Typography>
-        {technicians.map((technician) => (
+        {techniciansShortNames.map((technicianShortName) => (
           <TechnicianName
-            key={technician}
-            name={technician}
-            modifyArray={modifyArray}
+            key={technicianShortName}
+            name={technicianShortName}
+            isOut={isInTechniciansOutShortNames(technicianShortName)}
+            updateTechniciansList={updateTechniciansList}
           />
         ))}
+        {/*  <Typography>{JSON.stringify(techniciansOutShortNames)}</Typography> */}
       </Stack>
     </>
   );
