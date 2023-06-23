@@ -17,6 +17,7 @@ const emptyAppUser = {
   isDataModifier: false,
   isTechnician: false,
   canFLC: false,
+  isExternal: false,
   canSeeStatistics: false,
   isStillWorking: false,
 };

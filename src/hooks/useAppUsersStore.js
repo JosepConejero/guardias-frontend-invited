@@ -23,6 +23,16 @@ export const useAppUsersStore = () => {
     return techniciansShortNames;
   };
 
+  const getTeachers = () => {
+    let teachers = [];
+    teachers = appUsers
+      .filter((teacher) => teacher.isTechnician || teacher.isExternal)
+      .map(({ id, shortName }) => ({ id, shortName }));
+    return teachers;
+  };
+
+  const teachers = getTeachers();
+
   const techniciansShortNames = getTechniciansShortNames();
 
   const technicianShortNameById = (id) => {
@@ -37,9 +47,51 @@ export const useAppUsersStore = () => {
         ...techniciansOutShortNames,
         technicianShortNameById(technician.technicianId),
       ];
-      //techniciansOutShortNames.push(  technicianShortNameById(technician.technicianId) );
     });
     return [...techniciansOutShortNames];
+  };
+
+  const getTechniciansInShortNames = (allTechnicians, techniciansOut) => {
+    let techniciansIn = [];
+    allTechnicians.forEach((technician) => {
+      if (!techniciansOut.includes(technician)) {
+        techniciansIn.push(technician);
+      }
+    });
+    return [...techniciansIn];
+  };
+
+  const isIn = (teacherId, techniciansOut) => {
+    let found = false;
+    for (let i = 0; i < techniciansOut.length; i++) {
+      if (techniciansOut[i].technicianId === teacherId) {
+        found = true;
+        return found;
+      }
+    }
+    return found;
+  };
+
+  const getTeachersIn = (techniciansOut) => {
+    let teachersIn = [];
+    teachers.forEach((teacher) => {
+      if (!isIn(teacher.id, techniciansOut)) {
+        teachersIn.push(teacher);
+      }
+    });
+    return [...teachersIn];
+  };
+
+  const getTeacherById = (technicianId) => {
+    //    let found = false;
+    for (let i = 0; i < teachers.length; i++) {
+      if (teachers[i].id === technicianId) {
+        //      found = true;
+        return teachers[i];
+      }
+    }
+
+    //console.log("Error que te cagas: technicianId", technicianId);
   };
 
   const technicianIdByShortName = (shortName) => {
@@ -53,6 +105,22 @@ export const useAppUsersStore = () => {
     return techniciansOutShortNames.map((technicianShortName) => ({
       technicianId: technicianIdByShortName(technicianShortName),
     }));
+  };
+
+  const getTechniciansInIdsByShortName = (techniciansInShortNames) => {
+    return techniciansInShortNames.map((technicianShortName) => ({
+      technicianId: technicianIdByShortName(technicianShortName),
+    }));
+  };
+
+  const emptyTeachersName = (teachers) => {
+    //let newTeachers = [...teachers];
+    let emptyTeacher = false;
+    teachers.forEach((teacher) => {
+      //console.log(teacher);
+      if (teacher.technicianId === null) emptyTeacher = true;
+    });
+    return emptyTeacher;
   };
 
   const setActiveAppUser = (appUser) => {
@@ -113,15 +181,21 @@ export const useAppUsersStore = () => {
     appUsers,
     techniciansShortNames,
     activeAppUser,
+    teachers,
     //methods
     setActiveAppUser,
     setInactiveAppUser,
     getTechniciansOutShortNames,
-    /*     technicianShortNameById,
-    technicianIdByShortName, */
+    getTechniciansInShortNames,
+    /*     technicianShortNameById,*/
+    technicianIdByShortName,
     getTechniciansOutIdsByShortName,
+    getTechniciansInIdsByShortName,
     startSavingAppUser,
     startLoadingAppUsers,
     startDeletingAppUser,
+    getTeachersIn,
+    getTeacherById,
+    emptyTeachersName,
   };
 };

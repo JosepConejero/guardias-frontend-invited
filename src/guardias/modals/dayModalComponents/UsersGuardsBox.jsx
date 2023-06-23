@@ -1,14 +1,39 @@
-import { Button, Grid, IconButton, Stack } from "@mui/material";
+import { Grid, IconButton, Stack } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import BasicMenu from "./BasicMenu";
-import DeleteIcon from "@mui/icons-material/Delete";
+
+import { useGuardDayStore } from "../../../hooks/useGuardDayStore";
+import { UsersGuardsBoxItem } from "./UsersGuardsBoxItem";
+
+const emptyTechnician = {
+  technicianId: null,
+  courseId: null, // estas dos podrían ser "", pero habría que borrar las entradas de la bda
+  isInClientWorkplace: false,
+  isProvisional: false,
+  isCancelled: false,
+};
 
 export const UsersGuardsBox = () => {
+  const { guardDayOpened, updateOpenedGuardDay } = useGuardDayStore();
+
   const onAddTechnician = () => {
-    console.log("se añade un técnico");
+    if (guardDayOpened.technicians.length <= 3) {
+      updateOpenedGuardDay({
+        ...guardDayOpened,
+        technicians: [...guardDayOpened.technicians, { ...emptyTechnician }],
+      });
+    }
   };
-  const onDeleteItem = () => {
-    console.log("se borra una fila");
+
+  const onDeleteItem = (index) => {
+    //console.log("se borra la fila ", index);
+    let newTechnicians = [...guardDayOpened.technicians];
+    //console.log("newTechnicians antes de borrar", newTechnicians.length);
+    newTechnicians.splice(index, 1);
+    //console.log("newTechnicians después de borrar", newTechnicians.length);
+    updateOpenedGuardDay({
+      ...guardDayOpened,
+      technicians: [...newTechnicians],
+    });
   };
 
   return (
@@ -37,57 +62,15 @@ export const UsersGuardsBox = () => {
           </Grid>
         </Grid>
       </Grid>
-      <Grid
-        container
-        flex-direction="row"
-        alignItems="center"
-        justifyContent="center"
-      >
-        <Grid item md={1 + 1 / 2}>
-          <BasicMenu name="técnico" />
-        </Grid>
-        <Grid item md={4}>
-          <BasicMenu name="curso" />
-        </Grid>
-        <Grid item md={2}>
-          <Button
-            color="primary"
-            disabled={false}
-            size="small"
-            variant="outlined"
-            sx={{ borderRadius: 5, height: "20px" }}
-          >
-            en oficina
-          </Button>
-        </Grid>
-        <Grid item md={2}>
-          <Button
-            color="primary"
-            disabled={false}
-            size="small"
-            variant="outlined"
-            sx={{ borderRadius: 5, height: "20px" }}
-          >
-            provisional
-          </Button>
-        </Grid>
-        <Grid item md={2}>
-          <Button
-            color="primary"
-            disabled={false}
-            size="small"
-            variant="outlined"
-            sx={{ borderRadius: 5, height: "20px" }}
-          >
-            cancelado
-          </Button>
-        </Grid>
-        <Grid item md={1 / 2}>
-          <IconButton onClick={onDeleteItem}>
-            <DeleteIcon />
-          </IconButton>
-        </Grid>
-      </Grid>
+      {guardDayOpened?.technicians.map((technician, index) => (
+        <UsersGuardsBoxItem
+          key={index}
+          technician={technician}
+          index={index}
+          /* onLabelChange={onLabelChange} */
+          onDeleteItem={onDeleteItem}
+        />
+      ))}
     </Stack>
   );
 };

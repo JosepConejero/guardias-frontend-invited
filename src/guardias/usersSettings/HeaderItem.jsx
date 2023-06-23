@@ -4,6 +4,7 @@ export const HeaderItem = () => {
   return (
     <Grid
       container
+      columns={13}
       sx={{
         /* display: 'flex', */
         my: 1,
@@ -26,6 +27,7 @@ export const HeaderItem = () => {
           /* textAlign: 'center', */
           /*    textAlign: 'auto', */
           /* alignSelf: 'center', */
+          border: "1px black solid",
         }}
       >
         <Typography
@@ -40,6 +42,7 @@ export const HeaderItem = () => {
             overflow: "hidden",
             whiteSpace: "nowrap",
             textOverflow: "ellipsis",
+            border: "1px black solid",
           }}
         >
           Nombre completo pa que veas lo guay que puede ser esto de
@@ -98,6 +101,7 @@ export const HeaderItem = () => {
       >
         <Typography sx={{ fontWeight: "bold" }}>modif dat</Typography>
       </Grid>
+
       <Grid
         item
         md={1}
@@ -111,6 +115,21 @@ export const HeaderItem = () => {
       >
         <Typography sx={{ fontWeight: "bold" }}>técnico</Typography>
       </Grid>
+
+      <Grid
+        item
+        md={1}
+        xs={12}
+        sx={{
+          /*   bgcolor: "yellow",
+          border: "1px solid black", */
+          textAlign: "center",
+          alignSelf: "center",
+        }}
+      >
+        <Typography sx={{ fontWeight: "bold" }}>externo</Typography>
+      </Grid>
+
       <Grid
         item
         md={1}

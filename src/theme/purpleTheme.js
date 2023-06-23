@@ -13,5 +13,14 @@ export const purpleTheme = createTheme({
     error: {
       main: red.A400,
     },
+    normalText: {
+      main: "#333333",
+    },
+    markedText: {
+      main: "#0040ff",
+    },
+    flcRelated: {
+      main: "#ff0000",
+    },
   },
 });

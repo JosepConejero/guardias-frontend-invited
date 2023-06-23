@@ -13,6 +13,7 @@ export default function UserItem({ appUser }) {
   const [isActivatedChecked, setIsActivatedChecked] = useState(false);
   const [isDataModifierChecked, setIsDataModifierChecked] = useState(false);
   const [isTechnicianChecked, setIsTechnicianChecked] = useState(false);
+  const [isExternalChecked, setIsExternalChecked] = useState(false);
   const [canFLCChecked, setCanFLCChecked] = useState(false);
   const [canSeeStatisticsChecked, setCanSeeStatisticsChecked] = useState(false);
   const [isStillWorkingChecked, setIsStillWorkingChecked] = useState(false);
@@ -55,6 +56,14 @@ export default function UserItem({ appUser }) {
     });
   };
 
+  const handleIsExternalChange = async (event) => {
+    setIsExternalChecked(event.target.checked);
+    await startSavingAppUser({
+      ...appUser,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
   const handleCanFLCChange = async (event) => {
     setCanFLCChecked(event.target.checked);
     await startSavingAppUser({
@@ -88,6 +97,7 @@ export default function UserItem({ appUser }) {
     setIsActivatedChecked(appUser.isActivated);
     setIsDataModifierChecked(appUser.isDataModifier);
     setIsTechnicianChecked(appUser.isTechnician);
+    setIsExternalChecked(appUser.isExternal);
     setCanFLCChecked(appUser.canFLC);
     setCanSeeStatisticsChecked(appUser.canSeeStatistics);
     setIsStillWorkingChecked(appUser.isStillWorking);
@@ -96,6 +106,7 @@ export default function UserItem({ appUser }) {
   return (
     <Grid
       container
+      columns={13}
       sx={{
         /* display: 'flex', */
         my: 0,
@@ -233,6 +244,25 @@ export default function UserItem({ appUser }) {
           checked={isTechnicianChecked}
           onChange={handleIsTechnicianChange}
           name="isTechnician"
+        />
+      </Grid>
+
+      <Grid
+        item
+        md={1}
+        xs={12}
+        sx={{
+          /*     bgcolor: "yellow",
+          border: "1px solid black", */
+          textAlign: "center",
+          alignSelf: "center",
+        }}
+      >
+        <Checkbox
+          size="small"
+          checked={isExternalChecked}
+          onChange={handleIsExternalChange}
+          name="isExternal"
         />
       </Grid>
 

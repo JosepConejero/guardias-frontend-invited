@@ -9,12 +9,10 @@ import {
 } from "../store/course/courseSlice";
 import calendarApi from "../api/calendarApi";
 import Swal from "sweetalert2";
-//import { useState } from "react";
 
 export const useCoursesStore = () => {
   const dispatch = useDispatch();
   const { courses, activeCourse } = useSelector((state) => state.course);
-  //const [checkboxChecked, setCheckboxChecked] = useState();
 
   const setActiveCourse = (course) => {
     dispatch(onSetActiveCourse(course));
@@ -23,21 +21,6 @@ export const useCoursesStore = () => {
   const setInactiveCourse = () => {
     dispatch(onSetInactiveCourse());
   };
-
-  //   const handleCheckboxChange = async ({ target }) => {
-  //     /*  const { name, value } = target;
-  //     setCheckboxChecked({
-  //       ...activeCourse,
-  //       [name]: value,
-  //     });
-  //  */
-  //     setCheckboxChecked(target.checked);
-  //     //await startSavingCourse({ ...course, flc: event.target.checked });
-  //     await startSavingCourse({
-  //       ...activeCourse,
-  //       [target.name]: target.checked,
-  //     });
-  //   };
 
   const startLoadingCourses = async () => {
     try {
@@ -57,7 +40,6 @@ export const useCoursesStore = () => {
         return;
       }
       const { data } = await calendarApi.post("/courses", course);
-      //console.log({ data });
       dispatch(onAddNewCourse({ ...course, id: data.curso.id }));
     } catch (error) {
       console.log(error);
@@ -83,18 +65,34 @@ export const useCoursesStore = () => {
     }
   };
 
+  const sortedCourses = (courses) => {
+    let newCourses = [...courses];
+    newCourses.reverse();
+    //TODO: IMPLEMENTAR EL ARRAY ORDENADO de cierto modo: 1º sin curso, 2º frequent flc, 3ª el resto flc, 4º no flc
+    return newCourses;
+  };
+
+  const getCourseById = (courses, courseId) => {
+    let course = {};
+    for (let i = 0; i < courses.length; i++) {
+      if (courses[i].id === courseId) {
+        course = { ...courses[i] };
+      }
+    }
+    return course;
+  };
+
   return {
     //properties
     courses,
     activeCourse,
-    // checkboxChecked,
     //methods
     setActiveCourse,
     setInactiveCourse,
     startSavingCourse,
     startLoadingCourses,
     startDeletingCourse,
-    // setCheckboxChecked,
-    // handleCheckboxChange,
+    sortedCourses,
+    getCourseById,
   };
 };

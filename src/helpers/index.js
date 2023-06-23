@@ -4,3 +4,4 @@ export * from "./getMessages";
 export * from "./myCalendar";
 export * from "./modalStyles";
 export * from "./deletePassword";
+export * from "./extractItemByProperty";

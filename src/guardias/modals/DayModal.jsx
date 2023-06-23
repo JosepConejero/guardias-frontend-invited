@@ -12,6 +12,9 @@ import { UserTechniciansBox } from "./dayModalComponents/UserTechniciansBox";
 import { UsersGuardsBox } from "./dayModalComponents/UsersGuardsBox";
 import { useDispatch } from "react-redux";
 import { onDeactivateGuardDay } from "../../store/calendar/calendarSlice";
+import { useGuardDayStore } from "../../hooks/useGuardDayStore";
+import { useAppUsersStore } from "../../hooks/useAppUsersStore";
+import Swal from "sweetalert2";
 
 Modal.setAppElement("#root");
 
@@ -31,6 +34,9 @@ export const DayModal = () => {
   const { isDayModalOpen, closeDayModal } = useUiStore();
   const { activeGuardDay, guardDayInformation, startSavingGuardDay } =
     useCalendarStore();
+  const { selectGuardDay, deselectGuardDay } = useGuardDayStore();
+  const { guardDayOpened, loadTechniciansInGuardDay } = useGuardDayStore();
+  const { getTeachersIn, emptyTeachersName } = useAppUsersStore();
 
   let newFormValues = {};
   if (activeGuardDay) {
@@ -62,36 +68,26 @@ export const DayModal = () => {
     return formValues.notas.length > 0 ? "is-valid" : "is-invalid"; // puedo quitar el is-valid pq cn se hace el submit del formulario, ya no hace falta
   }, [formValues.notas, formSubmitted]); */
 
-  const onInputChange = ({ target }) => {
-    setFormValues({ ...formValues, [target.name]: target.value });
-  };
-
-  const onCheckboxChangeFormValues = ({ target }) => {
-    setFormValues({ ...formValues, [target.name]: target.checked });
-  };
-
-  const onTechniciansOutChange = (technicians) => {
-    setFormValues({
-      ...formValues,
-      techniciansOut: [...technicians],
-    });
-  };
-
-  const onTechniciansChange = (technicians) => {
-    setFormValues({
-      ...formValues,
-      technicians: [...technicians],
-    });
-  };
-
   const onSubmit = async (event) => {
     event.preventDefault();
+    //console.log({ guardDayOpened });
     ////setFormSubmitted(true);
     //aquí haría validaciones que podrían poner el formSubmitted a false (vídeo 357 '5 más o menos)
     //if (formValues.note.length <= 0) return;
     //console.log(formValues);
-    await startSavingGuardDay(formValues);
-    onCloseModal();
+    //await startSavingGuardDay(formValues);
+
+    if (!emptyTeachersName(guardDayOpened.technicians)) {
+      await startSavingGuardDay(guardDayOpened);
+      onCloseModal();
+    } else {
+      Swal.fire(
+        "Los nombres de los técnicos/formadores de guardia no pueden estar vacíos.",
+        "Por favor, modifica esto antes de guardar",
+        "error"
+      );
+    }
+
     ////setFormSubmitted(false);
   };
 
@@ -99,6 +95,8 @@ export const DayModal = () => {
     //antes de cerrar el modal tengo que hacer que activeGuardDay valga null
     dispatch(onDeactivateGuardDay());
     closeDayModal();
+    //dispatch(onDeselectGuardDay());
+    deselectGuardDay();
   };
 
   useEffect(() => {
@@ -108,6 +106,7 @@ export const DayModal = () => {
 
       if (newFormValues) {
         setFormValues({ ...newFormValues });
+        selectGuardDay({ ...newFormValues });
       } else {
         setFormValues({
           ...emptyGuardDay,
@@ -117,9 +116,43 @@ export const DayModal = () => {
             year: activeGuardDay.year,
           },
         });
+        selectGuardDay({
+          ...emptyGuardDay,
+          simpleDate: {
+            day: activeGuardDay.day,
+            month: activeGuardDay.month,
+            year: activeGuardDay.year,
+          },
+        });
+        /* dispatch(
+            onSelectGuardDay({
+              ...emptyGuardDay,
+              simpleDate: {
+                day: activeGuardDay.day,
+                month: activeGuardDay.month,
+                year: activeGuardDay.year,
+              },
+            })
+            ); */
       }
     }
   }, [activeGuardDay]);
+
+  useEffect(() => {
+    if (guardDayOpened) {
+      //ESTOY AQUÍ CON TEACHERS: TENGO QUE CARGAR LOS TEACHERSIN EN EL ESTADO
+      //let teachersIn = getTeachersIn([...guardDayOpened.techniciansOut]);
+      loadTechniciansInGuardDay(
+        /*  getTechniciansInShortNames(
+          techniciansShortNames,
+          getTechniciansOutShortNames(guardDayOpened?.techniciansOut)
+        ) */
+        getTeachersIn([...guardDayOpened.techniciansOut])
+      );
+    }
+  }, [guardDayOpened?.techniciansOut]);
+
+  if (!guardDayOpened) return;
 
   return (
     <>
@@ -164,25 +197,14 @@ export const DayModal = () => {
               }}
               /* spacing={1 / 2} */
             >
-              <Grid item xs={12} md={9} p={1}>
-                <UsersGuardsBox
-                  formValues={newFormValues}
-                  onTechniciansChange={onTechniciansChange}
-                />
+              <Grid item xs={12} md={9} p={1} sx={{ width: "450px" }}>
+                <UsersGuardsBox />
               </Grid>
               <Grid item xs={12} md={3} p={1}>
-                <UserTechniciansBox
-                  formValues={newFormValues}
-                  onTechniciansOutChange={onTechniciansOutChange}
-                />
+                <UserTechniciansBox />
               </Grid>
               <Grid item xs={12} md={12} p={1}>
-                <CheckboxesBox
-                  formValuesCheckbox={newFormValues}
-                  formValuesTextField={formValues}
-                  onInputChange={onInputChange}
-                  onCheckboxChangeFormValues={onCheckboxChangeFormValues}
-                />
+                <CheckboxesBox />
               </Grid>
             </Grid>
 

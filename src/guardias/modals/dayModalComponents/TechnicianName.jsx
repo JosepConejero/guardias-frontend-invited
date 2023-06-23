@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { Typography } from "@mui/material";
 
 import "./TechnicianName.css";
@@ -10,10 +9,6 @@ export const TechnicianName = ({ name, isOut, updateTechniciansList }) => {
     updateTechniciansList(name);
     setClassSelected((prevState) => !prevState);
   };
-
-  /*   useEffect(() => {
-    setClassSelected(isOut);
-  }, []); */
 
   return (
     <Typography

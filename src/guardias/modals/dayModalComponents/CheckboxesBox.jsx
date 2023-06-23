@@ -1,13 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Checkbox, FormControlLabel, Grid, TextField } from "@mui/material";
 import { useCheckboxes } from "../../../hooks/useCheckboxes";
+import { useGuardDayStore } from "../../../hooks/useGuardDayStore";
 
-export const CheckboxesBox = ({
+export const CheckboxesBox = (/* {
   formValuesCheckbox,
   formValuesTextField,
   onInputChange,
   onCheckboxChangeFormValues,
-}) => {
+} */) => {
+  const { guardDayOpened, updateOpenedGuardDay } = useGuardDayStore();
   /* const [isHolidayChecked, setCheckedCheckboxisHoliday] = useState(
     formValues.isHoliday
   );
@@ -15,7 +17,15 @@ export const CheckboxesBox = ({
     setCheckedCheckboxisHoliday(!isHolidayChecked);
   }; */
 
-  const {
+  /* const onInputChange = ({ target }) => {
+    setFormValues({ ...formValues, [target.name]: target.value });
+  };
+
+  const onCheckboxChangeFormValues = ({ target }) => {
+    setFormValues({ ...formValues, [target.name]: target.checked });
+  }; */
+
+  /*   const {
     checkedCheckbox: isHolidayChecked,
     onHandleClick: onHandleClickIsHoliday,
   } = useCheckboxes(formValuesCheckbox.isHoliday);
@@ -26,7 +36,28 @@ export const CheckboxesBox = ({
   const {
     checkedCheckbox: isThereExtraMeetingChecked,
     onHandleClick: onHandleClickIsThereExtraMeeting,
-  } = useCheckboxes(formValuesCheckbox.isThereExtraMeeting);
+  } = useCheckboxes(formValuesCheckbox.isThereExtraMeeting); */
+  const {
+    checkedCheckbox: isHolidayChecked,
+    onHandleClick: onHandleClickIsHoliday,
+  } = useCheckboxes(guardDayOpened.isHoliday);
+  const {
+    checkedCheckbox: isThereOffice2hChecked,
+    onHandleClick: onHandleClickIsThereOffice2h,
+  } = useCheckboxes(guardDayOpened.isThereOffice2h);
+  const {
+    checkedCheckbox: isThereExtraMeetingChecked,
+    onHandleClick: onHandleClickIsThereExtraMeeting,
+  } = useCheckboxes(guardDayOpened.isThereExtraMeeting);
+
+  const onCheckboxChangeFormValues = ({ target }) => {
+    updateOpenedGuardDay({ ...guardDayOpened, [target.name]: target.checked });
+  };
+
+  const onInputChange = ({ target }) => {
+    updateOpenedGuardDay({ ...guardDayOpened, [target.name]: target.value });
+    //setFormValues({ ...formValues, [target.name]: target.value });
+  };
 
   return (
     <Grid
@@ -91,7 +122,8 @@ export const CheckboxesBox = ({
           placeholder="Indique el tipo de reunión"
           name="extraMeetingText"
           fullWidth
-          value={formValuesTextField.extraMeetingText}
+          /*  value={formValuesTextField.extraMeetingText}*/
+          value={guardDayOpened.extraMeetingText}
           onChange={onInputChange}
         />
       </Grid>
@@ -103,7 +135,8 @@ export const CheckboxesBox = ({
           placeholder="Anote algo aquí"
           fullWidth
           name="note"
-          value={formValuesTextField.note}
+          /*  value={formValuesTextField.note}*/
+          value={guardDayOpened.note}
           onChange={onInputChange}
         />
       </Grid>

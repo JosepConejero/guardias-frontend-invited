@@ -3,15 +3,67 @@ import { Stack, Typography } from "@mui/material";
 import { TechnicianName } from "./TechnicianName";
 import { useAppUsersStore } from "../../../hooks/useAppUsersStore";
 import { useState } from "react";
+import { useGuardDayStore } from "../../../hooks/useGuardDayStore";
 
-export const UserTechniciansBox = ({ formValues, onTechniciansOutChange }) => {
+export const UserTechniciansBox = () => {
+  const { guardDayOpened, updateOpenedGuardDay } = useGuardDayStore();
+  //console.log("guardayopened vale ", guardDayOpened);
   const {
     techniciansShortNames,
     getTechniciansOutIdsByShortName,
     getTechniciansOutShortNames,
   } = useAppUsersStore();
 
-  let techniciansOut = [...formValues.techniciansOut];
+  let techniciansOut = [...guardDayOpened.techniciansOut];
+  const [techniciansOutShortNames, setTechniciansOutShortNames] = useState(
+    getTechniciansOutShortNames(techniciansOut)
+  );
+  let newTechniciansOutShortNames = [...techniciansOutShortNames];
+  //techniciansOutShortNames: el listado de los técnicos que no estarán
+
+  const updateTechniciansList = (technicianShortName) => {
+    if (
+      techniciansOutShortNames.some(
+        (technician) => technician === technicianShortName
+      )
+    ) {
+      newTechniciansOutShortNames = [
+        ...newTechniciansOutShortNames.filter(
+          (technician) => technician !== technicianShortName
+        ),
+      ];
+      setTechniciansOutShortNames((techniciansOutShortNames) =>
+        techniciansOutShortNames.filter(
+          (technician) => technician !== technicianShortName
+        )
+      );
+      //  updateOpenedGuardDay({
+      //   ...guardDayOpened,
+      //   techniciansOut: [
+      //     ...guardDayOpened.techniciansOut.filter(
+      //       (technician) => technician !== technicianShortName
+      //     ),
+      //   ],
+      // });
+    } else {
+      newTechniciansOutShortNames = [
+        ...newTechniciansOutShortNames,
+        technicianShortName,
+      ];
+      setTechniciansOutShortNames((techniciansOutShortNames) => [
+        ...techniciansOutShortNames,
+        technicianShortName,
+      ]);
+    }
+
+    updateOpenedGuardDay({
+      ...guardDayOpened,
+      techniciansOut: [
+        ...getTechniciansOutIdsByShortName(newTechniciansOutShortNames),
+      ],
+    });
+  };
+  /*  let techniciansOut = [...formValues.techniciansOut];
   const [techniciansOutShortNames, setTechniciansOutShortNames] = useState(
     getTechniciansOutShortNames(techniciansOut)
   );
@@ -47,7 +99,7 @@ export const UserTechniciansBox = ({ formValues, onTechniciansOutChange }) => {
     onTechniciansOutChange(
       getTechniciansOutIdsByShortName(newTechniciansOutShortNames)
     );
-  };
+  }; */
 
   const isInTechniciansOutShortNames = (technicianShortName) => {
     return techniciansOutShortNames.some(
@@ -69,7 +121,6 @@ export const UserTechniciansBox = ({ formValues, onTechniciansOutChange }) => {
             updateTechniciansList={updateTechniciansList}
           />
         ))}
-        {/*  <Typography>{JSON.stringify(techniciansOutShortNames)}</Typography> */}
       </Stack>
     </>
   );
