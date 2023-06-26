@@ -2,7 +2,11 @@ import { Stack, Typography } from "@mui/material";
 import { useGuardDayInformation } from "../../hooks/useGuardDayInformation";
 import { useSelector } from "react-redux";
 
-export const TechniciansLine = ({ offSet = 0, guardDayInformation }) => {
+export const TechniciansLine = ({
+  offSet = 0,
+  backgroundColour,
+  guardDayInformation,
+}) => {
   const { daysInWeek } = useSelector((state) => state.month);
   const {
     guardTechnicians,
@@ -44,7 +48,9 @@ export const TechniciansLine = ({ offSet = 0, guardDayInformation }) => {
             color: firstGuardTechnician.isThereCourse
               ? "white"
               : "normalText.main",
-            bgcolor: firstGuardTechnician.isThereCourse ? "red" : "white",
+            bgcolor: firstGuardTechnician.isThereCourse
+              ? "red"
+              : backgroundColour,
             fontWeight: "bold",
           }}
         >
@@ -72,7 +78,9 @@ export const TechniciansLine = ({ offSet = 0, guardDayInformation }) => {
             color: secondGuardTechnician.isThereCourse
               ? "white"
               : "normalText.main",
-            bgcolor: secondGuardTechnician.isThereCourse ? "red" : "white",
+            bgcolor: secondGuardTechnician.isThereCourse
+              ? "red"
+              : backgroundColour,
           }}
         >
           {secondGuardTechnician.shortName}
@@ -95,7 +103,9 @@ export const TechniciansLine = ({ offSet = 0, guardDayInformation }) => {
             color: firstGuardTechnician.isThereCourse
               ? "white"
               : "normalText.main",
-            bgcolor: firstGuardTechnician.isThereCourse ? "red" : "white",
+            bgcolor: firstGuardTechnician.isThereCourse
+              ? "red"
+              : backgroundColour,
             fontWeight: "bold",
             //border: "1px black solid",
             /*   textAlign: "center",

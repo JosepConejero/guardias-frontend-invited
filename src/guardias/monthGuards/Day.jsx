@@ -7,6 +7,7 @@ import { useGuardDayInformation } from "../../hooks/useGuardDayInformation";
 import { TechniciansLine } from "./TechniciansLine";
 import { CoursesLine } from "./CoursesLine";
 import { SomethingBelowLine } from "./SomethingBelowLine";
+import { dateCompare } from "../../helpers/dateComparator";
 
 export const Day = ({
   date: { day, month, year },
@@ -17,6 +18,35 @@ export const Day = ({
   const { daysInWeek } = useSelector((state) => state.month);
   //monthNames[month]
   //  console.log(guardDayInformation);
+
+  let backgroundColour, backgroundColourHeader, borderColourBox;
+
+  switch (dateCompare(year, month, day)) {
+    case 0:
+      borderColourBox = "grey";
+      backgroundColourHeader = "yellow";
+      backgroundColour = "yellow";
+      break;
+    case -1:
+      borderColourBox = "grey";
+      backgroundColourHeader = "lightgrey";
+      backgroundColour = "lightgrey";
+      break;
+    case -2:
+      borderColourBox = "black";
+      backgroundColourHeader = "grey";
+      backgroundColour = "grey";
+      break;
+    case 1:
+      borderColourBox = "grey";
+      backgroundColourHeader = "lightgrey";
+      backgroundColour = "white";
+      break;
+    default:
+      borderColourBox = "grey";
+      backgroundColourHeader = "white";
+      backgroundColour = "white";
+  }
 
   const {
     isHoliday,
@@ -44,12 +74,12 @@ export const Day = ({
           width: daysInWeek === 6 ? 135 : 165,
           height: 110,
           boxShadow: 4,
-          bgcolor: "lightgrey",
+          bgcolor: backgroundColourHeader,
         }}
         onClick={handleDayClick}
       >
         <Box
-          sx={{ display: "flex", bgcolor: "lightgrey" }}
+          sx={{ display: "flex", bgcolor: backgroundColourHeader }}
           justifyContent="space-between"
         >
           <Typography
@@ -90,14 +120,17 @@ export const Day = ({
             direction="column"
             sx={{
               height: "90px",
-              border: "1px lightgrey solid",
+              border: `1px ${borderColourBox} solid`,
               borderRadius: "5px",
-              bgcolor: "white",
+              bgcolor: backgroundColour,
               position: "relative",
             }}
           >
             {isOneLine && (
-              <TechniciansLine guardDayInformation={guardDayInformation} />
+              <TechniciansLine
+                backgroundColour={backgroundColour}
+                guardDayInformation={guardDayInformation}
+              />
             )}
             {isOneLineAndBottom && (
               <>
