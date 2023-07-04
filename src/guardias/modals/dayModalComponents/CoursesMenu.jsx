@@ -23,19 +23,25 @@ export default function CoursesMenu({ list = [], initialValue, index }) {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = ({ target: { innerText } }, course) => {
+  //const handleClose = ({ target: { innerText } }, course) => {
+  const handleClose = (event, course) => {
     //console.log(innerText);
-    if (innerText !== "") {
-      setCourseName(course.title);
-      let newTechnicians = [...guardDayOpened.technicians];
-      newTechnicians[index] = {
-        ...newTechnicians[index],
-        courseId: course.id,
-      };
-      updateOpenedGuardDay({
-        ...guardDayOpened,
-        technicians: [...newTechnicians],
-      });
+    if (event.key !== "Escape") {
+      if (event.target.innerText !== "") {
+        setCourseName(course.title);
+        let newTechnicians = [...guardDayOpened.technicians];
+        //console.log(newTechnicians[index]);
+        console.log(newTechnicians[index].isInClientWorkplace);
+        newTechnicians[index] = {
+          ...newTechnicians[index],
+          courseId: course.id,
+          isInClientWorkplace: course.title === "SIN CURSO" ? false : true,
+        };
+        updateOpenedGuardDay({
+          ...guardDayOpened,
+          technicians: [...newTechnicians],
+        });
+      }
     }
 
     setAnchorEl(null);
@@ -45,20 +51,15 @@ export default function CoursesMenu({ list = [], initialValue, index }) {
     <div>
       <Button
         id="basic-button"
-        aria-controls={open ? "basic-menu" : undefined}
+        /* aria-controls={open ? "basic-menu" : undefined}
         aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
+        aria-expanded={open ? "true" : undefined} */
         onClick={handleClick}
-        sx={{
-          width: "180px",
-
-          background: "red",
-        }}
+        sx={{ width: "350px" }}
       >
         <Typography
-          /* size="small" */
-          //alignLeft
-          //align="center"
+          fontSize="14px"
+          fontWeight="bold"
           sx={{
             overflow: "hidden",
             whiteSpace: "nowrap",
@@ -73,9 +74,9 @@ export default function CoursesMenu({ list = [], initialValue, index }) {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        MenuListProps={{
+        /*  MenuListProps={{
           "aria-labelledby": "basic-button",
-        }}
+        }} */
       >
         {list.map((course) => (
           <MenuItem
@@ -83,16 +84,9 @@ export default function CoursesMenu({ list = [], initialValue, index }) {
             technician={course.id}
             onClick={(event) => handleClose(event, course)}
           >
-            {course.title}
+            {course.title.toUpperCase()}
           </MenuItem>
         ))}
-        {/*  <Divider />
-        <MenuItem
-          technician="EXTERNO"
-          onClick={(event) => handleClose(event, "EXTERNO")}
-        >
-          EXTERNO
-        </MenuItem> */}
       </Menu>
     </div>
   );

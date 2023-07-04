@@ -110,7 +110,14 @@ export const UserTechniciansBox = () => {
   return (
     <>
       <Stack sx={{ borderRadius: "5px", border: "1px grey solid", p: "10px" }}>
-        <Typography sx={{ mb: "3px", textAlign: "center", fontWeight: "bold" }}>
+        <Typography
+          sx={{
+            mb: "3px",
+            textAlign: "center",
+            fontWeight: "bold",
+            fontSize: "16px",
+          }}
+        >
           Técnicos que están
         </Typography>
         {techniciansShortNames.map((technicianShortName) => (

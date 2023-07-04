@@ -2,17 +2,13 @@
 /* eslint-disable array-callback-return */
 import { Grid } from "@mui/material";
 import { Day } from "./Day";
-import {
-  isWeekend,
-  isSunday,
-  getDayOfWeekText,
-} from "../../helpers/myCalendar";
+import { isWeekend, isSunday } from "../../helpers/myCalendar";
 
 import { useSelector } from "react-redux";
 import { DayModal } from "../modals/DayModal";
 import { useUiStore } from "../../hooks/useUiStore";
 import { useCalendarStore } from "../../hooks/useCalendarStore";
-//import { useEffect } from "react";
+import { getDayOfWeekText } from "../../helpers/dayOfWeek";
 
 export const MonthDays = ({ showedDays }) => {
   const { openDayModal } = useUiStore();

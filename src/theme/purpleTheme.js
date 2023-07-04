@@ -5,7 +5,8 @@ import { red } from "@mui/material/colors";
 export const purpleTheme = createTheme({
   palette: {
     primary: {
-      main: "#262254",
+      //main: "#262254",
+      main: "#0000E0",
     },
     secondary: {
       main: "#543884",
@@ -23,4 +24,16 @@ export const purpleTheme = createTheme({
       main: "#ff0000",
     },
   },
+  /* components: {
+    // Name of the component
+    FormControlLabel: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          // Some CSS
+          fontSize: "26px",
+        },
+      },
+    },
+  }, */
 });

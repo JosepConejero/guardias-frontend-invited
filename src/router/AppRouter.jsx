@@ -7,6 +7,7 @@ import { LogoPage } from "../ui";
 import { useAuthStore } from "../hooks";
 import { useEffect } from "react";
 import { SettingsPage } from "../guardias/pages/SettingsPage";
+import { Spinner } from "../guardias/customizedComponents/Spinner";
 
 export const AppRouter = () => {
   //  const authStatus = "authenticated"; // "not-authenticated"; "checking";
@@ -18,7 +19,8 @@ export const AppRouter = () => {
   }, []);
 
   if (status === "checking") {
-    return <h3>Cargando...</h3>;
+    //return <h3>Cargando...</h3>;
+    return <Spinner text="Loading..." />;
   }
 
   return (

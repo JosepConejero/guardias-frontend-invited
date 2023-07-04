@@ -13,11 +13,8 @@ export const useGuardDayInformation = (guardDayInformation) => {
   const isThereOffice2h =
     !!guardDayInformation && guardDayInformation.isThereOffice2h;
 
-  let isThereNoteOrMeetingTextOrOptionSelected =
-    !!guardDayInformation &&
-    (guardDayInformation.isThereExtraMeeting ||
-      guardDayInformation.note !== "" ||
-      guardDayInformation.extraMeetingText !== "");
+  let isThereANoteText =
+    !!guardDayInformation && guardDayInformation.note !== "";
 
   const isThereExtraMeeting =
     !!guardDayInformation && guardDayInformation.isThereExtraMeeting;
@@ -57,7 +54,6 @@ export const useGuardDayInformation = (guardDayInformation) => {
           : "SIN CURSO",
       isFLC: isFLC !== null && isFLC !== undefined ? isFLC : false,
       isInClientWorkplace: technician.isInClientWorkplace,
-      isCancelled: technician.isCancelled,
     };
 
     if (newGuardTechnician.isFLC) isSomebodyWithFLC = true;
@@ -72,13 +68,14 @@ export const useGuardDayInformation = (guardDayInformation) => {
   });
 
   const isThereMoreInformation =
-    guardTechnicians.length > 2 || isThereNoteOrMeetingTextOrOptionSelected;
+    guardTechnicians.length > 2 || isThereANoteText;
 
   const isThereAFirstTechnician = guardTechnicians.length >= 1;
   const isThereASecondTechnician = guardTechnicians.length >= 2;
 
   const isThereSomethingBelow =
     isThereMoreInformation ||
+    isThereExtraMeeting ||
     isSomeExternal ||
     isThereOffice2h ||
     isSomebodyWithFLC;
@@ -113,25 +110,8 @@ export const useGuardDayInformation = (guardDayInformation) => {
     courseList.length > 1 &&
     isThereSomethingBelow;
 
-  /*   console.log({
-    isOneLine,
-    isOneLineAndBottom,
-    isTwoLines,
-    isTwoLinesAndBottom,
-    isThreeLines,
-    isThreeLinesAndBottom,
-  }); */
-
-  /*const [firstGuardTechnician] = isThereAFirstTechnician && guardTechnicians[0];
-  const [, secondGuardTechnician] =
-    isThereASecondTechnician && guardTechnicians[1]; */
-
-  //guardTechnicians será array de shortNames de los 2 primeros técnicos de guardia y si tiene flc y el nombre del curso (en rojo si tiene curso, en azul si no)
-  //isThereExternal será un booleano que contendrá si hay algún technician cuyo isExternal esté a true (EXT)
-  //attention será un booleano que dependerá de que haya algo más en el modal (q haya ) (!)
-
   return {
-    guardTechnicians, //[{shortname, isExternal, isThereCourse, courseTitle, isFLC, isInClientWorkplace, isCancelled}]
+    guardTechnicians, //[{shortname, isExternal, isThereCourse, courseTitle, isFLC, isInClientWorkplace}]
     isHoliday,
     isThereOffice2h,
     isThereMoreInformation,

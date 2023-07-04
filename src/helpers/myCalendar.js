@@ -36,7 +36,7 @@ export const monthNames = [
   "Diciembre",
 ];
 const daysByMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-const dayNames = [
+/* const dayNames = [
   "Lunes",
   "Martes",
   "Miércoles",
@@ -44,7 +44,7 @@ const dayNames = [
   "Viernes",
   "Sábado",
   "Domingo",
-];
+]; */
 //const leapYear = 2024;
 const isLeapYear = (year) => {
   return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
@@ -65,14 +65,14 @@ const firstDay = (year, month) => {
   return newDate.getDay();
 };
 
-export const getDayOfWeekText = (index) => {
+/* export const getDayOfWeekText = (index) => {
   if (index < 7) return dayNames[index];
   if (index < 7 * 2) return dayNames[index - 7];
   if (index < 7 * 3) return dayNames[index - 7 * 2];
   if (index < 7 * 4) return dayNames[index - 7 * 3];
   if (index < 7 * 5) return dayNames[index - 7 * 4];
   if (index < 7 * 6) return dayNames[index - 7 * 5];
-};
+}; */
 
 export const isWeekend = (index) =>
   (index + 1) % 7 === 0 || (index + 2) % 7 === 0;

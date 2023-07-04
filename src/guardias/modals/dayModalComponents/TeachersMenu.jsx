@@ -3,6 +3,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
 import { useGuardDayStore } from "../../../hooks/useGuardDayStore";
+import { Typography } from "@mui/material";
 
 export default function TeachersMenu({ list = [], initialValue, index }) {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -11,7 +12,8 @@ export default function TeachersMenu({ list = [], initialValue, index }) {
   const { guardDayOpened, updateOpenedGuardDay } = useGuardDayStore();
 
   const [technicianName, setTechnicianName] = useState(
-    initialValue === null || initialValue === undefined
+    initialValue === null ||
+      initialValue === undefined /* || initialValue === "" */
       ? "TÉCNICO"
       : initialValue.shortName
   );
@@ -20,19 +22,21 @@ export default function TeachersMenu({ list = [], initialValue, index }) {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = ({ target: { innerText } }, technician) => {
-    //console.log(innerText);
-    if (innerText !== "") {
-      setTechnicianName(technician.shortName);
-      let newTechnicians = [...guardDayOpened.technicians];
-      newTechnicians[index] = {
-        ...newTechnicians[index],
-        technicianId: technician.id,
-      };
-      updateOpenedGuardDay({
-        ...guardDayOpened,
-        technicians: [...newTechnicians],
-      });
+  //const handleClose = ({ target: { innerText } }, technician) => {
+  const handleClose = (event, technician) => {
+    if (event.key !== "Escape") {
+      if (event.target.innerText !== "") {
+        setTechnicianName(technician.shortName);
+        let newTechnicians = [...guardDayOpened.technicians];
+        newTechnicians[index] = {
+          ...newTechnicians[index],
+          technicianId: technician.id,
+        };
+        updateOpenedGuardDay({
+          ...guardDayOpened,
+          technicians: [...newTechnicians],
+        });
+      }
     }
 
     setAnchorEl(null);
@@ -42,21 +46,34 @@ export default function TeachersMenu({ list = [], initialValue, index }) {
     <div>
       <Button
         id="basic-button"
-        aria-controls={open ? "basic-menu" : undefined}
+        /* aria-controls={open ? "basic-menu" : undefined}
         aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
+        aria-expanded={open ? "true" : undefined} */
         onClick={handleClick}
+        sx={{ width: "100px" }}
       >
-        {technicianName}
+        <Typography
+          fontSize="14px"
+          fontWeight="bold"
+          sx={{
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {technicianName}
+        </Typography>
       </Button>
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        MenuListProps={{
+        /*   onKeyDown={handleClose} */
+        /* onKeyDown={() => console.log("se pulsa una tecla en el menú")} */
+        /* MenuListProps={{
           "aria-labelledby": "basic-button",
-        }}
+        }} */
       >
         {list.map((teacher) => (
           <MenuItem
@@ -64,7 +81,7 @@ export default function TeachersMenu({ list = [], initialValue, index }) {
             technician={teacher.id}
             onClick={(event) => handleClose(event, teacher)}
           >
-            {teacher.shortName}
+            {teacher.shortName.toUpperCase()}
           </MenuItem>
         ))}
         {/*  <Divider />

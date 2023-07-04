@@ -1,5 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Checkbox, FormControlLabel, Grid, TextField } from "@mui/material";
+import {
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useCheckboxes } from "../../../hooks/useCheckboxes";
 import { useGuardDayStore } from "../../../hooks/useGuardDayStore";
 
@@ -60,86 +67,110 @@ export const CheckboxesBox = (/* {
   };
 
   return (
-    <Grid
+    <Stack
       sx={{
-        /* display: { xs: "none", md: "flex" }, */
-        /* bgcolor: "cyan", */
-        flexDirection: "column",
+        //flexDirection: "column",
         borderRadius: "5px",
         border: "1px grey solid",
-        width: { xs: "100%", md: "auto" },
-        /* width: { xs: "100%", md: "100%" }, */
+        //width: { xs: "100%", md: "auto" },
+        // width: { xs: "100%", md: "100%" },
+        //width: "500px",
       }}
-      container
       p={1}
     >
-      <Grid item md={12}>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={isHolidayChecked}
-              name="isHoliday"
-              onClick={onHandleClickIsHoliday}
-              onChange={onCheckboxChangeFormValues}
-            />
-          }
-          label="Es fiesta"
-        />
-      </Grid>
-      <Grid item md={12}>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={isThereOffice2hChecked}
-              name="isThereOffice2h"
-              onClick={onHandleClickIsThereOffice2h}
-              onChange={onCheckboxChangeFormValues}
-            />
-          }
-          label="Hay formación de 2 horas"
-        />
+      <Grid container direction="row" mb={1}>
+        <Grid item xs={12} md={3}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={isHolidayChecked}
+                name="isHoliday"
+                onClick={onHandleClickIsHoliday}
+                onChange={onCheckboxChangeFormValues}
+              />
+            }
+            label={
+              <Typography sx={{ fontSize: "16px", fontWeight: "bold" }}>
+                Es fiesta
+              </Typography>
+            }
+          />
+        </Grid>
+
+        <Grid item xs={12} md={9}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={isThereOffice2hChecked}
+                name="isThereOffice2h"
+                onClick={onHandleClickIsThereOffice2h}
+                onChange={onCheckboxChangeFormValues}
+              />
+            }
+            //label="Hay formación de 2 horas"
+            label={
+              <Typography sx={{ fontSize: "16px", fontWeight: "bold" }}>
+                Hay formación de 2 horas
+              </Typography>
+            }
+          />
+        </Grid>
       </Grid>
 
-      <Grid item md={12}>
-        <FormControlLabel
-          sx={{ mb: 2 }}
-          control={
-            <Checkbox
-              checked={isThereExtraMeetingChecked}
-              name="isThereExtraMeeting"
-              onClick={onHandleClickIsThereExtraMeeting}
-              onChange={onCheckboxChangeFormValues}
-            />
-          }
-          label="Hay reunión extra"
-        />
+      <Grid container direction="row" alignItems="center">
+        <Grid item xs={12} md={3}>
+          <FormControlLabel
+            sx={{ mb: 2 }}
+            control={
+              <Checkbox
+                checked={isThereExtraMeetingChecked}
+                name="isThereExtraMeeting"
+                onClick={onHandleClickIsThereExtraMeeting}
+                onChange={onCheckboxChangeFormValues}
+              />
+            }
+            //label="Hay reunión extra"
+            label={
+              <Typography sx={{ fontSize: "16px", fontWeight: "bold" }}>
+                Hay reunión extra
+              </Typography>
+            }
+          />
+        </Grid>
+
+        <Grid item xs={12} md={9}>
+          <TextField
+            disabled={!isThereExtraMeetingChecked}
+            sx={{ mb: 2 }}
+            label="Tipo reunión"
+            type="text"
+            placeholder="Indique el tipo de reunión"
+            name="extraMeetingText"
+            fullWidth
+            //  value={formValuesTextField.extraMeetingText}
+            value={guardDayOpened.extraMeetingText}
+            onChange={onInputChange}
+            size="medium"
+          />
+        </Grid>
       </Grid>
-      <Grid item md={12}>
+
+      <Grid container>
         <TextField
-          sx={{ mb: 2 }}
-          label="Tipo reunión"
-          type="text"
-          placeholder="Indique el tipo de reunión"
-          name="extraMeetingText"
-          fullWidth
-          /*  value={formValuesTextField.extraMeetingText}*/
-          value={guardDayOpened.extraMeetingText}
-          onChange={onInputChange}
-        />
-      </Grid>
-      <Grid item md={12}>
-        <TextField
+          multiline
+          rows={4}
           sx={{ mb: 1 }}
           label="Notas"
           type="text"
           placeholder="Anote algo aquí"
           fullWidth
           name="note"
-          /*  value={formValuesTextField.note}*/
+          //  value={formValuesTextField.note}
           value={guardDayOpened.note}
           onChange={onInputChange}
+          size="medium"
         />
       </Grid>
-    </Grid>
+    </Stack>
   );
 };

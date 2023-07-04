@@ -103,7 +103,12 @@ export const Day = ({
         {isHoliday ? (
           <Grid
             container
-            sx={{ background: "grey", height: "90px", borderRadius: "5px" }}
+            sx={{
+              background: "grey",
+              height: "90px",
+              borderRadius: "5px",
+              border: `1px ${borderColourBox} solid`,
+            }}
             justifyContent="center"
             alignItems="center"
           >

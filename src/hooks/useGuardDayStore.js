@@ -3,12 +3,8 @@ import {
   onSelectGuardDay,
   onDeselectGuardDay,
   onUpdateOpenedGuardDay,
-  /*   onLoadTechniciansGuardDay,
-  onEmptyTechniciansGuardDay,*/
   onLoadTechniciansInGuardDay,
-  /*onEmptyTechniciansInGuardDay,
-  onLoadTechniciansOutGuardDay,
-  onEmptyTechniciansOutGuardDay, */
+  onDeleteTechnicianOpenedGuardDay,
 } from "../store/guardDay/guardDaySlice";
 
 export const useGuardDayStore = () => {
@@ -33,29 +29,13 @@ export const useGuardDayStore = () => {
     dispatch(onUpdateOpenedGuardDay(payload));
   };
 
-  /* const loadTechniciansGuardDay = (payload) => {
-    dispatch(onLoadTechniciansGuardDay(payload));
-  };
-
-  const emptyTechniciansGuardDay = (payload) => {
-    dispatch(onEmptyTechniciansGuardDay());
-  };*/
-
   const loadTechniciansInGuardDay = (payload) => {
     dispatch(onLoadTechniciansInGuardDay(payload));
   };
 
-  /*const emptyTechniciansInGuardDay = (payload) => {
-    dispatch(onEmptyTechniciansInGuardDay());
+  const deleteTechnicianOpenedGuardDay = (payload) => {
+    dispatch(onDeleteTechnicianOpenedGuardDay(payload));
   };
-
-  const loadTechniciansOutGuardDay = (payload) => {
-    dispatch(onLoadTechniciansOutGuardDay(payload));
-  };
-
-  const emptyTechniciansOutGuardDay = (payload) => {
-    dispatch(onEmptyTechniciansOutGuardDay());
-  }; */
 
   return {
     // properties
@@ -68,11 +48,7 @@ export const useGuardDayStore = () => {
     selectGuardDay,
     deselectGuardDay,
     updateOpenedGuardDay,
-    /*  loadTechniciansGuardDay,
-    emptyTechniciansGuardDay,*/
     loadTechniciansInGuardDay,
-    /*emptyTechniciansInGuardDay,
-    loadTechniciansOutGuardDay,
-    emptyTechniciansOutGuardDay, */
+    deleteTechnicianOpenedGuardDay,
   };
 };

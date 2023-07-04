@@ -15,13 +15,19 @@ export const LabelButton = ({
     setActivated(!activated);
   };
 
+  const colorActivated = activated ? "flcRelated" : "primary";
+
   return (
     <Button
-      color="primary"
+      color={colorActivated}
       disabled={false}
       size="small"
       variant="outlined"
-      sx={{ borderRadius: 5, height: "20px", width: "100px" }}
+      sx={{
+        borderRadius: 5,
+        height: "20px",
+        width: "120px",
+      }}
       onClick={handleClick}
       name={name}
     >

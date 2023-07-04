@@ -65,13 +65,6 @@ export const useCoursesStore = () => {
     }
   };
 
-  const sortedCourses = (courses) => {
-    let newCourses = [...courses];
-    newCourses.reverse();
-    //TODO: IMPLEMENTAR EL ARRAY ORDENADO de cierto modo: 1º sin curso, 2º frequent flc, 3ª el resto flc, 4º no flc
-    return newCourses;
-  };
-
   const getCourseById = (courses, courseId) => {
     let course = {};
     for (let i = 0; i < courses.length; i++) {
@@ -92,7 +85,6 @@ export const useCoursesStore = () => {
     startSavingCourse,
     startLoadingCourses,
     startDeletingCourse,
-    sortedCourses,
     getCourseById,
   };
 };

@@ -19,24 +19,16 @@ export const guardDaySlice = createSlice({
     onUpdateOpenedGuardDay: (state, { payload }) => {
       state.guardDayOpened = payload; //hace lo mismo que onSelectGuardDay (se podría refactorizar)
     },
-    /*  onLoadTechniciansGuardDay: (state, { payload }) => {
-      state.techniciansGuardDay = payload;
-    },
-    onEmptyTechniciansGuardDay: (state) => {
-      state.techniciansGuardDay = [];
-    },*/
     onLoadTechniciansInGuardDay: (state, { payload }) => {
       state.techniciansInGuardDay = payload;
     },
-    /* onEmptyTechniciansInGuardDay: (state) => {
-      state.techniciansInGuardDay = [];
-    }, */
-    /*onLoadTechniciansOutGuardDay: (state, { payload }) => {
-      state.techniciansOutGuardDay = payload;
+    onDeleteTechnicianOpenedGuardDay: (state, { payload }) => {
+      state.guardDayOpened.technicians =
+        state.guardDayOpened.technicians.filter(
+          (technician) => technician.uniqueId !== payload
+        );
+      //state.guardDayOpened.technicians.splice(payload, 1);
     },
-    onEmptyTechniciansOutGuardDay: (state) => {
-      state.techniciansOutGuardDay = [];
-    }, */
   },
 });
 
@@ -44,10 +36,6 @@ export const {
   onSelectGuardDay,
   onDeselectGuardDay,
   onUpdateOpenedGuardDay,
-  /*   onLoadTechniciansGuardDay,
-  onEmptyTechniciansGuardDay,*/
   onLoadTechniciansInGuardDay,
-  //onEmptyTechniciansInGuardDay,
-  /*onLoadTechniciansOutGuardDay,
-  onEmptyTechniciansOutGuardDay, */
+  onDeleteTechnicianOpenedGuardDay,
 } = guardDaySlice.actions;
