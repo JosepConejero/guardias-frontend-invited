@@ -10,6 +10,7 @@ export const appUserSlice = createSlice({
   },
   reducers: {
     onSetActiveAppUser: (state, { payload }) => {
+      state.activeAppUser = payload;
       /*   state.activeAppUser = state.appUsers.find(
         (appUser) => appUser.id === payload
       ); */
