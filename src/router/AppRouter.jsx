@@ -4,7 +4,7 @@ import { LoginPage } from "../auth/pages/LoginPage";
 import { RegisterPage } from "../auth/pages/RegisterPage";
 import { GuardiasPage } from "../guardias/pages/GuardiasPage";
 import { LogoPage } from "../ui";
-import { useAuthStore } from "../hooks";
+import { useAppUsersStore, useAuthStore } from "../hooks";
 import { useEffect } from "react";
 import { SettingsPage } from "../guardias/pages/SettingsPage";
 import { Spinner } from "../guardias/customizedComponents/Spinner";
@@ -19,7 +19,6 @@ export const AppRouter = () => {
   }, []);
 
   if (status === "checking") {
-    //return <h3>Cargando...</h3>;
     return <Spinner text="Loading..." />;
   }
 

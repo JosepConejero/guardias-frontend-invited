@@ -6,6 +6,7 @@ import { Grid } from "@mui/material";
 import { useEffect } from "react";
 import {
   useAppUsersStore,
+  useAuthStore,
   useCalendarStore,
   useCoursesStore,
 } from "../../hooks";
@@ -17,6 +18,7 @@ export const GuardiasPage = () => {
   const { startLoadingGuardDays } = useCalendarStore();
   const { startLoadingAppUsers } = useAppUsersStore();
   const { startLoadingCourses } = useCoursesStore();
+  const { user } = useAuthStore();
 
   useEffect(() => {
     startLoadingAppUsers();
@@ -54,13 +56,13 @@ export const GuardiasPage = () => {
           }}
         >
           <Grid item md={2}>
-            <PruebasEstadisticas />
+            {user.canSeeStatistics && <PruebasEstadisticas />}
           </Grid>
           <Grid item md={8}>
             <MonthBox />
           </Grid>
           <Grid item md={2}>
-            <PruebasEstadisticas />
+            {user.canSeeStatistics && <PruebasEstadisticas />}
           </Grid>
         </Grid>
       </Grid>

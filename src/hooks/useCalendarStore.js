@@ -6,10 +6,12 @@ import {
   onUpdateGuardDay,
 } from "../store/calendar/calendarSlice";
 import calendarApi from "../api/calendarApi";
+import { useState } from "react";
 
 export const useCalendarStore = () => {
   const dispatch = useDispatch();
   const { guardDays, activeGuardDay } = useSelector((state) => state.calendar);
+  const [isSaving, setIsSaving] = useState(false);
 
   const setActiveGuardDay = (calendarGuardDay) => {
     dispatch(onSetActiveGuardDay(calendarGuardDay));
@@ -31,6 +33,7 @@ export const useCalendarStore = () => {
 
   const startSavingGuardDay = async (calendarGuardDay) => {
     try {
+      setIsSaving(true);
       if (calendarGuardDay.id) {
         //actualizando
         // const { data } =
@@ -40,6 +43,7 @@ export const useCalendarStore = () => {
           calendarGuardDay
         );
         dispatch(onUpdateGuardDay({ ...calendarGuardDay }));
+        setIsSaving(false);
         return;
       }
 
@@ -49,6 +53,7 @@ export const useCalendarStore = () => {
       const { data } = await calendarApi.post("/events", calendarGuardDay);
       //console.log("aquí no llega", data);
       dispatch(onAddNewGuardDay({ ...calendarGuardDay, id: data.evento.id }));
+      setIsSaving(false);
     } catch (error) {
       console.log("Error guardando/actualizando día de guardia");
       console.log(error);
@@ -72,6 +77,7 @@ export const useCalendarStore = () => {
     guardDays,
     guardDayInformation,
     hasGuardDayClicked: !!activeGuardDay,
+    isSaving,
     //methods
     setActiveGuardDay,
     startSavingGuardDay,

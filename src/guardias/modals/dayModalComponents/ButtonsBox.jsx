@@ -1,11 +1,11 @@
 import { Button, Grid } from "@mui/material";
 
-export const ButtonsBox = ({ onCloseModal }) => {
+export const ButtonsBox = ({ /*  isSaving, */ onCloseModal }) => {
   return (
     <Grid container justifyContent="center" spacing={5}>
       <Grid item>
         <Button
-          /* disabled={isAuthenticating} */
+          //disabled={isSaving}
           onClick={onCloseModal}
           variant="contained"
           //fullWidth
@@ -21,7 +21,7 @@ export const ButtonsBox = ({ onCloseModal }) => {
       </Grid>
       <Grid item>
         <Button
-          /* disabled={isAuthenticating} */
+          //disabled={isSaving}
           type="submit"
           variant="contained"
           //fullWidth

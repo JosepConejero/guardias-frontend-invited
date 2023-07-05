@@ -113,9 +113,7 @@ export const UsersGuardsBoxItem = ({ onDeleteItem, technician, index }) => {
       <Grid item md={1 / 2}>
         <IconButton
           sx={{ color: "#CF0000" /* border: "1px black solid" */ }}
-          //onClick={() => onDeleteItem(guardDayOpened.technicians[index]._id)}
           onClick={() => onDeleteItem(technician.uniqueId)}
-          /*  onClick={() => onDeleteItem(index)} */
         >
           <DeleteIcon />
         </IconButton>

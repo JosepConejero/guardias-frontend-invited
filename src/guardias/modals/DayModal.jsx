@@ -6,7 +6,7 @@ import Modal from "react-modal";
 import { useUiStore } from "../../hooks/useUiStore";
 import { useCalendarStore } from "../../hooks/useCalendarStore";
 
-import { customStyles } from "../../helpers";
+import { customStyles, customStylesIsSaving } from "../../helpers";
 
 import { CheckboxesBox } from "./dayModalComponents/CheckboxesBox";
 import { UserTechniciansBox } from "./dayModalComponents/UserTechniciansBox";
@@ -18,6 +18,7 @@ import { useAppUsersStore } from "../../hooks/useAppUsersStore";
 import Swal from "sweetalert2";
 import { DateBox } from "./dayModalComponents/DateBox";
 import { ButtonsBox } from "./dayModalComponents/ButtonsBox";
+import { SpinnerInModal } from "../customizedComponents";
 
 Modal.setAppElement("#root");
 
@@ -35,7 +36,7 @@ const emptyGuardDay = {
 export const DayModal = () => {
   const dispatch = useDispatch();
   const { isDayModalOpen, closeDayModal } = useUiStore();
-  const { activeGuardDay, guardDayInformation, startSavingGuardDay } =
+  const { activeGuardDay, guardDayInformation, startSavingGuardDay, isSaving } =
     useCalendarStore();
   const { selectGuardDay, deselectGuardDay } = useGuardDayStore();
   const { guardDayOpened, loadTechniciansInGuardDay } = useGuardDayStore();
@@ -73,7 +74,6 @@ export const DayModal = () => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-
     if (!emptyTeachersName(guardDayOpened.technicians)) {
       await startSavingGuardDay(guardDayOpened);
       onCloseModal();
@@ -84,7 +84,6 @@ export const DayModal = () => {
         "error"
       );
     }
-
     ////setFormSubmitted(false);
   };
 
@@ -140,39 +139,46 @@ export const DayModal = () => {
       <Modal
         isOpen={isDayModalOpen}
         onRequestClose={onCloseModal}
-        style={customStyles}
+        style={isSaving ? customStylesIsSaving : customStyles}
         /* className="modal" */
         overlayClassName="modal-fondo"
         closeTimeoutMS={200}
         sx={{ width: "900px" }}
       >
-        <form
-          aria-label="submit-form"
-          onSubmit={onSubmit}
-          className="animate__animated animate__fadeIn animate__faster"
-        >
-          <Stack>
-            <DateBox />
+        {isSaving ? (
+          <SpinnerInModal text="Saving..." />
+        ) : (
+          <>
+            <form
+              aria-label="submit-form"
+              onSubmit={onSubmit}
+              className="animate__animated animate__fadeIn animate__faster"
+            >
+              <Stack>
+                <DateBox />
 
-            <Stack>
-              <Grid container>
-                <Grid item xs={12} md={9} p={1} sx={{ width: "700px" }}>
-                  <UsersGuardsBox />
-                </Grid>
+                <Stack>
+                  <Grid container>
+                    <Grid item xs={12} md={9} p={1} sx={{ width: "700px" }}>
+                      <UsersGuardsBox />
+                    </Grid>
 
-                <Grid item xs={12} md={3} p={1}>
-                  <UserTechniciansBox />
-                </Grid>
-              </Grid>
+                    <Grid item xs={12} md={3} p={1}>
+                      <UserTechniciansBox />
+                    </Grid>
+                  </Grid>
 
-              <Grid p={1}>
-                <CheckboxesBox />
-              </Grid>
-            </Stack>
+                  <Grid p={1}>
+                    <CheckboxesBox />
+                  </Grid>
+                </Stack>
 
-            <ButtonsBox onCloseModal={onCloseModal} />
-          </Stack>
-        </form>
+                <ButtonsBox onCloseModal={onCloseModal} />
+                {/*  <ButtonsBox saving={saving} onCloseModal={onCloseModal} /> */}
+              </Stack>
+            </form>
+          </>
+        )}
       </Modal>
     </>
   );

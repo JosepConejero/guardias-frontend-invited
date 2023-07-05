@@ -6,6 +6,7 @@ import {
   onLogin,
   onLogout,
 } from "../store/auth/authSlice";
+import Swal from "sweetalert2";
 
 export const useAuthStore = () => {
   const { status, user, errorMessage } = useSelector((state) => state.auth);
@@ -20,7 +21,19 @@ export const useAuthStore = () => {
       });
       localStorage.setItem("token", data.token);
       localStorage.setItem("token-init-date", new Date().getTime());
-      dispatch(onLogin({ name: data.name, uid: data.uid }));
+      dispatch(
+        onLogin({
+          name: data.name,
+          uid: data.uid,
+          canFLC: data.canFLC,
+          canSeeStatistics: data.canSeeStatistics,
+          isActivated: data.isActivated,
+          isAdmin: data.isAdmin,
+          isDataModifier: data.isDataModifier,
+          isStillWorking: data.isStillWorking,
+          isTechnician: data.isTechnician,
+        })
+      );
     } catch (error) {
       dispatch(onLogout("Credenciales incorrectas"));
       setTimeout(() => {
@@ -40,7 +53,19 @@ export const useAuthStore = () => {
       });
       localStorage.setItem("token", data.token);
       localStorage.setItem("token-init-date", new Date().getTime());
-      dispatch(onLogin({ name: data.name, uid: data.uid }));
+      dispatch(
+        onLogin({
+          name: data.name,
+          uid: data.uid,
+          canFLC: data.canFLC,
+          canSeeStatistics: data.canSeeStatistics,
+          isActivated: data.isActivated,
+          isAdmin: data.isAdmin,
+          isDataModifier: data.isDataModifier,
+          isStillWorking: data.isStillWorking,
+          isTechnician: data.isTechnician,
+        })
+      );
     } catch (error) {
       dispatch(
         onLogout(error.response.data?.msg || "Se ha producido un error")
@@ -54,14 +79,26 @@ export const useAuthStore = () => {
   const checkAuthToken = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      //Swal.fire("El token ya expiró", "Vuelva a hacer login", "error");
+      Swal.fire("El token ya expiró", "Vuelva a hacer login", "error"); //esto podría no funcionar bien
       return dispatch(onLogout());
     }
     try {
       const { data } = await calendarApi.get("auth/renew");
       localStorage.setItem("token", data.token);
       localStorage.setItem("token-init-date", new Date().getTime());
-      dispatch(onLogin({ name: data.name, uid: data.uid }));
+      dispatch(
+        onLogin({
+          name: data.name,
+          uid: data.uid,
+          canFLC: data.canFLC,
+          canSeeStatistics: data.canSeeStatistics,
+          isActivated: data.isActivated,
+          isAdmin: data.isAdmin,
+          isDataModifier: data.isDataModifier,
+          isStillWorking: data.isStillWorking,
+          isTechnician: data.isTechnician,
+        })
+      );
     } catch (error) {
       localStorage.clear();
       dispatch(onLogout());
