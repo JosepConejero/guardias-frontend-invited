@@ -4,7 +4,7 @@ import { LoginPage } from "../auth/pages/LoginPage";
 import { RegisterPage } from "../auth/pages/RegisterPage";
 import { GuardiasPage } from "../guardias/pages/GuardiasPage";
 import { LogoPage } from "../ui";
-import { useAppUsersStore, useAuthStore } from "../hooks";
+import { useAuthStore } from "../hooks";
 import { useEffect } from "react";
 import { SettingsPage } from "../guardias/pages/SettingsPage";
 import { Spinner } from "../guardias/customizedComponents/Spinner";
