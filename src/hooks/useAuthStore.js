@@ -84,6 +84,7 @@ export const useAuthStore = () => {
     }
     try {
       const { data } = await calendarApi.get("auth/renew");
+      console.log("data del renew", data);
       localStorage.setItem("token", data.token);
       localStorage.setItem("token-init-date", new Date().getTime());
       dispatch(
