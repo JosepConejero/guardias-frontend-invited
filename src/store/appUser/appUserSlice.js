@@ -48,6 +48,9 @@ export const appUserSlice = createSlice({
         (appUser) => appUser.id !== payload.id
       );
     },
+    onEmptyAppUsers: (state) => {
+      state.appUsers = [];
+    },
   },
 });
 
@@ -58,4 +61,5 @@ export const {
   onUpdateAppUser,
   onLoadAppUsers,
   onDeleteAppUser,
+  onEmptyAppUsers,
 } = appUserSlice.actions;

@@ -37,7 +37,7 @@ export const Navbar = () => {
           alignItems="center"
         >
           <Typography variant="h6" noWrap component="div">
-            Calendario de guardias - ({user.name})
+            Calendario de guardias - {user.shortName}
           </Typography>
 
           <Grid item>

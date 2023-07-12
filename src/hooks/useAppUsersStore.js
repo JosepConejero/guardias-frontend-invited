@@ -8,6 +8,7 @@ import {
   onSetActiveAppUser,
   onSetInactiveAppUser,
   onUpdateAppUser,
+  onEmptyAppUsers,
 } from "../store/appUser/appUserSlice";
 import { deletePassword } from "../helpers/deletePassword";
 
@@ -83,15 +84,11 @@ export const useAppUsersStore = () => {
   };
 
   const getTeacherById = (technicianId) => {
-    //    let found = false;
     for (let i = 0; i < teachers.length; i++) {
       if (teachers[i].id === technicianId) {
-        //      found = true;
         return teachers[i];
       }
     }
-
-    //console.log("Error que te cagas: technicianId", technicianId);
   };
 
   const technicianIdByShortName = (shortName) => {
@@ -114,10 +111,8 @@ export const useAppUsersStore = () => {
   };
 
   const emptyTeachersName = (teachers) => {
-    //let newTeachers = [...teachers];
     let emptyTeacher = false;
     teachers.forEach((teacher) => {
-      //console.log(teacher);
       if (teacher.technicianId === null) emptyTeacher = true;
     });
     return emptyTeacher;
@@ -176,6 +171,15 @@ export const useAppUsersStore = () => {
     }
   };
 
+  const emptyAppUsers = () => {
+    dispatch(onEmptyAppUsers());
+  };
+
+  const getAppUserData = (id) => {
+    if (appUsers.length === 0) return;
+    return appUsers.find((appUser) => appUser.id === id);
+  };
+
   return {
     //properties
     appUsers,
@@ -187,7 +191,6 @@ export const useAppUsersStore = () => {
     setInactiveAppUser,
     getTechniciansOutShortNames,
     getTechniciansInShortNames,
-    /*     technicianShortNameById,*/
     technicianIdByShortName,
     getTechniciansOutIdsByShortName,
     getTechniciansInIdsByShortName,
@@ -197,5 +200,7 @@ export const useAppUsersStore = () => {
     getTeachersIn,
     getTeacherById,
     emptyTeachersName,
+    emptyAppUsers,
+    getAppUserData,
   };
 };

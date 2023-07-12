@@ -6,10 +6,15 @@ import {
   onLogin,
   onLogout,
 } from "../store/auth/authSlice";
-import Swal from "sweetalert2";
+//import Swal from "sweetalert2";
+import { useCoursesStore } from "./useCoursesStore";
+import { useAppUsersStore } from "./useAppUsersStore";
 
 export const useAuthStore = () => {
   const { status, user, errorMessage } = useSelector((state) => state.auth);
+  const { emptyCourses } = useCoursesStore();
+  const { emptyAppUsers } = useAppUsersStore();
+
   const dispatch = useDispatch();
 
   const startLogin = async ({ email, password }) => {
@@ -25,6 +30,7 @@ export const useAuthStore = () => {
         onLogin({
           name: data.name,
           uid: data.uid,
+          shortName: data.shortName,
           canFLC: data.canFLC,
           canSeeStatistics: data.canSeeStatistics,
           isActivated: data.isActivated,
@@ -53,10 +59,12 @@ export const useAuthStore = () => {
       });
       localStorage.setItem("token", data.token);
       localStorage.setItem("token-init-date", new Date().getTime());
+
       dispatch(
         onLogin({
           name: data.name,
           uid: data.uid,
+          shortName: data.shortName,
           canFLC: data.canFLC,
           canSeeStatistics: data.canSeeStatistics,
           isActivated: data.isActivated,
@@ -79,18 +87,18 @@ export const useAuthStore = () => {
   const checkAuthToken = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      Swal.fire("El token ya expiró", "Vuelva a hacer login", "error"); //esto podría no funcionar bien
+      //Swal.fire("El token ya expiró", "Vuelva a hacer login", "error"); //esto podría no funcionar bien
       return dispatch(onLogout());
     }
     try {
       const { data } = await calendarApi.get("auth/renew");
-      //console.log("data del renew", data);
       localStorage.setItem("token", data.token);
       localStorage.setItem("token-init-date", new Date().getTime());
       dispatch(
         onLogin({
           name: data.name,
           uid: data.uid,
+          shortName: data.shortName,
           canFLC: data.canFLC,
           canSeeStatistics: data.canSeeStatistics,
           isActivated: data.isActivated,
@@ -107,6 +115,8 @@ export const useAuthStore = () => {
   };
 
   const startLogout = () => {
+    emptyCourses();
+    emptyAppUsers();
     localStorage.clear();
     dispatch(onLogout());
   };

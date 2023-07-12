@@ -6,6 +6,7 @@ import {
   onSetActiveCourse,
   onSetInactiveCourse,
   onUpdateCourse,
+  onEmptyCourses,
 } from "../store/course/courseSlice";
 import calendarApi from "../api/calendarApi";
 import Swal from "sweetalert2";
@@ -75,6 +76,10 @@ export const useCoursesStore = () => {
     return course;
   };
 
+  const emptyCourses = () => {
+    dispatch(onEmptyCourses());
+  };
+
   return {
     //properties
     courses,
@@ -86,5 +91,6 @@ export const useCoursesStore = () => {
     startLoadingCourses,
     startDeletingCourse,
     getCourseById,
+    emptyCourses,
   };
 };

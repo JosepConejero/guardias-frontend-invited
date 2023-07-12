@@ -72,6 +72,7 @@ export const UsersGuardsBoxItem = ({ onDeleteItem, technician, index }) => {
           index={index}
         />
       </Grid>
+
       <Grid
         item
         md={7}
@@ -90,6 +91,7 @@ export const UsersGuardsBoxItem = ({ onDeleteItem, technician, index }) => {
           index={index}
         />
       </Grid>
+
       <Grid
         item
         md={2 + 1 / 2}
@@ -98,11 +100,11 @@ export const UsersGuardsBoxItem = ({ onDeleteItem, technician, index }) => {
             !isValid(initialCourse) || initialCourse?.title === "SIN CURSO"
               ? "hidden"
               : "visible",
-          // border: "1px black solid",
         }}
       >
         <LabelButton
-          initialValue={guardDayOpened.technicians[index].isInClientWorkplace}
+          initialValue={technician.isInClientWorkplace}
+          /* initialValue={guardDayOpened.technicians[index].isInClientWorkplace} */
           textOn="en cliente"
           textOff="en oficina"
           onLabelChange={onLabelChange}

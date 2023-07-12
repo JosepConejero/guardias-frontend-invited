@@ -40,6 +40,7 @@ export const SettingsPage = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
   return (
     <>
       <Navbar />

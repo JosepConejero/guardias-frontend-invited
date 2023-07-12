@@ -41,6 +41,9 @@ export const courseSlice = createSlice({
         (course) => course.id !== payload.id
       );
     },
+    onEmptyCourses: (state) => {
+      state.courses = [];
+    },
   },
 });
 
@@ -51,4 +54,5 @@ export const {
   onUpdateCourse,
   onLoadCourses,
   onDeleteCourse,
+  onEmptyCourses,
 } = courseSlice.actions;

@@ -1,10 +1,18 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Card, Divider } from "@mui/material";
 import { HeaderItem } from "./HeaderItem";
 import UserItem from "./UserItem";
 import { useAppUsersStore } from "../../hooks/useAppUsersStore";
+import { useEffect } from "react";
 
 export default function UsersBox() {
-  const { appUsers } = useAppUsersStore();
+  const { appUsers, startLoadingAppUsers } = useAppUsersStore();
+
+  useEffect(() => {
+    if (appUsers.length === 0) startLoadingAppUsers();
+    //siempre habrá un usuario como mínimo cuando entre a la app (en el caso de que los borrara todos)
+  }, []);
+
   return (
     <div>
       <Card sx={{ height: 600, maxWidth: 900 /* bgcolor: 'red'  */ }}>

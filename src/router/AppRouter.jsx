@@ -13,10 +13,23 @@ export const AppRouter = () => {
   //  const authStatus = "authenticated"; // "not-authenticated"; "checking";
   //const authStatus = "not-authenticated";
   const { status, checkAuthToken } = useAuthStore();
+  /* const { startLoadingAppUsers } = useAppUsersStore();
+  const { startLoadingCourses } = useCoursesStore();
+   */
+  // console.log("pasa por AppRouter");
 
   useEffect(() => {
+    // console.log("pasa por el useEffect del AppRouter");
     checkAuthToken();
   }, []);
+
+  /*  useEffect(() => {
+    startLoadingAppUsers();
+  }, []);
+
+  useEffect(() => {
+    startLoadingCourses();
+  }, []); */
 
   if (status === "checking") {
     return <Spinner text="Loading..." />;
