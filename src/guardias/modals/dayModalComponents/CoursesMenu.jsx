@@ -31,11 +31,12 @@ export default function CoursesMenu({ list = [], initialValue, index }) {
         setCourseName(course.title);
         let newTechnicians = [...guardDayOpened.technicians];
         //console.log(newTechnicians[index]);
-        console.log(newTechnicians[index].isInClientWorkplace);
+        //console.log(          "newTechnicians[index].isInClientWorkplace: ",          newTechnicians[index].isInClientWorkplace        );
         newTechnicians[index] = {
           ...newTechnicians[index],
           courseId: course.id,
-          isInClientWorkplace: course.title === "SIN CURSO" ? false : true,
+          //isInClientWorkplace: course.title === "SIN CURSO" ? true : false,
+          isInClientWorkplace: false,
         };
         updateOpenedGuardDay({
           ...guardDayOpened,

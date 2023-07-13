@@ -10,14 +10,13 @@ import { useCoursesStore } from "../../../hooks/useCoursesStore";
 import { sortedTechnicians } from "../../../helpers/sortedTechnicians";
 import { sortedCourses } from "../../../helpers/sortedCourses";
 
-export const UsersGuardsBoxItem = ({ onDeleteItem, technician, index }) => {
+export const UsersGuardsBoxItem = ({ technician, index, onDeleteItem }) => {
   const { guardDayOpened, techniciansInGuardDay, updateOpenedGuardDay } =
     useGuardDayStore();
   const { getTeacherById } = useAppUsersStore();
   const { getCourseById } = useCoursesStore();
 
   const { courses } = useSelector((state) => state.course);
-  // const coursesGuardDay = [...sortedCourses(courses)];
 
   let initialTeacher = getTeacherById(
     guardDayOpened.technicians[index].technicianId
@@ -28,10 +27,6 @@ export const UsersGuardsBoxItem = ({ onDeleteItem, technician, index }) => {
     courses,
     guardDayOpened.technicians[index].courseId
   );
-
-  //console.log(sortedTechnicians(techniciansInGuardDay));
-  //console.log(sortedCourses(courses));
-  //console.log(technician.uniqueId);
 
   const onLabelChange = (value, name) => {
     let newTechnicians = [...guardDayOpened.technicians];
@@ -58,13 +53,8 @@ export const UsersGuardsBoxItem = ({ onDeleteItem, technician, index }) => {
       justifyContent="space-between"
       alignItems="center"
       pr={1}
-      //sx={{ border: "1px black solid" }}
     >
-      <Grid
-        item
-        md={2}
-        //sx={{ border: "1px black solid" }}
-      >
+      <Grid item md={2}>
         <TeachersMenu
           initialValue={initialTeacher}
           list={sortedTechnicians(techniciansInGuardDay)} //aquí podría haber un useMemo q se recalculara cuando cambiaran los técnicos del techniciansOut
@@ -73,19 +63,9 @@ export const UsersGuardsBoxItem = ({ onDeleteItem, technician, index }) => {
         />
       </Grid>
 
-      <Grid
-        item
-        md={7}
-        sx={
-          {
-            //background: "cyan",
-            // border: "1px black solid",
-          }
-        }
-      >
+      <Grid item md={7}>
         <CoursesMenu
           initialValue={initialCourse}
-          //list={coursesGuardDay}
           list={sortedCourses(courses)}
           name="sin curso"
           index={index}
@@ -103,18 +83,18 @@ export const UsersGuardsBoxItem = ({ onDeleteItem, technician, index }) => {
         }}
       >
         <LabelButton
-          initialValue={technician.isInClientWorkplace}
-          /* initialValue={guardDayOpened.technicians[index].isInClientWorkplace} */
+          labelValue={guardDayOpened.technicians[index].isInClientWorkplace}
           textOn="en cliente"
           textOff="en oficina"
           onLabelChange={onLabelChange}
           name="isInClientWorkplace"
+          technician={technician}
         />
       </Grid>
 
       <Grid item md={1 / 2}>
         <IconButton
-          sx={{ color: "#CF0000" /* border: "1px black solid" */ }}
+          sx={{ color: "#CF0000" }}
           onClick={() => onDeleteItem(technician.uniqueId)}
         >
           <DeleteIcon />
