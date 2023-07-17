@@ -1,12 +1,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Button, Grid, Stack, Typography } from "@mui/material";
+import { Grid, Stack } from "@mui/material";
 import { useEffect, useState } from "react";
-import Modal from "react-modal";
+//import Modal from "react-modal";
+import { Modal } from "@mui/material";
 import { useUiStore } from "../../hooks/useUiStore";
 import { useCalendarStore } from "../../hooks/useCalendarStore";
 
-import { customStyles, customStylesIsSaving } from "../../helpers";
+//import { customStyles, customStylesIsSaving } from "../../helpers";
 
 import { CheckboxesBox } from "./dayModalComponents/CheckboxesBox";
 import { UserTechniciansBox } from "./dayModalComponents/UserTechniciansBox";
@@ -20,7 +21,7 @@ import { DateBox } from "./dayModalComponents/DateBox";
 import { ButtonsBox } from "./dayModalComponents/ButtonsBox";
 import { SpinnerInModal } from "../customizedComponents";
 
-Modal.setAppElement("#root");
+////Modal.setAppElement("#root");
 
 const emptyGuardDay = {
   simpleDate: { year: 2999, month: 0, day: 0 },
@@ -137,48 +138,75 @@ export const DayModal = () => {
   return (
     <>
       <Modal
-        isOpen={isDayModalOpen}
-        onRequestClose={onCloseModal}
-        style={isSaving ? customStylesIsSaving : customStyles}
-        /* className="modal" */
-        overlayClassName="modal-fondo"
-        closeTimeoutMS={200}
-        sx={{ width: "900px" }}
+        open={isDayModalOpen}
+        onClose={onCloseModal}
+        ////isOpen={isDayModalOpen}
+        ////onRequestClose={onCloseModal}
+        //style={isSaving ? customStylesIsSaving : customStyles}
+        //className="modal"
+        //overlayClassName="modal-fondo"
+        //closeTimeoutMS={200}
+        //sx={{ width: { xs: 100, md: "900px" } }}
       >
-        {isSaving ? (
-          <SpinnerInModal text="Saving..." />
-        ) : (
-          <>
-            <form
-              aria-label="submit-form"
-              onSubmit={onSubmit}
-              className="animate__animated animate__fadeIn animate__faster"
-            >
-              <Stack>
-                <DateBox />
-
+        <Grid
+          sx={{
+            width: { xs: "100%", md: "900px" },
+            height: { xs: "100vh", md: "720px" },
+            mt: { xs: 0, md: -2 },
+            pb: { xs: 0, md: 0 },
+            borderRadius: 1,
+            bgcolor: "white",
+            position: { xs: "absolute", md: "absolute" },
+            top: { xs: "0%", md: "50%" },
+            left: { xs: "0%", md: "50%" },
+            transform: { md: "translate(-50%, -50%)" },
+            boxShadow: 24,
+            // overflow: { xs: "auto" },
+          }}
+        >
+          {isSaving ? (
+            <SpinnerInModal text="Saving..." />
+          ) : (
+            <>
+              <form
+                aria-label="submit-form"
+                onSubmit={onSubmit}
+                className="animate__animated animate__fadeIn animate__faster"
+              >
                 <Stack>
-                  <Grid container>
-                    <Grid item xs={12} md={9} p={1} sx={{ width: "700px" }}>
-                      <UsersGuardsBox />
+                  <DateBox />
+
+                  <Stack>
+                    <Grid container>
+                      <Grid
+                        item
+                        xs={12}
+                        md={9}
+                        p={1}
+                        sx={{
+                          width: { md: "700px" },
+                        }}
+                      >
+                        <UsersGuardsBox />
+                      </Grid>
+
+                      <Grid item xs={12} md={3} p={1}>
+                        <UserTechniciansBox />
+                      </Grid>
                     </Grid>
 
-                    <Grid item xs={12} md={3} p={1}>
-                      <UserTechniciansBox />
+                    <Grid p={1}>
+                      <CheckboxesBox />
                     </Grid>
-                  </Grid>
+                  </Stack>
 
-                  <Grid p={1}>
-                    <CheckboxesBox />
-                  </Grid>
+                  <ButtonsBox onCloseModal={onCloseModal} />
+                  {/*  <ButtonsBox saving={saving} onCloseModal={onCloseModal} /> */}
                 </Stack>
-
-                <ButtonsBox onCloseModal={onCloseModal} />
-                {/*  <ButtonsBox saving={saving} onCloseModal={onCloseModal} /> */}
-              </Stack>
-            </form>
-          </>
-        )}
+              </form>
+            </>
+          )}
+        </Grid>
       </Modal>
     </>
   );

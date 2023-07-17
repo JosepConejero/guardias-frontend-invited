@@ -32,13 +32,21 @@ export const MonthBox = () => {
 
   return (
     <>
-      <Grid container sx={{ borderRadius: 2, bgcolor: "maroon" }}>
-        <MonthControls
-          onPreviousMonth={onPreviousMonth}
-          onNextMonth={onNextMonth}
-          showedDate={showedDate}
-        />
-        <MonthDays showedDays={showedDays} />
+      <Grid
+        container
+        direction="column" /* sx={{ bgcolor: "green", border: 0 }} */
+      >
+        <Grid item>
+          <MonthControls
+            onPreviousMonth={onPreviousMonth}
+            onNextMonth={onNextMonth}
+            showedDate={showedDate}
+          />
+        </Grid>
+
+        <Grid item>
+          <MonthDays showedDays={showedDays} />
+        </Grid>
       </Grid>
     </>
   );

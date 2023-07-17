@@ -2,7 +2,7 @@
 import { Button, Grid, TextField } from "@mui/material";
 import { useUiStore } from "../../hooks/useUiStore";
 import Modal from "react-modal";
-import { customStyles } from "../../helpers";
+//import { customStyles } from "../../helpers";
 import { useEffect, useState } from "react";
 import { useAppUsersStore } from "../../hooks/useAppUsersStore";
 
@@ -61,9 +61,9 @@ export const AppUserNameModal = () => {
       <Modal
         isOpen={isAppUsersModalOpen}
         onRequestClose={onCloseModal}
-        style={customStyles}
-        className="modal"
-        overlayClassName="modal-fondo"
+        //style={customStyles}
+        //className="modal"
+        //overlayClassName="modal-fondo"
         closeTimeoutMS={200}
       >
         <form

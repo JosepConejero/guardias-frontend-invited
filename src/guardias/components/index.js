@@ -1,2 +1,3 @@
 export * from "./Navbar";
-export * from "./PruebasEstadisticas";
+export * from "./TechniciansOutStatistics";
+export * from "./GuardsAndCoursesStatistics";

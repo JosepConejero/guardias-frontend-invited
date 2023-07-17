@@ -53,6 +53,11 @@ export const UsersGuardsBoxItem = ({ technician, index, onDeleteItem }) => {
       justifyContent="space-between"
       alignItems="center"
       pr={1}
+      sx={{
+        border: { xs: "1px solid grey", md: "none" },
+        borderRadius: { xs: "4px", md: "none" },
+        mb: { xs: 0.4, md: 0 },
+      }}
     >
       <Grid item md={2}>
         <TeachersMenu

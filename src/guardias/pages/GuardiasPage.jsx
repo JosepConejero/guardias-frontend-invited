@@ -11,14 +11,17 @@ import {
   useCoursesStore,
 } from "../../hooks";
 import { Navbar } from "../components/Navbar";
-import { PruebasEstadisticas } from "../components/PruebasEstadisticas";
+import { TechniciansOutStatistics } from "../components/TechniciansOutStatistics";
+import { GuardsAndCoursesStatistics } from "../components/GuardsAndCoursesStatistics";
 import { MonthBox } from "../monthGuards/MonthBox";
+import { useSelector } from "react-redux";
 
 export const GuardiasPage = () => {
   const { startLoadingGuardDays } = useCalendarStore();
   const { startLoadingAppUsers } = useAppUsersStore();
   const { startLoadingCourses } = useCoursesStore();
   const { user } = useAuthStore();
+  const { showStatistics } = useSelector((state) => state.month);
 
   useEffect(() => {
     startLoadingAppUsers();
@@ -37,12 +40,13 @@ export const GuardiasPage = () => {
       <Navbar />
       <Grid
         container
-        spacing={0}
-        alignItems="flex-start"
+        //spacing={0}
+        //alignItems="flex-start"
+        alignItems="center"
         justifyContent="center"
         sx={{
-          minHeight: `100vh`,
-          backgroundColor: "yellow",
+          //minHeight: `100vh`,
+          /* backgroundColor: "yellow", */
           pt: 9,
         }}
       >
@@ -50,19 +54,26 @@ export const GuardiasPage = () => {
           item
           container
           sx={{
-            width: { sm: 1300 },
-            backgroundColor: "cyan",
-            borderRadius: 2,
+            width: {
+              sm: user.canSeeStatistics && showStatistics ? 1300 : 867,
+            },
+            // maxWidth: { sm: 1300 },
+            /*   backgroundColor: "cyan", */
+            /*  borderRadius: 2, */
           }}
         >
-          <Grid item md={2}>
-            {user.canSeeStatistics && <PruebasEstadisticas />}
+          <Grid item md={user.canSeeStatistics && showStatistics ? 2 : 0}>
+            {user.canSeeStatistics && showStatistics && (
+              <TechniciansOutStatistics />
+            )}
           </Grid>
-          <Grid item md={8}>
+          <Grid item md={user.canSeeStatistics && showStatistics ? 8 : 12}>
             <MonthBox />
           </Grid>
-          <Grid item md={2}>
-            {user.canSeeStatistics && <PruebasEstadisticas />}
+          <Grid item md={user.canSeeStatistics && showStatistics ? 2 : 0}>
+            {user.canSeeStatistics && showStatistics && (
+              <GuardsAndCoursesStatistics />
+            )}
           </Grid>
         </Grid>
       </Grid>

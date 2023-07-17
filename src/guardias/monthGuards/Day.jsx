@@ -1,8 +1,7 @@
-import { Box, Card, Grid, Typography } from "@mui/material";
+import { Box, Card, Divider, Grid, Typography } from "@mui/material";
 //import { monthNames } from "../../helpers";
 import "../../styles.css";
 import { useSelector } from "react-redux";
-//import ErrorIcon from "@mui/icons-material/Error";
 import { useGuardDayInformation } from "../../hooks/useGuardDayInformation";
 import { TechniciansLine } from "./TechniciansLine";
 import { CoursesLine } from "./CoursesLine";
@@ -19,30 +18,38 @@ export const Day = ({
   //monthNames[month]
   //  console.log(guardDayInformation);
 
-  let backgroundColour, backgroundColourHeader, borderColourBox;
+  let backgroundColour,
+    backgroundColourHeader,
+    borderColourBox,
+    borderColourCard;
 
   switch (dateCompare(year, month, day)) {
     case 0:
+      borderColourCard = "grey";
       borderColourBox = "grey";
-      backgroundColourHeader = "yellow";
-      backgroundColour = "yellow";
+      backgroundColourHeader = "#DAA520";
+      backgroundColour = "#FFD700";
       break;
     case -1:
+      borderColourCard = "grey";
       borderColourBox = "grey";
       backgroundColourHeader = "lightgrey";
       backgroundColour = "lightgrey";
       break;
     case -2:
-      borderColourBox = "black";
-      backgroundColourHeader = "grey";
-      backgroundColour = "grey";
+      borderColourCard = "grey";
+      borderColourBox = "grey";
+      backgroundColourHeader = "lightgrey";
+      backgroundColour = "lightgrey";
       break;
     case 1:
-      borderColourBox = "grey";
+      borderColourCard = "grey";
+      //borderColourBox = "grey";
       backgroundColourHeader = "lightgrey";
       backgroundColour = "white";
       break;
     default:
+      borderColourCard = "grey";
       borderColourBox = "grey";
       backgroundColourHeader = "white";
       backgroundColour = "white";
@@ -73,8 +80,9 @@ export const Day = ({
         sx={{
           width: daysInWeek === 6 ? 135 : 165,
           height: 110,
-          boxShadow: 4,
+          boxShadow: 3,
           bgcolor: backgroundColourHeader,
+          border: `1px ${borderColourCard} solid`,
         }}
         onClick={handleDayClick}
       >
@@ -99,14 +107,14 @@ export const Day = ({
           </Typography>
         </Box>
 
-        {/*  <Divider sx={{ color: "black" }} /> */}
+        <Divider sx={{ bgcolor: "grey" }} />
         {isHoliday ? (
           <Grid
             container
             sx={{
               background: "grey",
               height: "90px",
-              borderRadius: "5px",
+              //borderRadius: "5px",
               border: `1px ${borderColourBox} solid`,
             }}
             justifyContent="center"
@@ -125,10 +133,10 @@ export const Day = ({
             direction="column"
             sx={{
               height: "90px",
-              border: `1px ${borderColourBox} solid`,
-              borderRadius: "5px",
-              bgcolor: backgroundColour,
+              //borderRadius: "5px",
               position: "relative",
+              bgcolor: backgroundColour,
+              // border: `1px ${borderColourBox} solid`,
             }}
           >
             {isOneLine && (

@@ -1,4 +1,4 @@
-export const customStyles = {
+export const customStyles2 = {
   content: {
     top: "50%",
     left: "50%",
@@ -15,7 +15,7 @@ export const customStyles = {
     /* top: "50px", */
   },
 };
-export const customStylesIsSaving = {
+export const customStylesIsSaving2 = {
   content: {
     //top: "0",
     //left: "0",

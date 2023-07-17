@@ -12,7 +12,7 @@ export const DateBox = () => {
     <Grid item>
       <Typography
         sx={{
-          fontSize: "32px",
+          fontSize: { xs: "18px", md: "32px" },
           textAlign: "center",
           fontWeight: "bold",
         }}

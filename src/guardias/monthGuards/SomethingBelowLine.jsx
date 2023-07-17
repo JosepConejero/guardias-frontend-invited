@@ -34,7 +34,7 @@ export const SomethingBelowLine = ({ guardDayInformation }) => {
           position: "absolute",
           //height: "25%",
           left: 2,
-          bottom: 1,
+          bottom: 3,
         }}
       >
         <Grid item>

@@ -10,20 +10,22 @@
   height: 100vh;
 }
 
-.mes{
+/* .mes{
   color: red;
   margin-top: 80px;
-}
+} */
 
-.day-format{
+/* .day-format{
   border: 2px solid black;
   width: 100px;
   height: 100px;
-}
+} */
 
 /* Modal */
-.ReactModalPortal > div{
+/*  .ReactModalPortal > div{
   opacity: 0;
+  padding: 0px;
+  inset: 0px;
 }
 
 .ReactModalPortal .ReactModal__Overlay {
@@ -32,26 +34,27 @@
   justify-content: center;
   transition: opacity .2s ease-in-out;
   z-index: 999;
-}
 
-.modal-fondo {
+} */
+
+/* .modal-fondo {
   background-color: rgba(255, 255, 255, 0.6);
   bottom: 0;
   left: 0;
   right: 0;
   top: 0;
   position: fixed;
-}
+} */
 
-.ReactModalPortal .ReactModal__Overlay--after-open {
+/* .ReactModalPortal .ReactModal__Overlay--after-open {
   opacity: 1;
 }
 
 .ReactModalPortal .ReactModal__Overlay--before-close {
   opacity: 0;
-}
+} */
 
-.modal {
+/*.modal {
   background: white;
   border-radius: 5px;
   color: rgb(0, 0, 0);
@@ -61,4 +64,4 @@
   outline: none;
   padding: 10px;
   border: 2px solid black
-}
+} */

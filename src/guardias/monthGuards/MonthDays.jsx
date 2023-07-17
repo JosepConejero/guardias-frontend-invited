@@ -22,17 +22,23 @@ export const MonthDays = ({ showedDays }) => {
     openDayModal();
   };
 
-  /*  useEffect(() => {
-    startLoadingGuardDays();
-  }, []); */
-
   return (
-    <Grid>
+    <>
       <Grid
         container
         /*  justify-content="space-around" */
-        columns={6}
-        sx={{ bgcolor: "red", width: "auto" }}
+        //columns={6}
+        sx={{
+          /*  bgcolor: "red", */
+          /* width: "auto" */ width: {
+            // xs: "auto",
+            // sm: "auto",
+            // sm: "865",
+            //md: "auto",
+          },
+          /* border: 2, */
+        }}
+        //width: { sm: 1300 },
       >
         {showedDays.map((date, index) => {
           if (daysInWeek === 6 && !isSunday(index)) {
@@ -62,6 +68,6 @@ export const MonthDays = ({ showedDays }) => {
         })}
       </Grid>
       <DayModal />
-    </Grid>
+    </>
   );
 };

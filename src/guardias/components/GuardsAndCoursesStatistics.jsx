@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 
-export const PruebasEstadisticas = () => {
+export const GuardsAndCoursesStatistics = () => {
   return (
     <Box sx={{ border: 1, borderRadius: 2, bgcolor: "magenta" }}>
       <Typography>

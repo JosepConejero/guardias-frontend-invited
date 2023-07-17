@@ -9,9 +9,11 @@ import {
 //import Swal from "sweetalert2";
 import { useCoursesStore } from "./useCoursesStore";
 import { useAppUsersStore } from "./useAppUsersStore";
+import { resetShowStatistics } from "../store/month/monthSlice";
 
 export const useAuthStore = () => {
   const { status, user, errorMessage } = useSelector((state) => state.auth);
+  // const { resetShowStatistics } = useSelector((state) => state.month);
   const { emptyCourses } = useCoursesStore();
   const { emptyAppUsers } = useAppUsersStore();
 
@@ -117,8 +119,10 @@ export const useAuthStore = () => {
   const startLogout = () => {
     emptyCourses();
     emptyAppUsers();
+
     localStorage.clear();
     dispatch(onLogout());
+    dispatch(resetShowStatistics());
   };
 
   return {
