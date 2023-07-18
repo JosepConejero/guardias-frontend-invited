@@ -1,4 +1,4 @@
-import { Grid, IconButton } from "@mui/material";
+import { Grid, IconButton, Typography } from "@mui/material";
 import { LabelButton } from "./LabelButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useGuardDayStore } from "../../../hooks/useGuardDayStore";
@@ -49,9 +49,9 @@ export const UsersGuardsBoxItem = ({ technician, index, onDeleteItem }) => {
   return (
     <Grid
       container
-      direction="row"
-      justifyContent="space-between"
-      alignItems="center"
+      direction={{ /* xs: "column", */ md: "row" }}
+      justifyContent={{ xs: "center", md: "space-between" }}
+      alignItems={{ xs: "center", md: "center" }}
       pr={1}
       sx={{
         border: { xs: "1px solid grey", md: "none" },
@@ -59,7 +59,9 @@ export const UsersGuardsBoxItem = ({ technician, index, onDeleteItem }) => {
         mb: { xs: 0.4, md: 0 },
       }}
     >
-      <Grid item md={2}>
+      <Grid item xs={12} md={2} sx={{ textAlign: "center" }}>
+        {/*  <Typography sx={{ visibility: "hidden" }}>técnico</Typography> */}
+        {/* <Typography sx={{ md: { display: "none" } }}>técnico</Typography> */}
         <TeachersMenu
           initialValue={initialTeacher}
           list={sortedTechnicians(techniciansInGuardDay)} //aquí podría haber un useMemo q se recalculara cuando cambiaran los técnicos del techniciansOut
@@ -68,7 +70,7 @@ export const UsersGuardsBoxItem = ({ technician, index, onDeleteItem }) => {
         />
       </Grid>
 
-      <Grid item md={7}>
+      <Grid item xs={12} md={7}>
         <CoursesMenu
           initialValue={initialCourse}
           list={sortedCourses(courses)}
@@ -77,8 +79,50 @@ export const UsersGuardsBoxItem = ({ technician, index, onDeleteItem }) => {
         />
       </Grid>
 
-      <Grid
+      <Grid item xs={12} md={3}>
+        <Grid
+          container
+          justifyContent={{ xs: "space-between", md: "space-between" }}
+          alignItems={{ xs: "center", md: "center" }}
+          direction="row"
+        >
+          <Grid
+            item
+            mr={{ xs: 0, md: 2 }}
+            ml={{ xs: 2, md: 0 }}
+            mb={{ xs: 0.25, md: 0 }}
+            md={2 + 1 / 2}
+            sx={{
+              visibility:
+                !isValid(initialCourse) || initialCourse?.title === "SIN CURSO"
+                  ? "hidden"
+                  : "visible",
+            }}
+          >
+            <LabelButton
+              labelValue={guardDayOpened.technicians[index].isInClientWorkplace}
+              textOn="en cliente"
+              textOff="en oficina"
+              onLabelChange={onLabelChange}
+              name="isInClientWorkplace"
+              technician={technician}
+            />
+          </Grid>
+
+          <Grid item md={1 / 2} mr={{ xs: -1 / 2, md: 3 }}>
+            <IconButton
+              sx={{ color: "#CF0000" }}
+              onClick={() => onDeleteItem(technician.uniqueId)}
+            >
+              <DeleteIcon />
+            </IconButton>
+          </Grid>
+        </Grid>
+      </Grid>
+
+      {/* <Grid
         item
+        ml={{ xs: 2, md: 0 }}
         md={2 + 1 / 2}
         sx={{
           visibility:
@@ -104,7 +148,7 @@ export const UsersGuardsBoxItem = ({ technician, index, onDeleteItem }) => {
         >
           <DeleteIcon />
         </IconButton>
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 };

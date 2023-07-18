@@ -3,7 +3,7 @@
 import { Grid, Stack } from "@mui/material";
 import { useEffect, useState } from "react";
 //import Modal from "react-modal";
-import { Modal } from "@mui/material";
+import { Dialog } from "@mui/material";
 import { useUiStore } from "../../hooks/useUiStore";
 import { useCalendarStore } from "../../hooks/useCalendarStore";
 
@@ -135,11 +135,16 @@ export const DayModal = () => {
 
   if (!guardDayOpened) return;
 
+  /*   const mierdaputa = () => {
+    return <Grid sx={{ bgcolor: "white" }}>mierda</Grid>;
+  }; */
+
   return (
     <>
-      <Modal
+      <Dialog
         open={isDayModalOpen}
         onClose={onCloseModal}
+        //scroll="paper"
         ////isOpen={isDayModalOpen}
         ////onRequestClose={onCloseModal}
         //style={isSaving ? customStylesIsSaving : customStyles}
@@ -147,20 +152,45 @@ export const DayModal = () => {
         //overlayClassName="modal-fondo"
         //closeTimeoutMS={200}
         //sx={{ width: { xs: 100, md: "900px" } }}
+        //fullWidth
+        // PaperComponent={mierdaputa}
+        maxWidth={false}
+        fullScreen
+        sx={{
+          width: { md: "900px" },
+          height: { md: "725px" },
+          //maxWidth: "900px",
+          //borderRadius: 25,
+          //bgcolor: "green",
+          //opacity: 0.2,
+          //border: "2px black solid",
+          //borderRadius: "50px",
+          position: { md: "absolute" },
+          top: { xs: "0%", md: "50%" },
+          left: { xs: "0%", md: "50%" },
+          transform: { md: "translate(-50%, -50%)" },
+          mt: { md: -3 },
+          m: { xs: 1 },
+        }}
       >
         <Grid
           sx={{
-            width: { xs: "100%", md: "900px" },
-            height: { xs: "100vh", md: "720px" },
-            mt: { xs: 0, md: -2 },
-            pb: { xs: 0, md: 0 },
-            borderRadius: 1,
-            bgcolor: "white",
-            position: { xs: "absolute", md: "absolute" },
-            top: { xs: "0%", md: "50%" },
-            left: { xs: "0%", md: "50%" },
-            transform: { md: "translate(-50%, -50%)" },
-            boxShadow: 24,
+            //width: { xs: "100%", md: "900px" },
+            //height: { /* xs: "100vh", */ md: "720px" },
+            //bgcolor: "white",
+            //mt: { xs: 0, md: -2 },
+            my: 1,
+            mx: { md: 0.5 },
+            //bgcolor: "red",
+            //borderRadius: 25,
+            //pb: { xs: 0, md: 0 },
+            //borderRadius: 1,
+            //bgcolor: "white",
+            //position: { xs: "absolute", md: "absolute" },
+            //top: { xs: "0%", md: "50%" },
+            //left: { xs: "0%", md: "50%" },
+            //transform: { md: "translate(-50%, -50%)" },
+            //boxShadow: 24,
             // overflow: { xs: "auto" },
           }}
         >
@@ -207,7 +237,7 @@ export const DayModal = () => {
             </>
           )}
         </Grid>
-      </Modal>
+      </Dialog>
     </>
   );
 };

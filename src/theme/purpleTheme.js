@@ -24,16 +24,17 @@ export const purpleTheme = createTheme({
       main: "#ff0000",
     },
   },
-  /* components: {
+  components: {
     // Name of the component
-    FormControlLabel: {
-      styleOverrides: {
-        // Name of the slot
-        root: {
-          // Some CSS
-          fontSize: "26px",
-        },
+    MuiButtonBase: {
+      defaultProps: {
+        //disableRipple: true,
       },
     },
-  }, */
+    MuiDialog: {
+      styleOverrides: {
+        paperFullScreen: red,
+      },
+    },
+  },
 });
