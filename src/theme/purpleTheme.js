@@ -31,10 +31,10 @@ export const purpleTheme = createTheme({
         //disableRipple: true,
       },
     },
-    MuiDialog: {
+    /*  MuiDialog: {
       styleOverrides: {
         paperFullScreen: red,
       },
-    },
+    }, */
   },
 });

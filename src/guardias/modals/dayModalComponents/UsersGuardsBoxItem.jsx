@@ -1,4 +1,4 @@
-import { Grid, IconButton, Typography } from "@mui/material";
+import { Grid, IconButton } from "@mui/material";
 import { LabelButton } from "./LabelButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useGuardDayStore } from "../../../hooks/useGuardDayStore";
