@@ -22,6 +22,7 @@ export const GuardiasPage = () => {
   const { startLoadingCourses } = useCoursesStore();
   const { user } = useAuthStore();
   const { showStatistics } = useSelector((state) => state.month);
+  const { daysInWeek } = useSelector((state) => state.month);
 
   useEffect(() => {
     startLoadingAppUsers();
@@ -55,22 +56,62 @@ export const GuardiasPage = () => {
           container
           sx={{
             width: {
-              sm: user.canSeeStatistics && showStatistics ? 1300 : 867,
+              md:
+                user.canSeeStatistics && showStatistics
+                  ? daysInWeek === 5
+                    ? 1300
+                    : 1450
+                  : daysInWeek === 5
+                  ? 867
+                  : 1050,
+              //backgroundColor: "cyan",
             },
             // maxWidth: { sm: 1300 },
-            /*   backgroundColor: "cyan", */
             /*  borderRadius: 2, */
           }}
         >
-          <Grid item md={user.canSeeStatistics && showStatistics ? 2 : 0}>
+          <Grid
+            item
+            md={
+              user.canSeeStatistics && showStatistics
+                ? daysInWeek === 5
+                  ? 2
+                  : 1.7
+                : daysInWeek === 5
+                ? 0
+                : 0
+            }
+          >
             {user.canSeeStatistics && showStatistics && (
               <TechniciansOutStatistics />
             )}
           </Grid>
-          <Grid item md={user.canSeeStatistics && showStatistics ? 8 : 12}>
+          <Grid
+            item
+            md={
+              user.canSeeStatistics && showStatistics
+                ? daysInWeek === 5
+                  ? 8
+                  : 8.6
+                : daysInWeek === 5
+                ? 12
+                : 12
+            }
+          >
             <MonthBox />
           </Grid>
-          <Grid item md={user.canSeeStatistics && showStatistics ? 2 : 0}>
+          <Grid
+            item
+            md={
+              user.canSeeStatistics && showStatistics
+                ? daysInWeek === 5
+                  ? 2
+                  : 1.7
+                : daysInWeek === 5
+                ? 0
+                : 0
+            }
+          >
             {user.canSeeStatistics && showStatistics && (
               <GuardsAndCoursesStatistics />
             )}

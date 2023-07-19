@@ -1,7 +1,7 @@
 import { Box, Card, Divider, Grid, Typography } from "@mui/material";
 //import { monthNames } from "../../helpers";
 import "../../styles.css";
-import { useSelector } from "react-redux";
+//import { useSelector } from "react-redux";
 import { useGuardDayInformation } from "../../hooks/useGuardDayInformation";
 import { TechniciansLine } from "./TechniciansLine";
 import { CoursesLine } from "./CoursesLine";
@@ -14,7 +14,7 @@ export const Day = ({
   onDayClick,
   guardDayInformation,
 }) => {
-  const { daysInWeek } = useSelector((state) => state.month);
+  //const { daysInWeek } = useSelector((state) => state.month);
   //monthNames[month]
   //  console.log(guardDayInformation);
 
@@ -33,7 +33,7 @@ export const Day = ({
     case -1:
       borderColourCard = "grey";
       borderColourBox = "grey";
-      backgroundColourHeader = "lightgrey";
+      backgroundColourHeader = "#B3B3B3";
       backgroundColour = "lightgrey";
       break;
     case -2:
@@ -78,11 +78,13 @@ export const Day = ({
         variant="outlined"
         /* sx={{ width: 100, height: 110, boxShadow: 4 }} */
         sx={{
-          width: daysInWeek === 6 ? 135 : 165,
+          //width: daysInWeek === 6 ? 135 : 165,
+          width: 165,
           height: 110,
           boxShadow: 3,
           bgcolor: backgroundColourHeader,
           border: `1px ${borderColourCard} solid`,
+          mb: { xs: -2, md: 0 },
         }}
         onClick={handleDayClick}
       >

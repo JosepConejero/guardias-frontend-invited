@@ -1,12 +1,13 @@
 import { Stack, Typography } from "@mui/material";
 import { useGuardDayInformation } from "../../hooks/useGuardDayInformation";
-import { useSelector } from "react-redux";
+//import { useSelector } from "react-redux";
 
 export const CoursesLine = ({ /* offSet = 0, */ guardDayInformation }) => {
-  const { daysInWeek } = useSelector((state) => state.month);
+  //const { daysInWeek } = useSelector((state) => state.month);
   const { courseList } = useGuardDayInformation(guardDayInformation);
 
-  const fontSizeIfDaysInWeek = daysInWeek === 6 ? 11 : 14;
+  //const fontSizeIfDaysInWeek = daysInWeek === 6 ? 11 : 14;
+  const fontSizeIfDaysInWeek = 14;
 
   let coursesLine = <></>;
 
@@ -17,7 +18,8 @@ export const CoursesLine = ({ /* offSet = 0, */ guardDayInformation }) => {
         //mt={offSet}
         sx={{
           //width: "162px",
-          width: daysInWeek === 6 ? 135 : 162,
+          //width: daysInWeek === 6 ? 135 : 162,
+          width: 162,
           //  border: "1px black solid"
         }}
       >
@@ -46,7 +48,8 @@ export const CoursesLine = ({ /* offSet = 0, */ guardDayInformation }) => {
         //mt={offSet}
         sx={{
           //width: "162px",
-          width: daysInWeek === 6 ? 130 : 162,
+          //width: daysInWeek === 6 ? 130 : 162,
+          width: 162,
           //  border: "1px black solid"
         }}
       >

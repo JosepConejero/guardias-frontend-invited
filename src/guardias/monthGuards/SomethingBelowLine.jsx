@@ -12,8 +12,10 @@ export const SomethingBelowLine = ({ guardDayInformation }) => {
     isThereExtraMeeting,
   } = useGuardDayInformation(guardDayInformation);
 
-  const fontSizeIfDaysInWeek = daysInWeek === 6 ? 10 : 13;
-  const pxIfDaysInWeek = daysInWeek === 6 ? 6 / 8 : 7 / 8;
+  //const fontSizeIfDaysInWeek = daysInWeek === 6 ? 10 : 13;
+  const fontSizeIfDaysInWeek = 13;
+  //const pxIfDaysInWeek = daysInWeek === 6 ? 6 / 8 : 7 / 8;
+  const pxIfDaysInWeek = 7 / 8;
 
   return (
     <>
@@ -27,7 +29,8 @@ export const SomethingBelowLine = ({ guardDayInformation }) => {
         // pt={2}
         sx={{
           //width: "156px",
-          width: daysInWeek === 6 ? 128 : 157,
+          //width: daysInWeek === 6 ? 128 : 157,
+          width: 157,
           //width: "100%",
           //border: "1px black solid",
           //mt: 3,
