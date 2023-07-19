@@ -1,9 +1,9 @@
 import { Grid, Typography } from "@mui/material";
 import { useGuardDayInformation } from "../../hooks/useGuardDayInformation";
-import { useSelector } from "react-redux";
+//import { useSelector } from "react-redux";
 
 export const SomethingBelowLine = ({ guardDayInformation }) => {
-  const { daysInWeek } = useSelector((state) => state.month);
+  //const { daysInWeek } = useSelector((state) => state.month);
   const {
     isThereMoreInformation,
     isSomeExternal,
