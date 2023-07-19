@@ -74,7 +74,10 @@ export const ListItemCourses = ({ course }) => {
         /* checked={checkboxChecked} */
         name="frequent"
       />
-      <IconButton onClick={onDeleteItem}>
+      <IconButton
+        onClick={onDeleteItem}
+        sx={{ visibility: course.title === "SIN CURSO" ? "hidden" : "" }}
+      >
         <DeleteIcon />
       </IconButton>
     </ListItem>

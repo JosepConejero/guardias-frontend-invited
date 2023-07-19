@@ -39,8 +39,8 @@ export const Day = ({
     case -2:
       borderColourCard = "grey";
       borderColourBox = "grey";
-      backgroundColourHeader = "lightgrey";
-      backgroundColour = "lightgrey";
+      backgroundColourHeader = "#B3B3B3";
+      backgroundColour = "#B3B3B3"; //lightgrey";
       break;
     case 1:
       borderColourCard = "grey";

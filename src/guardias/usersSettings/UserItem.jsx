@@ -334,7 +334,13 @@ export default function UserItem({ appUser }) {
           alignSelf: "center",
         }}
       >
-        <IconButton sx={{ color: "red" }} onClick={onDeleteItem}>
+        <IconButton
+          sx={{
+            color: "red",
+            display: appUser.shortName === "JOSEP" ? "none" : "",
+          }}
+          onClick={onDeleteItem}
+        >
           <DeleteIcon />
         </IconButton>
       </Grid>
