@@ -32,9 +32,9 @@ export const MonthControls = ({ onNextMonth, onPreviousMonth, showedDate }) => {
 
   return (
     <Grid container direction="row">
-      <Grid item md={2}></Grid>
+      <Grid item xs={0} md={2}></Grid>
 
-      <Grid item md={8}>
+      <Grid item xs={10} md={8} sx={{ ml: { xs: -1.5, md: 0 } }}>
         <Stack direction="row" alignItems="center" justifyContent="center">
           <Grid>
             <IconButton onClick={onPreviousMonth}>
@@ -56,7 +56,7 @@ export const MonthControls = ({ onNextMonth, onPreviousMonth, showedDate }) => {
         </Stack>
       </Grid>
 
-      <Grid item md={2}>
+      <Grid item xs={2} md={2}>
         <Stack direction="row" justifyContent="flex-end" sx={{ border: 0 }}>
           <IconButton onClick={onClickFiveOrSevenDays}>
             {daysInWeek === 6 ? (
@@ -66,7 +66,10 @@ export const MonthControls = ({ onNextMonth, onPreviousMonth, showedDate }) => {
             )}
           </IconButton>
           {user.canSeeStatistics && (
-            <IconButton onClick={onShowStatistics}>
+            <IconButton
+              sx={{ mr: { xs: 1, md: 0 } }}
+              onClick={onShowStatistics}
+            >
               <AssessmentIcon />
             </IconButton>
           )}

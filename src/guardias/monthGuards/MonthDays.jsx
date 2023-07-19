@@ -26,17 +26,18 @@ export const MonthDays = ({ showedDays }) => {
     <>
       <Grid
         container
-        /*  justify-content="space-around" */
+        /*  justify-content="center" */
         //columns={6}
+        alignItems="center"
+        justifyContent="center"
+        //spacing={0.5}
+        spacing={{ xs: 2, md: 0 }}
         sx={{
-          /*  bgcolor: "red", */
-          /* width: "auto" */ width: {
-            // xs: "auto",
-            // sm: "auto",
-            // sm: "865",
-            //md: "auto",
-          },
-          /* border: 2, */
+          maxWidth: daysInWeek === 6 ? "1300px" : "900px",
+          margin: "auto",
+
+          //width: 'auto',
+          //bgcolor: "green",
         }}
         //width: { sm: 1300 },
       >

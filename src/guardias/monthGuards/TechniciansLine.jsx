@@ -17,7 +17,8 @@ export const TechniciansLine = ({
   let firstGuardTechnician = {};
   let secondGuardTechnician = {};
 
-  const fontSizeIfDaysInWeek = daysInWeek === 6 ? 11 : 14;
+  //const fontSizeIfDaysInWeek = daysInWeek === 6 ? 11 : 14;
+  const fontSizeIfDaysInWeek = 14;
 
   let techniciansLine = <></>;
 
@@ -27,7 +28,8 @@ export const TechniciansLine = ({
       <Stack
         direction="row"
         mt={offSet}
-        width={daysInWeek === 6 ? "auto" : "auto"}
+        //width={daysInWeek === 6 ? "auto" : "auto"}
+        width={"auto"}
         sx={{
           textAlign: "center",
           overflow: "hidden",
@@ -95,7 +97,8 @@ export const TechniciansLine = ({
       <Stack direction="row">
         <Typography
           mt={offSet}
-          width={daysInWeek === 6 ? "auto" : "auto"}
+          //width={daysInWeek === 6 ? "auto" : "auto"}
+          width={"auto"}
           sx={{
             fontSize: fontSizeIfDaysInWeek,
             px: 1,
