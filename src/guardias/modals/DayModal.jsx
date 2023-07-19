@@ -79,11 +79,13 @@ export const DayModal = () => {
       await startSavingGuardDay(guardDayOpened);
       onCloseModal();
     } else {
-      Swal.fire(
-        "Los nombres de los técnicos/formadores de guardia no pueden estar vacíos.",
-        "Por favor, modifica esto antes de guardar",
-        "error"
-      );
+      Swal.fire({
+        title:
+          "Los nombres de los técnicos/formadores de guardia no pueden estar vacíos.",
+        text: "Por favor, modifica esto antes de guardar",
+        target: document.getElementById("dialog-guard-day"), //target: document.getElementById('dialog'),
+        icon: "error",
+      });
     }
     ////setFormSubmitted(false);
   };
@@ -144,6 +146,7 @@ export const DayModal = () => {
       <Dialog
         open={isDayModalOpen}
         onClose={onCloseModal}
+        id="dialog-guard-day"
         //scroll="paper"
         ////isOpen={isDayModalOpen}
         ////onRequestClose={onCloseModal}
