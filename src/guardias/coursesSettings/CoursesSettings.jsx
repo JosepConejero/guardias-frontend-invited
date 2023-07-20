@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { IconButton, List, ListSubheader } from "@mui/material";
+import { Grid, IconButton, Stack, Typography } from "@mui/material";
 import { ListItemCourses } from "./ListItemCourses";
 import { useCoursesStore } from "../../hooks/useCoursesStore";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -22,11 +22,93 @@ export const CoursesSettings = () => {
 
   return (
     <>
-      <List
+      <Grid
+        container
+        //justifyContent="center"
+        // alignItems="center"
+        direction="column"
+        sx={{
+          width: { md: "600px" },
+        }}
+      >
+        <Grid item xs={12} sx={{ mr: 1 }}>
+          <Grid
+            container
+            justifyContent="center"
+            alignItems="center"
+            direction="row"
+            sx={{ border: 1, borderRadius: 2, color: "white", bgcolor: "grey" }}
+          >
+            <Grid
+              item
+              md={8.4}
+              //sx={{ border: 1 }}
+            >
+              <Typography sx={{ fontWeight: "bold", ml: 2, fontSize: "14px" }}>
+                Curso
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              md={1}
+              //sx={{ border: 1 }}
+            >
+              <Typography
+                sx={{
+                  fontWeight: "bold",
+                  //ml: 1,
+                  fontSize: "14px",
+                  textAlign: "center",
+                }}
+              >
+                FLC
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              md={1.8}
+              //sx={{ border: 1 }}
+            >
+              <Typography
+                sx={{
+                  fontWeight: "bold",
+                  /* ml: 1, */ fontSize: "14px",
+                  textAlign: "center",
+                }}
+              >
+                Frecuente
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              md={0.8}
+              //ml={-3}
+              //sx={{ border: 1 }}
+            >
+              <IconButton onClick={onAddCourse}>
+                <AddCircleIcon sx={{ color: "white" }} />
+              </IconButton>
+            </Grid>
+          </Grid>
+        </Grid>
+
+        <Grid item>
+          <Stack>
+            {courses.map(
+              (course) =>
+                course.title !== "SIN CURSO" && (
+                  <ListItemCourses key={course.id} course={course} />
+                )
+            )}
+          </Stack>
+        </Grid>
+      </Grid>
+
+      {/* <List
         sx={{
           width: "100%",
           maxWidth: 560,
-          /* bgcolor: "red", */
+          // bgcolor: "red", 
           m: 0,
           p: 0,
         }}
@@ -43,10 +125,13 @@ export const CoursesSettings = () => {
           </>
         }
       >
-        {courses.map((course) => (
-          <ListItemCourses key={course.id} course={course} />
-        ))}
-      </List>
+        {courses.map(
+          (course) =>
+            course.title !== "SIN CURSO" && (
+              <ListItemCourses key={course.id} course={course} />
+            )
+        )}
+      </List> */}
       <CourseNameModal />
     </>
   );

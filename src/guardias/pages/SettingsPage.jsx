@@ -51,7 +51,7 @@ export const SettingsPage = () => {
         justifyContent="center"
         sx={{
           minHeight: `100vh`,
-          backgroundColor: "yellow",
+          //backgroundColor: "yellow",
           pt: 9,
         }}
       >
@@ -60,30 +60,66 @@ export const SettingsPage = () => {
           container
           sx={{
             width: { sm: 1000 },
-            backgroundColor: "cyan",
+            //backgroundColor: "cyan",
             borderRadius: 2,
+            border: 1,
           }}
         >
           <Box sx={{ width: "100%" }}>
-            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+            <Box
+              /* alignItems="center"
+              justifyContent="center" */
+              sx={{
+                borderBottom: 1,
+                borderColor: "divider",
+                //  bgcolor: "red"
+              }}
+            >
               <Tabs
                 value={value}
                 onChange={handleChange}
                 aria-label="basic tabs example"
+                centered
               >
-                <Tab label="Cambie contraseña" {...a11yProps(0)} />
-                <Tab label="Usuarios" {...a11yProps(1)} />
-                <Tab label="Cursos" {...a11yProps(2)} />
+                <Tab label="CONTRASEÑA" {...a11yProps(0)} />
+                <Tab
+                  label="USUARIOS"
+                  {...a11yProps(1)}
+                  // disabled
+                  //sx={{ visibility: "hidden" }}
+                />
+                <Tab label="CURSOS" {...a11yProps(2)} /* disabled */ />
               </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
-              <Button variant="outlined">Cambie la contraseña</Button>
+              <Grid
+                container
+                justifyContent="center"
+                alignItems="center"
+                //sx={{}}
+              >
+                <Button variant="outlined">Cambie la contraseña</Button>
+              </Grid>
             </TabPanel>
             <TabPanel value={value} index={1}>
-              <UsersSettings />
+              <Grid
+                container
+                justifyContent="center"
+                alignItems="center"
+                //sx={{}}
+              >
+                <UsersSettings />
+              </Grid>
             </TabPanel>
-            <TabPanel value={value} index={2}>
-              <CoursesSettings />
+            <TabPanel value={value} index={2} sx={{ boder: 1 }}>
+              <Grid
+                container
+                justifyContent="center"
+                alignItems="center"
+                //sx={{}}
+              >
+                <CoursesSettings />
+              </Grid>
             </TabPanel>
           </Box>
 

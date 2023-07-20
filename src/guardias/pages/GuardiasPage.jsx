@@ -49,11 +49,13 @@ export const GuardiasPage = () => {
           //minHeight: `100vh`,
           /* backgroundColor: "yellow", */
           pt: 9,
+          //pb: 3,
         }}
       >
         <Grid
           item
           container
+          direction={{ xs: "column", md: "row" }}
           sx={{
             width: {
               md:
@@ -66,6 +68,7 @@ export const GuardiasPage = () => {
                   : 1050,
               //backgroundColor: "cyan",
             },
+
             // maxWidth: { sm: 1300 },
             /*  borderRadius: 2, */
           }}
@@ -81,12 +84,15 @@ export const GuardiasPage = () => {
                 ? 0
                 : 0
             }
+            sx={{ pt: { md: 5.5 } }}
           >
             {user.canSeeStatistics && showStatistics && (
               <TechniciansOutStatistics />
             )}
           </Grid>
+
           <Grid
+            sx={{ /* border: 1, */ pb: 2.5 }}
             item
             md={
               user.canSeeStatistics && showStatistics
@@ -100,6 +106,7 @@ export const GuardiasPage = () => {
           >
             <MonthBox />
           </Grid>
+
           <Grid
             item
             md={
@@ -111,6 +118,7 @@ export const GuardiasPage = () => {
                 ? 0
                 : 0
             }
+            sx={{ pt: { md: 5.5 } }}
           >
             {user.canSeeStatistics && showStatistics && (
               <GuardsAndCoursesStatistics />

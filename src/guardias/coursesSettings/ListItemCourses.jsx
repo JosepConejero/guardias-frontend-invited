@@ -10,14 +10,8 @@ export const ListItemCourses = ({ course }) => {
   const { openCourseModal } = useUiStore();
   const [flcChecked, setFlcChecked] = useState(true);
   const [frequentChecked, setFrequentChecked] = useState(true);
-  const {
-    startDeletingCourse,
-    setActiveCourse,
-    startSavingCourse,
-    // handleCheckboxChange,
-    // setCheckboxChecked,
-    // checkboxChecked,
-  } = useCoursesStore();
+  const { startDeletingCourse, setActiveCourse, startSavingCourse } =
+    useCoursesStore();
   //const { checkboxValues } = useCheckbox(course); ////
 
   const handleTitleChange = () => {
@@ -48,17 +42,21 @@ export const ListItemCourses = ({ course }) => {
   };
 
   useEffect(() => {
-    // setCheckboxChecked(course.flc);
-    // setCheckboxChecked(course.frequent);
     setFlcChecked(course.flc);
     setFrequentChecked(course.frequent);
   }, []);
 
   return (
-    <ListItem>
-      <ListItemText onDoubleClick={handleTitleChange}>
-        {course.title}
-      </ListItemText>
+    <ListItem
+      sx={{
+        py: 0 /* py: -2 */,
+        border: 1,
+        borderRadius: 2,
+        color: "grey",
+        mb: 0.5,
+      }}
+    >
+      <ListItemText onClick={handleTitleChange}>{course.title}</ListItemText>
       <Checkbox
         /* sx={{ bgcolor: "red" }} */
         onChange={handleFlcChange}
@@ -66,6 +64,7 @@ export const ListItemCourses = ({ course }) => {
         checked={flcChecked}
         /*  checked={checkboxChecked} */
         name="flc"
+        disabled
       />
       <Checkbox
         onChange={handleFrequentChange}
@@ -73,10 +72,12 @@ export const ListItemCourses = ({ course }) => {
         checked={frequentChecked}
         /* checked={checkboxChecked} */
         name="frequent"
+        disabled
       />
       <IconButton
         onClick={onDeleteItem}
-        sx={{ visibility: course.title === "SIN CURSO" ? "hidden" : "" }}
+        // sx={{ visibility: course.title === "SIN CURSO" ? "hidden" : "" }}
+        disabled
       >
         <DeleteIcon />
       </IconButton>
