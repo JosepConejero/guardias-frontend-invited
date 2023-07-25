@@ -28,30 +28,60 @@ export const CoursesSettings = () => {
         // alignItems="center"
         direction="column"
         sx={{
-          width: { md: "600px" },
+          width: {
+            //xs: "410px",
+            //md: "600px",
+          },
+          //border: "1px red solid",
         }}
       >
-        <Grid item xs={12} sx={{ mr: 1 }}>
+        <Grid
+          item /*  xs={12} */
+          sx={
+            {
+              //  xs: { mx: 2 },
+              //mr: 0,
+            }
+          }
+        >
           <Grid
             container
             justifyContent="center"
             alignItems="center"
             direction="row"
-            sx={{ border: 1, borderRadius: 2, color: "white", bgcolor: "grey" }}
+            sx={{
+              //border: 1,
+              borderRadius: 2,
+              //color: "white",
+              bgcolor: "lightgrey",
+            }}
           >
             <Grid
               item
+              xs={8}
               md={8.4}
-              //sx={{ border: 1 }}
+              sx={
+                {
+                  //border: 1
+                }
+              }
             >
-              <Typography sx={{ fontWeight: "bold", ml: 2, fontSize: "14px" }}>
+              <Typography
+                sx={{ fontWeight: "bold", ml: 1.5, fontSize: "14px" }}
+              >
                 Curso
               </Typography>
             </Grid>
+
             <Grid
               item
+              xs={1.5}
               md={1}
-              //sx={{ border: 1 }}
+              sx={
+                {
+                  //border: 1
+                }
+              }
             >
               <Typography
                 sx={{
@@ -64,29 +94,73 @@ export const CoursesSettings = () => {
                 FLC
               </Typography>
             </Grid>
+
             <Grid
               item
+              xs={1.5}
               md={1.8}
-              //sx={{ border: 1 }}
+              sx={
+                {
+                  //border: 1
+                }
+              }
             >
               <Typography
                 sx={{
                   fontWeight: "bold",
-                  /* ml: 1, */ fontSize: "14px",
+                  //ml: 0,
+                  fontSize: "14px",
                   textAlign: "center",
+                  overflow: { xs: "hidden" },
+                  whiteSpace: { xs: "nowrap" },
+                  textOverflow: { xs: "ellipsis" },
                 }}
               >
                 Frecuente
               </Typography>
             </Grid>
+
             <Grid
               item
+              xs={1}
               md={0.8}
-              //ml={-3}
-              //sx={{ border: 1 }}
+              //pr={3}
+              //sx={{ border: 1, p: 0 }}
+              //sx={{ pr: 2 }}
+              sx={{
+                //color: "white"
+                //pr: 0.5,
+                // border: 1,
+                //"& .MuiButtonBase-root": { padding: 0 },
+                "& .MuiIconButton-root": {
+                  pl: { xs: "2px", md: "8px" },
+                  py: "8px",
+                },
+              }}
             >
-              <IconButton onClick={onAddCourse}>
-                <AddCircleIcon sx={{ color: "white" }} />
+              <IconButton
+                onClick={onAddCourse}
+                sx={
+                  {
+                    //color: "white"
+                    //pr: 0.5,
+                    // border: 1,
+                    // "& .MuiButtonBase-root": { padding: 0 },
+                    // "& .MuiIconButton-root": { padding: 0 },
+                  }
+                }
+              >
+                <AddCircleIcon
+                  sx={
+                    {
+                      //color: "white"
+                      //pr: 0.5,
+                      // border: 1,
+                      // "& .MuiButtonBase-root": { padding: 0 },
+                      // "& .MuiIconButton-root": { padding: 0 },
+                    }
+                  }
+                />
               </IconButton>
             </Grid>
           </Grid>
@@ -104,34 +178,6 @@ export const CoursesSettings = () => {
         </Grid>
       </Grid>
 
-      {/* <List
-        sx={{
-          width: "100%",
-          maxWidth: 560,
-          // bgcolor: "red", 
-          m: 0,
-          p: 0,
-        }}
-        subheader={
-          <>
-            <ListSubheader>
-              <span>Curso </span>
-              <span> FLC </span>
-              <span> frequent</span>
-              <IconButton onClick={onAddCourse}>
-                <AddCircleIcon />
-              </IconButton>
-            </ListSubheader>
-          </>
-        }
-      >
-        {courses.map(
-          (course) =>
-            course.title !== "SIN CURSO" && (
-              <ListItemCourses key={course.id} course={course} />
-            )
-        )}
-      </List> */}
       <CourseNameModal />
     </>
   );

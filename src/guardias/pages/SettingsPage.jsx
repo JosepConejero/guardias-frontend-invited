@@ -53,26 +53,44 @@ export const SettingsPage = () => {
           minHeight: `100vh`,
           //backgroundColor: "yellow",
           pt: 9,
+          px: { xs: 1, md: 0 },
+          pb: { xs: 1, md: 0 },
         }}
       >
         <Grid
           item
           container
           sx={{
-            width: { sm: 1000 },
+            width: {
+              xs: "100%",
+              md:
+                value === 0
+                  ? 400
+                  : value === 1
+                  ? 1000
+                  : value === 2
+                  ? 650
+                  : 1000,
+            },
             //backgroundColor: "cyan",
             borderRadius: 2,
-            border: 1,
+            border: "1px lightgrey solid",
           }}
         >
-          <Box sx={{ width: "100%" }}>
+          <Box
+            sx={{
+              width: "100%",
+              //bgcolor: "green"
+              "& .MuiBox-root": { padding: "0px" },
+            }}
+          >
             <Box
               /* alignItems="center"
               justifyContent="center" */
               sx={{
                 borderBottom: 1,
                 borderColor: "divider",
-                //  bgcolor: "red"
+                // bgcolor: "red",
               }}
             >
               <Tabs
@@ -80,6 +98,7 @@ export const SettingsPage = () => {
                 onChange={handleChange}
                 aria-label="basic tabs example"
                 centered
+                sx={{}}
               >
                 <Tab label="CONTRASEÑA" {...a11yProps(0)} />
                 <Tab
@@ -96,7 +115,10 @@ export const SettingsPage = () => {
                 container
                 justifyContent="center"
                 alignItems="center"
-                //sx={{}}
+                sx={{
+                  //bgcolor: "red",
+                  padding: "10px",
+                }}
               >
                 <Button variant="outlined">Cambie la contraseña</Button>
               </Grid>
@@ -106,36 +128,55 @@ export const SettingsPage = () => {
                 container
                 justifyContent="center"
                 alignItems="center"
-                //sx={{}}
+                sx={{
+                  //bgcolor: "red",
+                  padding: "10px",
+                }}
               >
                 <UsersSettings />
               </Grid>
             </TabPanel>
-            <TabPanel value={value} index={2} sx={{ boder: 1 }}>
+            <TabPanel
+              value={value}
+              index={2}
+              sx={
+                {
+                  // "&. MuiBox-root": { padding: "0px" },
+                  // "&. MuiGrid-container": { padding: "0px" },
+                  // "&.MuiGrid-root": { padding: "0px" },
+                  // "&. MuiGrid-item": { padding: "0px" },
+                  // "& .MuiTab-root": { padding: "0px" },
+                  //border: "10px red solid",
+                }
+              }
+            >
               <Grid
                 container
                 justifyContent="center"
                 alignItems="center"
-                //sx={{}}
+                sx={{
+                  //bgcolor: "red",
+                  padding: "10px",
+                }}
               >
                 <CoursesSettings />
               </Grid>
             </TabPanel>
           </Box>
-
-          {/* <Typography>Cambio de contraseña</Typography> */}
-
-          <Grid item md={2}>
-            {/*  <PruebasEstadisticas /> */}
-          </Grid>
-          <Grid item md={8}>
-            {/*  <MonthBox /> */}
-          </Grid>
-          <Grid item md={2}>
-            {/*  <PruebasEstadisticas /> */}
-          </Grid>
         </Grid>
       </Grid>
     </>
   );
 };
+
+//   <Typography>Cambio de contraseña</Typography>
+
+//  <Grid item md={2}>
+//    <PruebasEstadisticas />
+// </Grid>
+// <Grid item md={8}>
+//    <MonthBox />
+// </Grid>
+// <Grid item md={2}>
+//    <PruebasEstadisticas />
+// </Grid>

@@ -14,6 +14,7 @@ export const ButtonsBox = ({ /*  isSaving, */ onCloseModal }) => {
             "&:hover": {
               backgroundColor: "#800000",
             },
+            mr: 2,
           }}
         >
           CANCELAR
