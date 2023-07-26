@@ -51,10 +51,10 @@ export const SettingsPage = () => {
         justifyContent="center"
         sx={{
           minHeight: `100vh`,
-          //backgroundColor: "yellow",
           pt: 9,
+          //pb: 1,
           px: { xs: 1, md: 0 },
-          pb: { xs: 1, md: 0 },
+          pb: 1,
         }}
       >
         <Grid
@@ -68,12 +68,11 @@ export const SettingsPage = () => {
                 value === 0
                   ? 400
                   : value === 1
-                  ? 1000
+                  ? 950
                   : value === 2
                   ? 650
                   : 1000,
             },
-            //backgroundColor: "cyan",
             borderRadius: 2,
             border: "1px lightgrey solid",
           }}
@@ -81,17 +80,13 @@ export const SettingsPage = () => {
           <Box
             sx={{
               width: "100%",
-              //bgcolor: "green"
               "& .MuiBox-root": { padding: "0px" },
             }}
           >
             <Box
-              /* alignItems="center"
-              justifyContent="center" */
               sx={{
                 borderBottom: 1,
                 borderColor: "divider",
-                // bgcolor: "red",
               }}
             >
               <Tabs
@@ -99,7 +94,6 @@ export const SettingsPage = () => {
                 onChange={handleChange}
                 aria-label="basic tabs example"
                 centered
-                sx={{}}
               >
                 <Tab label="CONTRASEÑA" {...a11yProps(0)} />
                 <Tab
@@ -108,7 +102,7 @@ export const SettingsPage = () => {
                   // disabled
                   //sx={{ visibility: "hidden" }}
                 />
-                <Tab label="CURSOS" {...a11yProps(2)} /* disabled */ />
+                <Tab label="CURSOS" {...a11yProps(2)} />
               </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
@@ -117,7 +111,6 @@ export const SettingsPage = () => {
                 justifyContent="center"
                 alignItems="center"
                 sx={{
-                  //bgcolor: "red",
                   padding: "10px",
                 }}
               >
@@ -130,7 +123,6 @@ export const SettingsPage = () => {
                 justifyContent="center"
                 alignItems="center"
                 sx={{
-                  //bgcolor: "red",
                   padding: "10px",
                 }}
               >
@@ -156,7 +148,6 @@ export const SettingsPage = () => {
                 justifyContent="center"
                 alignItems="center"
                 sx={{
-                  //bgcolor: "red",
                   padding: "10px",
                 }}
               >

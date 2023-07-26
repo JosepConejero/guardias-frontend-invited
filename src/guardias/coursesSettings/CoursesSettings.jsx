@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Grid, IconButton, Stack, Typography } from "@mui/material";
+import { Grid, IconButton, Stack, Tooltip, Typography } from "@mui/material";
 import { ListItemCourses } from "./ListItemCourses";
 import { useCoursesStore } from "../../hooks/useCoursesStore";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -24,28 +24,8 @@ export const CoursesSettings = () => {
 
   return (
     <>
-      <Grid
-        container
-        //justifyContent="center"
-        // alignItems="center"
-        direction="column"
-        sx={{
-          width: {
-            //xs: "410px",
-            //md: "600px",
-          },
-          //border: "1px red solid",
-        }}
-      >
-        <Grid
-          item /*  xs={12} */
-          sx={
-            {
-              //  xs: { mx: 2 },
-              //mr: 0,
-            }
-          }
-        >
+      <Grid container direction="column">
+        <Grid item>
           <Grid
             container
             justifyContent="center"
@@ -58,68 +38,53 @@ export const CoursesSettings = () => {
               bgcolor: "lightgrey",
             }}
           >
-            <Grid
-              item
-              xs={8}
-              md={8.4}
-              sx={
-                {
-                  //border: 1
-                }
-              }
-            >
-              <Typography
-                sx={{ fontWeight: "bold", ml: 1.5, fontSize: "14px" }}
+            <Grid item xs={8} md={8.4}>
+              <Tooltip
+                title="Nombre del curso"
+                arrow /* placement="bottom-start" */
               >
-                Curso
-              </Typography>
+                <Typography
+                  sx={{ fontWeight: "bold", ml: 1.5, fontSize: "14px" }}
+                >
+                  Curso
+                </Typography>
+              </Tooltip>
             </Grid>
 
-            <Grid
-              item
-              xs={1.5}
-              md={1}
-              sx={
-                {
-                  //border: 1
-                }
-              }
-            >
-              <Typography
-                sx={{
-                  fontWeight: "bold",
-                  //ml: 1,
-                  fontSize: "14px",
-                  textAlign: "center",
-                }}
-              >
-                FLC
-              </Typography>
+            <Grid item xs={1.5} md={1}>
+              <Tooltip title="Indica si es un curso de la FLC" arrow>
+                <Typography
+                  sx={{
+                    fontWeight: "bold",
+                    //ml: 1,
+                    fontSize: "14px",
+                    textAlign: "center",
+                  }}
+                >
+                  FLC
+                </Typography>
+              </Tooltip>
             </Grid>
 
-            <Grid
-              item
-              xs={1.5}
-              md={1.8}
-              sx={
-                {
-                  //border: 1
-                }
-              }
-            >
-              <Typography
-                sx={{
-                  fontWeight: "bold",
-                  //ml: 0,
-                  fontSize: "14px",
-                  textAlign: "center",
-                  overflow: { xs: "hidden" },
-                  whiteSpace: { xs: "nowrap" },
-                  textOverflow: { xs: "ellipsis" },
-                }}
+            <Grid item xs={1.5} md={1.8}>
+              <Tooltip
+                title="Indica si un curso se imparte con frecuencia"
+                arrow
               >
-                Frecuente
-              </Typography>
+                <Typography
+                  sx={{
+                    fontWeight: "bold",
+                    //ml: 0,
+                    fontSize: "14px",
+                    textAlign: "center",
+                    overflow: { xs: "hidden" },
+                    whiteSpace: { xs: "nowrap" },
+                    textOverflow: { xs: "ellipsis" },
+                  }}
+                >
+                  Frecuente
+                </Typography>
+              </Tooltip>
             </Grid>
 
             <Grid
@@ -140,29 +105,31 @@ export const CoursesSettings = () => {
                 },
               }}
             >
-              <IconButton
-                onClick={onAddCourse}
-                disabled={user.isDataModifier ? false : true}
-                sx={{
-                  visibility: user.isDataModifier ? "" : "hidden",
-                  //color: "white"
-                  //pr: 0.5,
-                  // border: 1,
-                  // "& .MuiButtonBase-root": { padding: 0 },
-                  // "& .MuiIconButton-root": { padding: 0 },
-                }}
-              >
-                <AddCircleIcon
+              <Tooltip title="Añade un curso" arrow>
+                <IconButton
+                  onClick={onAddCourse}
+                  disabled={user.isDataModifier ? false : true}
                   sx={{
-                    color: user.isDataModifier ? "primary.main" : "grey",
+                    visibility: user.isDataModifier ? "" : "hidden",
                     //color: "white"
                     //pr: 0.5,
                     // border: 1,
                     // "& .MuiButtonBase-root": { padding: 0 },
                     // "& .MuiIconButton-root": { padding: 0 },
                   }}
-                />
-              </IconButton>
+                >
+                  <AddCircleIcon
+                    sx={{
+                      color: user.isDataModifier ? "primary.main" : "grey",
+                      //color: "white"
+                      //pr: 0.5,
+                      // border: 1,
+                      // "& .MuiButtonBase-root": { padding: 0 },
+                      // "& .MuiIconButton-root": { padding: 0 },
+                    }}
+                  />
+                </IconButton>
+              </Tooltip>
             </Grid>
           </Grid>
         </Grid>

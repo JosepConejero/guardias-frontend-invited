@@ -16,7 +16,7 @@ export const ListItemCourses = ({ course }) => {
 
   //const { checkboxValues } = useCheckbox(course); ////
 
-  const handleTitleChange = () => {
+  const handleCourseChange = () => {
     if (user.isDataModifier) {
       setActiveCourse(course);
       openCourseModal();
@@ -91,6 +91,7 @@ export const ListItemCourses = ({ course }) => {
             item
             xs={8}
             md={8}
+            onClick={handleCourseChange}
             sx={
               {
                 //border: 1,
@@ -107,7 +108,6 @@ export const ListItemCourses = ({ course }) => {
                 whiteSpace: { md: "nowrap" },
                 textOverflow: { md: "ellipsis" },
               }}
-              onClick={handleTitleChange}
             >
               {course.title}
             </Typography>
@@ -117,6 +117,7 @@ export const ListItemCourses = ({ course }) => {
             item
             xs={1.5}
             md={1.5}
+            onClick={handleCourseChange}
             sx={{
               pl: { xs: 0, md: 1.5 },
               //border: 1
@@ -136,6 +137,7 @@ export const ListItemCourses = ({ course }) => {
             item
             xs={1.5}
             md={1.5}
+            onClick={handleCourseChange}
             sx={
               {
                 //pl: { xs: 0, md: 0 },
@@ -171,7 +173,7 @@ export const ListItemCourses = ({ course }) => {
               //sx={{ visibility: course.title === "SIN CURSO" ? "hidden" : "" }}
               disabled={user.isDataModifier ? false : true}
               sx={{
-                color: "red",
+                color: "#CF0000",
                 visibility: user.isDataModifier ? "" : "hidden",
               }}
             >

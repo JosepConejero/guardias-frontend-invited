@@ -10,6 +10,11 @@
   height: 100vh;
 }
 
+.app-users-label {
+  color: black;
+  font-weight: lighter;
+}
+
 /* .mes{
   color: red;
   margin-top: 80px;

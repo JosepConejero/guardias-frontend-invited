@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Card, Divider } from "@mui/material";
+import { Grid, Stack } from "@mui/material";
 import { HeaderItem } from "./HeaderItem";
 import UserItem from "./UserItem";
 import { useAppUsersStore } from "../../hooks/useAppUsersStore";
@@ -15,23 +15,41 @@ export default function UsersBox() {
 
   return (
     <div>
-      <Card sx={{ height: 600, maxWidth: 900 /* bgcolor: 'red'  */ }}>
-        <HeaderItem />
-        <Divider /* sx={{ display: 'none' }} */ />
-        <Card
-          sx={{
-            height: 600,
-            maxWidth: 900,
-            /* bgcolor: 'blue', */ b: 0,
-            m: 0,
-            p: 0,
-          }}
-        >
+      {/*  <Card
+        sx={{
+          //  height: 600,
+          maxWidth: 900,
+          // bgcolor: 'red'
+        }}
+      > */}
+      <HeaderItem />
+      {/* <Divider
+        // sx={{ display: 'none' }}
+        /> */}
+
+      <Grid>
+        <Stack>
           {appUsers.map((appUser) => (
             <UserItem key={appUser.id} appUser={appUser} />
           ))}
-        </Card>
-      </Card>
+        </Stack>
+      </Grid>
+
+      {/* <Card
+        sx={{
+          height: 600,
+          maxWidth: 800,
+          // bgcolor: 'blue', 
+           b: 0,
+          m: 0,
+          p: 0,
+        }}
+      >
+        {appUsers.map((appUser) => (
+          <UserItem key={appUser.id} appUser={appUser} />
+        ))}
+      </Card> */}
+      {/*   </Card> */}
     </div>
   );
 }
