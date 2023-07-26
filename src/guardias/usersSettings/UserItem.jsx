@@ -2,24 +2,24 @@
 import { Checkbox, Divider, Grid, IconButton, Typography } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useAppUsersStore } from "../../hooks/useAppUsersStore";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useUiStore } from "../../hooks/useUiStore";
 import { useAuthStore } from "../../hooks";
 
 export default function UserItem({ appUser }) {
   const { openAppUserModal } = useUiStore();
-  const { startDeletingAppUser, startSavingAppUser, setActiveAppUser } =
+  const { startDeletingAppUser, /* startSavingAppUser,  */ setActiveAppUser } =
     useAppUsersStore();
   const { user } = useAuthStore();
 
-  const [isAdminChecked, setIsAdminChecked] = useState(false);
+  /*   const [isAdminChecked, setIsAdminChecked] = useState(false);
   const [isActivatedChecked, setIsActivatedChecked] = useState(false);
   const [isDataModifierChecked, setIsDataModifierChecked] = useState(false);
   const [isTechnicianChecked, setIsTechnicianChecked] = useState(false);
   const [isExternalChecked, setIsExternalChecked] = useState(false);
   const [canFLCChecked, setCanFLCChecked] = useState(false);
   const [canSeeStatisticsChecked, setCanSeeStatisticsChecked] = useState(false);
-  const [isStillWorkingChecked, setIsStillWorkingChecked] = useState(false);
+  const [isStillWorkingChecked, setIsStillWorkingChecked] = useState(false); */
 
   const handleAppUserChange = () => {
     setActiveAppUser(appUser);
