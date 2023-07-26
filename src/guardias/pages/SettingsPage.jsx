@@ -60,6 +60,7 @@ export const SettingsPage = () => {
         <Grid
           item
           container
+          //wrap="nowrap"
           sx={{
             width: {
               xs: "100%",

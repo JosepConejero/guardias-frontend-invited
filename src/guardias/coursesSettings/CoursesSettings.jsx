@@ -6,10 +6,12 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { useUiStore } from "../../hooks/useUiStore";
 import { CourseNameModal } from "../modals/CourseNameModal";
 import { useEffect } from "react";
+import { useAuthStore } from "../../hooks";
 
 export const CoursesSettings = () => {
   const { openCourseModal } = useUiStore();
   const { courses, startLoadingCourses } = useCoursesStore();
+  const { user } = useAuthStore();
 
   const onAddCourse = () => {
     openCourseModal();
@@ -140,26 +142,25 @@ export const CoursesSettings = () => {
             >
               <IconButton
                 onClick={onAddCourse}
-                sx={
-                  {
+                disabled={user.isDataModifier ? false : true}
+                sx={{
+                  visibility: user.isDataModifier ? "" : "hidden",
+                  //color: "white"
+                  //pr: 0.5,
+                  // border: 1,
+                  // "& .MuiButtonBase-root": { padding: 0 },
+                  // "& .MuiIconButton-root": { padding: 0 },
+                }}
+              >
+                <AddCircleIcon
+                  sx={{
+                    color: user.isDataModifier ? "primary.main" : "grey",
                     //color: "white"
                     //pr: 0.5,
                     // border: 1,
                     // "& .MuiButtonBase-root": { padding: 0 },
                     // "& .MuiIconButton-root": { padding: 0 },
-                  }
-                }
-              >
-                <AddCircleIcon
-                  sx={
-                    {
-                      //color: "white"
-                      //pr: 0.5,
-                      // border: 1,
-                      // "& .MuiButtonBase-root": { padding: 0 },
-                      // "& .MuiIconButton-root": { padding: 0 },
-                    }
-                  }
+                  }}
                 />
               </IconButton>
             </Grid>

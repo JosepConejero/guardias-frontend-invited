@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Checkbox, Divider, Grid, IconButton, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useCoursesStore } from "../../hooks/useCoursesStore";
 import { useUiStore } from "../../hooks/useUiStore";
@@ -8,9 +8,9 @@ import { useAuthStore } from "../../hooks";
 
 export const ListItemCourses = ({ course }) => {
   const { openCourseModal } = useUiStore();
-  const [flcChecked, setFlcChecked] = useState(true);
-  const [frequentChecked, setFrequentChecked] = useState(true);
-  const { startDeletingCourse, setActiveCourse, startSavingCourse } =
+  //const [flcChecked, setFlcChecked] = useState(true);
+  //const [frequentChecked, setFrequentChecked] = useState(true);
+  const { startDeletingCourse, setActiveCourse /* startSavingCourse */ } =
     useCoursesStore();
   const { user } = useAuthStore();
 
@@ -22,7 +22,7 @@ export const ListItemCourses = ({ course }) => {
       openCourseModal();
     }
   };
-
+  /* 
   const handleFlcChange = async (event) => {
     setFlcChecked(event.target.checked);
     //await startSavingCourse({ ...course, flc: event.target.checked });
@@ -30,16 +30,16 @@ export const ListItemCourses = ({ course }) => {
       ...course,
       [event.target.name]: event.target.checked,
     });
-  };
+  }; */
 
-  const handleFrequentChange = async (event) => {
+  /*   const handleFrequentChange = async (event) => {
     setFrequentChecked(event.target.checked);
     //await startSavingCourse({ ...course, frequent: event.target.checked });
     await startSavingCourse({
       ...course,
       [event.target.name]: event.target.checked,
     });
-  };
+  }; */
 
   const onDeleteItem = () => {
     //if (user.isDataModifier)
@@ -47,8 +47,8 @@ export const ListItemCourses = ({ course }) => {
   };
 
   useEffect(() => {
-    setFlcChecked(course.flc);
-    setFrequentChecked(course.frequent);
+    //setFlcChecked(course.flc);
+    //setFrequentChecked(course.frequent);
   }, []);
 
   return (
@@ -124,8 +124,9 @@ export const ListItemCourses = ({ course }) => {
             textAlign="center"
           >
             <Checkbox
-              onChange={handleFlcChange}
-              checked={flcChecked}
+              //onChange={handleFlcChange}
+              //checked={flcChecked}
+              checked={course.flc}
               name="flc"
               disabled
             />
@@ -144,8 +145,9 @@ export const ListItemCourses = ({ course }) => {
             textAlign="center"
           >
             <Checkbox
-              onChange={handleFrequentChange}
-              checked={frequentChecked}
+              //onChange={handleFrequentChange}
+              //checked={frequentChecked}
+              checked={course.frequent}
               name="frequent"
               disabled
             />

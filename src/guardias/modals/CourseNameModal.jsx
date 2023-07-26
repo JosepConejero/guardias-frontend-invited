@@ -52,6 +52,7 @@ export const CourseNameModal = () => {
     setFormSubmitted(true);
     //aquí haría validaciones que podrían poner el formSubmitted a false (vídeo 357 '5 más o menos)
     if (formValues.title !== "") {
+      console.log({ formValues });
       await startSavingCourse(formValues);
       onCloseModal();
       setFormValues(emptyCourse);
@@ -119,6 +120,7 @@ export const CourseNameModal = () => {
           //   maxHeight: "100%",
           //   maxWidth: "100%",
           // },
+          "& .MuiGrid-root MuiGrid-item": { margin: "0px" },
         }}
         // PaperProps={{
         //   margin: "0px",
@@ -147,7 +149,12 @@ export const CourseNameModal = () => {
               //m: 0,
               //p: 0,
               //"& .MuiGrid-root": { margin: "0px", padding: "0px" },
-              //"& .MuiPaper-root": { margin: "0px", padding: "0px" },
+              /* "& .MuiPaper-root-MuiDialog-paper": {
+                margin: "0px",
+                padding: "0px",
+              }, */
+              "& .MuiGrid-root": { margin: "0px", padding: "0px" },
+              "& .MuiGrid-container": { margin: "0px", padding: "0px" },
             }}
           >
             <Grid item /* sm={12} sx={{ mt: 1 }} */>
