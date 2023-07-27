@@ -125,20 +125,21 @@ export default function UserItem({ appUser }) {
         >
           <Grid item xs={14} md={4} onClick={handleAppUserChange}>
             <Typography
-              variant="span"
-              component="span"
+              /* variant="span"
+              component="span" */
               sx={{
                 //display: "inline-flex",
                 display: { md: "none" },
                 fontSize: "14px",
               }}
             >
-              nombre completo:{/* &nbsp; */}
+              Nombre completo:
             </Typography>
             <Typography
               sx={{
                 fontWeight: "bold",
-                ml: { xs: 1, md: 1.2 },
+                ml: { xs: 0, md: 1.2 },
+                mb: { xs: 1, md: 0 },
                 fontSize: "14px",
                 overflow: { md: "hidden" },
                 whiteSpace: { md: "nowrap" },
@@ -150,131 +151,264 @@ export default function UserItem({ appUser }) {
             </Typography>
           </Grid>
 
-          <Grid item xs={8} md={1.7} onClick={handleAppUserChange}>
+          <Grid item xs={14} md={1.9} onClick={handleAppUserChange}>
+            <Typography
+              sx={{
+                display: { md: "none" },
+                fontSize: "14px",
+              }}
+            >
+              Nombre corto:
+            </Typography>
             <Typography
               sx={{
                 fontWeight: "bold",
-                ml: { xs: 1, md: 1.2 },
+                ml: { xs: 0, md: 1.2 },
                 fontSize: "14px",
                 overflow: { md: "hidden" },
                 whiteSpace: { md: "nowrap" },
                 textOverflow: { md: "ellipsis" },
               }}
             >
-              <span className="app-users-label">Nombre corto:&nbsp;</span>
+              {/* <span className="app-users-label">Nombre corto:&nbsp;</span> */}
               {appUser.shortName}
             </Typography>
           </Grid>
 
           <Grid
             item
-            xs={1.5}
-            md={0.8}
+            xs="auto"
+            md={0.9}
             onClick={handleAppUserChange}
-            sx={{
-              pl: { xs: 0, md: 1.5 },
-            }}
             textAlign="center"
+            sx={{ mr: { xs: 2, md: 0 } }}
           >
-            <Checkbox checked={appUser.isAdmin} name="isAdmin" disabled />
+            <Grid
+              container
+              //justifyContent="flex-start"
+              alignItems="center"
+              direction="row"
+            >
+              <Typography sx={{ display: { md: "none" }, fontSize: "14px" }}>
+                Admin:
+              </Typography>
+              <Checkbox checked={appUser.isAdmin} name="isAdmin" disabled />{" "}
+            </Grid>
           </Grid>
 
           <Grid
             item
-            xs={1.5}
+            xs="auto"
+            md={1}
+            onClick={handleAppUserChange}
+            //sx={{ pl: { xs: 0, md: 1.5 } }}
+            textAlign="center"
+            sx={{ mr: { xs: 2, md: 0 } }}
+          >
+            <Grid
+              container
+              //justifyContent="flex-start"
+              alignItems="center"
+              direction="row"
+            >
+              <Typography
+                sx={{
+                  display: { md: "none" },
+                  fontSize: "14px",
+                }}
+              >
+                Activado:
+              </Typography>
+              <Checkbox
+                checked={appUser.isActivated}
+                name="isActivated"
+                disabled
+              />
+            </Grid>
+          </Grid>
+
+          <Grid
+            item
+            xs="auto"
+            md={0.9}
+            onClick={handleAppUserChange}
+            textAlign="center"
+            sx={{ mr: { xs: 2, md: 0 } }}
+          >
+            <Grid
+              container
+              //justifyContent="flex-start"
+              alignItems="center"
+              direction="row"
+            >
+              <Typography
+                sx={{
+                  display: { md: "none" },
+                  fontSize: "14px",
+                }}
+              >
+                Cambios:
+              </Typography>
+              <Checkbox
+                checked={appUser.isDataModifier}
+                name="isDataModifier"
+                disabled
+              />
+            </Grid>
+          </Grid>
+
+          <Grid
+            item
+            xs="auto"
+            md={0.9}
+            onClick={handleAppUserChange}
+            textAlign="center"
+            sx={{ mr: { xs: 2, md: 0 } }}
+          >
+            <Grid
+              container
+              //justifyContent="flex-start"
+              alignItems="center"
+              direction="row"
+            >
+              <Typography
+                sx={{
+                  display: { md: "none" },
+                  fontSize: "14px",
+                }}
+              >
+                Técnico:
+              </Typography>
+              <Checkbox
+                checked={appUser.isTechnician}
+                name="isTechnician"
+                disabled
+              />
+            </Grid>
+          </Grid>
+
+          <Grid
+            item
+            xs="auto"
+            md={0.75}
+            onClick={handleAppUserChange}
+            textAlign="center"
+            sx={{ mr: { xs: 2, md: 0 } }}
+          >
+            <Grid
+              container
+              //justifyContent="flex-start"
+              alignItems="center"
+              direction="row"
+            >
+              <Typography
+                sx={{
+                  display: { md: "none" },
+                  fontSize: "14px",
+                }}
+              >
+                Externo:
+              </Typography>
+              <Checkbox
+                checked={appUser.isExternal}
+                name="isExternal"
+                disabled
+              />
+            </Grid>
+          </Grid>
+
+          <Grid
+            item
+            xs="auto"
+            md={0.9}
+            onClick={handleAppUserChange}
+            textAlign="center"
+            sx={{ mr: { xs: 2, md: 0 } }}
+          >
+            <Grid
+              container
+              //justifyContent="flex-start"
+              alignItems="center"
+              direction="row"
+            >
+              <Typography
+                sx={{
+                  display: { md: "none" },
+                  fontSize: "14px",
+                }}
+              >
+                FLC:
+              </Typography>
+              <Checkbox checked={appUser.canFLC} name="canFLC" disabled />
+            </Grid>
+          </Grid>
+
+          <Grid
+            item
+            xs="auto"
             md={1.2}
             onClick={handleAppUserChange}
             textAlign="center"
+            sx={{ mr: { xs: 2, md: 0 } }}
           >
-            <Checkbox
-              checked={appUser.isActivated}
-              name="isActivated"
-              disabled
-            />
+            <Grid
+              container
+              //justifyContent="flex-start"
+              alignItems="center"
+              direction="row"
+            >
+              <Typography
+                sx={{
+                  display: { md: "none" },
+                  fontSize: "14px",
+                }}
+              >
+                Estadísticas:
+              </Typography>
+              <Checkbox
+                checked={appUser.canSeeStatistics}
+                name="canSeeStatistics"
+                disabled
+              />
+            </Grid>
           </Grid>
 
           <Grid
             item
-            xs={1.5}
-            md={0.8}
+            xs="auto"
+            md={1.05}
             onClick={handleAppUserChange}
             textAlign="center"
+            sx={{ mr: { xs: 2, md: 0 } }}
           >
-            <Checkbox
-              checked={appUser.isDataModifier}
-              name="isDataModifier"
-              disabled
-            />
+            <Grid
+              container
+              //justifyContent="flex-start"
+              alignItems="center"
+              direction="row"
+            >
+              <Typography
+                sx={{
+                  display: { md: "none" },
+                  fontSize: "14px",
+                }}
+              >
+                Contratado:
+              </Typography>
+              <Checkbox
+                checked={appUser.isStillWorking}
+                name="isStillWorking"
+                disabled
+              />
+            </Grid>
           </Grid>
 
           <Grid
             item
-            xs={1.5}
-            md={1.1}
-            onClick={handleAppUserChange}
-            textAlign="center"
-          >
-            <Checkbox
-              checked={appUser.isTechnician}
-              name="isTechnician"
-              disabled
-            />
-          </Grid>
-
-          <Grid
-            item
-            xs={1.5}
-            md={0.7}
-            onClick={handleAppUserChange}
-            textAlign="center"
-          >
-            <Checkbox checked={appUser.isExternal} name="isExternal" disabled />
-          </Grid>
-
-          <Grid
-            item
-            xs={1.5}
-            md={0.7}
-            onClick={handleAppUserChange}
-            textAlign="center"
-          >
-            <Checkbox checked={appUser.canFLC} name="canFLC" disabled />
-          </Grid>
-
-          <Grid
-            item
-            xs={1.5}
-            md={1.1}
-            onClick={handleAppUserChange}
-            textAlign="center"
-          >
-            <Checkbox
-              checked={appUser.canSeeStatistics}
-              name="canSeeStatistics"
-              disabled
-            />
-          </Grid>
-
-          <Grid
-            item
-            xs={1.5}
-            md={1.4}
-            onClick={handleAppUserChange}
-            textAlign="center"
-          >
-            <Checkbox
-              checked={appUser.isStillWorking}
-              name="isStillWorking"
-              disabled
-            />
-          </Grid>
-
-          <Grid
-            item
-            xs={1}
+            xs="auto"
             md={0.1}
             sx={{
-              pl: { xs: 0, md: 0 },
+              pl: { xs: 8, md: 0 },
               //"& .MuiGrid-root": { pl: 0 },
               "& .MuiIconButton-root": {
                 pl: { xs: "2px", md: "1px" },
