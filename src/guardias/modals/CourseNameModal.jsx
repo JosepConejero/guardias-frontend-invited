@@ -85,6 +85,9 @@ export const CourseNameModal = () => {
         /* open={isCourseModalOpen}
         onClose={onCloseModal} */
         id="dialog-courses"
+        sx={{
+          width: { xs: "390px", md: "600px" },
+        }}
       >
         <form
           aria-label="submit-form"
@@ -95,10 +98,10 @@ export const CourseNameModal = () => {
             container
             direction="column"
             sx={{
-              width: { xs: "330px", md: "600px" },
+              //    width: { xs: "330px", md: "600px" },
               p: { xs: "15px", md: "20px" },
-              "& .MuiGrid-root": { margin: "0px", padding: "0px" },
-              "& .MuiGrid-container": { margin: "0px", padding: "0px" },
+              /*      "& .MuiGrid-root": { margin: "0px", padding: "0px" },
+              "& .MuiGrid-container": { margin: "0px", padding: "0px" }, */
             }}
           >
             <Grid item /* sm={12} sx={{ mt: 1 }} */>

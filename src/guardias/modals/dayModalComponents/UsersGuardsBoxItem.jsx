@@ -13,6 +13,7 @@ import { sortedCourses } from "../../../helpers/sortedCourses";
 export const UsersGuardsBoxItem = ({ technician, index, onDeleteItem }) => {
   const { guardDayOpened, techniciansInGuardDay, updateOpenedGuardDay } =
     useGuardDayStore();
+  //console.log({ techniciansInGuardDay });
   const { getTeacherById } = useAppUsersStore();
   const { getCourseById } = useCoursesStore();
 

@@ -148,6 +148,7 @@ export const DayModal = () => {
         // open={isDayModalOpen}
         // onClose={onCloseModal}
         id="dialog-guard-day"
+        sx={{ width: { /* xs: "100%", */ md: "900px" } }}
       >
         <Grid
           sx={{
@@ -170,61 +171,6 @@ export const DayModal = () => {
             //transform: { md: "translate(-50%, -50%)" },
             //boxShadow: 24,
             // overflow: { xs: "auto" },
-            /* "& .MuiModal-root": {
-              margin: "0px",
-              maxWidth: "none",
-              maxHeight: "none",
-            },
-            "& .MuiModal-root-MuiDialog-root": {
-              margin: "0px",
-              maxWidth: "none",
-              maxHeight: "none",
-            },
-            "& .MuiPaper-root": {
-              margin: "0px",
-              maxWidth: "none",
-              maxHeight: "none",
-            },
-            "& .MuiPaper-elevation": {
-              margin: "0px",
-              maxWidth: "none",
-              maxHeight: "none",
-            },
-            "& .MuiPaper-elevation24": {
-              margin: "0px",
-              maxWidth: "none",
-              maxHeight: "none",
-            },
-            "& .MuiPaper-rounded": {
-              margin: "0px",
-              maxWidth: "none",
-              maxHeight: "none",
-            },
-            "& .MuiGrid-root": {
-              margin: "0px",
-              maxWidth: "none",
-              maxHeight: "none",
-            },
-            "& .MuiDialog-container": {
-              margin: "0px",
-              maxWidth: "none",
-              maxHeight: "none",
-            },
-            "& .MuiDialog-paper": {
-              margin: "0px",
-              maxWidth: "none",
-              maxHeight: "none",
-            },
-            "& .MuiDialog-paperScrollPaper": {
-              margin: "0px",
-              maxWidth: "none",
-              maxHeight: "none",
-            },
-            "& .MuiDialog-scrollPaper": {
-              margin: "0px",
-              maxWidth: "none",
-              maxHeight: "none",
-            }, */
           }}
         >
           {isSaving ? (

@@ -113,7 +113,7 @@ export const CoursesSettings = () => {
               <Tooltip title="Añade un curso" arrow>
                 <IconButton
                   onClick={onAddCourse}
-                  disabled={user.isDataModifier ? false : true}
+                  //disabled={user.isDataModifier ? false : true}
                   sx={{
                     visibility: user.isDataModifier ? "" : "hidden",
                     //color: "white"

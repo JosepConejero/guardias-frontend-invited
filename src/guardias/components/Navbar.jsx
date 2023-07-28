@@ -25,6 +25,8 @@ export const Navbar = () => {
         width: { sm: `calc(100% - ${0}px)` },
         ml: { md: `${0}px` },
         pl: { md: "10px" },
+        //zIndex: "800",
+        //"& .MuiPaper-root": { zIndex: 800 },
       }}
     >
       <Toolbar>

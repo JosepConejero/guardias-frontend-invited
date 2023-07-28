@@ -6,6 +6,7 @@ import { useGuardDayStore } from "../../../hooks/useGuardDayStore";
 import { Typography } from "@mui/material";
 
 export default function TeachersMenu({ list = [], initialValue, index }) {
+  //if (list !== undefined) console.log(list);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   //aquí abriré el estado y leeré la lista ???
@@ -42,13 +43,14 @@ export default function TeachersMenu({ list = [], initialValue, index }) {
     setAnchorEl(null);
   };
 
+  //if (JSON.stringify(list) === "[undefined]")
   return (
     <div>
       <Button
         id="basic-button"
-        /* aria-controls={open ? "basic-menu" : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined} */
+        // aria-controls={open ? "basic-menu" : undefined}
+        //aria-haspopup="true"
+        //aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
         sx={{ width: "100px" }}
       >
@@ -69,29 +71,43 @@ export default function TeachersMenu({ list = [], initialValue, index }) {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        /*   onKeyDown={handleClose} */
-        /* onKeyDown={() => console.log("se pulsa una tecla en el menú")} */
-        /* MenuListProps={{
-          "aria-labelledby": "basic-button",
-        }} */
+        //   onKeyDown={handleClose}
+        // onKeyDown={() => console.log("se pulsa una tecla en el menú")}
+        // MenuListProps={{
+        //  "aria-labelledby": "basic-button",
+        //}}
       >
-        {list.map((teacher) => (
+        {list.map((teacher) => {
+          //  console.log(teacher);
+          if (teacher)
+            return (
+              <MenuItem
+                key={teacher.id}
+                technician={teacher.id}
+                onClick={(event) => handleClose(event, teacher)}
+              >
+                {teacher.shortName.toUpperCase()}
+              </MenuItem>
+            );
+        })}
+        {/*  {list.map((teacher) => (
           <MenuItem
             key={teacher.id}
             technician={teacher.id}
             onClick={(event) => handleClose(event, teacher)}
           >
-            {teacher.shortName.toUpperCase()}
+             {teacher.shortName.toUpperCase()} 
           </MenuItem>
-        ))}
-        {/*  <Divider />
-        <MenuItem
-          technician="EXTERNO"
-          onClick={(event) => handleClose(event, "EXTERNO")}
-        >
-          EXTERNO
-        </MenuItem> */}
+        ))} */}
       </Menu>
     </div>
   );
 }
+
+// {/*  <Divider />
+// <MenuItem
+//   technician="EXTERNO"
+//   onClick={(event) => handleClose(event, "EXTERNO")}
+// >
+//   EXTERNO
+// </MenuItem> */}

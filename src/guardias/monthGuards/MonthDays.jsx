@@ -9,9 +9,10 @@ import { DayModal } from "../modals/DayModal";
 import { useUiStore } from "../../hooks/useUiStore";
 import { useCalendarStore } from "../../hooks/useCalendarStore";
 import { getDayOfWeekText } from "../../helpers/dayOfWeek";
+import { BasicModal } from "../../guardias/modals/basicModal/BasicModal";
 
 export const MonthDays = ({ showedDays }) => {
-  const { openDayModal } = useUiStore();
+  const { isDayModalOpen, openDayModal, closeDayModal } = useUiStore();
   const { setActiveGuardDay, guardDayInformation } = useCalendarStore();
 
   const { daysInWeek } = useSelector((state) => state.month);
@@ -68,7 +69,11 @@ export const MonthDays = ({ showedDays }) => {
           }
         })}
       </Grid>
-      <DayModal />
+
+      {/* <DayModal /> */}
+      <BasicModal isOpen={isDayModalOpen} closeModal={closeDayModal}>
+        <DayModal closeModal={closeDayModal} />
+      </BasicModal>
     </>
   );
 };
