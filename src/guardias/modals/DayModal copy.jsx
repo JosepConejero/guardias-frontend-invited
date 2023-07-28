@@ -3,7 +3,7 @@
 import { Grid, Stack } from "@mui/material";
 import { useEffect, useState } from "react";
 //import Modal from "react-modal";
-//import { Dialog } from "@mui/material";
+import { Dialog } from "@mui/material";
 import { useUiStore } from "../../hooks/useUiStore";
 import { useCalendarStore } from "../../hooks/useCalendarStore";
 
@@ -20,7 +20,7 @@ import Swal from "sweetalert2";
 import { DateBox } from "./dayModalComponents/DateBox";
 import { ButtonsBox } from "./dayModalComponents/ButtonsBox";
 import { SpinnerInModal } from "../customizedComponents";
-//import { autoBatchEnhancer } from "@reduxjs/toolkit";
+import { autoBatchEnhancer } from "@reduxjs/toolkit";
 
 ////Modal.setAppElement("#root");
 
@@ -144,10 +144,103 @@ export const DayModal = () => {
 
   return (
     <>
-      <Grid
-        // open={isDayModalOpen}
-        // onClose={onCloseModal}
+      <Dialog
+        open={isDayModalOpen}
+        onClose={onCloseModal}
         id="dialog-guard-day"
+        //scroll="paper"
+        ////isOpen={isDayModalOpen}
+        ////onRequestClose={onCloseModal}
+        //style={isSaving ? customStylesIsSaving : customStyles}
+        //className="modal"
+        //overlayClassName="modal-fondo"
+        //closeTimeoutMS={200}
+        //sx={{ width: { xs: 100, md: "900px" } }}
+        //fullWidth
+        // PaperComponent={mierdaputa}
+        ////maxWidth={false}
+        ////fullScreen
+        sx={{
+          width: {
+            //xs: "auto",
+            //md: "900px",
+            md: "100%",
+          },
+          height: {
+            //xs: "auto",
+            // md: "725px",
+            md: "100%",
+          },
+          //width: { md: "100vw" },
+          //height: { md: "100vh" },
+          //maxWidth: "900px",
+          //borderRadius: 25,
+          //bgcolor: "green",
+          //opacity: 0.2,
+          //border: "2px black solid",
+          //borderRadius: "50px",
+          //position: { md: "absolute" },
+          top: { xs: "0%", md: "50%" },
+          left: { xs: "0%", md: "50%" },
+          transform: { md: "translate(-50%, -50%)" },
+          mt: { md: -3 },
+          m: { xs: 1, md: 0 },
+          "& .MuiModal-root": {
+            margin: "0px",
+            maxWidth: "none",
+            maxHeight: "none",
+          },
+          "& .MuiModal-root-MuiDialog-root": {
+            margin: "0px",
+            maxWidth: "none",
+            maxHeight: "none",
+          },
+          "& .MuiPaper-root": {
+            margin: "0px",
+            maxWidth: "none",
+            maxHeight: "none",
+          },
+          "& .MuiPaper-elevation": {
+            margin: "0px",
+            maxWidth: "none",
+            maxHeight: "none",
+          },
+          "& .MuiPaper-elevation24": {
+            margin: "0px",
+            maxWidth: "none",
+            maxHeight: "none",
+          },
+          "& .MuiPaper-rounded": {
+            margin: "0px",
+            maxWidth: "none",
+            maxHeight: "none",
+          },
+          "& .MuiGrid-root": {
+            margin: "0px",
+            maxWidth: "none",
+            maxHeight: "none",
+          },
+          "& .MuiDialog-container": {
+            margin: "0px",
+            maxWidth: "none",
+            maxHeight: "none",
+          },
+          "& .MuiDialog-paper": {
+            margin: "0px",
+            maxWidth: "none",
+            maxHeight: "none",
+          },
+          "& .MuiDialog-paperScrollPaper": {
+            margin: "0px",
+            maxWidth: "none",
+            maxHeight: "none",
+          },
+          "& .MuiDialog-scrollPaper": {
+            margin: "0px",
+            maxWidth: "none",
+            maxHeight: "none",
+          },
+        }}
       >
         <Grid
           sx={{
@@ -170,7 +263,7 @@ export const DayModal = () => {
             //transform: { md: "translate(-50%, -50%)" },
             //boxShadow: 24,
             // overflow: { xs: "auto" },
-            /* "& .MuiModal-root": {
+            "& .MuiModal-root": {
               margin: "0px",
               maxWidth: "none",
               maxHeight: "none",
@@ -224,7 +317,7 @@ export const DayModal = () => {
               margin: "0px",
               maxWidth: "none",
               maxHeight: "none",
-            }, */
+            },
           }}
         >
           {isSaving ? (
@@ -270,7 +363,7 @@ export const DayModal = () => {
             </>
           )}
         </Grid>
-      </Grid>
+      </Dialog>
     </>
   );
 };

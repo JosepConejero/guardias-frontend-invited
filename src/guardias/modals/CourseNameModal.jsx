@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import {
-  Button,
   Checkbox,
   FormControlLabel,
   Grid,
@@ -9,7 +8,7 @@ import {
 } from "@mui/material";
 import { useUiStore } from "../../hooks/useUiStore";
 
-import { Dialog } from "@mui/material";
+//import { Dialog } from "@mui/material";
 //import { customStyles } from "../../helpers";
 import { useEffect, useState } from "react";
 import { useCoursesStore } from "../../hooks/useCoursesStore";
@@ -83,7 +82,7 @@ export const CourseNameModal = () => {
   return (
     <>
       <Grid
-        /*       open={isCourseModalOpen}
+        /* open={isCourseModalOpen}
         onClose={onCloseModal} */
         id="dialog-courses"
       >

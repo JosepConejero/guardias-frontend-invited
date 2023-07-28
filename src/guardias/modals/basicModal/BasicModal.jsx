@@ -26,7 +26,8 @@ export const BasicModal = ({ isOpen, closeModal, children }) => {
       <div onClick={onHandleClick} id="modal-fondo" className="darkBG">
         <div id="modal-central" className="centered">
           <div className="modal">
-            <div className="modalContent">{children}</div>
+            {/*  <div className="modalContent">{children}</div> */}
+            <div>{children}</div>
           </div>
         </div>
       </div>
