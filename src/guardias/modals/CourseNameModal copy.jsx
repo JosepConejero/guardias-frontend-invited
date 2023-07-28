@@ -79,13 +79,55 @@ export const CourseNameModal = () => {
     setInactiveCourse();
     closeCourseModal();
   };
-
   return (
     <>
-      <Grid
-        /*       open={isCourseModalOpen}
-        onClose={onCloseModal} */
+      <Dialog
+        open={isCourseModalOpen}
+        onClose={onCloseModal}
         id="dialog-courses"
+        //scroll="paper"
+        // style={customStyles}
+        //className="modal"
+        //overlayClassName="modal-fondo"
+        //closeTimeoutMS={200}
+        //maxWidth={false}
+        //fullScreen
+        sx={{
+          //width: { xs: "100%", md: "100%" },
+          //height: { xs: "100%", md: "100%" },
+          width: "100%",
+          height: "100%",
+          //maxWidth: "100%",
+          //maxWidth: "900px",
+          //borderRadius: 25,
+          //bgcolor: "green",
+          //opacity: 0.2,
+          //border: "2px black solid",
+          //borderRadius: "50px",
+
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          //mt: { md: -3 },
+          //m: { xs: 1 },
+          p: { xs: 1, md: 0 },
+          //borderRadius: 3,
+          //"& .MuiDialog-root": { margin: "0px", padding: "0px" },
+          // "& .MuiDialog-container": {
+          //   margin: "0px",
+          //   padding: "0px",
+          //   maxHeight: "100%",
+          //   maxWidth: "100%",
+          // },
+          "& .MuiGrid-root MuiGrid-item": { margin: "0px" },
+        }}
+        // PaperProps={{
+        //   margin: "0px",
+        //   padding: "0px",
+        //   maxHeight: "auto",
+        //   maxWidth: "100%",
+        // }}
       >
         <form
           aria-label="submit-form"
@@ -95,15 +137,30 @@ export const CourseNameModal = () => {
           <Grid
             container
             direction="column"
+            //alignItems="center"
+            //justifyContent="center"
+            /* sx={{ boxShadow: 10 }} */
+
             sx={{
               width: { xs: "330px", md: "600px" },
+              //height: { xs: "215px", md: "225px" },
               p: { xs: "15px", md: "20px" },
+              //bgcolor: "red",
+              //m: 0,
+              //p: 0,
+              //"& .MuiGrid-root": { margin: "0px", padding: "0px" },
+              /* "& .MuiPaper-root-MuiDialog-paper": {
+                margin: "0px",
+                padding: "0px",
+              }, */
               "& .MuiGrid-root": { margin: "0px", padding: "0px" },
               "& .MuiGrid-container": { margin: "0px", padding: "0px" },
             }}
           >
             <Grid item /* sm={12} sx={{ mt: 1 }} */>
               <TextField
+                //multiline={{ xs: true, md: false }}
+                //rows={{ xs: 2 }}
                 label="Nombre del curso"
                 type="text"
                 placeholder="Anota el nombre del curso aquí"
@@ -111,6 +168,7 @@ export const CourseNameModal = () => {
                 name="title"
                 value={formValues.title}
                 onChange={onInputChange}
+                //sx={{ height: "100px" }}
               />
             </Grid>
 
@@ -163,16 +221,29 @@ export const CourseNameModal = () => {
                 "& .MuiGrid-root": {
                   mt: "0px",
                   ml: "0px",
+                  //pt: 0,
+                  //pr: 0,
                   p: 0,
                   width: "auto",
+                  //width: "250px",
+                  // padding: "0px",
                 },
+                /* "& .MuiGrid-item": {
+                  mt: "0px",
+                  ml: "0px",
+                  p: 0,
+                  //pr: 0,
+                  width: "auto",
+                  //width: "250px",
+                  // padding: "0px",
+                }, */
               }}
             >
               <ButtonsBox onCloseModal={onCloseModal} />
             </Grid>
           </Grid>
         </form>
-      </Grid>
+      </Dialog>
     </>
   );
 };

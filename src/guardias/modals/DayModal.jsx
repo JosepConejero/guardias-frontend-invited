@@ -20,6 +20,7 @@ import Swal from "sweetalert2";
 import { DateBox } from "./dayModalComponents/DateBox";
 import { ButtonsBox } from "./dayModalComponents/ButtonsBox";
 import { SpinnerInModal } from "../customizedComponents";
+import { autoBatchEnhancer } from "@reduxjs/toolkit";
 
 ////Modal.setAppElement("#root");
 
@@ -157,28 +158,95 @@ export const DayModal = () => {
         //sx={{ width: { xs: 100, md: "900px" } }}
         //fullWidth
         // PaperComponent={mierdaputa}
-        maxWidth={false}
-        fullScreen
+        ////maxWidth={false}
+        ////fullScreen
         sx={{
-          width: { md: "900px" },
-          height: { md: "725px" },
+          width: {
+            //xs: "auto",
+            //md: "900px",
+            md: "100%",
+          },
+          height: {
+            //xs: "auto",
+            // md: "725px",
+            md: "100%",
+          },
+          //width: { md: "100vw" },
+          //height: { md: "100vh" },
           //maxWidth: "900px",
           //borderRadius: 25,
           //bgcolor: "green",
           //opacity: 0.2,
           //border: "2px black solid",
           //borderRadius: "50px",
-          position: { md: "absolute" },
+          //position: { md: "absolute" },
           top: { xs: "0%", md: "50%" },
           left: { xs: "0%", md: "50%" },
           transform: { md: "translate(-50%, -50%)" },
           mt: { md: -3 },
-          m: { xs: 1 },
+          m: { xs: 1, md: 0 },
+          "& .MuiModal-root": {
+            margin: "0px",
+            maxWidth: "none",
+            maxHeight: "none",
+          },
+          "& .MuiModal-root-MuiDialog-root": {
+            margin: "0px",
+            maxWidth: "none",
+            maxHeight: "none",
+          },
+          "& .MuiPaper-root": {
+            margin: "0px",
+            maxWidth: "none",
+            maxHeight: "none",
+          },
+          "& .MuiPaper-elevation": {
+            margin: "0px",
+            maxWidth: "none",
+            maxHeight: "none",
+          },
+          "& .MuiPaper-elevation24": {
+            margin: "0px",
+            maxWidth: "none",
+            maxHeight: "none",
+          },
+          "& .MuiPaper-rounded": {
+            margin: "0px",
+            maxWidth: "none",
+            maxHeight: "none",
+          },
+          "& .MuiGrid-root": {
+            margin: "0px",
+            maxWidth: "none",
+            maxHeight: "none",
+          },
+          "& .MuiDialog-container": {
+            margin: "0px",
+            maxWidth: "none",
+            maxHeight: "none",
+          },
+          "& .MuiDialog-paper": {
+            margin: "0px",
+            maxWidth: "none",
+            maxHeight: "none",
+          },
+          "& .MuiDialog-paperScrollPaper": {
+            margin: "0px",
+            maxWidth: "none",
+            maxHeight: "none",
+          },
+          "& .MuiDialog-scrollPaper": {
+            margin: "0px",
+            maxWidth: "none",
+            maxHeight: "none",
+          },
         }}
       >
         <Grid
           sx={{
-            //width: { xs: "100%", md: "900px" },
+            //maxWidth: "none",
+            //maxHeight: "none",
+            // width: { /* xs: "100%", */ md: "900px" },
             //height: { /* xs: "100vh", */ md: "720px" },
             //bgcolor: "white",
             //mt: { xs: 0, md: -2 },
@@ -195,6 +263,61 @@ export const DayModal = () => {
             //transform: { md: "translate(-50%, -50%)" },
             //boxShadow: 24,
             // overflow: { xs: "auto" },
+            "& .MuiModal-root": {
+              margin: "0px",
+              maxWidth: "none",
+              maxHeight: "none",
+            },
+            "& .MuiModal-root-MuiDialog-root": {
+              margin: "0px",
+              maxWidth: "none",
+              maxHeight: "none",
+            },
+            "& .MuiPaper-root": {
+              margin: "0px",
+              maxWidth: "none",
+              maxHeight: "none",
+            },
+            "& .MuiPaper-elevation": {
+              margin: "0px",
+              maxWidth: "none",
+              maxHeight: "none",
+            },
+            "& .MuiPaper-elevation24": {
+              margin: "0px",
+              maxWidth: "none",
+              maxHeight: "none",
+            },
+            "& .MuiPaper-rounded": {
+              margin: "0px",
+              maxWidth: "none",
+              maxHeight: "none",
+            },
+            "& .MuiGrid-root": {
+              margin: "0px",
+              maxWidth: "none",
+              maxHeight: "none",
+            },
+            "& .MuiDialog-container": {
+              margin: "0px",
+              maxWidth: "none",
+              maxHeight: "none",
+            },
+            "& .MuiDialog-paper": {
+              margin: "0px",
+              maxWidth: "none",
+              maxHeight: "none",
+            },
+            "& .MuiDialog-paperScrollPaper": {
+              margin: "0px",
+              maxWidth: "none",
+              maxHeight: "none",
+            },
+            "& .MuiDialog-scrollPaper": {
+              margin: "0px",
+              maxWidth: "none",
+              maxHeight: "none",
+            },
           }}
         >
           {isSaving ? (

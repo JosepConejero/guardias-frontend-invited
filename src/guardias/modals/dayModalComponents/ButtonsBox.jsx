@@ -1,9 +1,16 @@
 import { Button, Grid } from "@mui/material";
 
-export const ButtonsBox = ({ /*  isSaving, */ onCloseModal }) => {
+export const ButtonsBox = ({ onCloseModal }) => {
   return (
-    <Grid container justifyContent="center" spacing={5}>
-      <Grid item>
+    <Grid
+      container
+      direction="row"
+      justifyContent="center"
+      //height="50px"
+      /* spacing={5} */
+      //sx={{ mt: 3 }}
+    >
+      <Grid item /* md={6} */>
         <Button
           //disabled={isSaving}
           onClick={onCloseModal}
@@ -14,18 +21,20 @@ export const ButtonsBox = ({ /*  isSaving, */ onCloseModal }) => {
             "&:hover": {
               backgroundColor: "#800000",
             },
-            mr: 2,
+            mr: { xs: 3, md: 5 },
+            mt: 1,
           }}
         >
           CANCELAR
         </Button>
       </Grid>
-      <Grid item>
+      <Grid item /* md={6} */>
         <Button
           //disabled={isSaving}
           type="submit"
           variant="contained"
           //fullWidth
+          sx={{ mt: 1 }}
         >
           GUARDAR
         </Button>

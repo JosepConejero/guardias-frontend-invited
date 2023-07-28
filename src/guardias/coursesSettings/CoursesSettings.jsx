@@ -7,9 +7,14 @@ import { useUiStore } from "../../hooks/useUiStore";
 import { CourseNameModal } from "../modals/CourseNameModal";
 import { useEffect } from "react";
 import { useAuthStore } from "../../hooks";
+//import { useBasicModal } from "../../hooks/useBasicModal";
+import { BasicModal } from "../modals/basicModal/BasicModal";
+import { useSelector } from "react-redux";
 
 export const CoursesSettings = () => {
-  const { openCourseModal } = useUiStore();
+  // const { isOpen, openModal, closeModal } = useBasicModal(false);
+  const { openCourseModal, closeCourseModal } = useUiStore();
+  const { isCourseModalOpen } = useSelector((state) => state.ui);
   const { courses, startLoadingCourses } = useCoursesStore();
   const { user } = useAuthStore();
 
@@ -146,7 +151,10 @@ export const CoursesSettings = () => {
         </Grid>
       </Grid>
 
-      <CourseNameModal />
+      {/* <CourseNameModal /> */}
+      <BasicModal isOpen={isCourseModalOpen} closeModal={closeCourseModal}>
+        <CourseNameModal closeModal={closeCourseModal} />
+      </BasicModal>
     </>
   );
 };
