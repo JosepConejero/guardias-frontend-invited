@@ -10,10 +10,12 @@ import {
 } from "../store/course/courseSlice";
 import calendarApi from "../api/calendarApi";
 import Swal from "sweetalert2";
+import { useState } from "react";
 
 export const useCoursesStore = () => {
   const dispatch = useDispatch();
   const { courses, activeCourse } = useSelector((state) => state.course);
+  const [isSaving, setIsSaving] = useState(false);
 
   const setActiveCourse = (course) => {
     dispatch(onSetActiveCourse(course));
@@ -35,13 +37,16 @@ export const useCoursesStore = () => {
 
   const startSavingCourse = async (course) => {
     try {
+      setIsSaving(true);
       if (course.id) {
         await calendarApi.put(`/courses/${course.id}`, course);
         dispatch(onUpdateCourse({ ...course }));
+        setIsSaving(false);
         return;
       }
       const { data } = await calendarApi.post("/courses", course);
       dispatch(onAddNewCourse({ ...course, id: data.curso.id }));
+      setIsSaving(false);
     } catch (error) {
       console.log(error);
       Swal.fire(
@@ -84,6 +89,7 @@ export const useCoursesStore = () => {
     //properties
     courses,
     activeCourse,
+    isSaving,
     //methods
     setActiveCourse,
     setInactiveCourse,

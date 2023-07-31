@@ -13,8 +13,9 @@ export const SpinnerInModal = ({ text }) => {
           xs: "720px",
           md: "708px",
         },
-        width: "100%",
-        bgcolor: "#f0f8ff",
+        width: { xs: "calc(100vw - 20px)", md: "100%" },
+
+        //bgcolor: "#f0f8ff",
       }}
     >
       <Grid item mt={15}>

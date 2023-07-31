@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -71,6 +72,7 @@ export default function TeachersMenu({ list = [], initialValue, index }) {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
+        //sx={{ zIndez: "3000" }}
         //   onKeyDown={handleClose}
         // onKeyDown={() => console.log("se pulsa una tecla en el menú")}
         // MenuListProps={{

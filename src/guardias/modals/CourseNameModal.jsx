@@ -15,6 +15,7 @@ import { useCoursesStore } from "../../hooks/useCoursesStore";
 import { ButtonsBox } from "./dayModalComponents/ButtonsBox";
 import Swal from "sweetalert2";
 import { useCheckboxes } from "../../hooks";
+import { SpinnerInModal } from "../customizedComponents";
 
 //Modal.setAppElement("#root");
 
@@ -26,7 +27,7 @@ const emptyCourse = {
 
 export const CourseNameModal = () => {
   const { isCourseModalOpen, closeCourseModal } = useUiStore();
-  const { startSavingCourse, activeCourse, setInactiveCourse } =
+  const { startSavingCourse, activeCourse, setInactiveCourse, isSaving } =
     useCoursesStore();
 
   const [formValues, setFormValues] = useState(emptyCourse);
@@ -51,7 +52,6 @@ export const CourseNameModal = () => {
     setFormSubmitted(true);
     //aquí haría validaciones que podrían poner el formSubmitted a false (vídeo 357 '5 más o menos)
     if (formValues.title !== "") {
-      console.log({ formValues });
       await startSavingCourse(formValues);
       onCloseModal();
       setFormValues(emptyCourse);
@@ -89,91 +89,97 @@ export const CourseNameModal = () => {
           width: { xs: "390px", md: "600px" },
         }}
       >
-        <form
-          aria-label="submit-form"
-          onSubmit={onSubmit}
-          className="animate__animated animate__fadeIn animate__faster"
-        >
-          <Grid
-            container
-            direction="column"
-            sx={{
-              //    width: { xs: "330px", md: "600px" },
-              p: { xs: "15px", md: "20px" },
-              /*      "& .MuiGrid-root": { margin: "0px", padding: "0px" },
+        {isSaving ? (
+          <SpinnerInModal text="Saving..." />
+        ) : (
+          <>
+            <form
+              aria-label="submit-form"
+              onSubmit={onSubmit}
+              className="animate__animated animate__fadeIn animate__faster"
+            >
+              <Grid
+                container
+                direction="column"
+                sx={{
+                  //    width: { xs: "330px", md: "600px" },
+                  p: { xs: "15px", md: "20px" },
+                  /*      "& .MuiGrid-root": { margin: "0px", padding: "0px" },
               "& .MuiGrid-container": { margin: "0px", padding: "0px" }, */
-            }}
-          >
-            <Grid item /* sm={12} sx={{ mt: 1 }} */>
-              <TextField
-                label="Nombre del curso"
-                type="text"
-                placeholder="Anota el nombre del curso aquí"
-                fullWidth
-                name="title"
-                value={formValues.title}
-                onChange={onInputChange}
-              />
-            </Grid>
-
-            <Grid item /* xs={12} md={3} */>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={formValues.flc}
-                    name="flc"
-                    onClick={onHandleClickFlc}
-                    onChange={onCheckboxChangeFormValues}
+                }}
+              >
+                <Grid item /* sm={12} sx={{ mt: 1 }} */>
+                  <TextField
+                    label="Nombre del curso"
+                    type="text"
+                    placeholder="Anota el nombre del curso aquí"
+                    fullWidth
+                    name="title"
+                    value={formValues.title}
+                    onChange={onInputChange}
                   />
-                }
-                label={
-                  <Typography sx={{ fontSize: "16px", fontWeight: "bold" }}>
-                    Es un curso de la FLC
-                  </Typography>
-                }
-              />
-            </Grid>
+                </Grid>
 
-            <Grid
-              item /* xs={12} md={3} */
-              sx={{
-                mb: 1,
-                //
-              }}
-            >
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={formValues.frequent}
-                    name="frequent"
-                    onClick={onHandleClickFrequent}
-                    onChange={onCheckboxChangeFormValues}
+                <Grid item /* xs={12} md={3} */>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={formValues.flc}
+                        name="flc"
+                        onClick={onHandleClickFlc}
+                        onChange={onCheckboxChangeFormValues}
+                      />
+                    }
+                    label={
+                      <Typography sx={{ fontSize: "16px", fontWeight: "bold" }}>
+                        Es un curso de la FLC
+                      </Typography>
+                    }
                   />
-                }
-                label={
-                  <Typography sx={{ fontSize: "16px", fontWeight: "bold" }}>
-                    Es un curso frecuente
-                  </Typography>
-                }
-              />
-            </Grid>
+                </Grid>
 
-            <Grid
-              item
-              //spacing={1}
-              sx={{
-                "& .MuiGrid-root": {
-                  mt: "0px",
-                  ml: "0px",
-                  p: 0,
-                  width: "auto",
-                },
-              }}
-            >
-              <ButtonsBox onCloseModal={onCloseModal} />
-            </Grid>
-          </Grid>
-        </form>
+                <Grid
+                  item /* xs={12} md={3} */
+                  sx={{
+                    mb: 1,
+                    //
+                  }}
+                >
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={formValues.frequent}
+                        name="frequent"
+                        onClick={onHandleClickFrequent}
+                        onChange={onCheckboxChangeFormValues}
+                      />
+                    }
+                    label={
+                      <Typography sx={{ fontSize: "16px", fontWeight: "bold" }}>
+                        Es un curso frecuente
+                      </Typography>
+                    }
+                  />
+                </Grid>
+
+                <Grid
+                  item
+                  //spacing={1}
+                  sx={{
+                    "& .MuiGrid-root": {
+                      mt: "0px",
+                      ml: "0px",
+                      p: 0,
+                      width: "auto",
+                    },
+                  }}
+                >
+                  <ButtonsBox onCloseModal={onCloseModal} />
+                </Grid>
+              </Grid>
+            </form>
+          </>
+        )}
       </Grid>
     </>
   );

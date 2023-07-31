@@ -2,7 +2,8 @@
   background-color: rgba(0, 0, 0, 0.3);
   width: 100vw;
   height: 100vh; 
-  z-index: 1500;
+  /* z-index: 1500; */
+   z-index: 1150; 
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -16,6 +17,7 @@
   position: absolute; 
   top: 50%;
   left: 50%;
+  /* background-color: green; */
   transform: translate(-50%, -50%);
 }
 
@@ -23,8 +25,10 @@
   width: auto;
   height: auto;
   max-height: calc(100vh - 20px);
-  background: white;
-  z-index: 2000;
+   /* background-color: green;  */
+   background-color: white; 
+  /* z-index: 2000; */
+  z-index: 1200;
   border-radius: 5px; 
   box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.4);
   /* overflow-y: scroll; */

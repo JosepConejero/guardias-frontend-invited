@@ -11,10 +11,12 @@ import {
   onEmptyAppUsers,
 } from "../store/appUser/appUserSlice";
 import { deletePassword } from "../helpers/deletePassword";
+import { useState } from "react";
 
 export const useAppUsersStore = () => {
   const dispatch = useDispatch();
   const { appUsers, activeAppUser } = useSelector((state) => state.appUser);
+  const [isSaving, setIsSaving] = useState(false);
 
   const getTechniciansShortNames = () => {
     let techniciansShortNames = [];
@@ -139,14 +141,17 @@ export const useAppUsersStore = () => {
 
   const startSavingAppUser = async (appUser) => {
     try {
+      setIsSaving(true);
       if (appUser.id) {
         await calendarApi.put(`/users/${appUser.id}`, appUser);
         dispatch(onUpdateAppUser({ ...appUser }));
+        setIsSaving(false);
         return;
       }
       /* const { data } = await calendarApi.post("/courses", appUser);
       //console.log({ data });
       dispatch(onAddNewAppUser({ ...appUser, id: data.curso.id })); //sería usuario en vez de curso */
+      setIsSaving(false);
     } catch (error) {
       console.log(error);
       Swal.fire(
@@ -186,6 +191,7 @@ export const useAppUsersStore = () => {
     techniciansShortNames,
     activeAppUser,
     teachers,
+    isSaving,
     //methods
     setActiveAppUser,
     setInactiveAppUser,

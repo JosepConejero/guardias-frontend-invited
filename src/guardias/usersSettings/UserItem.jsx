@@ -8,88 +8,15 @@ import { useAuthStore } from "../../hooks";
 
 export default function UserItem({ appUser }) {
   const { openAppUserModal } = useUiStore();
-  const { startDeletingAppUser, /* startSavingAppUser,  */ setActiveAppUser } =
-    useAppUsersStore();
+  const { startDeletingAppUser, setActiveAppUser } = useAppUsersStore();
   const { user } = useAuthStore();
 
-  /*   const [isAdminChecked, setIsAdminChecked] = useState(false);
-  const [isActivatedChecked, setIsActivatedChecked] = useState(false);
-  const [isDataModifierChecked, setIsDataModifierChecked] = useState(false);
-  const [isTechnicianChecked, setIsTechnicianChecked] = useState(false);
-  const [isExternalChecked, setIsExternalChecked] = useState(false);
-  const [canFLCChecked, setCanFLCChecked] = useState(false);
-  const [canSeeStatisticsChecked, setCanSeeStatisticsChecked] = useState(false);
-  const [isStillWorkingChecked, setIsStillWorkingChecked] = useState(false); */
-
   const handleAppUserChange = () => {
-    setActiveAppUser(appUser);
-    openAppUserModal();
+    if (user.isDataModifier) {
+      setActiveAppUser(appUser);
+      openAppUserModal();
+    }
   };
-
-  /*  const handleIsAdminChange = async (event) => {
-    setIsAdminChecked(event.target.checked);
-    await startSavingAppUser({
-      ...appUser,
-      [event.target.name]: event.target.checked,
-      // shortName: "prueba", 
-    });
-  };
-
-  const handleIsActivatedChange = async (event) => {
-    setIsActivatedChecked(event.target.checked);
-    await startSavingAppUser({
-      ...appUser,
-      [event.target.name]: event.target.checked,
-    });
-  };
-
-  const handleIsDataModifierChange = async (event) => {
-    setIsDataModifierChecked(event.target.checked);
-    await startSavingAppUser({
-      ...appUser,
-      [event.target.name]: event.target.checked,
-    });
-  };
-
-  const handleIsTechnicianChange = async (event) => {
-    setIsTechnicianChecked(event.target.checked);
-    await startSavingAppUser({
-      ...appUser,
-      [event.target.name]: event.target.checked,
-    });
-  };
-
-  const handleIsExternalChange = async (event) => {
-    setIsExternalChecked(event.target.checked);
-    await startSavingAppUser({
-      ...appUser,
-      [event.target.name]: event.target.checked,
-    });
-  };
-
-  const handleCanFLCChange = async (event) => {
-    setCanFLCChecked(event.target.checked);
-    await startSavingAppUser({
-      ...appUser,
-      [event.target.name]: event.target.checked,
-    });
-  };
-
-  const handleCanSeeStatisticsChange = async (event) => {
-    setCanSeeStatisticsChecked(event.target.checked);
-    await startSavingAppUser({
-      ...appUser,
-      [event.target.name]: event.target.checked,
-    });
-  };
-
-  const handleIsStillWorkingChange = async (event) => {
-    setIsStillWorkingChecked(event.target.checked);
-    await startSavingAppUser({
-      ...appUser,
-      [event.target.name]: event.target.checked,
-    });
-  }; */
 
   const onDeleteItem = () => {
     startDeletingAppUser(appUser);
@@ -416,17 +343,22 @@ export default function UserItem({ appUser }) {
               },
             }}
           >
-            <IconButton
-              onClick={onDeleteItem}
-              //sx={{ visibility: course.title === "SIN CURSO" ? "hidden" : "" }}
-              disabled={user.isDataModifier ? false : true}
-              sx={{
-                color: "#CF0000",
-                visibility: user.isDataModifier ? "" : "hidden",
-              }}
-            >
-              <DeleteIcon />
-            </IconButton>
+            {/* {appUser.shortName !== "JOSEP" ? ( */}
+            {!appUser.isAdmin ? (
+              <IconButton
+                onClick={onDeleteItem}
+                //sx={{ visibility: course.title === "SIN CURSO" ? "hidden" : "" }}
+                //disabled={user.isDataModifier ? false : true}
+                sx={{
+                  color: "#CF0000",
+                  visibility: user.isDataModifier ? "" : "hidden",
+                }}
+              >
+                <DeleteIcon />
+              </IconButton>
+            ) : (
+              <></>
+            )}
           </Grid>
         </Grid>
         <Divider sx={{ display: { md: "none" }, bgcolor: "lightgrey" }} />
