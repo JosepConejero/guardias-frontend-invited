@@ -36,5 +36,20 @@ export const purpleTheme = createTheme({
         paperFullScreen: red,
       },
     }, */
+    MuiDatePicker: {
+      defaultProps: {
+        // The props to change the default for.
+        //disabled: true, 
+        //defaultCalendarMonth: "August",
+        //dayOfWeekFormatter: (day) => day.charAt(0).toUpperCase(),
+      },
+      styleOverrides: {
+        root: {
+          backgroundColor: 'red',
+          fontSize: 34,
+          
+        },
+      },
+    },
   },
 });

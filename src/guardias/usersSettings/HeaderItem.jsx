@@ -33,7 +33,7 @@ export const HeaderItem = () => {
 
           <Grid item xs={8} md={1.7}>
             <Tooltip
-              title="Nombre corto (máximo 10 caracteres)"
+              title="Nombre corto (máximo 8 caracteres)"
               arrow /* placement="bottom-start" */
             >
               <Typography

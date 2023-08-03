@@ -6,11 +6,13 @@ export const calendarSlice = createSlice({
     isLoadingGuardDays: true, //crearé una ppdad isLoadingGuardDays para saber cuándo está cargando las guardDays y así poner alguna pantalla de Loading...
     guardDays: [],
     activeGuardDay: null,
+    showedMonth: null,
   },
   reducers: {
     onSetActiveGuardDay: (state, { payload }) => {
       state.activeGuardDay = payload;
     },
+
     onDeactivateGuardDay: (state) => {
       state.activeGuardDay = null;
     },
@@ -55,6 +57,9 @@ export const calendarSlice = createSlice({
       state.guardDays = [];
       //state.activeEvent = null;
     },
+    onSetShowedMonth: (state, { payload }) => {
+      state.showedMonth = payload;
+    },
   },
 });
 
@@ -65,4 +70,5 @@ export const {
   onUpdateGuardDay,
   onLoadGuardDays,
   onLogoutCalendar,
+  onSetShowedMonth,
 } = calendarSlice.actions;

@@ -4,14 +4,21 @@ import {
   onLoadGuardDays,
   onSetActiveGuardDay,
   onUpdateGuardDay,
+  onSetShowedMonth,
 } from "../store/calendar/calendarSlice";
 import calendarApi from "../api/calendarApi";
 import { useState } from "react";
 
 export const useCalendarStore = () => {
   const dispatch = useDispatch();
-  const { guardDays, activeGuardDay } = useSelector((state) => state.calendar);
+  const { guardDays, activeGuardDay, showedMonth } = useSelector(
+    (state) => state.calendar
+  );
   const [isSaving, setIsSaving] = useState(false);
+
+  const setShowedMonth = (date) => {
+    dispatch(onSetShowedMonth(date));
+  };
 
   const setActiveGuardDay = (calendarGuardDay) => {
     dispatch(onSetActiveGuardDay(calendarGuardDay));
@@ -78,9 +85,11 @@ export const useCalendarStore = () => {
     guardDayInformation,
     hasGuardDayClicked: !!activeGuardDay,
     isSaving,
+    showedMonth,
     //methods
     setActiveGuardDay,
     startSavingGuardDay,
     startLoadingGuardDays,
+    setShowedMonth,
   };
 };
