@@ -1,4 +1,6 @@
 import { Divider, Grid, Typography } from "@mui/material";
+import { useStatisticsData } from "../../hooks/useStatisticsData";
+import { useAppUsersStore } from "../../hooks";
 /* import { useState } from "react";
 import { useSelector } from "react-redux"; */
 // import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -8,7 +10,7 @@ import { useSelector } from "react-redux"; */
 // import SouthIcon from "@mui/icons-material/South";
 // import NorthIcon from "@mui/icons-material/North";
 
-const datos = [
+/* const datos = [
   { name: "Josep", nguardias: 5, nFLC: 4 },
   { name: "Toni", nguardias: 4, nFLC: 3 },
   { name: "Roser", nguardias: 3, nFLC: 2 },
@@ -18,9 +20,11 @@ const datos = [
   { name: "Cristina", nguardias: 3, nFLC: 2 },
   { name: "M. Ángel", nguardias: 2, nFLC: 1 },
   { name: "Lluïsa", nguardias: 2, nFLC: 4 },
-];
+]; */
 
 export const GuardsAndCoursesStatistics = () => {
+  const { guardsAndFlcsStatistics } = useStatisticsData();
+  const { technicianShortNameById } = useAppUsersStore();
   /* console.log(guardDays, showedMonth);
 
   const [data, setData] = useState(datos);
@@ -29,13 +33,17 @@ export const GuardsAndCoursesStatistics = () => {
   const [flecha2, setFlecha2] = useState(false);
  */
   const handleClickTechnician = () => {
+    //console.log("aquí ordena los nombres de los técnicos");
+    //console.log("resultado final: ", guardsAndFlcsStatistics);
     // setFlecha1((prevValue) => !prevValue);
     //setData((prevValue) => data.sort((tecnico)=>tecnico.name>prevValue.name));
   };
   const handleClickGuards = () => {
+    console.log("aquí ordena por el número de guardias");
     //setFlecha2((prevValue) => !prevValue);
   };
   const handleClickFlcs = () => {
+    console.log("aquí ordena por el número de formaciones de la FLC");
     //setFlecha3((prevValue) => !prevValue);
   };
 
@@ -206,25 +214,27 @@ export const GuardsAndCoursesStatistics = () => {
         }}
       >
         {/* {data.map((technician) => ( */}
-        {datos.map((technician) => (
+        {guardsAndFlcsStatistics.map((technician) => (
           <Grid
             container
-            key={technician.name}
+            key={technician.technicianId}
             direction="row"
             columns={14}
             //sx={{ ml: 1 }}
           >
             <Grid item xs={5} md={5}>
-              <Typography sx={{ fontSize: 14 }}>{technician.name}</Typography>
+              <Typography sx={{ fontSize: 14 }}>
+                {technicianShortNameById(technician.technicianId)}
+              </Typography>
             </Grid>
             <Grid item xs={4} md={4}>
               <Typography sx={{ ml: 3, fontSize: 14 }}>
-                {technician.nguardias}
+                {technician.totalGuards}
               </Typography>
             </Grid>
             <Grid item xs={4} md={4}>
               <Typography sx={{ ml: 3.5, fontSize: 14 }}>
-                {technician.nFLC}
+                {technician.totalFlcs}
               </Typography>
             </Grid>
           </Grid>

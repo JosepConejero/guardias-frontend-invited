@@ -208,5 +208,6 @@ export const useAppUsersStore = () => {
     emptyTeachersName,
     emptyAppUsers,
     getAppUserData,
+    technicianShortNameById,
   };
 };
