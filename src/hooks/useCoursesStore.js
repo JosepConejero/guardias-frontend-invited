@@ -81,6 +81,20 @@ export const useCoursesStore = () => {
     return course;
   };
 
+  const getCourseTitleById = (courses, courseId) => {
+    let course = {};
+    if (courses) {
+      for (let i = 0; i < courses.length; i++) {
+        if (courses[i].id === courseId) {
+          course = { ...courses[i] };
+        }
+      }
+    }
+    return course?.title;
+  };
+
+  const courseTitleById = (id) => getCourseTitleById(courses, id);
+
   const emptyCourses = () => {
     dispatch(onEmptyCourses());
   };
@@ -98,5 +112,6 @@ export const useCoursesStore = () => {
     startDeletingCourse,
     getCourseById,
     emptyCourses,
+    courseTitleById,
   };
 };

@@ -39,8 +39,8 @@ export const useAppUsersStore = () => {
   const techniciansShortNames = getTechniciansShortNames();
 
   const technicianShortNameById = (id) => {
-    const found = appUsers.find((technician) => technician.id === id);
-    return found.shortName;
+    const found = appUsers?.find((technician) => technician.id === id);
+    return found?.shortName;
   };
 
   const getTechniciansOutShortNames = (techniciansOut) => {
@@ -94,10 +94,10 @@ export const useAppUsersStore = () => {
   };
 
   const technicianIdByShortName = (shortName) => {
-    const found = appUsers.find(
+    const found = appUsers?.find(
       (technician) => technician.shortName === shortName
     );
-    return found.id;
+    return found?.id;
   };
 
   const getTechniciansOutIdsByShortName = (techniciansOutShortNames) => {

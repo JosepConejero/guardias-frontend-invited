@@ -1,6 +1,7 @@
 import { Divider, Grid, Typography } from "@mui/material";
 import { useStatisticsData } from "../../hooks/useStatisticsData";
-import { useAppUsersStore } from "../../hooks";
+//import { useState } from "react";
+//import { sortArrayOfObjectsByProperty } from "../../helpers/sortArrayOfObjectsByField";
 /* import { useState } from "react";
 import { useSelector } from "react-redux"; */
 // import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -10,21 +11,16 @@ import { useSelector } from "react-redux"; */
 // import SouthIcon from "@mui/icons-material/South";
 // import NorthIcon from "@mui/icons-material/North";
 
-/* const datos = [
-  { name: "Josep", nguardias: 5, nFLC: 4 },
-  { name: "Toni", nguardias: 4, nFLC: 3 },
-  { name: "Roser", nguardias: 3, nFLC: 2 },
-  { name: "Miguel", nguardias: 2, nFLC: 5 },
-  { name: "Pili", nguardias: 5, nFLC: 4 },
-  { name: "Alba", nguardias: 4, nFLC: 3 },
-  { name: "Cristina", nguardias: 3, nFLC: 2 },
-  { name: "M. Ángel", nguardias: 2, nFLC: 1 },
-  { name: "Lluïsa", nguardias: 2, nFLC: 4 },
-]; */
-
 export const GuardsAndCoursesStatistics = () => {
-  const { guardsAndFlcsStatistics } = useStatisticsData();
-  const { technicianShortNameById } = useAppUsersStore();
+  const {
+    guardsAndFlcsStatisticsSortedByShortName,
+    //guardsAndFlcsStatisticsSortedByTotalGuards,
+    //guardsAndFlcsStatisticsSortedByTotalFlcs,
+  } = useStatisticsData();
+
+  //const [sortedGuardsAndFlcsStatistics, setSortedGuardsAndFlcsStatistics] =    useState([...guardsAndFlcsStatisticsSortedByShortName]);
+
+  // const sortedGuardsAndFlcsStatistics = sortArrayOfObjectsByProperty();
   /* console.log(guardDays, showedMonth);
 
   const [data, setData] = useState(datos);
@@ -37,14 +33,18 @@ export const GuardsAndCoursesStatistics = () => {
     //console.log("resultado final: ", guardsAndFlcsStatistics);
     // setFlecha1((prevValue) => !prevValue);
     //setData((prevValue) => data.sort((tecnico)=>tecnico.name>prevValue.name));
+    //sortArrayOfObjectsByProperty(guardsAndFlcsStatistics, "shortName");
+    //setSortedGuardsAndFlcsStatistics([      ...guardsAndFlcsStatisticsSortedByShortName,    ]);
   };
   const handleClickGuards = () => {
-    console.log("aquí ordena por el número de guardias");
+    //console.log("aquí ordena por el número de guardias");
     //setFlecha2((prevValue) => !prevValue);
+    //setSortedGuardsAndFlcsStatistics([      ...guardsAndFlcsStatisticsSortedByTotalGuards,    ]);
   };
   const handleClickFlcs = () => {
-    console.log("aquí ordena por el número de formaciones de la FLC");
+    //console.log("aquí ordena por el número de formaciones de la FLC");
     //setFlecha3((prevValue) => !prevValue);
+    //setSortedGuardsAndFlcsStatistics([      ...guardsAndFlcsStatisticsSortedByTotalFlcs,    ]);
   };
 
   return (
@@ -179,7 +179,7 @@ export const GuardsAndCoursesStatistics = () => {
                   onClick={handleClickFlcs}
                   sx={{ fontSize: 14, fontWeight: "bold" }}
                 >
-                  FLC
+                  Cursos
                 </Typography>
               </Grid>
               {/*  <Grid item>
@@ -214,7 +214,8 @@ export const GuardsAndCoursesStatistics = () => {
         }}
       >
         {/* {data.map((technician) => ( */}
-        {guardsAndFlcsStatistics.map((technician) => (
+        {/* {sortedGuardsAndFlcsStatistics?.map((technician) => ( */}
+        {guardsAndFlcsStatisticsSortedByShortName.map((technician) => (
           <Grid
             container
             key={technician.technicianId}
@@ -224,7 +225,8 @@ export const GuardsAndCoursesStatistics = () => {
           >
             <Grid item xs={5} md={5}>
               <Typography sx={{ fontSize: 14 }}>
-                {technicianShortNameById(technician.technicianId)}
+                {/* {technicianShortNameById(technician.technicianId)} */}
+                {technician.shortName}
               </Typography>
             </Grid>
             <Grid item xs={4} md={4}>
@@ -233,7 +235,7 @@ export const GuardsAndCoursesStatistics = () => {
               </Typography>
             </Grid>
             <Grid item xs={4} md={4}>
-              <Typography sx={{ ml: 3.5, fontSize: 14 }}>
+              <Typography sx={{ ml: 4.5, fontSize: 14 }}>
                 {technician.totalFlcs}
               </Typography>
             </Grid>

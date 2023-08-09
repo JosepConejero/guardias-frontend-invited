@@ -4,7 +4,7 @@ export const monthSlice = createSlice({
   name: "month",
   initialState: {
     daysInWeek: 5,
-    showStatistics: true,
+    showStatistics: false,
   },
   reducers: {
     switchDaysInWeek: (state) => {
@@ -18,7 +18,7 @@ export const monthSlice = createSlice({
       state.showStatistics = !state.showStatistics;
     },
     resetShowStatistics: (state) => {
-      state.showStatistics = true;
+      state.showStatistics = false;
     },
   },
 });
