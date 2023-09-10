@@ -4,16 +4,20 @@ import { Grid } from "@mui/material";
 import { Day } from "./Day";
 import { isWeekend, isSunday } from "../../helpers/myCalendar";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { DayModal } from "../modals/DayModal";
 import { useUiStore } from "../../hooks/useUiStore";
 import { useCalendarStore } from "../../hooks/useCalendarStore";
 import { getDayOfWeekText } from "../../helpers/dayOfWeek";
 import { BasicModal } from "../../guardias/modals/basicModal/BasicModal";
+import { useGuardDayStore } from "../../hooks/useGuardDayStore";
+import { onDeactivateGuardDay } from "../../store/calendar/calendarSlice";
 
 export const MonthDays = ({ showedDays }) => {
+  const dispatch = useDispatch();
   const { isDayModalOpen, openDayModal, closeDayModal } = useUiStore();
   const { setActiveGuardDay, guardDayInformation } = useCalendarStore();
+  const { deselectGuardDay } = useGuardDayStore();
 
   const { daysInWeek } = useSelector((state) => state.month);
 
@@ -21,6 +25,13 @@ export const MonthDays = ({ showedDays }) => {
     // console.log(day, month, year);
     setActiveGuardDay({ day, month, year });
     openDayModal();
+  };
+
+  const handleCloseDayModal = () => {
+    dispatch(onDeactivateGuardDay());
+    closeDayModal();
+    deselectGuardDay();
+    console.log("entra en el handleCloseDayModal");
   };
 
   return (
@@ -71,8 +82,9 @@ export const MonthDays = ({ showedDays }) => {
       </Grid>
 
       {/* <DayModal /> */}
-      <BasicModal isOpen={isDayModalOpen} closeModal={closeDayModal}>
-        <DayModal closeModal={closeDayModal} />
+      {/* <BasicModal isOpen={isDayModalOpen} closeModal={closeDayModal}> */}
+      <BasicModal isOpen={isDayModalOpen} closeModal={handleCloseDayModal}>
+        <DayModal closeModal={handleCloseDayModal} />
       </BasicModal>
     </>
   );

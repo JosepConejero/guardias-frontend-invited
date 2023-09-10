@@ -158,7 +158,7 @@ export const CheckboxesBox = (/* {
       <Grid container>
         <TextField
           multiline
-          rows={4}
+          rows={3}
           sx={{ mb: 1 }}
           label="Notas"
           type="text"
@@ -168,7 +168,7 @@ export const CheckboxesBox = (/* {
           //  value={formValuesTextField.note}
           value={guardDayOpened.note}
           onChange={onInputChange}
-          size="medium"
+          size="small" //medium
         />
       </Grid>
     </Stack>

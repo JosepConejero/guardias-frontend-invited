@@ -8,16 +8,13 @@ import {
 } from "@mui/material";
 import { useUiStore } from "../../hooks/useUiStore";
 
-//import { Dialog } from "@mui/material";
-//import { customStyles } from "../../helpers";
 import { useEffect, useState } from "react";
 import { useCoursesStore } from "../../hooks/useCoursesStore";
 import { ButtonsBox } from "./dayModalComponents/ButtonsBox";
 import Swal from "sweetalert2";
+import "./swal2.css";
 import { useCheckboxes } from "../../hooks";
 import { SpinnerInModal } from "../customizedComponents";
-
-//Modal.setAppElement("#root");
 
 const emptyCourse = {
   title: "",
@@ -59,7 +56,7 @@ export const CourseNameModal = () => {
       Swal.fire({
         title: "El nombre del curso no puede estar vacío.",
         text: "Por favor, modifica esto antes de guardar",
-        target: document.getElementById("dialog-courses"), //target: document.getElementById('dialog'),
+        //target: document.getElementById("dialog-courses"), //target: document.getElementById('dialog'),
         icon: "error",
       });
     }
@@ -81,18 +78,18 @@ export const CourseNameModal = () => {
 
   return (
     <>
-      <Grid
-        /* open={isCourseModalOpen}
-        onClose={onCloseModal} */
-        id="dialog-courses"
-        sx={{
-          width: { xs: "390px", md: "600px" },
-        }}
-      >
-        {isSaving ? (
-          <SpinnerInModal text="Saving..." />
-        ) : (
-          <>
+      {isSaving ? (
+        <SpinnerInModal text="Saving..." />
+      ) : (
+        <>
+          <Grid
+            // open={isCourseModalOpen}
+            //onClose={onCloseModal}
+            //id="dialog-courses"
+            sx={{
+              width: { xs: "390px", md: "600px" },
+            }}
+          >
             <form
               aria-label="submit-form"
               onSubmit={onSubmit}
@@ -104,11 +101,14 @@ export const CourseNameModal = () => {
                 sx={{
                   //    width: { xs: "330px", md: "600px" },
                   p: { xs: "15px", md: "20px" },
-                  /*      "& .MuiGrid-root": { margin: "0px", padding: "0px" },
-              "& .MuiGrid-container": { margin: "0px", padding: "0px" }, */
+                  //      "& .MuiGrid-root": { margin: "0px", padding: "0px" },
+                  //"& .MuiGrid-container": { margin: "0px", padding: "0px" },
                 }}
               >
-                <Grid item /* sm={12} sx={{ mt: 1 }} */>
+                <Grid
+                  item
+                  //sm={12} sx={{ mt: 1 }}
+                >
                   <TextField
                     label="Nombre del curso"
                     type="text"
@@ -120,7 +120,10 @@ export const CourseNameModal = () => {
                   />
                 </Grid>
 
-                <Grid item /* xs={12} md={3} */>
+                <Grid
+                  item
+                  // xs={12} md={3}
+                >
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -139,7 +142,8 @@ export const CourseNameModal = () => {
                 </Grid>
 
                 <Grid
-                  item /* xs={12} md={3} */
+                  item
+                  // xs={12} md={3}
                   sx={{
                     mb: 1,
                     //
@@ -164,7 +168,6 @@ export const CourseNameModal = () => {
 
                 <Grid
                   item
-                  //spacing={1}
                   sx={{
                     "& .MuiGrid-root": {
                       mt: "0px",
@@ -178,9 +181,117 @@ export const CourseNameModal = () => {
                 </Grid>
               </Grid>
             </form>
-          </>
-        )}
-      </Grid>
+          </Grid>
+        </>
+      )}
     </>
   );
 };
+
+/* 
+<Grid
+  // open={isCourseModalOpen}
+  //onClose={onCloseModal}
+  id="dialog-courses"
+  sx={{
+    width: { xs: "390px", md: "600px" },
+  }}
+>
+  {isSaving ? (
+    <SpinnerInModal text="Saving..." />
+  ) : (
+    <>
+      <form
+        aria-label="submit-form"
+        onSubmit={onSubmit}
+        className="animate__animated animate__fadeIn animate__faster"
+      >
+        <Grid
+          container
+          direction="column"
+          sx={{
+            //    width: { xs: "330px", md: "600px" },
+            p: { xs: "15px", md: "20px" },
+            //      "& .MuiGrid-root": { margin: "0px", padding: "0px" },
+            //"& .MuiGrid-container": { margin: "0px", padding: "0px" },
+          }}
+        >
+          <Grid item 
+          // sm={12} sx={{ mt: 1 }} 
+          //>
+            <TextField
+              label="Nombre del curso"
+              type="text"
+              placeholder="Anota el nombre del curso aquí"
+              fullWidth
+              name="title"
+              value={formValues.title}
+              onChange={onInputChange}
+            />
+          </Grid>
+
+          <Grid
+            item
+            // xs={12} md={3}
+          >
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={formValues.flc}
+                  name="flc"
+                  onClick={onHandleClickFlc}
+                  onChange={onCheckboxChangeFormValues}
+                />
+              }
+              label={
+                <Typography sx={{ fontSize: "16px", fontWeight: "bold" }}>
+                  Es un curso de la FLC
+                </Typography>
+              }
+            />
+          </Grid>
+
+          <Grid
+            item
+            // xs={12} md={3}
+            sx={{
+              mb: 1,
+              //
+            }}
+          >
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={formValues.frequent}
+                  name="frequent"
+                  onClick={onHandleClickFrequent}
+                  onChange={onCheckboxChangeFormValues}
+                />
+              }
+              label={
+                <Typography sx={{ fontSize: "16px", fontWeight: "bold" }}>
+                  Es un curso frecuente
+                </Typography>
+              }
+            />
+          </Grid>
+
+          <Grid
+            item
+            //spacing={1}
+            sx={{
+              "& .MuiGrid-root": {
+                mt: "0px",
+                ml: "0px",
+                p: 0,
+                width: "auto",
+              },
+            }}
+          >
+            <ButtonsBox onCloseModal={onCloseModal} />
+          </Grid>
+        </Grid>
+      </form>
+    </>
+  )}
+</Grid>; */

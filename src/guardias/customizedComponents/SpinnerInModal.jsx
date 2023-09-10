@@ -10,15 +10,15 @@ export const SpinnerInModal = ({ text }) => {
       //height="100vh"
       sx={{
         height: {
-          xs: "720px",
-          md: "708px",
+          xs: "680px", //xs: "680px", //xs: "720px",
+          md: "680px", //md: "500px", //md: "708px",
         },
-        width: { xs: "calc(100vw - 20px)", md: "100%" },
+        width: { xs: "400px", md: "680px" }, //width: { xs: "calc(100vw - 40px)", md: "100%" }, //width: { xs: "calc(100vw - 20px)", md: "100%" },
 
         //bgcolor: "#f0f8ff",
       }}
     >
-      <Grid item mt={15}>
+      <Grid item>
         <Grid
           container
           alignItems="center"
@@ -30,7 +30,7 @@ export const SpinnerInModal = ({ text }) => {
               {text}
             </Typography>
           </Grid>
-          <Grid item sx={{ height: { xs: "180px", md: "180px" } }}>
+          <Grid item>
             <CircularProgress />
           </Grid>
         </Grid>

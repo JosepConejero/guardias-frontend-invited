@@ -39,7 +39,7 @@ export const Navbar = () => {
           {/* <MenuOutlined /> */}
           {/* <CalendarMonth /> */}
           <ImageListItem>
-            <img src="/assets/logo-mpe.png" alt="logo de MPE"></img>
+            <img src="/assets/logo-navbar.png" alt="logo de MPE"></img>
           </ImageListItem>
         </IconButton>
 

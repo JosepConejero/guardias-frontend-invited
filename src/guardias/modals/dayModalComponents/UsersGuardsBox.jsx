@@ -43,7 +43,14 @@ export const UsersGuardsBox = () => {
   };
 
   return (
-    <Stack sx={{ borderRadius: "5px", border: "1px grey solid", p: "10px" }}>
+    <Stack
+      sx={{
+        borderRadius: "5px",
+        border: "1px grey solid",
+        p: "10px",
+        //width: { xs: "200px" },
+      }}
+    >
       <Grid container>
         <Grid item sx={{ mb: "3px", fontWeight: "bold" }} container>
           <Grid

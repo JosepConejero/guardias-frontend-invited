@@ -17,6 +17,7 @@ import { onDeactivateGuardDay } from "../../store/calendar/calendarSlice";
 import { useGuardDayStore } from "../../hooks/useGuardDayStore";
 import { useAppUsersStore } from "../../hooks/useAppUsersStore";
 import Swal from "sweetalert2";
+import "./swal2.css";
 import { DateBox } from "./dayModalComponents/DateBox";
 import { ButtonsBox } from "./dayModalComponents/ButtonsBox";
 import { SpinnerInModal } from "../customizedComponents";
@@ -35,9 +36,9 @@ const emptyGuardDay = {
   techniciansOut: [],
 };
 
-export const DayModal = () => {
+export const DayModal = ({ closeModal }) => {
   const dispatch = useDispatch();
-  const { isDayModalOpen, closeDayModal } = useUiStore();
+  // const { isDayModalOpen, closeDayModal } = useUiStore();
   const { activeGuardDay, guardDayInformation, startSavingGuardDay, isSaving } =
     useCalendarStore();
   const { selectGuardDay, deselectGuardDay } = useGuardDayStore();
@@ -78,26 +79,26 @@ export const DayModal = () => {
     event.preventDefault();
     if (!emptyTeachersName(guardDayOpened.technicians)) {
       await startSavingGuardDay(guardDayOpened);
-      onCloseModal();
+      //onCloseModal();
+      closeModal();
     } else {
       Swal.fire({
         title:
           "Los nombres de los técnicos/formadores de guardia no pueden estar vacíos.",
         text: "Por favor, modifica esto antes de guardar",
-        target: document.getElementById("dialog-guard-day"), //target: document.getElementById('dialog'),
+        //target: document.getElementById("dialog-guard-day"), //target: document.getElementById('dialog'),
         icon: "error",
       });
     }
     ////setFormSubmitted(false);
   };
 
-  const onCloseModal = () => {
+  /*   const onCloseModal = () => {
     //antes de cerrar el modal tengo que hacer que activeGuardDay valga null
     dispatch(onDeactivateGuardDay());
     closeDayModal();
-
     deselectGuardDay();
-  };
+  }; */
 
   useEffect(() => {
     //if (activeGuardDay !== null) {
@@ -144,39 +145,39 @@ export const DayModal = () => {
 
   return (
     <>
-      <Grid
-        // open={isDayModalOpen}
-        // onClose={onCloseModal}
-        id="dialog-guard-day"
-        sx={{ width: { /* xs: "100%", */ md: "900px" } }}
-      >
-        <Grid
-          sx={{
-            //maxWidth: "none",
-            //maxHeight: "none",
-            // width: { /* xs: "100%", */ md: "900px" },
-            //height: { /* xs: "100vh", */ md: "720px" },
-            //bgcolor: "white",
-            //mt: { xs: 0, md: -2 },
-            my: 1,
-            mx: { md: 0.5 },
-            //bgcolor: "red",
-            //borderRadius: 25,
-            //pb: { xs: 0, md: 0 },
-            //borderRadius: 1,
-            //bgcolor: "white",
-            //position: { xs: "absolute", md: "absolute" },
-            //top: { xs: "0%", md: "50%" },
-            //left: { xs: "0%", md: "50%" },
-            //transform: { md: "translate(-50%, -50%)" },
-            //boxShadow: 24,
-            // overflow: { xs: "auto" },
-          }}
-        >
-          {isSaving ? (
-            <SpinnerInModal text="Saving..." />
-          ) : (
-            <>
+      {isSaving ? (
+        <SpinnerInModal text="Saving..." />
+      ) : (
+        <>
+          <Grid
+            // open={isDayModalOpen}
+            // onClose={onCloseModal}
+            //id="dialog-guard-day"
+            sx={{ width: { xs: "390px", md: "900px" } }}
+          >
+            <Grid
+              sx={{
+                //maxWidth: "none",
+                //maxHeight: "none",
+                // width: { /* xs: "100%", */ md: "900px" },
+                //height: { /* xs: "100vh", */ md: "720px" },
+                //bgcolor: "white",
+                //mt: { xs: 0, md: -2 },
+                my: 1,
+                mx: { md: 0.5 },
+                //bgcolor: "red",
+                //borderRadius: 25,
+                //pb: { xs: 0, md: 0 },
+                //borderRadius: 1,
+                //bgcolor: "white",
+                //position: { xs: "absolute", md: "absolute" },
+                //top: { xs: "0%", md: "50%" },
+                //left: { xs: "0%", md: "50%" },
+                //transform: { md: "translate(-50%, -50%)" },
+                //boxShadow: 24,
+                // overflow: { xs: "auto" },
+              }}
+            >
               <form
                 aria-label="submit-form"
                 onSubmit={onSubmit}
@@ -209,14 +210,15 @@ export const DayModal = () => {
                     </Grid>
                   </Stack>
 
-                  <ButtonsBox onCloseModal={onCloseModal} />
+                  <ButtonsBox onCloseModal={closeModal} />
+                  {/*  <ButtonsBox onCloseModal={onCloseModal} /> */}
                   {/*  <ButtonsBox saving={saving} onCloseModal={onCloseModal} /> */}
                 </Stack>
               </form>
-            </>
-          )}
-        </Grid>
-      </Grid>
+            </Grid>
+          </Grid>
+        </>
+      )}
     </>
   );
 };

@@ -15,6 +15,7 @@ import { useAppUsersStore } from "../../hooks/useAppUsersStore";
 import { SpinnerInModal } from "../customizedComponents";
 import { useCheckboxes } from "../../hooks";
 import Swal from "sweetalert2";
+import "./swal2.css";
 import { ButtonsBox } from "./dayModalComponents/ButtonsBox";
 
 //Modal.setAppElement("#root");
@@ -101,7 +102,7 @@ export const AppUserNameModal = () => {
       Swal.fire({
         title: "Ni el nombre ni el nombre corto pueden estar vacíos.",
         text: "Por favor, modifica esto antes de guardar",
-        target: document.getElementById("dialog-app-users"), //target: document.getElementById('dialog'),
+        //target: document.getElementById("dialog-app-users"), //target: document.getElementById('dialog'),
         icon: "error",
       });
     }
@@ -122,23 +123,23 @@ export const AppUserNameModal = () => {
   };
   return (
     <>
-      <Grid
-        /* isOpen={isAppUsersModalOpen}
+      {isSaving ? (
+        <SpinnerInModal text="Saving..." />
+      ) : (
+        <>
+          <Grid
+            /* isOpen={isAppUsersModalOpen}
         onRequestClose={onCloseModal} */
-        //style={customStyles}
-        //className="modal"
-        //overlayClassName="modal-fondo"
-        //closeTimeoutMS={200}
-        id="dialog-app-users"
-        sx={{
-          width: { xs: "390px", md: "600px" },
-          height: { /*  xs: "calc(100vh - 20px)", */ md: "550px" },
-        }}
-      >
-        {isSaving ? (
-          <SpinnerInModal text="Saving..." />
-        ) : (
-          <>
+            //style={customStyles}
+            //className="modal"
+            //overlayClassName="modal-fondo"
+            //closeTimeoutMS={200}
+            //id="dialog-app-users"
+            sx={{
+              width: { xs: "390px", md: "600px" },
+              height: { /*  xs: "calc(100vh - 20px)", */ md: "550px" },
+            }}
+          >
             <form
               aria-label="submit-form"
               onSubmit={onSubmit}
@@ -347,9 +348,9 @@ export const AppUserNameModal = () => {
                 </Grid> */}
               </Grid>
             </form>
-          </>
-        )}
-      </Grid>
+          </Grid>
+        </>
+      )}
     </>
   );
 };

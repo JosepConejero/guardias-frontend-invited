@@ -6,7 +6,8 @@ import {
   onLogin,
   onLogout,
 } from "../store/auth/authSlice";
-//import Swal from "sweetalert2";
+
+import Swal from "sweetalert2";
 import { useCoursesStore } from "./useCoursesStore";
 import { useAppUsersStore } from "./useAppUsersStore";
 import { resetShowStatistics } from "../store/month/monthSlice";
@@ -28,20 +29,38 @@ export const useAuthStore = () => {
       });
       localStorage.setItem("token", data.token);
       localStorage.setItem("token-init-date", new Date().getTime());
-      dispatch(
-        onLogin({
-          name: data.name,
-          uid: data.uid,
-          shortName: data.shortName,
-          canFLC: data.canFLC,
-          canSeeStatistics: data.canSeeStatistics,
-          isActivated: data.isActivated,
-          isAdmin: data.isAdmin,
-          isDataModifier: data.isDataModifier,
-          isStillWorking: data.isStillWorking,
-          isTechnician: data.isTechnician,
-        })
-      );
+      if (data.isStillWorking) {
+        if (data.isActivated) {
+          dispatch(
+            onLogin({
+              name: data.name,
+              uid: data.uid,
+              shortName: data.shortName,
+              canFLC: data.canFLC,
+              canSeeStatistics: data.canSeeStatistics,
+              isActivated: data.isActivated,
+              isAdmin: data.isAdmin,
+              isDataModifier: data.isDataModifier,
+              isStillWorking: data.isStillWorking,
+              isTechnician: data.isTechnician,
+            })
+          );
+        } else {
+          Swal.fire({
+            title: "Su usuario todavía no está activado.",
+            text: "Por favor, hable con el administrador para que lo active.",
+            icon: "error",
+          });
+          dispatch(onLogout());
+        }
+      } else {
+        Swal.fire({
+          title: "No tiene permiso para acceder.",
+          text: "Usted ya no trabaja en esta empresa.",
+          icon: "error",
+        });
+        dispatch(onLogout());
+      }
     } catch (error) {
       dispatch(onLogout("Credenciales incorrectas"));
       setTimeout(() => {
@@ -62,7 +81,15 @@ export const useAuthStore = () => {
       localStorage.setItem("token", data.token);
       localStorage.setItem("token-init-date", new Date().getTime());
 
-      dispatch(
+      Swal.fire({
+        title: "Avise al administrador para que active su usuario.",
+        //title: "Su usuario todavía no está activado.",
+        //text: "Por favor, hable con el administrador para que lo active",
+        icon: "info",
+      });
+      dispatch(onLogout());
+
+      /* dispatch(
         onLogin({
           name: data.name,
           uid: data.uid,
@@ -75,7 +102,7 @@ export const useAuthStore = () => {
           isStillWorking: data.isStillWorking,
           isTechnician: data.isTechnician,
         })
-      );
+      ); */
     } catch (error) {
       dispatch(
         onLogout(error.response.data?.msg || "Se ha producido un error")
@@ -111,6 +138,7 @@ export const useAuthStore = () => {
         })
       );
     } catch (error) {
+      console.log("Es el error del renew");
       localStorage.clear();
       dispatch(onLogout());
     }
