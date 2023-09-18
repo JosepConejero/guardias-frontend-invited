@@ -7,6 +7,7 @@ export const calendarSlice = createSlice({
     guardDays: [],
     activeGuardDay: null,
     showedMonth: null,
+    showedDate: new Date(),
   },
   reducers: {
     onSetActiveGuardDay: (state, { payload }) => {
@@ -60,6 +61,9 @@ export const calendarSlice = createSlice({
     onSetShowedMonth: (state, { payload }) => {
       state.showedMonth = payload;
     },
+    onUpdateShowedDate: (state, { payload }) => {
+      state.showedDate = payload;
+    },
   },
 });
 
@@ -71,4 +75,5 @@ export const {
   onLoadGuardDays,
   onLogoutCalendar,
   onSetShowedMonth,
+  onUpdateShowedDate,
 } = calendarSlice.actions;

@@ -5,6 +5,9 @@ export const monthSlice = createSlice({
   initialState: {
     daysInWeek: 5,
     showStatistics: false,
+    /* currentMonth: null,
+    currentDate: {},
+    currentShowedDays: [], */
   },
   reducers: {
     switchDaysInWeek: (state) => {
@@ -20,8 +23,23 @@ export const monthSlice = createSlice({
     resetShowStatistics: (state) => {
       state.showStatistics = false;
     },
+    /* setCurrentMonth: (state, { payload }) => {
+      state.currentMonth = payload;
+    },
+    setCurrentDate: (state, { payload }) => {
+      state.currentDate = payload;
+    },
+    setCurrentShowedDays: (state, { payload }) => {
+      state.currentShowedDays = payload;
+    }, */
   },
 });
 
-export const { switchDaysInWeek, switchShowStatistics, resetShowStatistics } =
-  monthSlice.actions;
+export const {
+  switchDaysInWeek,
+  switchShowStatistics,
+  resetShowStatistics,
+  /* setCurrentMonth,
+  setCurrentDate,
+  setCurrentShowedDays, */
+} = monthSlice.actions;

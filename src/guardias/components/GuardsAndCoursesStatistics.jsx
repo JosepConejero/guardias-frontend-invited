@@ -64,26 +64,6 @@ export const GuardsAndCoursesStatistics = () => {
       alignItems="center"
       //justifyContent="flex-start"
     >
-      {/* <Grid
-        item
-        xs={12}
-        sx={{
-          //border: '1px solid black',
-          //borderRadius: 2,
-          p: 1,
-          mb: 0.5,
-        }}
-      >
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DemoContainer components={['DatePicker']}>
-            <DatePicker
-              label="Datos desde"
-              //sx={{ sizeFont: 12 }}
-            />
-          </DemoContainer>
-        </LocalizationProvider>
-      </Grid>
- */}
       <Grid
         item
         sx={{

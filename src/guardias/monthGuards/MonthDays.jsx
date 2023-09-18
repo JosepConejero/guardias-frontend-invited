@@ -31,7 +31,7 @@ export const MonthDays = ({ showedDays }) => {
     dispatch(onDeactivateGuardDay());
     closeDayModal();
     deselectGuardDay();
-    console.log("entra en el handleCloseDayModal");
+    //console.log("entra en el handleCloseDayModal");
   };
 
   return (
