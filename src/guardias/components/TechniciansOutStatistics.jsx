@@ -1,36 +1,9 @@
 import { Divider, Grid, Typography } from "@mui/material";
 import { useStatisticsData } from "../../hooks/useStatisticsData";
 import { uniqueKey } from "../../helpers/uniqueKey";
-// import { useState } from "react";
-// import { officeDate } from "../../helpers";
-// import { useCalendarStore } from "../../hooks";
 
 export const TechniciansOutStatistics = () => {
-  // el tipo de dato necesario será un array que tendrá varios objetos, cada uno por una semana.
-  // cada objeto tendrá tantas propiedades como nombres de técnicos
-  //      y el valor de cada propiedad será un array con los números de los días del mes que no está ese técnico
-
   const { absencesStatistics } = useStatisticsData();
-
-  //console.log(absencesStatistics);
-
-  /*   const formattedTechniciansOut = (technicianData) => {
-    // console.log(technicianData);
-    let result;
-    //let result1 = <>; //let result2 = </>;
-    for (const [key, value] of Object.entries(technicianData)) {
-      result += (
-        <Typography>
-            {key}: {value.join(", ")} 
-          MIERDA PUTA
-        </Typography>
-      );
-      //`${key}: ${value.join(", ")}`;
-    }
-    result = mierda;
-    //result = result1 + result2;
-    return result;
-  }; */
 
   return (
     <Grid

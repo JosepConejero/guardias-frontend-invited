@@ -204,7 +204,9 @@ export const GuardsAndCoursesStatistics = () => {
             //sx={{ ml: 1 }}
           >
             <Grid item xs={5} md={5}>
-              <Typography sx={{ fontSize: 14 }}>
+              <Typography
+                sx={{ fontSize: 14, fontWeight: "bold", color: "blue" }}
+              >
                 {/* {technicianShortNameById(technician.technicianId)} */}
                 {technician.shortName}
               </Typography>
