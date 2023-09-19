@@ -212,12 +212,12 @@ export const GuardsAndCoursesStatistics = () => {
               </Typography>
             </Grid>
             <Grid item xs={4} md={4}>
-              <Typography sx={{ ml: 3, fontSize: 14 }}>
+              <Typography sx={{ ml: 3.5, fontSize: 14 }}>
                 {technician.totalGuards}
               </Typography>
             </Grid>
             <Grid item xs={4} md={4}>
-              <Typography sx={{ ml: 4.5, fontSize: 14 }}>
+              <Typography sx={{ ml: { md: 5, xs: 6.5 }, fontSize: 14 }}>
                 {technician.totalFlcs}
               </Typography>
             </Grid>

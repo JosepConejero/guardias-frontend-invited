@@ -181,17 +181,27 @@ export const useStatisticsData = () => {
       }
     });
 
-    //    console.log({ dayData });
+    // console.log(dayData);
 
     return dayData;
   };
 
   const absencesStatistics = getAbsencesData();
 
+  const isThereSomeTechnicianOut = (dayData) => {
+    let found = false;
+    if (dayData.length === 0) return found;
+    for (let i = 0; i < dayData.length; i++) {
+      if (dayData[i].techniciansOut.length > 0) found = true;
+    }
+    return found;
+  };
+
   return {
     guardsAndFlcsStatisticsSortedByShortName, // [{technicianId, totalGuards, totalFlcs, shortName}]
     guardsAndFlcsStatisticsSortedByTotalGuards,
     guardsAndFlcsStatisticsSortedByTotalFlcs,
     absencesStatistics,
+    isThereSomeTechnicianOut,
   };
 };
