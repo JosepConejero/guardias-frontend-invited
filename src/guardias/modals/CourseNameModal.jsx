@@ -56,7 +56,7 @@ export const CourseNameModal = () => {
       Swal.fire({
         title: "El nombre del curso no puede estar vacío.",
         text: "Por favor, modifica esto antes de guardar",
-        target: document.getElementById("dialog-courses"), //target: document.getElementById('dialog'),
+        //target: document.getElementById("dialog-courses"), //target: document.getElementById('dialog'),
         icon: "error",
       });
     }

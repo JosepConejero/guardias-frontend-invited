@@ -9,7 +9,7 @@ export const TechniciansOutStatistics = () => {
     <Grid
       container
       sx={{
-        border: 1,
+        border: "1px solid lightgrey",
         borderRadius: 2,
         p: 1,
       }}
@@ -30,8 +30,8 @@ export const TechniciansOutStatistics = () => {
       <Grid item sx={{ mt: 1 / 2, mb: 2 }}>
         {/* datos */}
         {absencesStatistics?.map((weekData) => (
-          <>
-            {weekData?.techniciansOut.length > 0 && (
+          <div key={uniqueKey()}>
+            {weekData.techniciansOut.length > 0 && (
               <Typography
                 key={uniqueKey()}
                 sx={{
@@ -45,13 +45,13 @@ export const TechniciansOutStatistics = () => {
                   mt: 1,
                 }}
               >
-                {weekData?.techniciansOut.length > 0
-                  ? weekData?.week.join(", ")
+                {weekData.techniciansOut.length > 0
+                  ? weekData.week.join(", ")
                   : ""}
               </Typography>
             )}
 
-            {weekData?.techniciansOut.map((technician) => (
+            {weekData.techniciansOut.map((technician) => (
               <Typography
                 key={uniqueKey()}
                 sx={{ fontSize: 14, ml: 1 + 1 / 2 }}
@@ -62,7 +62,7 @@ export const TechniciansOutStatistics = () => {
                 :&nbsp;{technician.days}
               </Typography>
             ))}
-          </>
+          </div>
         ))}
       </Grid>
     </Grid>
