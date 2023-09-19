@@ -102,7 +102,8 @@ export const AppUserNameModal = () => {
       Swal.fire({
         title: "Ni el nombre ni el nombre corto pueden estar vacíos.",
         text: "Por favor, modifica esto antes de guardar",
-        target: document.getElementById("dialog-app-users"), //target: document.getElementById('dialog'),
+        //target: document.getElementById("dialog-app-users"), //target: document.getElementById('dialog'),
+        target: document.getElementById("modal-fondo"),
         icon: "error",
       });
     }

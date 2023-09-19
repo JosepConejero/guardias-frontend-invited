@@ -57,6 +57,7 @@ export const CourseNameModal = () => {
         title: "El nombre del curso no puede estar vacío.",
         text: "Por favor, modifica esto antes de guardar",
         //target: document.getElementById("dialog-courses"), //target: document.getElementById('dialog'),
+        target: document.getElementById("modal-fondo"),
         icon: "error",
       });
     }
@@ -85,7 +86,7 @@ export const CourseNameModal = () => {
           <Grid
             // open={isCourseModalOpen}
             //onClose={onCloseModal}
-            id="dialog-courses"
+            //id="dialog-courses"
             sx={{
               width: { xs: "390px", md: "600px" },
             }}

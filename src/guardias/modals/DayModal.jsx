@@ -86,7 +86,8 @@ export const DayModal = ({ closeModal }) => {
         title:
           "Los nombres de los técnicos/formadores de guardia no pueden estar vacíos.",
         text: "Por favor, modifica esto antes de guardar",
-        target: document.getElementById("dialog-guard-day"), //target: document.getElementById('dialog'),
+        //target: document.getElementById("dialog-guard-day"), //target: document.getElementById('dialog'),
+        target: document.getElementById("modal-fondo"),
         icon: "error",
       });
     }
