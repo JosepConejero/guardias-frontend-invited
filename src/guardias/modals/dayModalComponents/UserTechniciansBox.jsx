@@ -4,15 +4,16 @@ import { TechnicianName } from "./TechnicianName";
 import { useAppUsersStore } from "../../../hooks/useAppUsersStore";
 import { useState } from "react";
 import { useGuardDayStore } from "../../../hooks/useGuardDayStore";
+import { useAuthStore } from "../../../hooks";
 
 export const UserTechniciansBox = () => {
   const { guardDayOpened, updateOpenedGuardDay } = useGuardDayStore();
-  //console.log("guardayopened vale ", guardDayOpened);
   const {
     techniciansShortNames,
     getTechniciansOutIdsByShortName,
     getTechniciansOutShortNames,
   } = useAppUsersStore();
+  const { user } = useAuthStore();
 
   let techniciansOut = [...guardDayOpened.techniciansOut];
   const [techniciansOutShortNames, setTechniciansOutShortNames] = useState(
@@ -63,43 +64,6 @@ export const UserTechniciansBox = () => {
       ],
     });
   };
-  /*  let techniciansOut = [...formValues.techniciansOut];
-  const [techniciansOutShortNames, setTechniciansOutShortNames] = useState(
-    getTechniciansOutShortNames(techniciansOut)
-  );
-  let newTechniciansOutShortNames = [...techniciansOutShortNames];
-
-  const updateTechniciansList = (technicianShortName) => {
-    if (
-      techniciansOutShortNames.some(
-        (technician) => technician === technicianShortName
-      )
-    ) {
-      newTechniciansOutShortNames = [
-        ...newTechniciansOutShortNames.filter(
-          (technician) => technician !== technicianShortName
-        ),
-      ];
-      setTechniciansOutShortNames((techniciansOutShortNames) =>
-        techniciansOutShortNames.filter(
-          (technician) => technician !== technicianShortName
-        )
-      );
-    } else {
-      newTechniciansOutShortNames = [
-        ...newTechniciansOutShortNames,
-        technicianShortName,
-      ];
-      setTechniciansOutShortNames((techniciansOutShortNames) => [
-        ...techniciansOutShortNames,
-        technicianShortName,
-      ]);
-    }
-
-    onTechniciansOutChange(
-      getTechniciansOutIdsByShortName(newTechniciansOutShortNames)
-    );
-  }; */
 
   const isInTechniciansOutShortNames = (technicianShortName) => {
     return techniciansOutShortNames.some(
@@ -126,6 +90,7 @@ export const UserTechniciansBox = () => {
             name={technicianShortName}
             isOut={isInTechniciansOutShortNames(technicianShortName)}
             updateTechniciansList={updateTechniciansList}
+            disabled={!user.isDataModifier}
           />
         ))}
       </Stack>

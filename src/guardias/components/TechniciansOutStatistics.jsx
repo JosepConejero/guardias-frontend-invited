@@ -13,7 +13,7 @@ export const TechniciansOutStatistics = () => {
       justifyContent={{ xs: "center", md: "left" }}
       sx={{
         border: "1px solid lightgrey",
-        borderRadius: 2,
+        borderRadius: 1,
         px: 1,
         pt: 1,
         pb: isThereSomeTechnicianOut(absencesStatistics) ? 0 : 2.5,

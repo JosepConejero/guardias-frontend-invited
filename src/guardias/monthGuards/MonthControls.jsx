@@ -11,7 +11,6 @@ import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRound
 import CalendarViewMonthIcon from "@mui/icons-material/CalendarViewMonth";
 import CalendarViewWeekIcon from "@mui/icons-material/CalendarViewWeek";
 import AssessmentIcon from "@mui/icons-material/Assessment";
-import { useAuthStore } from "../../hooks";
 
 export const MonthControls = ({ onNextMonth, onPreviousMonth, showedDate }) => {
   /*  const [lastView, setLastView] = useState(
@@ -19,7 +18,7 @@ export const MonthControls = ({ onNextMonth, onPreviousMonth, showedDate }) => {
   ); */ //se usa el || '' pq puede ser null cn se carga la 1ª vez
 
   const { daysInWeek } = useSelector((state) => state.month);
-  const { user } = useAuthStore();
+
   const dispatch = useDispatch();
 
   const onClickFiveOrSevenDays = () => {
@@ -65,14 +64,14 @@ export const MonthControls = ({ onNextMonth, onPreviousMonth, showedDate }) => {
               <CalendarViewMonthIcon />
             )}
           </IconButton>
-          {user.canSeeStatistics && (
-            <IconButton
+          {
+            /* user.canSeeStatistics && */ <IconButton
               sx={{ mr: { xs: 1, md: 0 } }}
               onClick={onShowStatistics}
             >
               <AssessmentIcon />
             </IconButton>
-          )}
+          }
         </Stack>
       </Grid>
     </Grid>

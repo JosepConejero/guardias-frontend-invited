@@ -9,13 +9,15 @@ import { useSelector } from "react-redux";
 import { useCoursesStore } from "../../../hooks/useCoursesStore";
 import { sortedTechnicians } from "../../../helpers/sortedTechnicians";
 import { sortedCourses } from "../../../helpers/sortedCourses";
+import { useAuthStore } from "../../../hooks";
 
 export const UsersGuardsBoxItem = ({ technician, index, onDeleteItem }) => {
   const { guardDayOpened, techniciansInGuardDay, updateOpenedGuardDay } =
     useGuardDayStore();
-  //console.log({ techniciansInGuardDay });
+
   const { getTeacherById } = useAppUsersStore();
   const { getCourseById } = useCoursesStore();
+  const { user } = useAuthStore();
 
   const { courses } = useSelector((state) => state.course);
 
@@ -30,15 +32,17 @@ export const UsersGuardsBoxItem = ({ technician, index, onDeleteItem }) => {
   );
 
   const onLabelChange = (value, name) => {
-    let newTechnicians = [...guardDayOpened.technicians];
-    newTechnicians[index] = {
-      ...newTechnicians[index],
-      [name]: value,
-    };
-    updateOpenedGuardDay({
-      ...guardDayOpened,
-      technicians: [...newTechnicians],
-    });
+    if (user.isDataModifier) {
+      let newTechnicians = [...guardDayOpened.technicians];
+      newTechnicians[index] = {
+        ...newTechnicians[index],
+        [name]: value,
+      };
+      updateOpenedGuardDay({
+        ...guardDayOpened,
+        technicians: [...newTechnicians],
+      });
+    }
   };
 
   const isValid = (value) => {
@@ -50,7 +54,7 @@ export const UsersGuardsBoxItem = ({ technician, index, onDeleteItem }) => {
   return (
     <Grid
       container
-      direction={{ /* xs: "column", */ md: "row" }}
+      direction={{ md: "row" }}
       justifyContent={{ xs: "center", md: "space-between" }}
       alignItems={{ xs: "center", md: "center" }}
       pr={1}
@@ -61,13 +65,12 @@ export const UsersGuardsBoxItem = ({ technician, index, onDeleteItem }) => {
       }}
     >
       <Grid item xs={12} md={2} sx={{ textAlign: "center" }}>
-        {/*  <Typography sx={{ visibility: "hidden" }}>técnico</Typography> */}
-        {/* <Typography sx={{ md: { display: "none" } }}>técnico</Typography> */}
         <TeachersMenu
           initialValue={initialTeacher}
           list={sortedTechnicians(techniciansInGuardDay)} //aquí podría haber un useMemo q se recalculara cuando cambiaran los técnicos del techniciansOut
           name="técnico"
           index={index}
+          disabled={!user.isDataModifier}
         />
       </Grid>
 
@@ -77,6 +80,7 @@ export const UsersGuardsBoxItem = ({ technician, index, onDeleteItem }) => {
           list={sortedCourses(courses)}
           name="sin curso"
           index={index}
+          disabled={!user.isDataModifier}
         />
       </Grid>
 
@@ -112,7 +116,10 @@ export const UsersGuardsBoxItem = ({ technician, index, onDeleteItem }) => {
 
           <Grid item md={1 / 2} mr={{ xs: -1 / 2, md: 3 }}>
             <IconButton
-              sx={{ color: "#CF0000" }}
+              sx={{
+                color: "#CF0000",
+                visibility: user.isDataModifier ? "" : "hidden",
+              }}
               onClick={() => onDeleteItem(technician.uniqueId)}
             >
               <DeleteIcon />
@@ -120,36 +127,6 @@ export const UsersGuardsBoxItem = ({ technician, index, onDeleteItem }) => {
           </Grid>
         </Grid>
       </Grid>
-
-      {/* <Grid
-        item
-        ml={{ xs: 2, md: 0 }}
-        md={2 + 1 / 2}
-        sx={{
-          visibility:
-            !isValid(initialCourse) || initialCourse?.title === "SIN CURSO"
-              ? "hidden"
-              : "visible",
-        }}
-      >
-        <LabelButton
-          labelValue={guardDayOpened.technicians[index].isInClientWorkplace}
-          textOn="en cliente"
-          textOff="en oficina"
-          onLabelChange={onLabelChange}
-          name="isInClientWorkplace"
-          technician={technician}
-        />
-      </Grid>
-
-      <Grid item md={1 / 2}>
-        <IconButton
-          sx={{ color: "#CF0000" }}
-          onClick={() => onDeleteItem(technician.uniqueId)}
-        >
-          <DeleteIcon />
-        </IconButton>
-      </Grid> */}
     </Grid>
   );
 };

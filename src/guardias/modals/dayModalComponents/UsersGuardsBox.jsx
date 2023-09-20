@@ -4,6 +4,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { useGuardDayStore } from "../../../hooks/useGuardDayStore";
 import { UsersGuardsBoxItem } from "./UsersGuardsBoxItem";
 import { uniqueKey } from "../../../helpers/uniqueKey";
+import { useAuthStore } from "../../../hooks";
 
 const emptyTechnician = {
   technicianId: null,
@@ -18,6 +19,7 @@ export const UsersGuardsBox = () => {
     updateOpenedGuardDay,
     deleteTechnicianOpenedGuardDay,
   } = useGuardDayStore();
+  const { user } = useAuthStore();
 
   const onAddTechnician = () => {
     if (guardDayOpened.technicians.length <= 5) {
@@ -70,7 +72,11 @@ export const UsersGuardsBox = () => {
                 Añadir técnico / formador
               </Typography>
             </Grid>
-            <IconButton sx={{ color: "blue" }} onClick={onAddTechnician}>
+            <IconButton
+              sx={{ color: "blue" }}
+              onClick={onAddTechnician}
+              disabled={!user.isDataModifier}
+            >
               <AddCircleIcon />
             </IconButton>
           </Grid>

@@ -6,7 +6,12 @@ import { useState } from "react";
 import { useGuardDayStore } from "../../../hooks/useGuardDayStore";
 import { Typography } from "@mui/material";
 
-export default function TeachersMenu({ list = [], initialValue, index }) {
+export default function TeachersMenu({
+  list = [],
+  initialValue,
+  index,
+  disabled,
+}) {
   //if (list !== undefined) console.log(list);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -54,6 +59,7 @@ export default function TeachersMenu({ list = [], initialValue, index }) {
         //aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
         sx={{ width: "100px" }}
+        disabled={disabled}
       >
         <Typography
           fontSize="14px"

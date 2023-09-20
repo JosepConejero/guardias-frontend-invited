@@ -3,11 +3,19 @@ import { Typography } from "@mui/material";
 import "./TechnicianName.css";
 import { useState } from "react";
 
-export const TechnicianName = ({ name, isOut, updateTechniciansList }) => {
+export const TechnicianName = ({
+  name,
+  isOut,
+  updateTechniciansList,
+  disabled,
+}) => {
   const [classSelected, setClassSelected] = useState(isOut);
+
   const handleClick = () => {
-    updateTechniciansList(name);
-    setClassSelected((prevState) => !prevState);
+    if (!disabled) {
+      updateTechniciansList(name);
+      setClassSelected((prevState) => !prevState);
+    }
   };
 
   return (

@@ -44,6 +44,19 @@ export const HeaderItem = () => {
             </Tooltip>
           </Grid>
 
+          <Grid item xs={8} md={1.7}>
+            <Tooltip
+              title="email de acceso"
+              arrow /* placement="bottom-start" */
+            >
+              <Typography
+                sx={{ fontWeight: "bold", ml: 1.5, fontSize: "14px", py: 1 }}
+              >
+                @
+              </Typography>
+            </Tooltip>
+          </Grid>
+
           <Grid item xs={8} md={0.8}>
             <Tooltip
               title="Si es el administrador"

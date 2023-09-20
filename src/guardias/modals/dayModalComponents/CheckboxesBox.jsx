@@ -9,41 +9,12 @@ import {
 } from "@mui/material";
 import { useCheckboxes } from "../../../hooks/useCheckboxes";
 import { useGuardDayStore } from "../../../hooks/useGuardDayStore";
+import { useAuthStore } from "../../../hooks";
 
-export const CheckboxesBox = (/* {
-  formValuesCheckbox,
-  formValuesTextField,
-  onInputChange,
-  onCheckboxChangeFormValues,
-} */) => {
+export const CheckboxesBox = () => {
   const { guardDayOpened, updateOpenedGuardDay } = useGuardDayStore();
-  /* const [isHolidayChecked, setCheckedCheckboxisHoliday] = useState(
-    formValues.isHoliday
-  );
-  const onHandleClickIsHoliday = () => {
-    setCheckedCheckboxisHoliday(!isHolidayChecked);
-  }; */
+  const { user } = useAuthStore();
 
-  /* const onInputChange = ({ target }) => {
-    setFormValues({ ...formValues, [target.name]: target.value });
-  };
-
-  const onCheckboxChangeFormValues = ({ target }) => {
-    setFormValues({ ...formValues, [target.name]: target.checked });
-  }; */
-
-  /*   const {
-    checkedCheckbox: isHolidayChecked,
-    onHandleClick: onHandleClickIsHoliday,
-  } = useCheckboxes(formValuesCheckbox.isHoliday);
-  const {
-    checkedCheckbox: isThereOffice2hChecked,
-    onHandleClick: onHandleClickIsThereOffice2h,
-  } = useCheckboxes(formValuesCheckbox.isThereOffice2h);
-  const {
-    checkedCheckbox: isThereExtraMeetingChecked,
-    onHandleClick: onHandleClickIsThereExtraMeeting,
-  } = useCheckboxes(formValuesCheckbox.isThereExtraMeeting); */
   const {
     checkedCheckbox: isHolidayChecked,
     onHandleClick: onHandleClickIsHoliday,
@@ -63,7 +34,6 @@ export const CheckboxesBox = (/* {
 
   const onInputChange = ({ target }) => {
     updateOpenedGuardDay({ ...guardDayOpened, [target.name]: target.value });
-    //setFormValues({ ...formValues, [target.name]: target.value });
   };
 
   return (
@@ -87,6 +57,7 @@ export const CheckboxesBox = (/* {
                 name="isHoliday"
                 onClick={onHandleClickIsHoliday}
                 onChange={onCheckboxChangeFormValues}
+                disabled={!user.isDataModifier}
               />
             }
             label={
@@ -105,6 +76,7 @@ export const CheckboxesBox = (/* {
                 name="isThereOffice2h"
                 onClick={onHandleClickIsThereOffice2h}
                 onChange={onCheckboxChangeFormValues}
+                disabled={!user.isDataModifier}
               />
             }
             //label="Hay formación de 2 horas"
@@ -127,6 +99,7 @@ export const CheckboxesBox = (/* {
                 name="isThereExtraMeeting"
                 onClick={onHandleClickIsThereExtraMeeting}
                 onChange={onCheckboxChangeFormValues}
+                disabled={!user.isDataModifier}
               />
             }
             //label="Hay reunión extra"
@@ -140,7 +113,7 @@ export const CheckboxesBox = (/* {
 
         <Grid item xs={12} md={9}>
           <TextField
-            disabled={!isThereExtraMeetingChecked}
+            disabled={!isThereExtraMeetingChecked || !user.isDataModifier}
             sx={{ mb: 2 }}
             label="Tipo reunión"
             type="text"
@@ -169,6 +142,7 @@ export const CheckboxesBox = (/* {
           value={guardDayOpened.note}
           onChange={onInputChange}
           size="small" //medium
+          disabled={!user.isDataModifier}
         />
       </Grid>
     </Stack>

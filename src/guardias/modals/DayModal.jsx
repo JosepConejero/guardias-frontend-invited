@@ -2,18 +2,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Grid, Stack } from "@mui/material";
 import { useEffect, useState } from "react";
-//import Modal from "react-modal";
-//import { Dialog } from "@mui/material";
-import { useUiStore } from "../../hooks/useUiStore";
 import { useCalendarStore } from "../../hooks/useCalendarStore";
-
-//import { customStyles, customStylesIsSaving } from "../../helpers";
 
 import { CheckboxesBox } from "./dayModalComponents/CheckboxesBox";
 import { UserTechniciansBox } from "./dayModalComponents/UserTechniciansBox";
 import { UsersGuardsBox } from "./dayModalComponents/UsersGuardsBox";
-import { useDispatch } from "react-redux";
-import { onDeactivateGuardDay } from "../../store/calendar/calendarSlice";
 import { useGuardDayStore } from "../../hooks/useGuardDayStore";
 import { useAppUsersStore } from "../../hooks/useAppUsersStore";
 import Swal from "sweetalert2";
@@ -21,9 +14,7 @@ import "./swal2.css";
 import { DateBox } from "./dayModalComponents/DateBox";
 import { ButtonsBox } from "./dayModalComponents/ButtonsBox";
 import { SpinnerInModal } from "../customizedComponents";
-//import { autoBatchEnhancer } from "@reduxjs/toolkit";
-
-////Modal.setAppElement("#root");
+import { useAuthStore } from "../../hooks";
 
 const emptyGuardDay = {
   simpleDate: { year: 2999, month: 0, day: 0 },
@@ -37,13 +28,12 @@ const emptyGuardDay = {
 };
 
 export const DayModal = ({ closeModal }) => {
-  const dispatch = useDispatch();
-  // const { isDayModalOpen, closeDayModal } = useUiStore();
   const { activeGuardDay, guardDayInformation, startSavingGuardDay, isSaving } =
     useCalendarStore();
-  const { selectGuardDay, deselectGuardDay } = useGuardDayStore();
+  const { selectGuardDay } = useGuardDayStore();
   const { guardDayOpened, loadTechniciansInGuardDay } = useGuardDayStore();
   const { getTeachersIn, emptyTeachersName } = useAppUsersStore();
+  const { user } = useAuthStore();
 
   let newFormValues = {};
   if (activeGuardDay) {
@@ -64,7 +54,7 @@ export const DayModal = ({ closeModal }) => {
   }
 
   // eslint-disable-next-line no-unused-vars
-  const [formSubmitted, setFormSubmitted] = useState(false); //TO DO: esto lo necesitaré para controlar validaciones del formulario
+  //const [formSubmitted, setFormSubmitted] = useState(false); //TO DO: esto lo necesitaré para controlar validaciones del formulario
   const [formValues, setFormValues] = useState(newFormValues);
 
   //podría ser necesario aquí un useMemo que incluyera formSubmitted
@@ -79,7 +69,7 @@ export const DayModal = ({ closeModal }) => {
     event.preventDefault();
     if (!emptyTeachersName(guardDayOpened.technicians)) {
       await startSavingGuardDay(guardDayOpened);
-      //onCloseModal();
+
       closeModal();
     } else {
       Swal.fire({
@@ -153,8 +143,11 @@ export const DayModal = ({ closeModal }) => {
           <Grid
             // open={isDayModalOpen}
             // onClose={onCloseModal}
+
             id="dialog-guard-day"
-            sx={{ width: { xs: "390px", md: "900px" } }}
+            sx={{
+              width: { xs: "390px", md: "900px" },
+            }}
           >
             <Grid
               sx={{
@@ -211,9 +204,11 @@ export const DayModal = ({ closeModal }) => {
                     </Grid>
                   </Stack>
 
-                  <ButtonsBox onCloseModal={closeModal} />
-                  {/*  <ButtonsBox onCloseModal={onCloseModal} /> */}
-                  {/*  <ButtonsBox saving={saving} onCloseModal={onCloseModal} /> */}
+                  <ButtonsBox
+                    onCloseModal={closeModal}
+                    cancelDisabled={false}
+                    okDisabled={!user.isDataModifier}
+                  />
                 </Stack>
               </form>
             </Grid>

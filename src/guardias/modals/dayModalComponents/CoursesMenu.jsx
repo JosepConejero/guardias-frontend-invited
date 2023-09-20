@@ -5,7 +5,12 @@ import { Typography } from "@mui/material";
 import { useState } from "react";
 import { useGuardDayStore } from "../../../hooks/useGuardDayStore";
 
-export default function CoursesMenu({ list = [], initialValue, index }) {
+export default function CoursesMenu({
+  list = [],
+  initialValue,
+  index,
+  disabled,
+}) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   //aquí abriré el estado y leeré la lista ???
@@ -57,6 +62,7 @@ export default function CoursesMenu({ list = [], initialValue, index }) {
         aria-expanded={open ? "true" : undefined} */
         onClick={handleClick}
         sx={{ width: "350px" }}
+        disabled={disabled}
       >
         <Typography
           fontSize="14px"

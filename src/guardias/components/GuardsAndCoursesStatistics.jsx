@@ -1,5 +1,6 @@
 import { Divider, Grid, Typography } from "@mui/material";
 import { useStatisticsData } from "../../hooks/useStatisticsData";
+import { useAuthStore } from "../../hooks";
 //import { useState } from "react";
 //import { sortArrayOfObjectsByProperty } from "../../helpers/sortArrayOfObjectsByField";
 /* import { useState } from "react";
@@ -17,6 +18,7 @@ export const GuardsAndCoursesStatistics = () => {
     //guardsAndFlcsStatisticsSortedByTotalGuards,
     //guardsAndFlcsStatisticsSortedByTotalFlcs,
   } = useStatisticsData();
+  const { user } = useAuthStore();
 
   //const [sortedGuardsAndFlcsStatistics, setSortedGuardsAndFlcsStatistics] =    useState([...guardsAndFlcsStatisticsSortedByShortName]);
 
@@ -57,9 +59,10 @@ export const GuardsAndCoursesStatistics = () => {
         width: "100%",
         height: "auto",
         //bgcolor: "red",
-        borderRadius: 2,
+        borderRadius: 1,
         //color: 'black',
         p: 0.5,
+        visibility: user.canSeeStatistics ? "" : "hidden",
       }}
       alignItems="center"
       //justifyContent="flex-start"
