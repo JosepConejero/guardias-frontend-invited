@@ -68,9 +68,11 @@ export const SettingsPage = () => {
                 value === 0
                   ? 400
                   : value === 1
-                  ? 950
+                  ? //? 950
+                    1000
                   : value === 2
-                  ? 650
+                  ? //? 650
+                    700
                   : 1000,
             },
             borderRadius: 2,
@@ -92,7 +94,7 @@ export const SettingsPage = () => {
               <Tabs
                 value={value}
                 onChange={handleChange}
-                aria-label="basic tabs example"
+                //aria-label="basic tabs example"
                 centered
               >
                 <Tab label="CONTRASEÑA" {...a11yProps(0)} />
@@ -105,6 +107,7 @@ export const SettingsPage = () => {
                 <Tab label="CURSOS" {...a11yProps(2)} />
               </Tabs>
             </Box>
+
             <TabPanel value={value} index={0}>
               <Grid
                 container
@@ -117,6 +120,7 @@ export const SettingsPage = () => {
                 <Button variant="outlined">Cambie la contraseña</Button>
               </Grid>
             </TabPanel>
+
             <TabPanel value={value} index={1}>
               <Grid
                 container
@@ -129,6 +133,7 @@ export const SettingsPage = () => {
                 <UsersSettings />
               </Grid>
             </TabPanel>
+
             <TabPanel
               value={value}
               index={2}

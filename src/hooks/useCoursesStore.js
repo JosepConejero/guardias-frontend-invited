@@ -7,6 +7,7 @@ import {
   onSetInactiveCourse,
   onUpdateCourse,
   onEmptyCourses,
+  onSetDeletingCourse,
 } from "../store/course/courseSlice";
 import calendarApi from "../api/calendarApi";
 import Swal from "sweetalert2";
@@ -14,7 +15,9 @@ import { useState } from "react";
 
 export const useCoursesStore = () => {
   const dispatch = useDispatch();
-  const { courses, activeCourse } = useSelector((state) => state.course);
+  const { courses, activeCourse, isDeletingCourse } = useSelector(
+    (state) => state.course
+  );
   const [isSaving, setIsSaving] = useState(false);
 
   const setActiveCourse = (course) => {
@@ -44,6 +47,7 @@ export const useCoursesStore = () => {
         setIsSaving(false);
         return;
       }
+      //TO DO: AQUÍ SE COMPROBARÍA SI EL NOMBRE DEL CURSO EXISTE YA
       const { data } = await calendarApi.post("/courses", course);
       dispatch(onAddNewCourse({ ...course, id: data.curso.id }));
       setIsSaving(false);
@@ -59,8 +63,10 @@ export const useCoursesStore = () => {
 
   const startDeletingCourse = async (course) => {
     try {
+      dispatch(onSetDeletingCourse(true));
       await calendarApi.delete(`/courses/${course.id}`);
       dispatch(onDeleteCourse(course));
+      dispatch(onSetDeletingCourse(false));
     } catch (error) {
       console.log(error);
       Swal.fire(
@@ -104,6 +110,7 @@ export const useCoursesStore = () => {
     courses,
     activeCourse,
     isSaving,
+    isDeletingCourse,
     //methods
     setActiveCourse,
     setInactiveCourse,

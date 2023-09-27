@@ -36,8 +36,13 @@ const emptyAppUser = {
 
 export const AppUserNameModal = () => {
   const { isAppUsersModalOpen, closeAppUserModal } = useUiStore();
-  const { startSavingAppUser, activeAppUser, setInactiveAppUser, isSaving } =
-    useAppUsersStore();
+  const {
+    startSavingAppUser,
+    activeAppUser,
+    setInactiveAppUser,
+    isSaving,
+    isDeleting,
+  } = useAppUsersStore();
 
   const [formValues, setFormValues] = useState(emptyAppUser);
   const [formSubmitted, setFormSubmitted] = useState(false); //TO DO: esto lo necesitaré para controlar validaciones del formulario
@@ -124,6 +129,10 @@ export const AppUserNameModal = () => {
   };
   return (
     <>
+      {/*    {isDeleting ? (
+        <SpinnerInModal text="Deleting..." />
+      ) : (
+        <> */}
       {isSaving ? (
         <SpinnerInModal text="Saving..." />
       ) : (
@@ -138,7 +147,7 @@ export const AppUserNameModal = () => {
             id="dialog-app-users"
             sx={{
               width: { xs: "390px", md: "600px" },
-              height: { /*  xs: "calc(100vh - 20px)", */ md: "550px" },
+              height: { /*  xs: "calc(100vh - 20px)", */ md: "632px" },
             }}
           >
             <form
@@ -153,7 +162,7 @@ export const AppUserNameModal = () => {
                   p: { xs: "15px", md: "20px" },
                 }}
               >
-                <Grid item sx={{ mb: 2 }}>
+                <Grid item sx={{ mb: 2, mt: 0.5 }}>
                   <TextField
                     label="Nombre completo del usuario"
                     type="text"
@@ -165,7 +174,7 @@ export const AppUserNameModal = () => {
                   />
                 </Grid>
 
-                <Grid item>
+                <Grid item sx={{ mb: 2 }}>
                   <TextField
                     label="Nombre corto del usuario"
                     type="text"
@@ -175,6 +184,19 @@ export const AppUserNameModal = () => {
                     value={formValues.shortName}
                     onChange={onInputChange}
                     inputProps={{ maxLength: 8 }}
+                  />
+                </Grid>
+
+                <Grid item sx={{ mb: 0.5 }}>
+                  <TextField
+                    label="Email del usuario"
+                    type="text"
+                    placeholder="Anota el email del usuario"
+                    fullWidth
+                    name="email"
+                    value={formValues.email}
+                    onChange={onInputChange}
+                    //inputProps={{ maxLength: 8 }}
                   />
                 </Grid>
 
@@ -352,6 +374,8 @@ export const AppUserNameModal = () => {
           </Grid>
         </>
       )}
+      {/*  </>
+      )} */}
     </>
   );
 };

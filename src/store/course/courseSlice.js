@@ -6,6 +6,7 @@ export const courseSlice = createSlice({
     isLoadingCourses: true,
     courses: [],
     activeCourse: null,
+    isDeletingCourse: false,
   },
   reducers: {
     onSetActiveCourse: (state, { payload }) => {
@@ -41,6 +42,9 @@ export const courseSlice = createSlice({
         (course) => course.id !== payload.id
       );
     },
+    onSetDeletingCourse: (state, { payload }) => {
+      state.isDeletingCourse = payload;
+    },
     onEmptyCourses: (state) => {
       state.courses = [];
     },
@@ -54,5 +58,6 @@ export const {
   onUpdateCourse,
   onLoadCourses,
   onDeleteCourse,
+  onSetDeletingCourse,
   onEmptyCourses,
 } = courseSlice.actions;

@@ -5,7 +5,7 @@ export const HeaderItem = () => {
     <Grid
       container
       direction="column"
-      sx={{ width: "930px", display: { xs: "none", md: "block" } }}
+      sx={{ width: "940px", display: { xs: "none", md: "block" } }}
     >
       <Grid item>
         <Grid
@@ -44,7 +44,7 @@ export const HeaderItem = () => {
             </Tooltip>
           </Grid>
 
-          <Grid item xs={8} md={1.7}>
+          <Grid item xs={8} md={0.5}>
             <Tooltip
               title="email de acceso"
               arrow /* placement="bottom-start" */

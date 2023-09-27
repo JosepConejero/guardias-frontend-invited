@@ -1,5 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Checkbox, Divider, Grid, IconButton, Typography } from "@mui/material";
+import {
+  Checkbox,
+  Divider,
+  Grid,
+  IconButton,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useAppUsersStore } from "../../hooks/useAppUsersStore";
 import { useEffect } from "react";
@@ -50,7 +57,7 @@ export default function UserItem({ appUser }) {
             //pr: { xs: 1, md: 0 },
           }}
         >
-          <Grid item xs={14} md={4} onClick={handleAppUserChange}>
+          <Grid item xs={14} md={4} /* mt={1}  */ onClick={handleAppUserChange}>
             <Typography
               /* variant="span"
               component="span" */
@@ -78,7 +85,7 @@ export default function UserItem({ appUser }) {
             </Typography>
           </Grid>
 
-          <Grid item xs={14} md={1.9} onClick={handleAppUserChange}>
+          <Grid item xs={14} md={1.9} mb={0.5} onClick={handleAppUserChange}>
             <Typography
               sx={{
                 display: { md: "none" },
@@ -99,6 +106,45 @@ export default function UserItem({ appUser }) {
             >
               {/* <span className="app-users-label">Nombre corto:&nbsp;</span> */}
               {appUser.shortName}
+            </Typography>
+          </Grid>
+
+          <Grid item xs={14} md={0.5} mb={0.5} onClick={handleAppUserChange}>
+            <Typography
+              sx={{
+                display: { md: "none" },
+                fontSize: "14px",
+              }}
+            >
+              Email:
+            </Typography>
+            <Tooltip title={appUser.email} arrow>
+              <Typography
+                sx={{
+                  fontWeight: "bold",
+                  ml: { xs: 0, md: -0.5 },
+                  fontSize: "14px",
+                  overflow: { md: "hidden" },
+                  whiteSpace: { md: "nowrap" },
+                  textOverflow: { md: "ellipsis" },
+                  display: { xs: "none", md: "block" },
+                }}
+              >
+                @
+              </Typography>
+            </Tooltip>
+            <Typography
+              sx={{
+                fontWeight: "bold",
+                ml: { xs: 0, md: 1.2 },
+                fontSize: "14px",
+                overflow: { md: "hidden" },
+                whiteSpace: { md: "nowrap" },
+                textOverflow: { md: "ellipsis" },
+                display: { md: "none" },
+              }}
+            >
+              {appUser.email}
             </Typography>
           </Grid>
 
@@ -303,7 +349,8 @@ export default function UserItem({ appUser }) {
           <Grid
             item
             xs="auto"
-            md={1.05}
+            //md={1.05}
+            md={0.8}
             onClick={handleAppUserChange}
             textAlign="center"
             sx={{ mr: { xs: 2, md: 0 } }}
@@ -361,7 +408,14 @@ export default function UserItem({ appUser }) {
             )}
           </Grid>
         </Grid>
-        <Divider sx={{ display: { md: "none" }, bgcolor: "lightgrey" }} />
+        <Divider
+          //mb={1}
+          sx={{
+            mb: { xs: 1, md: 0 },
+            display: { md: "none" },
+            bgcolor: "lightgrey",
+          }}
+        />
       </Grid>
     </Grid>
   );

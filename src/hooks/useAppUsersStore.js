@@ -9,13 +9,16 @@ import {
   onSetInactiveAppUser,
   onUpdateAppUser,
   onEmptyAppUsers,
+  onSetDeletingAppUser,
 } from "../store/appUser/appUserSlice";
 import { deletePassword } from "../helpers/deletePassword";
 import { useState } from "react";
 
 export const useAppUsersStore = () => {
   const dispatch = useDispatch();
-  const { appUsers, activeAppUser } = useSelector((state) => state.appUser);
+  const { appUsers, activeAppUser, isDeletingAppUser } = useSelector(
+    (state) => state.appUser
+  );
   const [isSaving, setIsSaving] = useState(false);
 
   const getTechniciansShortNames = () => {
@@ -164,8 +167,10 @@ export const useAppUsersStore = () => {
 
   const startDeletingAppUser = async (appUser) => {
     try {
+      dispatch(onSetDeletingAppUser(true));
       await calendarApi.delete(`/users/${appUser.id}`);
       dispatch(onDeleteAppUser(appUser));
+      dispatch(onSetDeletingAppUser(false));
     } catch (error) {
       console.log(error);
       Swal.fire(
@@ -192,6 +197,7 @@ export const useAppUsersStore = () => {
     activeAppUser,
     teachers,
     isSaving,
+    isDeletingAppUser,
     //methods
     setActiveAppUser,
     setInactiveAppUser,

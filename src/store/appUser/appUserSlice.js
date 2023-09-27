@@ -6,6 +6,7 @@ export const appUserSlice = createSlice({
     isLoadingAppUsers: true,
     appUsers: [],
     activeAppUser: null,
+    isDeletingAppUser: false,
     //
   },
   reducers: {
@@ -48,6 +49,9 @@ export const appUserSlice = createSlice({
         (appUser) => appUser.id !== payload.id
       );
     },
+    onSetDeletingAppUser: (state, { payload }) => {
+      state.isDeletingAppUser = payload;
+    },
     onEmptyAppUsers: (state) => {
       state.appUsers = [];
     },
@@ -57,9 +61,9 @@ export const appUserSlice = createSlice({
 export const {
   onSetActiveAppUser,
   onSetInactiveAppUser,
-  /* onGetShortNameUsers, */
   onUpdateAppUser,
   onLoadAppUsers,
   onDeleteAppUser,
+  onSetDeletingAppUser,
   onEmptyAppUsers,
 } = appUserSlice.actions;

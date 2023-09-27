@@ -10,12 +10,13 @@ import { useAuthStore } from "../../hooks";
 //import { useBasicModal } from "../../hooks/useBasicModal";
 import { BasicModal } from "../modals/basicModal/BasicModal";
 import { useSelector } from "react-redux";
+import { Spinner } from "../customizedComponents";
 
 export const CoursesSettings = () => {
   // const { isOpen, openModal, closeModal } = useBasicModal(false);
   const { openCourseModal, closeCourseModal } = useUiStore();
   const { isCourseModalOpen } = useSelector((state) => state.ui);
-  const { courses, startLoadingCourses } = useCoursesStore();
+  const { courses, startLoadingCourses, isDeletingCourse } = useCoursesStore();
   const { user } = useAuthStore();
 
   const onAddCourse = () => {
@@ -27,9 +28,15 @@ export const CoursesSettings = () => {
     //si fuera el inicio y no hubiera cursos creados, volvería a llamar startLoadingCourses ¿daría un error?
   }, []);
 
+  if (isDeletingCourse) return <Spinner text="Deleting..." />;
+
   return (
     <>
-      <Grid container direction="column">
+      {/*       {isDeleting ? (
+        <Spinner text="Deleting..." />
+      ) : (
+        <> */}
+      <Grid container /* px={2} */ sx={{ px: { md: 2 } }} direction="column">
         <Grid item>
           <Grid
             container
@@ -82,9 +89,13 @@ export const CoursesSettings = () => {
                     //ml: 0,
                     fontSize: "14px",
                     textAlign: "center",
-                    overflow: { xs: "hidden" },
-                    whiteSpace: { xs: "nowrap" },
-                    textOverflow: { xs: "ellipsis" },
+                    overflow: user.isDataModifier ? { xs: "auto" } : { xs: "" },
+                    whiteSpace: user.isDataModifier
+                      ? { xs: "nowrap" }
+                      : { xs: "" },
+                    textOverflow: user.isDataModifier
+                      ? { xs: "ellipsis" }
+                      : { xs: "" },
                   }}
                 >
                   Frecuente
@@ -151,10 +162,12 @@ export const CoursesSettings = () => {
         </Grid>
       </Grid>
 
-      {/* <CourseNameModal /> */}
       <BasicModal isOpen={isCourseModalOpen} closeModal={closeCourseModal}>
         <CourseNameModal closeModal={closeCourseModal} />
       </BasicModal>
+      {/*         </>
+      )}
+      {isDeleting ? "borrando" : "no borra na"} */}
     </>
   );
 };
