@@ -1,10 +1,11 @@
-import { Box, Button, Grid, Tab, Tabs } from "@mui/material";
+import { Box, Grid, Tab, Tabs } from "@mui/material";
 import { Navbar } from "../components";
 import { UsersSettings } from "../usersSettings";
 import { CoursesSettings } from "../coursesSettings";
 
 import "../../styles.css";
 import { useState } from "react";
+import { PasswordSettings } from "../passwordSettings/PasswordSettings";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -117,7 +118,7 @@ export const SettingsPage = () => {
                   padding: "10px",
                 }}
               >
-                <Button variant="outlined">Cambie la contraseña</Button>
+                <PasswordSettings />
               </Grid>
             </TabPanel>
 

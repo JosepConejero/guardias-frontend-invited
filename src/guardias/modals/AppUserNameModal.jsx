@@ -97,7 +97,8 @@ export const AppUserNameModal = () => {
     //aquí haría validaciones que podrían poner el formSubmitted a false (vídeo 357 '5 más o menos)
     if (
       formValues.name !== "" &&
-      formValues.shortName !== ""
+      formValues.shortName !== "" &&
+      formValues.email !== ""
       //  && formValues.shortName.length<=10
     ) {
       await startSavingAppUser(formValues);
@@ -105,7 +106,8 @@ export const AppUserNameModal = () => {
       setFormValues(emptyAppUser);
     } else {
       Swal.fire({
-        title: "Ni el nombre ni el nombre corto pueden estar vacíos.",
+        title:
+          "Ni el nombre ni el nombre corto ni el email pueden estar vacíos.",
         text: "Por favor, modifica esto antes de guardar",
         //target: document.getElementById("dialog-app-users"), //target: document.getElementById('dialog'),
         target: document.getElementById("modal-fondo"),
@@ -127,6 +129,7 @@ export const AppUserNameModal = () => {
     setInactiveAppUser();
     closeAppUserModal();
   };
+
   return (
     <>
       {/*    {isDeleting ? (
