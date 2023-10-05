@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import {
-  Button,
   Checkbox,
   FormControlLabel,
   Grid,
@@ -24,6 +23,7 @@ const emptyAppUser = {
   name: "",
   shortName: "",
   email: "",
+  password: "",
   isAdmin: false,
   isActivated: false,
   isDataModifier: false,
@@ -35,14 +35,9 @@ const emptyAppUser = {
 };
 
 export const AppUserNameModal = () => {
-  const { isAppUsersModalOpen, closeAppUserModal } = useUiStore();
-  const {
-    startSavingAppUser,
-    activeAppUser,
-    setInactiveAppUser,
-    isSaving,
-    isDeleting,
-  } = useAppUsersStore();
+  const { closeAppUserModal } = useUiStore();
+  const { startSavingAppUser, activeAppUser, setInactiveAppUser, isSaving } =
+    useAppUsersStore();
 
   const [formValues, setFormValues] = useState(emptyAppUser);
   const [formSubmitted, setFormSubmitted] = useState(false); //TO DO: esto lo necesitaré para controlar validaciones del formulario
@@ -141,12 +136,6 @@ export const AppUserNameModal = () => {
       ) : (
         <>
           <Grid
-            /* isOpen={isAppUsersModalOpen}
-        onRequestClose={onCloseModal} */
-            //style={customStyles}
-            //className="modal"
-            //overlayClassName="modal-fondo"
-            //closeTimeoutMS={200}
             id="dialog-app-users"
             sx={{
               width: { xs: "390px", md: "600px" },

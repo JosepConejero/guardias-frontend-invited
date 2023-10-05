@@ -27,6 +27,7 @@ export const useAuthStore = () => {
         email,
         password,
       });
+
       localStorage.setItem("token", data.token);
       localStorage.setItem("token-init-date", new Date().getTime());
       if (data.isStillWorking) {
@@ -36,6 +37,8 @@ export const useAuthStore = () => {
               name: data.name,
               uid: data.uid,
               shortName: data.shortName,
+              //password: data.password,
+              email,
               canFLC: data.canFLC,
               canSeeStatistics: data.canSeeStatistics,
               isActivated: data.isActivated,
@@ -113,6 +116,41 @@ export const useAuthStore = () => {
     }
   };
 
+  const updatePassword = async ({ email, password, password2 }) => {
+    //dispatch(onChecking());
+
+    try {
+      console.log({ email, password, password2 });
+      const { data } = await calendarApi.patch("/auth/", {
+        email,
+        password,
+        newPassword: password2,
+      });
+      return data;
+      // console.log({ data });
+      // if (data.ok) {
+      //   Swal.fire({
+      //     title: "La contraseña de ha cambiado correctamente",
+      //     icon: "info",
+      //   });
+      //   return;
+      // }
+      //console.log("ESTO NUNCA SE LLEGA A IMPRIMIR");
+      //localStorage.setItem("token", data.token);
+      //localStorage.setItem("token-init-date", new Date().getTime());
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        title: "Error al cambiar la contraseña",
+        text: error.response.data?.msg,
+        icon: "error",
+      });
+      setTimeout(() => {
+        dispatch(onClearErrorMessage());
+      }, 10);
+    }
+  };
+
   const checkAuthToken = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -127,6 +165,7 @@ export const useAuthStore = () => {
         onLogin({
           name: data.name,
           uid: data.uid,
+          email: data.email,
           shortName: data.shortName,
           canFLC: data.canFLC,
           canSeeStatistics: data.canSeeStatistics,
@@ -163,5 +202,6 @@ export const useAuthStore = () => {
     startRegister,
     checkAuthToken,
     startLogout,
+    updatePassword,
   };
 };

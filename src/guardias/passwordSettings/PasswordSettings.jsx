@@ -1,11 +1,11 @@
 import { Button, Grid, TextField } from "@mui/material";
 import { useState } from "react";
-import { /* useAuthStore, */ useForm } from "../../hooks";
+import { useAuthStore, useForm } from "../../hooks";
 import Swal from "sweetalert2";
 
 const formFields = {
-  name: "",
-  email: "",
+  /* name: "",
+  email: "", */
   password0: "",
   password: "",
   password2: "",
@@ -28,7 +28,8 @@ const formValidations = {
 
 export const PasswordSettings = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
-  // const { startRegister, errorMessage } = useAuthStore();
+  const { updatePassword, user } = useAuthStore();
+  //const { activeAppUser } = useAppUsersStore();
 
   /*  const isCheckingAuthentication = useMemo(
     () => status === "checking",
@@ -44,24 +45,58 @@ export const PasswordSettings = () => {
     password0Valid,
     passwordValid,
     password2Valid,
+    onResetForm,
   } = useForm(formFields, formValidations);
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
     setFormSubmitted(true);
-    //TO DO: AQUÍ SE COMPROBARÁ QUE LA ANTERIOR CONTRASEÑA ES LA CORRECTA
-    if (password !== password2) {
-      Swal.fire(
-        "Error en el password",
-        "Las dos contraseñas nuevas son distintas",
-        "error"
-      );
-      return;
+    try {
+      if (password !== password2) {
+        Swal.fire(
+          "Error en el password",
+          "Las dos contraseñas nuevas son distintas",
+          "error"
+        );
+        // onResetForm();
+        return;
+      }
+      if (!isFormValid) {
+        //onResetForm();
+        return;
+      }
+      console.log({ user });
+      if (!user.email) {
+        console.log("no existe user.email");
+        return;
+      }
+      const data = await updatePassword({
+        email: user.email,
+        password: password0,
+        password2: password,
+      });
+      if (!data.ok) {
+        Swal.fire({
+          title: "Error al cambiar la contraseña",
+          text: data.msg,
+          icon: "error",
+        });
+      } else {
+        Swal.fire({
+          title: data.msg,
+          icon: "info",
+        });
+      }
+      onResetForm();
+    } catch (error) {
+      Swal.fire({
+        title: "Error a la hora de cambiar la contraseña",
+        text: "Por favor, verifique que la contraseña anterior sea correcta",
+        icon: "error",
+      });
     }
-    if (!isFormValid) return;
-    console.log("aquí se modificaría el password");
-    //TO DO: aquí se modificará el password
-    //startRegister({ name, email, password });
+
+    setFormSubmitted(false);
   };
 
   /*   useEffect(() => {
@@ -70,9 +105,37 @@ export const PasswordSettings = () => {
     }
   }, [errorMessage]); */
 
-  const passwordRestore = () => {
+  const passwordRestore = async () => {
     //pregunta si está usted seguro
-    console.log("restaura el password y vacía los text input");
+    try {
+      const data = await updatePassword({
+        email: user.email,
+        // password: "123123",
+        //TO DO: PONER AQUÍ LA CONTRASEÑA ANTERIOR CORRECTA O AMPLIAR EL BACKEND PAR RESTAURAR PASSWORD Y PONER EL PASSWORD2 EN UNA KEY DEL .ENV
+        password2: "123456",
+      });
+      if (!data.ok) {
+        Swal.fire({
+          title: "Error al restaurar la contraseña",
+          text: data.msg,
+          icon: "error",
+        });
+      } else {
+        Swal.fire({
+          title: "Contraseña restaurada correctamente",
+          text: "De momento será '123456', acuérdese de cambiarla",
+          icon: "info",
+        });
+      }
+      onResetForm();
+    } catch (error) {
+      Swal.fire({
+        title: "Error a la hora de restaurar la contraseña",
+        //text: "Por favor, verifique que la contraseña anterior sea correcta",
+        icon: "error",
+      });
+    }
+    //console.log("restaura el password y vacía los text input");
   };
 
   return (
