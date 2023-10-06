@@ -86,8 +86,7 @@ export const useAuthStore = () => {
 
       Swal.fire({
         title: "Avise al administrador para que active su usuario.",
-        //title: "Su usuario todavía no está activado.",
-        //text: "Por favor, hable con el administrador para que lo active",
+
         icon: "info",
       });
       dispatch(onLogout());
@@ -117,31 +116,35 @@ export const useAuthStore = () => {
   };
 
   const updatePassword = async ({ email, password, password2 }) => {
-    //dispatch(onChecking());
-
     try {
-      console.log({ email, password, password2 });
+      //console.log({ email, password, password2 });
       const { data } = await calendarApi.patch("/auth/", {
         email,
         password,
         newPassword: password2,
       });
       return data;
-      // console.log({ data });
-      // if (data.ok) {
-      //   Swal.fire({
-      //     title: "La contraseña de ha cambiado correctamente",
-      //     icon: "info",
-      //   });
-      //   return;
-      // }
-      //console.log("ESTO NUNCA SE LLEGA A IMPRIMIR");
-      //localStorage.setItem("token", data.token);
-      //localStorage.setItem("token-init-date", new Date().getTime());
     } catch (error) {
       console.log(error);
       Swal.fire({
         title: "Error al cambiar la contraseña",
+        text: error.response.data?.msg,
+        icon: "error",
+      });
+      setTimeout(() => {
+        dispatch(onClearErrorMessage());
+      }, 10);
+    }
+  };
+
+  const restorePassword = async ({ id }) => {
+    try {
+      const { data } = await calendarApi.patch(`/auth/${id}`);
+      return data;
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        title: "Error al restaurar la contraseña",
         text: error.response.data?.msg,
         icon: "error",
       });
@@ -203,5 +206,6 @@ export const useAuthStore = () => {
     checkAuthToken,
     startLogout,
     updatePassword,
+    restorePassword,
   };
 };

@@ -4,8 +4,6 @@ import { useAuthStore, useForm } from "../../hooks";
 import Swal from "sweetalert2";
 
 const formFields = {
-  /* name: "",
-  email: "", */
   password0: "",
   password: "",
   password2: "",
@@ -29,13 +27,6 @@ const formValidations = {
 export const PasswordSettings = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const { updatePassword, user } = useAuthStore();
-  //const { activeAppUser } = useAppUsersStore();
-
-  /*  const isCheckingAuthentication = useMemo(
-    () => status === "checking",
-    [status]
-  ); */
-
   const {
     password0,
     password,
@@ -58,11 +49,9 @@ export const PasswordSettings = () => {
           "Las dos contraseñas nuevas son distintas",
           "error"
         );
-        // onResetForm();
         return;
       }
       if (!isFormValid) {
-        //onResetForm();
         return;
       }
       console.log({ user });
@@ -99,20 +88,11 @@ export const PasswordSettings = () => {
     setFormSubmitted(false);
   };
 
-  /*   useEffect(() => {
-    if (errorMessage !== undefined) {
-      Swal.fire("Error en la autenticación", errorMessage, "error");
-    }
-  }, [errorMessage]); */
-
   const passwordRestore = async () => {
     //pregunta si está usted seguro
     try {
       const data = await updatePassword({
-        email: user.email,
-        // password: "123123",
-        //TO DO: PONER AQUÍ LA CONTRASEÑA ANTERIOR CORRECTA O AMPLIAR EL BACKEND PAR RESTAURAR PASSWORD Y PONER EL PASSWORD2 EN UNA KEY DEL .ENV
-        password2: "123456",
+        id: user.uid,
       });
       if (!data.ok) {
         Swal.fire({
@@ -123,7 +103,7 @@ export const PasswordSettings = () => {
       } else {
         Swal.fire({
           title: "Contraseña restaurada correctamente",
-          text: "De momento será '123456', acuérdese de cambiarla",
+          text: "Acuérdese de cambiarla",
           icon: "info",
         });
       }
@@ -131,11 +111,10 @@ export const PasswordSettings = () => {
     } catch (error) {
       Swal.fire({
         title: "Error a la hora de restaurar la contraseña",
-        //text: "Por favor, verifique que la contraseña anterior sea correcta",
+
         icon: "error",
       });
     }
-    //console.log("restaura el password y vacía los text input");
   };
 
   return (
