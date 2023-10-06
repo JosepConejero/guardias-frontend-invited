@@ -1,7 +1,10 @@
-import { Button, Grid, TextField } from "@mui/material";
+import { Button, Grid, IconButton, TextField } from "@mui/material";
 import { useState } from "react";
-import { useAuthStore, useForm } from "../../hooks";
+import { useAppUsersStore, useAuthStore, useForm } from "../../hooks";
 import Swal from "sweetalert2";
+import GroupsIcon from "@mui/icons-material/Groups";
+import { useDispatch, useSelector } from "react-redux";
+import { switchShowRestoreAllUsersButton } from "../../store/month/monthSlice";
 
 const formFields = {
   password0: "",
@@ -25,8 +28,10 @@ const formValidations = {
 };
 
 export const PasswordSettings = () => {
+  //const [showRestoreButtons, setShowRestoreButtons] = useState(false);
+
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const { updatePassword, user } = useAuthStore();
+  const { updatePassword, startRestoringPassword, user } = useAuthStore();
   const {
     password0,
     password,
@@ -38,6 +43,14 @@ export const PasswordSettings = () => {
     password2Valid,
     onResetForm,
   } = useForm(formFields, formValidations);
+  const { appUsers } = useAppUsersStore();
+  const { showRestoreAllUsersButton } = useSelector((state) => state.month);
+
+  const dispatch = useDispatch();
+
+  const showRestoreButtons = () => {
+    dispatch(switchShowRestoreAllUsersButton());
+  };
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -54,11 +67,11 @@ export const PasswordSettings = () => {
       if (!isFormValid) {
         return;
       }
-      console.log({ user });
-      if (!user.email) {
-        console.log("no existe user.email");
-        return;
-      }
+      // console.log({ user });
+      // if (!user.email) {
+      //   console.log("no existe user.email");
+      //   return;
+      // }
       const data = await updatePassword({
         email: user.email,
         password: password0,
@@ -88,12 +101,18 @@ export const PasswordSettings = () => {
     setFormSubmitted(false);
   };
 
-  const passwordRestore = async () => {
+  const restorePassword = async () => {
     //pregunta si está usted seguro
+    //setFormSubmitted(true);
+    setFormSubmitted(false);
+
+    const id = user.uid;
+
     try {
-      const data = await updatePassword({
-        id: user.uid,
+      const data = await startRestoringPassword({
+        id,
       });
+      //console.log(data);
       if (!data.ok) {
         Swal.fire({
           title: "Error al restaurar la contraseña",
@@ -115,7 +134,22 @@ export const PasswordSettings = () => {
         icon: "error",
       });
     }
+    //setFormSubmitted(false);
   };
+
+  // const showUsersForRestorePasswords = () => {
+  //   setShowRestoreButtons((previous) => !previous);
+
+  //   //setShowRestoreButtons(() => !showRestoreButtons);
+  // };
+
+  // useEffect(() => {
+  //   first
+
+  //   return () => {
+  //     second
+  //   }
+  // }, [third])
 
   return (
     <>
@@ -129,34 +163,6 @@ export const PasswordSettings = () => {
           justifyContent="center"
           alignItems="center"
         >
-          {/* <Grid item xs={12} sx={{ mt: 2 }}>
-            <TextField
-              label="Nombre completo"
-              type="text"
-              placeholder="Nombre completo"
-              fullWidth
-              name="name"
-              value={name}
-              onChange={onInputChange}
-              error={!!nameValid && formSubmitted}
-              helperText={formSubmitted && nameValid}
-            />
-          </Grid>
-
-          <Grid item xs={12} sx={{ mt: 2 }}>
-            <TextField
-              label="Correo"
-              type="email"
-              placeholder="correo@google.com"
-              fullWidth
-              name="email"
-              value={email}
-              onChange={onInputChange}
-              error={!!emailValid && formSubmitted}
-              helperText={formSubmitted && emailValid}
-            />
-          </Grid> */}
-
           <Grid item xs={12} sx={{ mt: 4 }}>
             <TextField
               label="Contraseña anterior"
@@ -168,6 +174,7 @@ export const PasswordSettings = () => {
               onChange={onInputChange}
               error={!!password0Valid && formSubmitted}
               helperText={formSubmitted && password0Valid}
+              sx={{ width: "300px" }}
             />
           </Grid>
 
@@ -182,6 +189,7 @@ export const PasswordSettings = () => {
               onChange={onInputChange}
               error={!!passwordValid && formSubmitted}
               helperText={formSubmitted && passwordValid}
+              sx={{ width: "300px" }}
             />
           </Grid>
 
@@ -196,6 +204,7 @@ export const PasswordSettings = () => {
               onChange={onInputChange}
               error={!!password2Valid && formSubmitted}
               helperText={formSubmitted && password2Valid}
+              sx={{ width: "300px" }}
             />
           </Grid>
 
@@ -204,7 +213,7 @@ export const PasswordSettings = () => {
             direction="column"
             justifyContent="center"
             alignItems="center"
-            /*  spacing={2} */ sx={{ mb: 4, mt: 1 }}
+            sx={{ mb: 4, mt: 1 }}
           >
             {/* <Grid item xs={12} display={!!errorMessage ? "" : "none"}>
               <Alert severity="error">{errorMessage}</Alert>
@@ -214,19 +223,77 @@ export const PasswordSettings = () => {
                 //disabled={isCheckingAuthentication} //TO DO: QUE SE DESHABILITE EL BOTÓN
                 type="submit"
                 variant="contained"
+                sx={{ fontSize: "12px", width: "200px" }}
                 // fullWidth
               >
-                Modificar contraseña
+                Cambiar contraseña
               </Button>
             </Grid>
-            <Grid item xs={12}>
-              <Button variant="outlined" onClick={passwordRestore}>
-                Restaurar contraseña
-              </Button>
+            <Grid
+              item
+              xs={12}
+              sx={
+                {
+                  /* border: 1 */
+                }
+              }
+            >
+              <Grid
+                container
+                direction="column"
+                //justifyContent="center"
+                alignItems="center"
+              >
+                <Grid item xs={12}>
+                  <Button
+                    variant="outlined"
+                    onClick={restorePassword}
+                    sx={{ fontSize: "12px", width: "200px" }}
+                  >
+                    Restaurar contraseña
+                  </Button>
+                </Grid>
+                <Grid item xs={12} sx={{ mt: 0.5 }}>
+                  <IconButton
+                    sx={{
+                      color: "primary.main",
+                      //color: user.isDataModifier ? "primary.main" : "grey",
+                      visibility: user.isDataModifier ? "" : "hidden",
+                    }}
+                    onClick={showRestoreButtons}
+                  >
+                    <GroupsIcon />
+                  </IconButton>
+                </Grid>
+
+                {showRestoreAllUsersButton && (
+                  <Grid
+                    item
+                    xs={12}
+                    sx={{
+                      mt: 0.5,
+                      visibility: showRestoreAllUsersButton ? "" : "hidden",
+                    }}
+                  >
+                    {appUsers.map((user) => (
+                      <Grid key={user.id} item xs={12}>
+                        <Button
+                          variant="outlined"
+                          onClick={() => restorePassword(user.id)}
+                          sx={{
+                            fontSize: "12px",
+                            width: "200px",
+                          }}
+                        >
+                          Restaurar - {user.shortName}
+                        </Button>
+                      </Grid>
+                    ))}
+                  </Grid>
+                )}
+              </Grid>
             </Grid>
           </Grid>
-
-          {/*           <Button variant="outlined">Guarde la contraseña</Button> */}
         </Grid>
       </form>
     </>

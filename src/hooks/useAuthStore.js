@@ -137,9 +137,11 @@ export const useAuthStore = () => {
     }
   };
 
-  const restorePassword = async ({ id }) => {
+  const startRestoringPassword = async ({ id }) => {
     try {
+      //console.log(id);
       const { data } = await calendarApi.patch(`/auth/${id}`);
+      //console.log(data);
       return data;
     } catch (error) {
       console.log(error);
@@ -206,6 +208,6 @@ export const useAuthStore = () => {
     checkAuthToken,
     startLogout,
     updatePassword,
-    restorePassword,
+    startRestoringPassword,
   };
 };

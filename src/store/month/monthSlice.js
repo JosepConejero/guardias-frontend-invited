@@ -5,6 +5,7 @@ export const monthSlice = createSlice({
   initialState: {
     daysInWeek: 5,
     showStatistics: false,
+    showRestoreAllUsersButton: false,
     /* currentMonth: null,
     currentDate: {},
     currentShowedDays: [], */
@@ -23,6 +24,12 @@ export const monthSlice = createSlice({
     resetShowStatistics: (state) => {
       state.showStatistics = false;
     },
+    switchShowRestoreAllUsersButton: (state) => {
+      state.showRestoreAllUsersButton = !state.showRestoreAllUsersButton;
+    },
+    resetShowRestoreAllUsersButton: (state) => {
+      state.showRestoreAllUsersButton = false;
+    },
     /* setCurrentMonth: (state, { payload }) => {
       state.currentMonth = payload;
     },
@@ -39,6 +46,8 @@ export const {
   switchDaysInWeek,
   switchShowStatistics,
   resetShowStatistics,
+  switchShowRestoreAllUsersButton,
+  resetShowRestoreAllUsersButton,
   /* setCurrentMonth,
   setCurrentDate,
   setCurrentShowedDays, */
