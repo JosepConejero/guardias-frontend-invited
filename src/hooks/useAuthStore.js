@@ -5,16 +5,26 @@ import {
   onClearErrorMessage,
   onLogin,
   onLogout,
+  onSetChangingPassword,
+  onSetRestoringPassword,
 } from "../store/auth/authSlice";
 
 import Swal from "sweetalert2";
 import { useCoursesStore } from "./useCoursesStore";
 import { useAppUsersStore } from "./useAppUsersStore";
-import { resetShowStatistics } from "../store/month/monthSlice";
+import {
+  resetShowRestoreAllUsersButton,
+  resetShowStatistics,
+} from "../store/month/monthSlice";
 
 export const useAuthStore = () => {
-  const { status, user, errorMessage } = useSelector((state) => state.auth);
-  // const { resetShowStatistics } = useSelector((state) => state.month);
+  const {
+    status,
+    user,
+    errorMessage,
+    isChangingPassword,
+    isRestoringPassword,
+  } = useSelector((state) => state.auth);
   const { emptyCourses } = useCoursesStore();
   const { emptyAppUsers } = useAppUsersStore();
 
@@ -117,12 +127,13 @@ export const useAuthStore = () => {
 
   const updatePassword = async ({ email, password, password2 }) => {
     try {
-      //console.log({ email, password, password2 });
+      dispatch(onSetChangingPassword(true));
       const { data } = await calendarApi.patch("/auth/", {
         email,
         password,
         newPassword: password2,
       });
+      dispatch(onSetChangingPassword(false));
       return data;
     } catch (error) {
       console.log(error);
@@ -139,9 +150,9 @@ export const useAuthStore = () => {
 
   const startRestoringPassword = async ({ id }) => {
     try {
-      //console.log(id);
+      dispatch(onSetRestoringPassword(true));
       const { data } = await calendarApi.patch(`/auth/${id}`);
-      //console.log(data);
+      dispatch(onSetRestoringPassword(false));
       return data;
     } catch (error) {
       console.log(error);
@@ -195,6 +206,7 @@ export const useAuthStore = () => {
     localStorage.clear();
     dispatch(onLogout());
     dispatch(resetShowStatistics());
+    dispatch(resetShowRestoreAllUsersButton());
   };
 
   return {
@@ -202,6 +214,8 @@ export const useAuthStore = () => {
     errorMessage,
     status,
     user,
+    isChangingPassword,
+    isRestoringPassword,
     // methods
     startLogin,
     startRegister,

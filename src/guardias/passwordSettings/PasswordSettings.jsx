@@ -1,10 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Button, Grid, IconButton, TextField } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppUsersStore, useAuthStore, useForm } from "../../hooks";
 import Swal from "sweetalert2";
 import GroupsIcon from "@mui/icons-material/Groups";
 import { useDispatch, useSelector } from "react-redux";
 import { switchShowRestoreAllUsersButton } from "../../store/month/monthSlice";
+import { Confirmation } from "../../ui/pages/Confirmation";
+import { Spinner } from "../customizedComponents";
 
 const formFields = {
   password0: "",
@@ -28,10 +31,14 @@ const formValidations = {
 };
 
 export const PasswordSettings = () => {
-  //const [showRestoreButtons, setShowRestoreButtons] = useState(false);
-
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const { updatePassword, startRestoringPassword, user } = useAuthStore();
+  const {
+    updatePassword,
+    startRestoringPassword,
+    user,
+    isChangingPassword,
+    isRestoringPassword,
+  } = useAuthStore();
   const {
     password0,
     password,
@@ -43,8 +50,13 @@ export const PasswordSettings = () => {
     password2Valid,
     onResetForm,
   } = useForm(formFields, formValidations);
-  const { appUsers } = useAppUsersStore();
+  const { appUsers, startLoadingAppUsers } = useAppUsersStore();
+  // const { appUsers, startLoadingAppUsers } = useSelector(
+  //   (state) => state.appUser
+  // );
   const { showRestoreAllUsersButton } = useSelector((state) => state.month);
+  const [open, setOpen] = useState(false);
+  const [userId, setUserId] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -101,18 +113,14 @@ export const PasswordSettings = () => {
     setFormSubmitted(false);
   };
 
-  const restorePassword = async () => {
-    //pregunta si está usted seguro
-    //setFormSubmitted(true);
+  const restorePassword = async (id) => {
     setFormSubmitted(false);
-
-    const id = user.uid;
 
     try {
       const data = await startRestoringPassword({
         id,
       });
-      //console.log(data);
+
       if (!data.ok) {
         Swal.fire({
           title: "Error al restaurar la contraseña",
@@ -122,7 +130,7 @@ export const PasswordSettings = () => {
       } else {
         Swal.fire({
           title: "Contraseña restaurada correctamente",
-          text: "Acuérdese de cambiarla",
+          text: "Se recomienda cambiar la contraseña",
           icon: "info",
         });
       }
@@ -137,19 +145,28 @@ export const PasswordSettings = () => {
     //setFormSubmitted(false);
   };
 
-  // const showUsersForRestorePasswords = () => {
-  //   setShowRestoreButtons((previous) => !previous);
+  const handleOpen = (id) => {
+    setOpen(true);
+    setUserId(id);
+  };
 
-  //   //setShowRestoreButtons(() => !showRestoreButtons);
-  // };
+  const handleClose = (answer) => {
+    // console.log({ userId, answer });
+    if (answer) {
+      if (userId) {
+        restorePassword(userId);
+      }
+    }
+    setOpen(false);
+    setUserId(null);
+  };
 
-  // useEffect(() => {
-  //   first
+  useEffect(() => {
+    if (appUsers.length === 0) startLoadingAppUsers();
+  }, []);
 
-  //   return () => {
-  //     second
-  //   }
-  // }, [third])
+  if (isChangingPassword) return <Spinner text="Changing password..." />;
+  if (isRestoringPassword) return <Spinner text="Restoring password..." />;
 
   return (
     <>
@@ -229,73 +246,59 @@ export const PasswordSettings = () => {
                 Cambiar contraseña
               </Button>
             </Grid>
-            <Grid
-              item
-              xs={12}
-              sx={
-                {
-                  /* border: 1 */
-                }
-              }
-            >
-              <Grid
-                container
-                direction="column"
-                //justifyContent="center"
-                alignItems="center"
-              >
-                <Grid item xs={12}>
-                  <Button
-                    variant="outlined"
-                    onClick={restorePassword}
-                    sx={{ fontSize: "12px", width: "200px" }}
-                  >
-                    Restaurar contraseña
-                  </Button>
-                </Grid>
-                <Grid item xs={12} sx={{ mt: 0.5 }}>
-                  <IconButton
-                    sx={{
-                      color: "primary.main",
-                      //color: user.isDataModifier ? "primary.main" : "grey",
-                      visibility: user.isDataModifier ? "" : "hidden",
-                    }}
-                    onClick={showRestoreButtons}
-                  >
-                    <GroupsIcon />
-                  </IconButton>
-                </Grid>
 
-                {showRestoreAllUsersButton && (
-                  <Grid
-                    item
-                    xs={12}
-                    sx={{
-                      mt: 0.5,
-                      visibility: showRestoreAllUsersButton ? "" : "hidden",
-                    }}
-                  >
-                    {appUsers.map((user) => (
-                      <Grid key={user.id} item xs={12}>
-                        <Button
-                          variant="outlined"
-                          onClick={() => restorePassword(user.id)}
-                          sx={{
-                            fontSize: "12px",
-                            width: "200px",
-                          }}
-                        >
-                          Restaurar - {user.shortName}
-                        </Button>
-                      </Grid>
-                    ))}
-                  </Grid>
-                )}
+            <Grid item xs={12}>
+              <Button
+                variant="outlined"
+                onClick={() => handleOpen(user.uid)}
+                sx={{ fontSize: "12px", width: "200px" }}
+              >
+                Restaurar contraseña
+              </Button>
+            </Grid>
+
+            <Grid item xs={12} sx={{ mt: 0.5 }}>
+              <IconButton
+                sx={{
+                  color: "primary.main",
+                  //color: user.isDataModifier ? "primary.main" : "grey",
+                  visibility: user.isDataModifier ? "" : "hidden",
+                }}
+                onClick={showRestoreButtons}
+              >
+                <GroupsIcon />
+              </IconButton>
+            </Grid>
+
+            <Grid item xs={12}>
+              <Grid container direction="column" alignItems="center">
+                {user.isDataModifier &&
+                  showRestoreAllUsersButton &&
+                  appUsers.map((thisUser) => (
+                    <Grid key={thisUser.id} item xs={12}>
+                      <Button
+                        variant="outlined"
+                        onClick={() => handleOpen(thisUser.id)}
+                        sx={{
+                          fontSize: "12px",
+                          width: "200px",
+                          mb: 0.25,
+                        }}
+                      >
+                        Restaurar - {thisUser.shortName}
+                      </Button>
+                    </Grid>
+                  ))}
               </Grid>
             </Grid>
           </Grid>
         </Grid>
       </form>
+      <Confirmation
+        question="¿Seguro que quiere restaurar la contraseña?"
+        open={open}
+        handleClose={handleClose}
+      />
     </>
   );
 };

@@ -4,8 +4,11 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useCoursesStore } from "../../hooks/useCoursesStore";
 import { useUiStore } from "../../hooks/useUiStore";
 import { useAuthStore } from "../../hooks";
+import { Confirmation } from "../../ui/pages/Confirmation";
+import { useState } from "react";
 
 export const ListItemCourses = ({ course }) => {
+  const [open, setOpen] = useState(false);
   const { openCourseModal } = useUiStore();
   const { startDeletingCourse, setActiveCourse } = useCoursesStore();
   const { user } = useAuthStore();
@@ -19,6 +22,15 @@ export const ListItemCourses = ({ course }) => {
 
   const onDeleteItem = () => {
     startDeletingCourse(course);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (answer) => {
+    if (answer) onDeleteItem();
+    setOpen(false);
   };
 
   return (
@@ -139,7 +151,8 @@ export const ListItemCourses = ({ course }) => {
               }}
             >
               <IconButton
-                onClick={onDeleteItem}
+                //onClick={onDeleteItem}
+                onClick={handleOpen}
                 //sx={{ visibility: course.title === "SIN CURSO" ? "hidden" : "" }}
                 disabled={user.isDataModifier ? false : true}
                 sx={{
@@ -155,6 +168,11 @@ export const ListItemCourses = ({ course }) => {
           <Divider sx={{ display: { md: "none" }, bgcolor: "lightgrey" }} />
         </Grid>
       </Grid>
+      <Confirmation
+        question="¿Seguro que quiere borrar este curso?"
+        open={open}
+        handleClose={handleClose}
+      />
     </>
   );
 };
