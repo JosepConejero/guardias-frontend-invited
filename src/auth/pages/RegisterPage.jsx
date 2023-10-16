@@ -69,7 +69,7 @@ export const RegisterPage = () => {
   }, [errorMessage]);
 
   return (
-    <AuthLayout title="Resgistro">
+    <AuthLayout title="Registro">
       {/*  <h1>FormValid: {isFormValid ? "Válido" : "Incorrecto"}</h1> */}
       <form
         onSubmit={onSubmit}
