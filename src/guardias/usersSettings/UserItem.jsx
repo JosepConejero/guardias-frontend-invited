@@ -11,14 +11,16 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useAppUsersStore } from "../../hooks/useAppUsersStore";
 import { useState } from "react";
 import { useUiStore } from "../../hooks/useUiStore";
-import { useAuthStore } from "../../hooks";
+import { useAuthStore, useCalendarStore } from "../../hooks";
 import { Confirmation } from "../../ui/pages/Confirmation";
+import Swal from "sweetalert2";
 
 export default function UserItem({ appUser }) {
   const [open, setOpen] = useState(false);
   const { openAppUserModal } = useUiStore();
   const { startDeletingAppUser, setActiveAppUser } = useAppUsersStore();
   const { user } = useAuthStore();
+  const { guardDays } = useCalendarStore();
 
   const handleAppUserChange = () => {
     if (user.isDataModifier) {
@@ -27,8 +29,31 @@ export default function UserItem({ appUser }) {
     }
   };
 
+  const isThisAppUserBeingUsed = (id) => {
+    let found = false;
+    for (let i = 0; i < guardDays.length; i++) {
+      if (guardDays[i].technicians.length > 0) {
+        for (let j = 0; j < guardDays[i].technicians.length; j++) {
+          if (guardDays[i].technicians[j].technicianId === id) {
+            found = true;
+            break;
+          }
+        }
+      }
+    }
+    return found;
+  };
+
   const onDeleteItem = () => {
-    startDeletingAppUser(appUser);
+    if (!isThisAppUserBeingUsed(appUser.id)) {
+      startDeletingAppUser(appUser);
+    } else {
+      Swal.fire({
+        title: "No se puede borrar el usuario.",
+        text: "El usuario ya ha hecho alguna guardia.",
+        icon: "error",
+      });
+    }
   };
 
   const handleOpen = () => {

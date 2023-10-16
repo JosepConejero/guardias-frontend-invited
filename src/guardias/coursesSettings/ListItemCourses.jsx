@@ -3,15 +3,17 @@ import { Checkbox, Divider, Grid, IconButton, Typography } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useCoursesStore } from "../../hooks/useCoursesStore";
 import { useUiStore } from "../../hooks/useUiStore";
-import { useAuthStore } from "../../hooks";
+import { useAuthStore, useCalendarStore } from "../../hooks";
 import { Confirmation } from "../../ui/pages/Confirmation";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 export const ListItemCourses = ({ course }) => {
   const [open, setOpen] = useState(false);
   const { openCourseModal } = useUiStore();
   const { startDeletingCourse, setActiveCourse } = useCoursesStore();
   const { user } = useAuthStore();
+  const { guardDays } = useCalendarStore();
 
   const handleCourseChange = () => {
     if (user.isDataModifier) {
@@ -20,8 +22,31 @@ export const ListItemCourses = ({ course }) => {
     }
   };
 
+  const isThisCourseBeingUsed = (id) => {
+    let found = false;
+    for (let i = 0; i < guardDays.length; i++) {
+      if (guardDays[i].technicians.length > 0) {
+        for (let j = 0; j < guardDays[i].technicians.length; j++) {
+          if (guardDays[i].technicians[j].courseId === id) {
+            found = true;
+            break;
+          }
+        }
+      }
+    }
+    return found;
+  };
+
   const onDeleteItem = () => {
-    startDeletingCourse(course);
+    if (!isThisCourseBeingUsed(course.id)) {
+      startDeletingCourse(course);
+    } else {
+      Swal.fire({
+        title: "No se puede borrar el curso.",
+        text: "El curso ya se ha impartido alguna vez.",
+        icon: "error",
+      });
+    }
   };
 
   const handleOpen = () => {

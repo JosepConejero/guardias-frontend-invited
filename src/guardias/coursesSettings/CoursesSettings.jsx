@@ -6,7 +6,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { useUiStore } from "../../hooks/useUiStore";
 import { CourseNameModal } from "../modals/CourseNameModal";
 import { useEffect } from "react";
-import { useAuthStore } from "../../hooks";
+import { useAuthStore, useCalendarStore } from "../../hooks";
 //import { useBasicModal } from "../../hooks/useBasicModal";
 import { BasicModal } from "../modals/basicModal/BasicModal";
 import { useSelector } from "react-redux";
@@ -18,6 +18,7 @@ export const CoursesSettings = () => {
   const { isCourseModalOpen } = useSelector((state) => state.ui);
   const { courses, startLoadingCourses, isDeletingCourse } = useCoursesStore();
   const { user } = useAuthStore();
+  const { guardDays, startLoadingGuardDays } = useCalendarStore();
 
   const onAddCourse = () => {
     openCourseModal();
@@ -25,6 +26,7 @@ export const CoursesSettings = () => {
 
   useEffect(() => {
     if (courses.length === 0) startLoadingCourses();
+    if (guardDays.length === 0) startLoadingGuardDays();
     //si fuera el inicio y no hubiera cursos creados, volvería a llamar startLoadingCourses ¿daría un error?
   }, []);
 
