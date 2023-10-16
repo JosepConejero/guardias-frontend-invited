@@ -10,7 +10,7 @@ export const UsersSettings = () => {
   const { isAppUsersModalOpen } = useSelector((state) => state.ui);
   const { isDeletingAppUser } = useAppUsersStore();
 
-  if (isDeletingAppUser) return <Spinner text="Deleting..." />;
+  if (isDeletingAppUser) return <Spinner text="Borrando..." />;
 
   return (
     <>

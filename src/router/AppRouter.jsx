@@ -19,7 +19,7 @@ export const AppRouter = () => {
   }, []);
 
   if (status === "checking") {
-    return <Spinner text="Loading..." />;
+    return <Spinner text="Cargando..." />;
   }
 
   return (

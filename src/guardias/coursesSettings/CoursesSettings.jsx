@@ -28,12 +28,12 @@ export const CoursesSettings = () => {
     //si fuera el inicio y no hubiera cursos creados, volvería a llamar startLoadingCourses ¿daría un error?
   }, []);
 
-  if (isDeletingCourse) return <Spinner text="Deleting..." />;
+  if (isDeletingCourse) return <Spinner text="Borrando..." />;
 
   return (
     <>
       {/*       {isDeleting ? (
-        <Spinner text="Deleting..." />
+        <Spinner text="Borrando..." />
       ) : (
         <> */}
       <Grid container /* px={2} */ sx={{ px: { md: 2 } }} direction="column">

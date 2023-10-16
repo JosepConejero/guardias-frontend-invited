@@ -137,7 +137,7 @@ export const DayModal = ({ closeModal }) => {
   return (
     <>
       {isSaving ? (
-        <SpinnerInModal text="Saving..." />
+        <SpinnerInModal text="Grabando..." />
       ) : (
         <>
           <Grid

@@ -80,7 +80,7 @@ export const CourseNameModal = () => {
   return (
     <>
       {isSaving ? (
-        <SpinnerInModal text="Saving..." />
+        <SpinnerInModal text="Grabando..." />
       ) : (
         <>
           <Grid

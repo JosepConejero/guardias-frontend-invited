@@ -321,7 +321,7 @@ export const DayModal = () => {
           }}
         >
           {isSaving ? (
-            <SpinnerInModal text="Saving..." />
+            <SpinnerInModal text="Grabando..." />
           ) : (
             <>
               <form

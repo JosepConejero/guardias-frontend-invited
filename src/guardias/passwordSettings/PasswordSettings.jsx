@@ -165,8 +165,8 @@ export const PasswordSettings = () => {
     if (appUsers.length === 0) startLoadingAppUsers();
   }, []);
 
-  if (isChangingPassword) return <Spinner text="Changing password..." />;
-  if (isRestoringPassword) return <Spinner text="Restoring password..." />;
+  if (isChangingPassword) return <Spinner text="Cambiando contraseña..." />;
+  if (isRestoringPassword) return <Spinner text="Restaurando contraseña..." />;
 
   return (
     <>

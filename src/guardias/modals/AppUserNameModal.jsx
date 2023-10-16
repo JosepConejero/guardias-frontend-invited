@@ -128,11 +128,11 @@ export const AppUserNameModal = () => {
   return (
     <>
       {/*    {isDeleting ? (
-        <SpinnerInModal text="Deleting..." />
+        <SpinnerInModal text="Borrando..." />
       ) : (
         <> */}
       {isSaving ? (
-        <SpinnerInModal text="Saving..." />
+        <SpinnerInModal text="Grabando..." />
       ) : (
         <>
           <Grid
