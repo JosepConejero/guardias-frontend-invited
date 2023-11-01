@@ -63,9 +63,6 @@ export const LoginPage = () => {
           </Grid>
 
           <Grid container spacing={2} sx={{ mb: 2, mt: 1 }}>
-            {/*       <Grid item xs={12} display={!!errorMessage ? "" : "none"}>
-              <Alert severity="error">{errorMessage}</Alert>
-            </Grid> */}
             <Grid item xs={12} sm={12}>
               <Button
                 disabled={isAuthenticating}
@@ -77,13 +74,7 @@ export const LoginPage = () => {
               </Button>
             </Grid>
             <Grid item xs={12} sm={6} display="none">
-              <Button
-                /* disabled={isAuthenticating} */
-                variant="contained"
-                fullWidth
-                aria-label="google-btn"
-                /* onClick={onGoogleSignIn} */
-              >
+              <Button variant="contained" fullWidth aria-label="google-btn">
                 <Google />
                 <Typography sx={{ ml: 1 }}>Google</Typography>
               </Button>
@@ -91,9 +82,6 @@ export const LoginPage = () => {
           </Grid>
 
           <Grid container direction="row" justifyContent="end">
-            {/* ESTE PRIMER LINK ES EL DE MATERIAL UI
-              EL SEGUNDO LINK DE react-router-dom LO HE IMPORTADO Y RENOMBRADO COMO ROUTERLINK */}
-            {/*  <Link component={RouterLink} color="inherit" to="/auth/register"> */}
             <Link component={RouterLink} color="inherit" to="/register">
               Crear una cuenta
             </Link>
