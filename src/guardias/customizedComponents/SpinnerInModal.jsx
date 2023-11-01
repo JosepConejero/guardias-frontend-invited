@@ -6,16 +6,12 @@ export const SpinnerInModal = ({ text }) => {
       container
       alignItems="center"
       justifyContent="center"
-      //direction="column"
-      //height="100vh"
       sx={{
         height: {
-          xs: "680px", //xs: "680px", //xs: "720px",
-          md: "680px", //md: "500px", //md: "708px",
+          xs: "680px",
+          md: "680px",
         },
-        width: { xs: "400px", md: "680px" }, //width: { xs: "calc(100vw - 40px)", md: "100%" }, //width: { xs: "calc(100vw - 20px)", md: "100%" },
-
-        //bgcolor: "#f0f8ff",
+        width: { xs: "400px", md: "680px" },
       }}
     >
       <Grid item>
