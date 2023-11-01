@@ -18,12 +18,7 @@ function TabPanel(props) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          {/* <Typography>{children}</Typography> */}
-          {children}
-        </Box>
-      )}
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </div>
   );
 }
@@ -53,7 +48,6 @@ export const SettingsPage = () => {
         sx={{
           minHeight: `100vh`,
           pt: 9,
-          //pb: 1,
           px: { xs: 1, md: 0 },
           pb: 1,
         }}
@@ -61,7 +55,6 @@ export const SettingsPage = () => {
         <Grid
           item
           container
-          //wrap="nowrap"
           sx={{
             width: {
               xs: "100%",
@@ -69,11 +62,9 @@ export const SettingsPage = () => {
                 value === 0
                   ? 400
                   : value === 1
-                  ? //? 950
-                    1000
+                  ? 1000
                   : value === 2
-                  ? //? 650
-                    700
+                  ? 700
                   : 1000,
             },
             borderRadius: 2,
@@ -92,19 +83,9 @@ export const SettingsPage = () => {
                 borderColor: "divider",
               }}
             >
-              <Tabs
-                value={value}
-                onChange={handleChange}
-                //aria-label="basic tabs example"
-                centered
-              >
+              <Tabs value={value} onChange={handleChange} centered>
                 <Tab label="CONTRASEÑA" {...a11yProps(0)} />
-                <Tab
-                  label="USUARIOS"
-                  {...a11yProps(1)}
-                  // disabled
-                  //sx={{ visibility: "hidden" }}
-                />
+                <Tab label="USUARIOS" {...a11yProps(1)} />
                 <Tab label="CURSOS" {...a11yProps(2)} />
               </Tabs>
             </Box>
@@ -135,20 +116,7 @@ export const SettingsPage = () => {
               </Grid>
             </TabPanel>
 
-            <TabPanel
-              value={value}
-              index={2}
-              sx={
-                {
-                  // "&. MuiBox-root": { padding: "0px" },
-                  // "&. MuiGrid-container": { padding: "0px" },
-                  // "&.MuiGrid-root": { padding: "0px" },
-                  // "&. MuiGrid-item": { padding: "0px" },
-                  // "& .MuiTab-root": { padding: "0px" },
-                  //border: "10px red solid",
-                }
-              }
-            >
+            <TabPanel value={value} index={2}>
               <Grid
                 container
                 justifyContent="center"
@@ -166,15 +134,3 @@ export const SettingsPage = () => {
     </>
   );
 };
-
-//   <Typography>Cambio de contraseña</Typography>
-
-//  <Grid item md={2}>
-//    <PruebasEstadisticas />
-// </Grid>
-// <Grid item md={8}>
-//    <MonthBox />
-// </Grid>
-// <Grid item md={2}>
-//    <PruebasEstadisticas />
-// </Grid>
