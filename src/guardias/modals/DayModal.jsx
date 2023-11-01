@@ -53,17 +53,7 @@ export const DayModal = ({ closeModal }) => {
     newFormValues = emptyGuardDay;
   }
 
-  // eslint-disable-next-line no-unused-vars
-  //const [formSubmitted, setFormSubmitted] = useState(false); //TO DO: esto lo necesitaré para controlar validaciones del formulario
   const [formValues, setFormValues] = useState(newFormValues);
-
-  //podría ser necesario aquí un useMemo que incluyera formSubmitted
-
-  /*   const titleClass = useMemo(() => {
-    if (!formSubmitted) return "";
-    // si la persona no ha ingresado el título o el título está vacío, mostraré el input en rojo (error)
-    return formValues.notas.length > 0 ? "is-valid" : "is-invalid"; // puedo quitar el is-valid pq cn se hace el submit del formulario, ya no hace falta
-  }, [formValues.notas, formSubmitted]); */
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -76,23 +66,13 @@ export const DayModal = ({ closeModal }) => {
         title:
           "Los nombres de los técnicos/formadores de guardia no pueden estar vacíos.",
         text: "Por favor, modifica esto antes de guardar",
-        //target: document.getElementById("dialog-guard-day"), //target: document.getElementById('dialog'),
         target: document.getElementById("modal-fondo"),
         icon: "error",
       });
     }
-    ////setFormSubmitted(false);
   };
 
-  /*   const onCloseModal = () => {
-    //antes de cerrar el modal tengo que hacer que activeGuardDay valga null
-    dispatch(onDeactivateGuardDay());
-    closeDayModal();
-    deselectGuardDay();
-  }; */
-
   useEffect(() => {
-    //if (activeGuardDay !== null) {
     if (activeGuardDay) {
       const newFormValues = guardDayInformation(activeGuardDay);
 
@@ -130,10 +110,6 @@ export const DayModal = ({ closeModal }) => {
 
   if (!guardDayOpened) return;
 
-  /*   const mierdaputa = () => {
-    return <Grid sx={{ bgcolor: "white" }}>mierda</Grid>;
-  }; */
-
   return (
     <>
       {isSaving ? (
@@ -141,9 +117,6 @@ export const DayModal = ({ closeModal }) => {
       ) : (
         <>
           <Grid
-            // open={isDayModalOpen}
-            // onClose={onCloseModal}
-
             id="dialog-guard-day"
             sx={{
               width: { xs: "390px", md: "900px" },
@@ -151,25 +124,8 @@ export const DayModal = ({ closeModal }) => {
           >
             <Grid
               sx={{
-                //maxWidth: "none",
-                //maxHeight: "none",
-                // width: { /* xs: "100%", */ md: "900px" },
-                //height: { /* xs: "100vh", */ md: "720px" },
-                //bgcolor: "white",
-                //mt: { xs: 0, md: -2 },
                 my: 1,
                 mx: { md: 0.5 },
-                //bgcolor: "red",
-                //borderRadius: 25,
-                //pb: { xs: 0, md: 0 },
-                //borderRadius: 1,
-                //bgcolor: "white",
-                //position: { xs: "absolute", md: "absolute" },
-                //top: { xs: "0%", md: "50%" },
-                //left: { xs: "0%", md: "50%" },
-                //transform: { md: "translate(-50%, -50%)" },
-                //boxShadow: 24,
-                // overflow: { xs: "auto" },
               }}
             >
               <form
