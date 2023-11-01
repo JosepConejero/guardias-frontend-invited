@@ -10,7 +10,6 @@ import { UsersGuardsBox } from "./dayModalComponents/UsersGuardsBox";
 import { useGuardDayStore } from "../../hooks/useGuardDayStore";
 import { useAppUsersStore } from "../../hooks/useAppUsersStore";
 import Swal from "sweetalert2";
-import "./swal2.css";
 import { DateBox } from "./dayModalComponents/DateBox";
 import { ButtonsBox } from "./dayModalComponents/ButtonsBox";
 import { SpinnerInModal } from "../customizedComponents";

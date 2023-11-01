@@ -12,7 +12,6 @@ import { useAppUsersStore } from "../../hooks/useAppUsersStore";
 import { SpinnerInModal } from "../customizedComponents";
 import { useCheckboxes } from "../../hooks";
 import Swal from "sweetalert2";
-import "./swal2.css";
 import { ButtonsBox } from "./dayModalComponents/ButtonsBox";
 
 const emptyAppUser = {

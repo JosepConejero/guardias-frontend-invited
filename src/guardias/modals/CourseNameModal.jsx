@@ -12,7 +12,6 @@ import { useEffect, useState } from "react";
 import { useCoursesStore } from "../../hooks/useCoursesStore";
 import { ButtonsBox } from "./dayModalComponents/ButtonsBox";
 import Swal from "sweetalert2";
-import "./swal2.css";
 import { useCheckboxes } from "../../hooks";
 import { SpinnerInModal } from "../customizedComponents";
 
