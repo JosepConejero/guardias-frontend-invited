@@ -6,20 +6,12 @@ export const ButtonsBox = ({
   okDisabled = false,
 }) => {
   return (
-    <Grid
-      container
-      direction="row"
-      justifyContent="center"
-      //height="50px"
-      /* spacing={5} */
-      //sx={{ mt: 3 }}
-    >
-      <Grid item /* md={6} */>
+    <Grid container direction="row" justifyContent="center">
+      <Grid item>
         <Button
           disabled={cancelDisabled}
           onClick={onCloseModal}
           variant="contained"
-          //fullWidth
           sx={{
             bgcolor: "#AB0000",
             "&:hover": {
@@ -32,12 +24,11 @@ export const ButtonsBox = ({
           CANCELAR
         </Button>
       </Grid>
-      <Grid item /* md={6} */>
+      <Grid item>
         <Button
           disabled={okDisabled}
           type="submit"
           variant="contained"
-          //fullWidth
           sx={{ mt: 1 }}
         >
           GUARDAR
