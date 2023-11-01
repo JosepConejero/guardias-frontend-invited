@@ -39,12 +39,8 @@ export const CheckboxesBox = () => {
   return (
     <Stack
       sx={{
-        //flexDirection: "column",
         borderRadius: "5px",
         border: "1px grey solid",
-        //width: { xs: "100%", md: "auto" },
-        // width: { xs: "100%", md: "100%" },
-        //width: "500px",
       }}
       p={1}
     >
@@ -79,7 +75,6 @@ export const CheckboxesBox = () => {
                 disabled={!user.isDataModifier}
               />
             }
-            //label="Hay formación de 2 horas"
             label={
               <Typography sx={{ fontSize: "16px", fontWeight: "bold" }}>
                 Hay formación de 2 horas
@@ -102,7 +97,6 @@ export const CheckboxesBox = () => {
                 disabled={!user.isDataModifier}
               />
             }
-            //label="Hay reunión extra"
             label={
               <Typography sx={{ fontSize: "16px", fontWeight: "bold" }}>
                 Hay reunión extra
@@ -120,7 +114,6 @@ export const CheckboxesBox = () => {
             placeholder="Indique el tipo de reunión"
             name="extraMeetingText"
             fullWidth
-            //  value={formValuesTextField.extraMeetingText}
             value={guardDayOpened.extraMeetingText}
             onChange={onInputChange}
             size="medium"
@@ -138,10 +131,9 @@ export const CheckboxesBox = () => {
           placeholder="Anote algo aquí"
           fullWidth
           name="note"
-          //  value={formValuesTextField.note}
           value={guardDayOpened.note}
           onChange={onInputChange}
-          size="small" //medium
+          size="small"
           disabled={!user.isDataModifier}
         />
       </Grid>
