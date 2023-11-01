@@ -1,9 +1,7 @@
 import { Grid, Typography } from "@mui/material";
 import { useGuardDayInformation } from "../../hooks/useGuardDayInformation";
-//import { useSelector } from "react-redux";
 
 export const SomethingBelowLine = ({ guardDayInformation }) => {
-  //const { daysInWeek } = useSelector((state) => state.month);
   const {
     isThereMoreInformation,
     isSomeExternal,
@@ -12,9 +10,7 @@ export const SomethingBelowLine = ({ guardDayInformation }) => {
     isThereExtraMeeting,
   } = useGuardDayInformation(guardDayInformation);
 
-  //const fontSizeIfDaysInWeek = daysInWeek === 6 ? 10 : 13;
   const fontSizeIfDaysInWeek = 13;
-  //const pxIfDaysInWeek = daysInWeek === 6 ? 6 / 8 : 7 / 8;
   const pxIfDaysInWeek = 7 / 8;
 
   return (
@@ -25,24 +21,15 @@ export const SomethingBelowLine = ({ guardDayInformation }) => {
         justifyContent="space-between"
         alignItems="center"
         wrap="nowrap"
-        //mt={offSet}
-        // pt={2}
         sx={{
-          //width: "156px",
-          //width: daysInWeek === 6 ? 128 : 157,
           width: 157,
-          //width: "100%",
-          //border: "1px black solid",
-          //mt: 3,
           position: "absolute",
-          //height: "25%",
           left: 2,
           bottom: 3,
         }}
       >
         <Grid item>
           <Typography
-            // sx={{ position: "fixed", bottom: "10px", left: "10px" }}
             sx={{
               borderRadius: "25px",
               bgcolor: "markedText.main",
@@ -58,18 +45,14 @@ export const SomethingBelowLine = ({ guardDayInformation }) => {
 
         <Grid item>
           <Typography
-            //className=""
             sx={{
               borderRadius: "3px",
               bgcolor: "markedText.main",
               color: "white",
-              //my: -1,
               px: pxIfDaysInWeek,
               fontWeight: "bold",
               fontSize: fontSizeIfDaysInWeek,
-              //height: 16,
             }}
-            //sx={{ position: "fixed", bottom: "10px", left: "10px" }}
           >
             {isThereExtraMeeting ? "R" : ""}
           </Typography>
@@ -77,18 +60,14 @@ export const SomethingBelowLine = ({ guardDayInformation }) => {
 
         <Grid item>
           <Typography
-            //className=""
             sx={{
               borderRadius: "3px",
               bgcolor: "markedText.main",
               color: "white",
-              //my: -1,
               px: pxIfDaysInWeek,
               fontWeight: "bold",
               fontSize: fontSizeIfDaysInWeek,
-              //height: 16,
             }}
-            //sx={{ position: "fixed", bottom: "10px", left: "10px" }}
           >
             {isSomeExternal ? "EXT" : ""}
           </Typography>
@@ -100,13 +79,10 @@ export const SomethingBelowLine = ({ guardDayInformation }) => {
               borderRadius: "3px",
               bgcolor: "markedText.main",
               color: "white",
-
-              //my: -1,
               px: pxIfDaysInWeek,
               fontWeight: "bold",
               fontSize: fontSizeIfDaysInWeek,
-              //height: 16,
-            }} // sx={{ position: "fixed", bottom: "10px", left: "10px" }}
+            }}
           >
             {isThereOffice2h ? "2H" : ""}
           </Typography>
@@ -118,14 +94,10 @@ export const SomethingBelowLine = ({ guardDayInformation }) => {
               borderRadius: "3px",
               bgcolor: "flcRelated.main",
               color: "white",
-
-              // my: -1,
               px: pxIfDaysInWeek,
               fontWeight: "bold",
               fontSize: fontSizeIfDaysInWeek,
-              //height: 16,
             }}
-            // sx={{ position: "fixed", bottom: "10px", left: "10px" }}
           >
             {isSomebodyWithFLC ? "FLC" : ""}
           </Typography>
