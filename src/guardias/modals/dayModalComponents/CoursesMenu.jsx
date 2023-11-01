@@ -13,7 +13,6 @@ export default function CoursesMenu({
 }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  //aquí abriré el estado y leeré la lista ???
   const { guardDayOpened, updateOpenedGuardDay } = useGuardDayStore();
 
   const [courseName, setCourseName] = useState(
@@ -28,19 +27,14 @@ export default function CoursesMenu({
     setAnchorEl(event.currentTarget);
   };
 
-  //const handleClose = ({ target: { innerText } }, course) => {
   const handleClose = (event, course) => {
-    //console.log(innerText);
     if (event.key !== "Escape") {
       if (event.target.innerText !== "") {
         setCourseName(course.title);
         let newTechnicians = [...guardDayOpened.technicians];
-        //console.log(newTechnicians[index]);
-        //console.log(          "newTechnicians[index].isInClientWorkplace: ",          newTechnicians[index].isInClientWorkplace        );
         newTechnicians[index] = {
           ...newTechnicians[index],
           courseId: course.id,
-          //isInClientWorkplace: course.title === "SIN CURSO" ? true : false,
           isInClientWorkplace: false,
         };
         updateOpenedGuardDay({
@@ -57,9 +51,6 @@ export default function CoursesMenu({
     <div>
       <Button
         id="basic-button"
-        /* aria-controls={open ? "basic-menu" : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined} */
         onClick={handleClick}
         sx={{ width: "350px" }}
         disabled={disabled}
@@ -81,9 +72,6 @@ export default function CoursesMenu({
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        /*  MenuListProps={{
-          "aria-labelledby": "basic-button",
-        }} */
       >
         {list.map((course) => (
           <MenuItem
