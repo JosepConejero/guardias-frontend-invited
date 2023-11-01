@@ -36,47 +36,43 @@ export const AppUserNameModal = () => {
     useAppUsersStore();
 
   const [formValues, setFormValues] = useState(emptyAppUser);
-  const [formSubmitted, setFormSubmitted] = useState(false); //TO DO: esto lo necesitaré para controlar validaciones del formulario
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   const onInputChange = ({ target }) => {
     setFormValues({ ...formValues, [target.name]: target.value });
   };
 
-  const { checkedCheckbox: isAdmin, onHandleClick: onHandleClickIsAdmin } =
-    useCheckboxes(formValues.isAdmin);
+  const { onHandleClick: onHandleClickIsAdmin } = useCheckboxes(
+    formValues.isAdmin
+  );
 
-  const {
-    checkedCheckbox: isActivated,
-    onHandleClick: onHandleClickIsActivated,
-  } = useCheckboxes(formValues.isActivated);
+  const { onHandleClick: onHandleClickIsActivated } = useCheckboxes(
+    formValues.isActivated
+  );
 
-  const {
-    checkedCheckbox: isDataModifier,
-    onHandleClick: onHandleClickIsDataModifier,
-  } = useCheckboxes(formValues.isDataModifier);
+  const { onHandleClick: onHandleClickIsDataModifier } = useCheckboxes(
+    formValues.isDataModifier
+  );
 
-  const {
-    checkedCheckbox: isTechnician,
-    onHandleClick: onHandleClickIsTechnician,
-  } = useCheckboxes(formValues.isTechnician);
+  const { onHandleClick: onHandleClickIsTechnician } = useCheckboxes(
+    formValues.isTechnician
+  );
 
-  const {
-    checkedCheckbox: isExternal,
-    onHandleClick: onHandleClickIsExternal,
-  } = useCheckboxes(formValues.isExternal);
+  const { onHandleClick: onHandleClickIsExternal } = useCheckboxes(
+    formValues.isExternal
+  );
 
-  const { checkedCheckbox: canFLC, onHandleClick: onHandleClickCanFLC } =
-    useCheckboxes(formValues.canFLC);
+  const { onHandleClick: onHandleClickCanFLC } = useCheckboxes(
+    formValues.canFLC
+  );
 
-  const {
-    checkedCheckbox: canSeeStatistics,
-    onHandleClick: onHandleClickCanSeeStatistics,
-  } = useCheckboxes(formValues.canSeeStatistics);
+  const { onHandleClick: onHandleClickCanSeeStatistics } = useCheckboxes(
+    formValues.canSeeStatistics
+  );
 
-  const {
-    checkedCheckbox: isStillWorking,
-    onHandleClick: onHandleClickIsStillWorking,
-  } = useCheckboxes(formValues.isStillWorking);
+  const { onHandleClick: onHandleClickIsStillWorking } = useCheckboxes(
+    formValues.isStillWorking
+  );
 
   const onCheckboxChangeFormValues = ({ target }) => {
     setFormValues({ ...formValues, [target.name]: target.checked });
@@ -85,7 +81,6 @@ export const AppUserNameModal = () => {
   const onSubmit = async (event) => {
     event.preventDefault();
     setFormSubmitted(true);
-    //aquí haría validaciones que podrían poner el formSubmitted a false (vídeo 357 '5 más o menos)
     if (
       formValues.name !== "" &&
       formValues.shortName !== "" &&
