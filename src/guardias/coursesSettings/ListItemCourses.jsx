@@ -65,21 +65,6 @@ export const ListItemCourses = ({ course }) => {
         justifyContent="center"
         alignItems="center"
         direction="row"
-        sx={
-          {
-            //border: 1,
-            //borderRadius: 2,
-            //bgcolor: "yellow",
-            //width: { md: "590px" },
-            //height: "20px",
-            /* "& .MuiGrid-root": {
-          p: {
-            xs: "0px",
-            //md: "2px"
-          },
-        }, */
-          }
-        }
       >
         <Grid item xs={12} sx={{ mr: -0.5, mb: -0.5 }}>
           <Grid
@@ -89,24 +74,10 @@ export const ListItemCourses = ({ course }) => {
             direction="row"
             sx={{
               color: "primary.main",
-              //border: { xs: "1px solid grey", md: 0 },
-              //borderRadius: { xs: 2, md: 0 },
               my: { xs: 0.7, md: 0 },
-              //pr: { xs: 1, md: 0 },
             }}
           >
-            <Grid
-              item
-              xs={8}
-              md={8}
-              onClick={handleCourseChange}
-              sx={
-                {
-                  //border: 1,
-                  //textOverflow: "ellipsis",
-                }
-              }
-            >
+            <Grid item xs={8} md={8} onClick={handleCourseChange}>
               <Typography
                 sx={{
                   fontWeight: "bold",
@@ -128,17 +99,10 @@ export const ListItemCourses = ({ course }) => {
               onClick={handleCourseChange}
               sx={{
                 pl: { xs: 0, md: 1.5 },
-                //border: 1
               }}
               textAlign="center"
             >
-              <Checkbox
-                //onChange={handleFlcChange}
-                //checked={flcChecked}
-                checked={course.flc}
-                name="flc"
-                disabled
-              />
+              <Checkbox checked={course.flc} name="flc" disabled />
             </Grid>
 
             <Grid
@@ -147,19 +111,11 @@ export const ListItemCourses = ({ course }) => {
               md={1.5}
               onClick={handleCourseChange}
               sx={{
-                //pl: { xs: 0, md: 0 },
-                //border: 1
                 pl: user.isDataModifier ? {} : { xs: 1.5, md: 0 },
               }}
               textAlign="center"
             >
-              <Checkbox
-                //onChange={handleFrequentChange}
-                //checked={frequentChecked}
-                checked={course.frequent}
-                name="frequent"
-                disabled
-              />
+              <Checkbox checked={course.frequent} name="frequent" disabled />
             </Grid>
 
             <Grid
@@ -168,7 +124,6 @@ export const ListItemCourses = ({ course }) => {
               md={1}
               sx={{
                 pl: { xs: 0, md: 1.3 },
-                //"& .MuiGrid-root": { pl: 0 },
                 "& .MuiIconButton-root": {
                   pl: { xs: "2px", md: "8px" },
                   py: "8px",
@@ -176,14 +131,11 @@ export const ListItemCourses = ({ course }) => {
               }}
             >
               <IconButton
-                //onClick={onDeleteItem}
                 onClick={handleOpen}
-                //sx={{ visibility: course.title === "SIN CURSO" ? "hidden" : "" }}
                 disabled={user.isDataModifier ? false : true}
                 sx={{
                   color: "#CF0000",
                   visibility: user.isDataModifier ? "" : "hidden",
-                  //pl: { md: 1 },
                 }}
               >
                 <DeleteIcon />
