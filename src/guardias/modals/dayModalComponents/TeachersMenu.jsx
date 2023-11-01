@@ -12,15 +12,12 @@ export default function TeachersMenu({
   index,
   disabled,
 }) {
-  //if (list !== undefined) console.log(list);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  //aquí abriré el estado y leeré la lista ???
   const { guardDayOpened, updateOpenedGuardDay } = useGuardDayStore();
 
   const [technicianName, setTechnicianName] = useState(
-    initialValue === null ||
-      initialValue === undefined /* || initialValue === "" */
+    initialValue === null || initialValue === undefined
       ? "TÉCNICO"
       : initialValue.shortName
   );
@@ -29,7 +26,6 @@ export default function TeachersMenu({
     setAnchorEl(event.currentTarget);
   };
 
-  //const handleClose = ({ target: { innerText } }, technician) => {
   const handleClose = (event, technician) => {
     if (event.key !== "Escape") {
       if (event.target.innerText !== "") {
@@ -49,14 +45,10 @@ export default function TeachersMenu({
     setAnchorEl(null);
   };
 
-  //if (JSON.stringify(list) === "[undefined]")
   return (
     <div>
       <Button
         id="basic-button"
-        // aria-controls={open ? "basic-menu" : undefined}
-        //aria-haspopup="true"
-        //aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
         sx={{ width: "100px" }}
         disabled={disabled}
@@ -78,15 +70,8 @@ export default function TeachersMenu({
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        //sx={{ zIndez: "3000" }}
-        //   onKeyDown={handleClose}
-        // onKeyDown={() => console.log("se pulsa una tecla en el menú")}
-        // MenuListProps={{
-        //  "aria-labelledby": "basic-button",
-        //}}
       >
         {list.map((teacher) => {
-          //  console.log(teacher);
           if (teacher)
             return (
               <MenuItem
@@ -98,24 +83,7 @@ export default function TeachersMenu({
               </MenuItem>
             );
         })}
-        {/*  {list.map((teacher) => (
-          <MenuItem
-            key={teacher.id}
-            technician={teacher.id}
-            onClick={(event) => handleClose(event, teacher)}
-          >
-             {teacher.shortName.toUpperCase()} 
-          </MenuItem>
-        ))} */}
       </Menu>
     </div>
   );
 }
-
-// {/*  <Divider />
-// <MenuItem
-//   technician="EXTERNO"
-//   onClick={(event) => handleClose(event, "EXTERNO")}
-// >
-//   EXTERNO
-// </MenuItem> */}
