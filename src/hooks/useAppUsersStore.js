@@ -151,7 +151,6 @@ export const useAppUsersStore = () => {
         setIsSaving(false);
         return;
       }
-      // const { data } = await calendarApi.post("/courses", appUser);
       setIsSaving(false);
     } catch (error) {
       console.log(error);
