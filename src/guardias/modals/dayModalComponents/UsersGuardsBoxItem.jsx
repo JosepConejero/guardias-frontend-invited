@@ -25,7 +25,6 @@ export const UsersGuardsBoxItem = ({ technician, index, onDeleteItem }) => {
     guardDayOpened.technicians[index].technicianId
   );
 
-  //que aquí compruebe si está el curso "sin curso" y si no, que lo cree
   const initialCourse = getCourseById(
     courses,
     guardDayOpened.technicians[index].courseId
