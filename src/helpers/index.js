@@ -1,6 +1,5 @@
 export * from "./getEnvVariables";
 export * from "./myCalendar";
-export * from "./modalStyles";
 export * from "./deletePassword";
 export * from "./extractItemByProperty";
 export * from "./dateComparator";
