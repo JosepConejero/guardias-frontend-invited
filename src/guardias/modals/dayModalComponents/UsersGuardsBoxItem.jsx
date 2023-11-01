@@ -66,7 +66,7 @@ export const UsersGuardsBoxItem = ({ technician, index, onDeleteItem }) => {
       <Grid item xs={12} md={2} sx={{ textAlign: "center" }}>
         <TeachersMenu
           initialValue={initialTeacher}
-          list={sortedTechnicians(techniciansInGuardDay)} //aquí podría haber un useMemo q se recalculara cuando cambiaran los técnicos del techniciansOut
+          list={sortedTechnicians(techniciansInGuardDay)}
           name="técnico"
           index={index}
           disabled={!user.isDataModifier}
