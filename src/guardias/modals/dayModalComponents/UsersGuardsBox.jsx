@@ -8,7 +8,7 @@ import { useAuthStore } from "../../../hooks";
 
 const emptyTechnician = {
   technicianId: null,
-  courseId: null, // estas dos podrían ser "", pero habría que borrar las entradas de la bda
+  courseId: null,
   isInClientWorkplace: false,
   uniqueId: "",
 };
@@ -35,13 +35,6 @@ export const UsersGuardsBox = () => {
 
   const onDeleteItem = (uniqueId) => {
     deleteTechnicianOpenedGuardDay(uniqueId);
-    /*  newTechnicians = [
-      ...newTechnicians.filter((technician) => technician._id !== index),
-    ]; */
-    /* updateOpenedGuardDay({
-      ...guardDayOpened,
-      technicians: [...newTechnicians],
-    }); */
   };
 
   return (
@@ -50,7 +43,6 @@ export const UsersGuardsBox = () => {
         borderRadius: "5px",
         border: "1px grey solid",
         p: "10px",
-        //width: { xs: "200px" },
       }}
     >
       <Grid container>
