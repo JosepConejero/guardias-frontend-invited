@@ -15,7 +15,6 @@ export const UsersSettings = () => {
   return (
     <>
       <UsersBox />
-      {/* <AppUserNameModal /> */}
       <BasicModal isOpen={isAppUsersModalOpen} closeModal={closeAppUserModal}>
         <AppUserNameModal closeModal={closeAppUserModal} />
       </BasicModal>
