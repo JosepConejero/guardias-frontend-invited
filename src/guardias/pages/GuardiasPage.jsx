@@ -52,7 +52,7 @@ export const GuardiasPage = () => {
           direction={{ xs: "column", md: "row" }}
           sx={{
             width: {
-              md: /* user.canSeeStatistics && */ showStatistics
+              md: showStatistics
                 ? daysInWeek === 5
                   ? 1300
                   : 1450
@@ -65,9 +65,8 @@ export const GuardiasPage = () => {
           <Grid
             item
             md={
-              /* user.canSeeStatistics && */ showStatistics
-                ? //showStatistics
-                  daysInWeek === 5
+              showStatistics
+                ? daysInWeek === 5
                   ? 2
                   : 1.7
                 : daysInWeek === 5
@@ -76,19 +75,14 @@ export const GuardiasPage = () => {
             }
             sx={{ pt: { md: 5.5 } }}
           >
-            {
-              /* user.canSeeStatistics && */ showStatistics && (
-                /* showStatistics &&  */
-                <TechniciansOutStatistics />
-              )
-            }
+            {showStatistics && <TechniciansOutStatistics />}
           </Grid>
 
           <Grid
-            sx={{ /* border: 1, */ pb: 2.5 }}
+            sx={{ pb: 2.5 }}
             item
             md={
-              /* user.canSeeStatistics &&  */ showStatistics
+              showStatistics
                 ? daysInWeek === 5
                   ? 8
                   : 8.6
@@ -103,7 +97,7 @@ export const GuardiasPage = () => {
           <Grid
             item
             md={
-              /* user.canSeeStatistics &&  */ showStatistics
+              showStatistics
                 ? daysInWeek === 5
                   ? 2
                   : 1.7
@@ -113,11 +107,7 @@ export const GuardiasPage = () => {
             }
             sx={{ pt: { md: 5.5 } }}
           >
-            {
-              /* user.canSeeStatistics &&  */ showStatistics && (
-                <GuardsAndCoursesStatistics />
-              )
-            }
+            {showStatistics && <GuardsAndCoursesStatistics />}
           </Grid>
         </Grid>
       </Grid>
