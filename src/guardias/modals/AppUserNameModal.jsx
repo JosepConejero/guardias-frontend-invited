@@ -7,8 +7,6 @@ import {
   Typography,
 } from "@mui/material";
 import { useUiStore } from "../../hooks/useUiStore";
-//import Modal from "react-modal";
-//import { customStyles } from "../../helpers";
 import { useEffect, useState } from "react";
 import { useAppUsersStore } from "../../hooks/useAppUsersStore";
 import { SpinnerInModal } from "../customizedComponents";
@@ -16,8 +14,6 @@ import { useCheckboxes } from "../../hooks";
 import Swal from "sweetalert2";
 import "./swal2.css";
 import { ButtonsBox } from "./dayModalComponents/ButtonsBox";
-
-//Modal.setAppElement("#root");
 
 const emptyAppUser = {
   name: "",
@@ -94,7 +90,6 @@ export const AppUserNameModal = () => {
       formValues.name !== "" &&
       formValues.shortName !== "" &&
       formValues.email !== ""
-      //  && formValues.shortName.length<=10
     ) {
       await startSavingAppUser(formValues);
       onCloseModal();
@@ -104,7 +99,6 @@ export const AppUserNameModal = () => {
         title:
           "Ni el nombre ni el nombre corto ni el email pueden estar vacíos.",
         text: "Por favor, modifica esto antes de guardar",
-        //target: document.getElementById("dialog-app-users"), //target: document.getElementById('dialog'),
         target: document.getElementById("modal-fondo"),
         icon: "error",
       });
@@ -127,10 +121,6 @@ export const AppUserNameModal = () => {
 
   return (
     <>
-      {/*    {isDeleting ? (
-        <SpinnerInModal text="Borrando..." />
-      ) : (
-        <> */}
       {isSaving ? (
         <SpinnerInModal text="Grabando..." />
       ) : (
@@ -139,7 +129,7 @@ export const AppUserNameModal = () => {
             id="dialog-app-users"
             sx={{
               width: { xs: "390px", md: "600px" },
-              height: { /*  xs: "calc(100vh - 20px)", */ md: "632px" },
+              height: { md: "632px" },
             }}
           >
             <form
@@ -188,7 +178,6 @@ export const AppUserNameModal = () => {
                     name="email"
                     value={formValues.email}
                     onChange={onInputChange}
-                    //inputProps={{ maxLength: 8 }}
                   />
                 </Grid>
 
@@ -338,7 +327,6 @@ export const AppUserNameModal = () => {
 
                 <Grid
                   item
-                  //spacing={1}
                   sx={{
                     "& .MuiGrid-root": {
                       mt: "0px",
@@ -350,24 +338,11 @@ export const AppUserNameModal = () => {
                 >
                   <ButtonsBox onCloseModal={onCloseModal} />
                 </Grid>
-
-                {/* <Grid item sm={6} sx={{ mt: 1 }}>
-                  <Button
-                    // disabled={isAuthenticating} 
-                    type="submit"
-                    variant="contained"
-                    fullWidth
-                  >
-                    Guardar
-                  </Button>
-                </Grid> */}
               </Grid>
             </form>
           </Grid>
         </>
       )}
-      {/*  </>
-      )} */}
     </>
   );
 };
