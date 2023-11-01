@@ -1,11 +1,9 @@
 import { createTheme } from "@mui/material";
 import { red } from "@mui/material/colors";
 
-// A custom theme for this app
 export const purpleTheme = createTheme({
   palette: {
     primary: {
-      //main: "#262254",
       main: "#0000E0",
     },
     secondary: {
@@ -25,29 +23,11 @@ export const purpleTheme = createTheme({
     },
   },
   components: {
-    // Name of the component
-    MuiButtonBase: {
-      defaultProps: {
-        //disableRipple: true,
-      },
-    },
-    /*  MuiDialog: {
-      styleOverrides: {
-        paperFullScreen: red,
-      },
-    }, */
     MuiDatePicker: {
-      defaultProps: {
-        // The props to change the default for.
-        //disabled: true, 
-        //defaultCalendarMonth: "August",
-        //dayOfWeekFormatter: (day) => day.charAt(0).toUpperCase(),
-      },
       styleOverrides: {
         root: {
-          backgroundColor: 'red',
+          backgroundColor: "red",
           fontSize: 34,
-          
         },
       },
     },
