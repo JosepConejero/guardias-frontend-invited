@@ -1,13 +1,11 @@
 import { Stack, Typography } from "@mui/material";
 import { useGuardDayInformation } from "../../hooks/useGuardDayInformation";
-//import { useSelector } from "react-redux";
 
 export const TechniciansLine = ({
   offSet = 0,
   backgroundColour,
   guardDayInformation,
 }) => {
-  //const { daysInWeek } = useSelector((state) => state.month);
   const {
     guardTechnicians,
     isThereAFirstTechnician,
@@ -17,7 +15,6 @@ export const TechniciansLine = ({
   let firstGuardTechnician = {};
   let secondGuardTechnician = {};
 
-  //const fontSizeIfDaysInWeek = daysInWeek === 6 ? 11 : 14;
   const fontSizeIfDaysInWeek = 14;
 
   let techniciansLine = <></>;
@@ -28,7 +25,6 @@ export const TechniciansLine = ({
       <Stack
         direction="row"
         mt={offSet}
-        //width={daysInWeek === 6 ? "auto" : "auto"}
         width={"auto"}
         sx={{
           textAlign: "center",
@@ -36,14 +32,9 @@ export const TechniciansLine = ({
           whiteSpace: "nowrap",
           textOverflow: "ellipsis",
         }}
-        //mt={-2}
-        //mt={1 / 4}
-        //sx={{ border: "1px black solid" }}
-        //sx={a}
       >
         <Typography
           sx={{
-            //mt: offSet,
             fontSize: fontSizeIfDaysInWeek,
             px: 1 / 2,
             borderRadius: 1,
@@ -61,7 +52,6 @@ export const TechniciansLine = ({
 
         <Typography
           sx={{
-            // mt: offSet,
             fontSize: fontSizeIfDaysInWeek,
             fontWeight: "bold",
             color: "normalText.main",
@@ -72,7 +62,6 @@ export const TechniciansLine = ({
 
         <Typography
           sx={{
-            //mt: offSet,
             fontSize: fontSizeIfDaysInWeek,
             fontWeight: "bold",
             px: 1 / 2,
@@ -97,7 +86,6 @@ export const TechniciansLine = ({
       <Stack direction="row">
         <Typography
           mt={offSet}
-          //width={daysInWeek === 6 ? "auto" : "auto"}
           width={"auto"}
           sx={{
             fontSize: fontSizeIfDaysInWeek,
@@ -110,11 +98,6 @@ export const TechniciansLine = ({
               ? "red"
               : backgroundColour,
             fontWeight: "bold",
-            //border: "1px black solid",
-            /*   textAlign: "center",
-            overflow: "hidden",
-            whiteSpace: "nowrap",
-            textOverflow: "ellipsis", */
           }}
         >
           {firstGuardTechnician.shortName}

@@ -1,5 +1,4 @@
 export const sortedCourses = (courses) => {
-  //console.log(courses);
   let newCourses = [...courses];
   let result = [];
 

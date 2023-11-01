@@ -11,8 +11,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { onUpdateShowedDate } from "../../store/calendar/calendarSlice";
 
 export const MonthBox = () => {
-  //const [showedDate, setShowDate] = useState(new Date());
-
   const { showedDate } = useSelector((state) => state.calendar);
   const dispatch = useDispatch();
 
@@ -20,17 +18,11 @@ export const MonthBox = () => {
     officeDate(showedDate.getFullYear(), showedDate.getMonth())
   );
 
-  // console.log(officeDate(showedDate.getFullYear(), showedDate.getMonth()));
-
   const { setShowedMonth } = useCalendarStore();
 
-  //console.log(showedDays);
-
   const onPreviousMonth = () => {
-    //setShowDate(
     dispatch(
       onUpdateShowedDate(
-        //() => new Date(showedDate.getFullYear(), showedDate.getMonth() - 1)
         new Date(showedDate.getFullYear(), showedDate.getMonth() - 1)
       )
     );
@@ -40,10 +32,8 @@ export const MonthBox = () => {
   };
 
   const onNextMonth = () => {
-    // setShowDate(
     dispatch(
       onUpdateShowedDate(
-        //() => new Date(showedDate.getFullYear(), showedDate.getMonth() + 1)
         new Date(showedDate.getFullYear(), showedDate.getMonth() + 1)
       )
     );

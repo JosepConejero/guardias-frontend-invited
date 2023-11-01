@@ -17,7 +17,7 @@ export const guardDaySlice = createSlice({
       state.coursesGuardDay = [];
     },
     onUpdateOpenedGuardDay: (state, { payload }) => {
-      state.guardDayOpened = payload; //hace lo mismo que onSelectGuardDay (se podría refactorizar)
+      state.guardDayOpened = payload;
     },
     onLoadTechniciansInGuardDay: (state, { payload }) => {
       state.techniciansInGuardDay = payload;
@@ -27,7 +27,6 @@ export const guardDaySlice = createSlice({
         state.guardDayOpened.technicians.filter(
           (technician) => technician.uniqueId !== payload
         );
-      //state.guardDayOpened.technicians.splice(payload, 1);
     },
   },
 });

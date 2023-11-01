@@ -51,9 +51,6 @@ export const PasswordSettings = () => {
     onResetForm,
   } = useForm(formFields, formValidations);
   const { appUsers, startLoadingAppUsers } = useAppUsersStore();
-  // const { appUsers, startLoadingAppUsers } = useSelector(
-  //   (state) => state.appUser
-  // );
   const { showRestoreAllUsersButton } = useSelector((state) => state.month);
   const [open, setOpen] = useState(false);
   const [userId, setUserId] = useState(null);
@@ -79,11 +76,6 @@ export const PasswordSettings = () => {
       if (!isFormValid) {
         return;
       }
-      // console.log({ user });
-      // if (!user.email) {
-      //   console.log("no existe user.email");
-      //   return;
-      // }
       const data = await updatePassword({
         email: user.email,
         password: password0,
@@ -142,7 +134,6 @@ export const PasswordSettings = () => {
         icon: "error",
       });
     }
-    //setFormSubmitted(false);
   };
 
   const handleOpen = (id) => {
@@ -151,7 +142,6 @@ export const PasswordSettings = () => {
   };
 
   const handleClose = (answer) => {
-    // console.log({ userId, answer });
     if (answer) {
       if (userId) {
         restorePassword(userId);
@@ -185,7 +175,6 @@ export const PasswordSettings = () => {
               label="Contraseña anterior"
               type="password"
               placeholder="Contraseña anterior"
-              //fullWidth
               name="password0"
               value={password0}
               onChange={onInputChange}
@@ -200,7 +189,6 @@ export const PasswordSettings = () => {
               label="Nueva contraseña"
               type="password"
               placeholder="Nueva contraseña"
-              //fullWidth
               name="password"
               value={password}
               onChange={onInputChange}
@@ -215,7 +203,6 @@ export const PasswordSettings = () => {
               label="Repita la nueva contraseña"
               type="password"
               placeholder="Repita la nueva contraseña"
-              //fullWidth
               name="password2"
               value={password2}
               onChange={onInputChange}
@@ -232,16 +219,11 @@ export const PasswordSettings = () => {
             alignItems="center"
             sx={{ mb: 4, mt: 1 }}
           >
-            {/* <Grid item xs={12} display={!!errorMessage ? "" : "none"}>
-              <Alert severity="error">{errorMessage}</Alert>
-            </Grid> */}
             <Grid item xs={12} sx={{ mb: 2 }}>
               <Button
-                //disabled={isCheckingAuthentication} //TO DO: QUE SE DESHABILITE EL BOTÓN
                 type="submit"
                 variant="contained"
                 sx={{ fontSize: "12px", width: "200px" }}
-                // fullWidth
               >
                 Cambiar contraseña
               </Button>
@@ -261,7 +243,6 @@ export const PasswordSettings = () => {
               <IconButton
                 sx={{
                   color: "primary.main",
-                  //color: user.isDataModifier ? "primary.main" : "grey",
                   visibility: user.isDataModifier ? "" : "hidden",
                 }}
                 onClick={showRestoreButtons}

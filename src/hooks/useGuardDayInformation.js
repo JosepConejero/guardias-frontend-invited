@@ -3,9 +3,6 @@ import { useAppUsersStore } from "./useAppUsersStore";
 import { useCoursesStore } from "./useCoursesStore";
 
 export const useGuardDayInformation = (guardDayInformation) => {
-  //const { courses } = useSelector((state) => state.course);
-  // const { appUsers } = useSelector((state) => state.appUser);
-
   const { courses } = useCoursesStore();
   const { appUsers } = useAppUsersStore();
 
@@ -111,7 +108,7 @@ export const useGuardDayInformation = (guardDayInformation) => {
     isThereSomethingBelow;
 
   return {
-    guardTechnicians, //[{shortname, isExternal, isThereCourse, courseTitle, isFLC, isInClientWorkplace}]
+    guardTechnicians,
     isHoliday,
     isThereOffice2h,
     isThereMoreInformation,

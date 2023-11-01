@@ -180,9 +180,6 @@ export const useStatisticsData = () => {
         dayData.push(fiveDaysScope);
       }
     });
-
-    // console.log(dayData);
-
     return dayData;
   };
 
@@ -198,7 +195,7 @@ export const useStatisticsData = () => {
   };
 
   return {
-    guardsAndFlcsStatisticsSortedByShortName, // [{technicianId, totalGuards, totalFlcs, shortName}]
+    guardsAndFlcsStatisticsSortedByShortName,
     guardsAndFlcsStatisticsSortedByTotalGuards,
     guardsAndFlcsStatisticsSortedByTotalFlcs,
     absencesStatistics,

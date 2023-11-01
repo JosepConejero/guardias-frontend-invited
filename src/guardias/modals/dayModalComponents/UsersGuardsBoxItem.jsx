@@ -25,7 +25,6 @@ export const UsersGuardsBoxItem = ({ technician, index, onDeleteItem }) => {
     guardDayOpened.technicians[index].technicianId
   );
 
-  //que aquí compruebe si está el curso "sin curso" y si no, que lo cree
   const initialCourse = getCourseById(
     courses,
     guardDayOpened.technicians[index].courseId
@@ -67,7 +66,7 @@ export const UsersGuardsBoxItem = ({ technician, index, onDeleteItem }) => {
       <Grid item xs={12} md={2} sx={{ textAlign: "center" }}>
         <TeachersMenu
           initialValue={initialTeacher}
-          list={sortedTechnicians(techniciansInGuardDay)} //aquí podría haber un useMemo q se recalculara cuando cambiaran los técnicos del techniciansOut
+          list={sortedTechnicians(techniciansInGuardDay)}
           name="técnico"
           index={index}
           disabled={!user.isDataModifier}

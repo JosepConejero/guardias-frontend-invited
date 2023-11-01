@@ -47,7 +47,6 @@ export const useCoursesStore = () => {
         setIsSaving(false);
         return;
       }
-      //TO DO: AQUÍ SE COMPROBARÍA SI EL NOMBRE DEL CURSO EXISTE YA
       const { data } = await calendarApi.post("/courses", course);
       dispatch(onAddNewCourse({ ...course, id: data.curso.id }));
       setIsSaving(false);

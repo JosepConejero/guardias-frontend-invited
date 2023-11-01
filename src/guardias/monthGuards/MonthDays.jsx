@@ -22,7 +22,6 @@ export const MonthDays = ({ showedDays }) => {
   const { daysInWeek } = useSelector((state) => state.month);
 
   const onDayClick = (day, month, year) => {
-    // console.log(day, month, year);
     setActiveGuardDay({ day, month, year });
     openDayModal();
   };
@@ -31,27 +30,19 @@ export const MonthDays = ({ showedDays }) => {
     dispatch(onDeactivateGuardDay());
     closeDayModal();
     deselectGuardDay();
-    //console.log("entra en el handleCloseDayModal");
   };
 
   return (
     <>
       <Grid
         container
-        /*  justify-content="center" */
-        //columns={6}
         alignItems="center"
         justifyContent="center"
-        //spacing={0.5}
         spacing={{ xs: 2, md: 0 }}
         sx={{
           maxWidth: daysInWeek === 6 ? "1300px" : "900px",
           margin: "auto",
-
-          //width: 'auto',
-          //bgcolor: "green",
         }}
-        //width: { sm: 1300 },
       >
         {showedDays.map((date, index) => {
           if (daysInWeek === 6 && !isSunday(index)) {
@@ -81,8 +72,6 @@ export const MonthDays = ({ showedDays }) => {
         })}
       </Grid>
 
-      {/* <DayModal /> */}
-      {/* <BasicModal isOpen={isDayModalOpen} closeModal={closeDayModal}> */}
       <BasicModal isOpen={isDayModalOpen} closeModal={handleCloseDayModal}>
         <DayModal closeModal={handleCloseDayModal} />
       </BasicModal>

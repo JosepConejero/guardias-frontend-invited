@@ -7,17 +7,12 @@ import {
   Typography,
 } from "@mui/material";
 import { useUiStore } from "../../hooks/useUiStore";
-//import Modal from "react-modal";
-//import { customStyles } from "../../helpers";
 import { useEffect, useState } from "react";
 import { useAppUsersStore } from "../../hooks/useAppUsersStore";
 import { SpinnerInModal } from "../customizedComponents";
 import { useCheckboxes } from "../../hooks";
 import Swal from "sweetalert2";
-import "./swal2.css";
 import { ButtonsBox } from "./dayModalComponents/ButtonsBox";
-
-//Modal.setAppElement("#root");
 
 const emptyAppUser = {
   name: "",
@@ -40,47 +35,43 @@ export const AppUserNameModal = () => {
     useAppUsersStore();
 
   const [formValues, setFormValues] = useState(emptyAppUser);
-  const [formSubmitted, setFormSubmitted] = useState(false); //TO DO: esto lo necesitaré para controlar validaciones del formulario
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   const onInputChange = ({ target }) => {
     setFormValues({ ...formValues, [target.name]: target.value });
   };
 
-  const { checkedCheckbox: isAdmin, onHandleClick: onHandleClickIsAdmin } =
-    useCheckboxes(formValues.isAdmin);
+  const { onHandleClick: onHandleClickIsAdmin } = useCheckboxes(
+    formValues.isAdmin
+  );
 
-  const {
-    checkedCheckbox: isActivated,
-    onHandleClick: onHandleClickIsActivated,
-  } = useCheckboxes(formValues.isActivated);
+  const { onHandleClick: onHandleClickIsActivated } = useCheckboxes(
+    formValues.isActivated
+  );
 
-  const {
-    checkedCheckbox: isDataModifier,
-    onHandleClick: onHandleClickIsDataModifier,
-  } = useCheckboxes(formValues.isDataModifier);
+  const { onHandleClick: onHandleClickIsDataModifier } = useCheckboxes(
+    formValues.isDataModifier
+  );
 
-  const {
-    checkedCheckbox: isTechnician,
-    onHandleClick: onHandleClickIsTechnician,
-  } = useCheckboxes(formValues.isTechnician);
+  const { onHandleClick: onHandleClickIsTechnician } = useCheckboxes(
+    formValues.isTechnician
+  );
 
-  const {
-    checkedCheckbox: isExternal,
-    onHandleClick: onHandleClickIsExternal,
-  } = useCheckboxes(formValues.isExternal);
+  const { onHandleClick: onHandleClickIsExternal } = useCheckboxes(
+    formValues.isExternal
+  );
 
-  const { checkedCheckbox: canFLC, onHandleClick: onHandleClickCanFLC } =
-    useCheckboxes(formValues.canFLC);
+  const { onHandleClick: onHandleClickCanFLC } = useCheckboxes(
+    formValues.canFLC
+  );
 
-  const {
-    checkedCheckbox: canSeeStatistics,
-    onHandleClick: onHandleClickCanSeeStatistics,
-  } = useCheckboxes(formValues.canSeeStatistics);
+  const { onHandleClick: onHandleClickCanSeeStatistics } = useCheckboxes(
+    formValues.canSeeStatistics
+  );
 
-  const {
-    checkedCheckbox: isStillWorking,
-    onHandleClick: onHandleClickIsStillWorking,
-  } = useCheckboxes(formValues.isStillWorking);
+  const { onHandleClick: onHandleClickIsStillWorking } = useCheckboxes(
+    formValues.isStillWorking
+  );
 
   const onCheckboxChangeFormValues = ({ target }) => {
     setFormValues({ ...formValues, [target.name]: target.checked });
@@ -89,12 +80,10 @@ export const AppUserNameModal = () => {
   const onSubmit = async (event) => {
     event.preventDefault();
     setFormSubmitted(true);
-    //aquí haría validaciones que podrían poner el formSubmitted a false (vídeo 357 '5 más o menos)
     if (
       formValues.name !== "" &&
       formValues.shortName !== "" &&
       formValues.email !== ""
-      //  && formValues.shortName.length<=10
     ) {
       await startSavingAppUser(formValues);
       onCloseModal();
@@ -104,7 +93,6 @@ export const AppUserNameModal = () => {
         title:
           "Ni el nombre ni el nombre corto ni el email pueden estar vacíos.",
         text: "Por favor, modifica esto antes de guardar",
-        //target: document.getElementById("dialog-app-users"), //target: document.getElementById('dialog'),
         target: document.getElementById("modal-fondo"),
         icon: "error",
       });
@@ -127,10 +115,6 @@ export const AppUserNameModal = () => {
 
   return (
     <>
-      {/*    {isDeleting ? (
-        <SpinnerInModal text="Borrando..." />
-      ) : (
-        <> */}
       {isSaving ? (
         <SpinnerInModal text="Grabando..." />
       ) : (
@@ -139,7 +123,7 @@ export const AppUserNameModal = () => {
             id="dialog-app-users"
             sx={{
               width: { xs: "390px", md: "600px" },
-              height: { /*  xs: "calc(100vh - 20px)", */ md: "632px" },
+              height: { md: "632px" },
             }}
           >
             <form
@@ -188,7 +172,6 @@ export const AppUserNameModal = () => {
                     name="email"
                     value={formValues.email}
                     onChange={onInputChange}
-                    //inputProps={{ maxLength: 8 }}
                   />
                 </Grid>
 
@@ -338,7 +321,6 @@ export const AppUserNameModal = () => {
 
                 <Grid
                   item
-                  //spacing={1}
                   sx={{
                     "& .MuiGrid-root": {
                       mt: "0px",
@@ -350,24 +332,11 @@ export const AppUserNameModal = () => {
                 >
                   <ButtonsBox onCloseModal={onCloseModal} />
                 </Grid>
-
-                {/* <Grid item sm={6} sx={{ mt: 1 }}>
-                  <Button
-                    // disabled={isAuthenticating} 
-                    type="submit"
-                    variant="contained"
-                    fullWidth
-                  >
-                    Guardar
-                  </Button>
-                </Grid> */}
               </Grid>
             </form>
           </Grid>
         </>
       )}
-      {/*  </>
-      )} */}
     </>
   );
 };

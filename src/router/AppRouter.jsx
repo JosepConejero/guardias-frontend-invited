@@ -10,8 +10,6 @@ import { SettingsPage } from "../guardias/pages/SettingsPage";
 import { Spinner } from "../guardias/customizedComponents/Spinner";
 
 export const AppRouter = () => {
-  //  const authStatus = "authenticated"; // "not-authenticated"; "checking";
-  //const authStatus = "not-authenticated";
   const { status, checkAuthToken } = useAuthStore();
 
   useEffect(() => {

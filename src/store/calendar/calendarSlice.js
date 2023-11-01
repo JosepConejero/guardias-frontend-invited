@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const calendarSlice = createSlice({
   name: "calendar",
   initialState: {
-    isLoadingGuardDays: true, //crearé una ppdad isLoadingGuardDays para saber cuándo está cargando las guardDays y así poner alguna pantalla de Loading...
+    isLoadingGuardDays: true,
     guardDays: [],
     activeGuardDay: null,
     showedMonth: null,
@@ -30,20 +30,8 @@ export const calendarSlice = createSlice({
       });
       state.activeGuardDay = null;
     },
-    /*  onDeleteEvent: (state) => {
-      if (state.activeEvent) {
-        state.events = state.events.filter(
-          (event) => event.id !== state.activeEvent.id
-        );
-        state.activeEvent = null;
-      } else {
-        console.log("no hay notas activas");
-      }
-    }, */
     onLoadGuardDays: (state, { payload = [] }) => {
       state.isLoadingGuardDays = false;
-      //state.events = payload; // esto sería correcto
-      // pero si lo hago como sigue, solo insertará en events el evento que no esté ya en el events (lo hará por el id)
       payload.forEach((guardDay) => {
         const exists = state.guardDays.some(
           (dbGuardDay) => dbGuardDay.id === guardDay.id
@@ -56,7 +44,6 @@ export const calendarSlice = createSlice({
     onLogoutCalendar: (state) => {
       state.isLoadingGuardDays = true;
       state.guardDays = [];
-      //state.activeEvent = null;
     },
     onSetShowedMonth: (state, { payload }) => {
       state.showedMonth = payload;

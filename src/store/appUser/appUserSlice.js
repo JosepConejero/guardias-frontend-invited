@@ -7,24 +7,14 @@ export const appUserSlice = createSlice({
     appUsers: [],
     activeAppUser: null,
     isDeletingAppUser: false,
-    //
   },
   reducers: {
     onSetActiveAppUser: (state, { payload }) => {
       state.activeAppUser = payload;
-      /*   state.activeAppUser = state.appUsers.find(
-        (appUser) => appUser.id === payload
-      ); */
     },
     onSetInactiveAppUser: (state) => {
       state.activeAppUser = null;
     },
-    /* onAddNewAppUser: (state, { payload }) => {
-      state.appUsers.push(payload);
-    }, */
-    /* onGetShortNameUsers: (state, {payload})=>{
-
-    }, */
     onUpdateAppUser: (state, { payload }) => {
       state.appUsers = state.appUsers.map((appUser) => {
         if (appUser.id === payload.id) {

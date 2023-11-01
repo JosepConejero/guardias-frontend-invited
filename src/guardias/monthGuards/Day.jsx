@@ -1,7 +1,5 @@
 import { Box, Card, Divider, Grid, Typography } from "@mui/material";
-//import { monthNames } from "../../helpers";
 import "../../styles.css";
-//import { useSelector } from "react-redux";
 import { useGuardDayInformation } from "../../hooks/useGuardDayInformation";
 import { TechniciansLine } from "./TechniciansLine";
 import { CoursesLine } from "./CoursesLine";
@@ -14,10 +12,6 @@ export const Day = ({
   onDayClick,
   guardDayInformation,
 }) => {
-  //const { daysInWeek } = useSelector((state) => state.month);
-  //monthNames[month]
-  //  console.log(guardDayInformation);
-
   let backgroundColour,
     backgroundColourHeader,
     borderColourBox,
@@ -40,11 +34,10 @@ export const Day = ({
       borderColourCard = "grey";
       borderColourBox = "grey";
       backgroundColourHeader = "#B3B3B3";
-      backgroundColour = "#B3B3B3"; //lightgrey";
+      backgroundColour = "#B3B3B3";
       break;
     case 1:
       borderColourCard = "grey";
-      //borderColourBox = "grey";
       backgroundColourHeader = "lightgrey";
       backgroundColour = "white";
       break;
@@ -66,19 +59,13 @@ export const Day = ({
     isThreeLinesAndBottom,
   } = useGuardDayInformation(guardDayInformation);
 
-  /* const beforeTodayBackgroundColour = "white";
-  const todayBackgroundColour = "white";
-  const afterTodayBackgroundColour = "white"; */
-
   const handleDayClick = () => onDayClick(day, month, year);
 
   return (
     <>
       <Card
         variant="outlined"
-        /* sx={{ width: 100, height: 110, boxShadow: 4 }} */
         sx={{
-          //width: daysInWeek === 6 ? 135 : 165,
           width: 165,
           height: 110,
           boxShadow: 3,
@@ -116,7 +103,6 @@ export const Day = ({
             sx={{
               background: "grey",
               height: "90px",
-              //borderRadius: "5px",
               border: `1px ${borderColourBox} solid`,
             }}
             justifyContent="center"
@@ -127,7 +113,6 @@ export const Day = ({
             </Typography>
           </Grid>
         ) : (
-          /* <Box sx={{ visibility: isHoliday ? "hidden" : "" }}> */
           <Grid
             container
             justifyContent="center"
@@ -135,10 +120,8 @@ export const Day = ({
             direction="column"
             sx={{
               height: "90px",
-              //borderRadius: "5px",
               position: "relative",
               bgcolor: backgroundColour,
-              // border: `1px ${borderColourBox} solid`,
             }}
           >
             {isOneLine && (
@@ -153,7 +136,6 @@ export const Day = ({
                   offSet={-2}
                   guardDayInformation={guardDayInformation}
                 />
-                {/* <SomethingBelowLine /> */}
               </>
             )}
             {isTwoLines && (

@@ -6,9 +6,6 @@ export const monthSlice = createSlice({
     daysInWeek: 5,
     showStatistics: false,
     showRestoreAllUsersButton: false,
-    /* currentMonth: null,
-    currentDate: {},
-    currentShowedDays: [], */
   },
   reducers: {
     switchDaysInWeek: (state) => {
@@ -30,15 +27,6 @@ export const monthSlice = createSlice({
     resetShowRestoreAllUsersButton: (state) => {
       state.showRestoreAllUsersButton = false;
     },
-    /* setCurrentMonth: (state, { payload }) => {
-      state.currentMonth = payload;
-    },
-    setCurrentDate: (state, { payload }) => {
-      state.currentDate = payload;
-    },
-    setCurrentShowedDays: (state, { payload }) => {
-      state.currentShowedDays = payload;
-    }, */
   },
 });
 
@@ -48,7 +36,4 @@ export const {
   resetShowStatistics,
   switchShowRestoreAllUsersButton,
   resetShowRestoreAllUsersButton,
-  /* setCurrentMonth,
-  setCurrentDate,
-  setCurrentShowedDays, */
 } = monthSlice.actions;

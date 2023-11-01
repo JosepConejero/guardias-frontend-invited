@@ -13,10 +13,6 @@ import CalendarViewWeekIcon from "@mui/icons-material/CalendarViewWeek";
 import AssessmentIcon from "@mui/icons-material/Assessment";
 
 export const MonthControls = ({ onNextMonth, onPreviousMonth, showedDate }) => {
-  /*  const [lastView, setLastView] = useState(
-    localStorage.getItem("lastItem") || ""
-  ); */ //se usa el || '' pq puede ser null cn se carga la 1ª vez
-
   const { daysInWeek } = useSelector((state) => state.month);
 
   const dispatch = useDispatch();
@@ -65,7 +61,7 @@ export const MonthControls = ({ onNextMonth, onPreviousMonth, showedDate }) => {
             )}
           </IconButton>
           {
-            /* user.canSeeStatistics && */ <IconButton
+            <IconButton
               sx={{ mr: { xs: 1, md: 0 } }}
               onClick={onShowStatistics}
             >

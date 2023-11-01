@@ -20,7 +20,6 @@ export const UserTechniciansBox = () => {
     getTechniciansOutShortNames(techniciansOut)
   );
   let newTechniciansOutShortNames = [...techniciansOutShortNames];
-  //techniciansOutShortNames: el listado de los técnicos que no estarán
 
   const updateTechniciansList = (technicianShortName) => {
     if (
@@ -38,14 +37,6 @@ export const UserTechniciansBox = () => {
           (technician) => technician !== technicianShortName
         )
       );
-      //  updateOpenedGuardDay({
-      //   ...guardDayOpened,
-      //   techniciansOut: [
-      //     ...guardDayOpened.techniciansOut.filter(
-      //       (technician) => technician !== technicianShortName
-      //     ),
-      //   ],
-      // });
     } else {
       newTechniciansOutShortNames = [
         ...newTechniciansOutShortNames,

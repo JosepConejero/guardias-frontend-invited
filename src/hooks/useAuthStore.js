@@ -47,7 +47,6 @@ export const useAuthStore = () => {
               name: data.name,
               uid: data.uid,
               shortName: data.shortName,
-              //password: data.password,
               email,
               canFLC: data.canFLC,
               canSeeStatistics: data.canSeeStatistics,
@@ -100,21 +99,6 @@ export const useAuthStore = () => {
         icon: "info",
       });
       dispatch(onLogout());
-
-      /* dispatch(
-        onLogin({
-          name: data.name,
-          uid: data.uid,
-          shortName: data.shortName,
-          canFLC: data.canFLC,
-          canSeeStatistics: data.canSeeStatistics,
-          isActivated: data.isActivated,
-          isAdmin: data.isAdmin,
-          isDataModifier: data.isDataModifier,
-          isStillWorking: data.isStillWorking,
-          isTechnician: data.isTechnician,
-        })
-      ); */
     } catch (error) {
       dispatch(
         onLogout(error.response.data?.msg || "Se ha producido un error")
@@ -170,7 +154,6 @@ export const useAuthStore = () => {
   const checkAuthToken = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      //Swal.fire("El token ya expiró", "Vuelva a hacer login", "error"); //esto podría no funcionar bien
       return dispatch(onLogout());
     }
     try {

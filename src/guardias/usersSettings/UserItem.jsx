@@ -82,23 +82,12 @@ export default function UserItem({ appUser }) {
             columns={14}
             sx={{
               color: "primary.main",
-              //border: { xs: "1px solid grey", md: 0 },
-              //borderRadius: { xs: 2, md: 0 },
               my: { xs: 0.7, md: 0 },
-              //pr: { xs: 1, md: 0 },
             }}
           >
-            <Grid
-              item
-              xs={14}
-              md={4}
-              /* mt={1}  */ onClick={handleAppUserChange}
-            >
+            <Grid item xs={14} md={4} onClick={handleAppUserChange}>
               <Typography
-                /* variant="span"
-              component="span" */
                 sx={{
-                  //display: "inline-flex",
                   display: { md: "none" },
                   fontSize: "14px",
                 }}
@@ -116,7 +105,6 @@ export default function UserItem({ appUser }) {
                   textOverflow: { md: "ellipsis" },
                 }}
               >
-                {/* <span className="app-users-label">Nombre completo:&nbsp;</span> */}
                 {appUser.name}
               </Typography>
             </Grid>
@@ -140,7 +128,6 @@ export default function UserItem({ appUser }) {
                   textOverflow: { md: "ellipsis" },
                 }}
               >
-                {/* <span className="app-users-label">Nombre corto:&nbsp;</span> */}
                 {appUser.shortName}
               </Typography>
             </Grid>
@@ -192,12 +179,7 @@ export default function UserItem({ appUser }) {
               textAlign="center"
               sx={{ mr: { xs: 2, md: 0 } }}
             >
-              <Grid
-                container
-                //justifyContent="flex-start"
-                alignItems="center"
-                direction="row"
-              >
+              <Grid container alignItems="center" direction="row">
                 <Typography sx={{ display: { md: "none" }, fontSize: "14px" }}>
                   Admin:
                 </Typography>
@@ -210,16 +192,10 @@ export default function UserItem({ appUser }) {
               xs="auto"
               md={1}
               onClick={handleAppUserChange}
-              //sx={{ pl: { xs: 0, md: 1.5 } }}
               textAlign="center"
               sx={{ mr: { xs: 2, md: 0 } }}
             >
-              <Grid
-                container
-                //justifyContent="flex-start"
-                alignItems="center"
-                direction="row"
-              >
+              <Grid container alignItems="center" direction="row">
                 <Typography
                   sx={{
                     display: { md: "none" },
@@ -244,12 +220,7 @@ export default function UserItem({ appUser }) {
               textAlign="center"
               sx={{ mr: { xs: 2, md: 0 } }}
             >
-              <Grid
-                container
-                //justifyContent="flex-start"
-                alignItems="center"
-                direction="row"
-              >
+              <Grid container alignItems="center" direction="row">
                 <Typography
                   sx={{
                     display: { md: "none" },
@@ -274,12 +245,7 @@ export default function UserItem({ appUser }) {
               textAlign="center"
               sx={{ mr: { xs: 2, md: 0 } }}
             >
-              <Grid
-                container
-                //justifyContent="flex-start"
-                alignItems="center"
-                direction="row"
-              >
+              <Grid container alignItems="center" direction="row">
                 <Typography
                   sx={{
                     display: { md: "none" },
@@ -304,12 +270,7 @@ export default function UserItem({ appUser }) {
               textAlign="center"
               sx={{ mr: { xs: 2, md: 0 } }}
             >
-              <Grid
-                container
-                //justifyContent="flex-start"
-                alignItems="center"
-                direction="row"
-              >
+              <Grid container alignItems="center" direction="row">
                 <Typography
                   sx={{
                     display: { md: "none" },
@@ -334,12 +295,7 @@ export default function UserItem({ appUser }) {
               textAlign="center"
               sx={{ mr: { xs: 2, md: 0 } }}
             >
-              <Grid
-                container
-                //justifyContent="flex-start"
-                alignItems="center"
-                direction="row"
-              >
+              <Grid container alignItems="center" direction="row">
                 <Typography
                   sx={{
                     display: { md: "none" },
@@ -360,12 +316,7 @@ export default function UserItem({ appUser }) {
               textAlign="center"
               sx={{ mr: { xs: 2, md: 0 } }}
             >
-              <Grid
-                container
-                //justifyContent="flex-start"
-                alignItems="center"
-                direction="row"
-              >
+              <Grid container alignItems="center" direction="row">
                 <Typography
                   sx={{
                     display: { md: "none" },
@@ -385,18 +336,12 @@ export default function UserItem({ appUser }) {
             <Grid
               item
               xs="auto"
-              //md={1.05}
               md={0.8}
               onClick={handleAppUserChange}
               textAlign="center"
               sx={{ mr: { xs: 2, md: 0 } }}
             >
-              <Grid
-                container
-                //justifyContent="flex-start"
-                alignItems="center"
-                direction="row"
-              >
+              <Grid container alignItems="center" direction="row">
                 <Typography
                   sx={{
                     display: { md: "none" },
@@ -419,20 +364,15 @@ export default function UserItem({ appUser }) {
               md={0.1}
               sx={{
                 pl: { xs: 8, md: 0 },
-                //"& .MuiGrid-root": { pl: 0 },
                 "& .MuiIconButton-root": {
                   pl: { xs: "2px", md: "1px" },
                   py: "8px",
                 },
               }}
             >
-              {/* {appUser.shortName !== "JOSEP" ? ( */}
               {!appUser.isAdmin ? (
                 <IconButton
-                  //onClick={onDeleteItem}
                   onClick={handleOpen}
-                  //sx={{ visibility: course.title === "SIN CURSO" ? "hidden" : "" }}
-                  //disabled={user.isDataModifier ? false : true}
                   sx={{
                     color: "#CF0000",
                     visibility: user.isDataModifier ? "" : "hidden",
@@ -446,7 +386,6 @@ export default function UserItem({ appUser }) {
             </Grid>
           </Grid>
           <Divider
-            //mb={1}
             sx={{
               mb: { xs: 1, md: 0 },
               display: { md: "none" },

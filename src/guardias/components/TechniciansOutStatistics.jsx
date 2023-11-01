@@ -8,8 +8,6 @@ export const TechniciansOutStatistics = () => {
   return (
     <Grid
       container
-      //textAlign="center"
-      //alignItems="center"
       justifyContent={{ xs: "center", md: "left" }}
       sx={{
         border: "1px solid lightgrey",
@@ -29,7 +27,6 @@ export const TechniciansOutStatistics = () => {
         sx={{
           width: "100%",
           background: "lightgrey",
-          //border: 2,
         }}
       />
       {isThereSomeTechnicianOut(absencesStatistics) && (

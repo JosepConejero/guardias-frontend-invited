@@ -13,7 +13,6 @@ export default function UsersBox() {
   useEffect(() => {
     if (appUsers.length === 0) startLoadingAppUsers();
     if (guardDays.length === 0) startLoadingGuardDays();
-    //siempre habrá un usuario como mínimo cuando entre a la app (en el caso de que los borrara todos)
   }, []);
 
   return (

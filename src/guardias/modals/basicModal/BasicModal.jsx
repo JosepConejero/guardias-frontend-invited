@@ -8,11 +8,10 @@ export const BasicModal = ({ isOpen, closeModal, children }) => {
         closeModal();
       }
     },
-    [closeModal, isOpen] /* [setIsOpen, isOpen] */ //igual se podría quitar closeModal y no pasaría nada
+    [closeModal, isOpen]
   );
 
   const onHandleClick = (event) => {
-    //console.log(event);
     if (JSON.stringify(event.target.innerHTML).includes("modal-central"))
       closeModal();
   };
@@ -24,14 +23,9 @@ export const BasicModal = ({ isOpen, closeModal, children }) => {
 
   if (isOpen)
     return (
-      <div
-        onMouseDown={onHandleClick}
-        /* onClick={onHandleClick} */ id="modal-fondo"
-        className="darkBG"
-      >
+      <div onMouseDown={onHandleClick} id="modal-fondo" className="darkBG">
         <div id="modal-central" className="centered">
           <div className="modal">
-            {/*  <div className="modalContent">{children}</div> */}
             <div>{children}</div>
           </div>
         </div>
