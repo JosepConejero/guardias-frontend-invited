@@ -6,4 +6,3 @@ export * from "./monthGuards";
 export * from "./usersSettings";
 export * from "./customizedComponents";
 export * from "./passwordSettings";
-export * from "./usersSettings";
