@@ -43,8 +43,6 @@ export const useCalendarStore = () => {
       setIsSaving(true);
       if (calendarGuardDay.id) {
         //actualizando
-        // const { data } =
-        //console.log("intenta actualizar un día", calendarGuardDay);
         await calendarApi.put(
           `/events/${calendarGuardDay.id}`,
           calendarGuardDay
@@ -55,10 +53,7 @@ export const useCalendarStore = () => {
       }
 
       //Creando
-      //console.log("intenta crear un día", calendarGuardDay);
-      //await calendarApi.post("/events", calendarGuardDay);
       const { data } = await calendarApi.post("/events", calendarGuardDay);
-      //console.log("aquí no llega", data);
       dispatch(onAddNewGuardDay({ ...calendarGuardDay, id: data.evento.id }));
       setIsSaving(false);
     } catch (error) {
@@ -71,7 +66,6 @@ export const useCalendarStore = () => {
     try {
       const { data } = await calendarApi.get("/events");
       dispatch(onLoadGuardDays(data.eventos));
-      //console.log(data);
     } catch (error) {
       console.log("Error cargando días de guardia");
       console.log(error);
