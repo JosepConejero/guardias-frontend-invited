@@ -1,4 +1,3 @@
-export * from "./getEnvVariables";
 export * from "./myCalendar";
 export * from "./deletePassword";
 export * from "./extractItemByProperty";
