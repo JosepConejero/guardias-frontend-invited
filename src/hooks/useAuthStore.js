@@ -41,30 +41,30 @@ export const useAuthStore = () => {
       localStorage.setItem("token", data.token);
       localStorage.setItem("token-init-date", new Date().getTime());
       if (data.isStillWorking) {
-        if (data.isActivated) {
-          dispatch(
-            onLogin({
-              name: data.name,
-              uid: data.uid,
-              shortName: data.shortName,
-              email,
-              canFLC: data.canFLC,
-              canSeeStatistics: data.canSeeStatistics,
-              isActivated: data.isActivated,
-              isAdmin: data.isAdmin,
-              isDataModifier: data.isDataModifier,
-              isStillWorking: data.isStillWorking,
-              isTechnician: data.isTechnician,
-            })
-          );
-        } else {
-          Swal.fire({
-            title: "Su usuario todavía no está activado.",
-            text: "Por favor, hable con el administrador para que lo active.",
-            icon: "error",
-          });
-          dispatch(onLogout());
-        }
+        // if (data.isActivated) {
+        dispatch(
+          onLogin({
+            name: data.name,
+            uid: data.uid,
+            shortName: data.shortName,
+            email,
+            canFLC: data.canFLC,
+            canSeeStatistics: data.canSeeStatistics,
+            isActivated: data.isActivated,
+            isAdmin: data.isAdmin,
+            isDataModifier: data.isDataModifier,
+            isStillWorking: data.isStillWorking,
+            isTechnician: data.isTechnician,
+          })
+        );
+        // } else {
+        //   Swal.fire({
+        //     title: "Su usuario todavía no está activado.",
+        //     text: "Por favor, hable con el administrador para que lo active.",
+        //     icon: "error",
+        //   });
+        //   dispatch(onLogout());
+        // }
       } else {
         Swal.fire({
           title: "No tiene permiso para acceder.",
