@@ -96,7 +96,7 @@ export const useAuthStore = () => {
       Swal.fire({
         //title: "Avise al administrador para que active su usuario.",
         title: "Ya puede entrar desde el login con sus datos.",
-
+        text: "Su contraseña es '111111', acuérdese de cambiarla",
         icon: "info",
       });
       dispatch(onLogout());
