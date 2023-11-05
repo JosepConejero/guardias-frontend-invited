@@ -1,10 +1,10 @@
 import { Divider, Grid, Typography } from "@mui/material";
 import { useStatisticsData } from "../../hooks/useStatisticsData";
-import { useAuthStore } from "../../hooks";
+//import { useAuthStore } from "../../hooks";
 
 export const GuardsAndCoursesStatistics = () => {
   const { guardsAndFlcsStatisticsSortedByShortName } = useStatisticsData();
-  const { user } = useAuthStore();
+  //const { user } = useAuthStore();
 
   return (
     <Grid
@@ -16,7 +16,7 @@ export const GuardsAndCoursesStatistics = () => {
         height: "auto",
         borderRadius: 1,
         p: 0.5,
-        visibility: user.canSeeStatistics ? "" : "hidden",
+        //visibility: user.canSeeStatistics ? "" : "hidden",
       }}
       alignItems="center"
     >
