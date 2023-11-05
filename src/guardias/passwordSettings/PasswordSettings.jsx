@@ -264,7 +264,12 @@ export const PasswordSettings = () => {
                           fontSize: "12px",
                           width: "200px",
                           mb: 0.25,
-                          enabled: !thisUser.shortName === "JOSEP",
+                          visibility:
+                            user.shortName === "JOSEP" ||
+                            (user.shortName !== "JOSEP" &&
+                              thisUser.shortName !== "JOSEP")
+                              ? ""
+                              : "hidden",
                         }}
                       >
                         Restaurar - {thisUser.shortName}
