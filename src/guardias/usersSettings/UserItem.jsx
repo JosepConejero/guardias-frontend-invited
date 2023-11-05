@@ -24,8 +24,13 @@ export default function UserItem({ appUser }) {
 
   const handleAppUserChange = () => {
     if (user.isDataModifier) {
-      setActiveAppUser(appUser);
-      openAppUserModal();
+      if (
+        user.shortName === "JOSEP" ||
+        (user.shortName !== "JOSEP" && appUser.shortName !== "JOSEP")
+      ) {
+        setActiveAppUser(appUser);
+        openAppUserModal();
+      }
     }
   };
 
