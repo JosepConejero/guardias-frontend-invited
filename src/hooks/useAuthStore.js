@@ -94,7 +94,8 @@ export const useAuthStore = () => {
       localStorage.setItem("token-init-date", new Date().getTime());
 
       Swal.fire({
-        title: "Avise al administrador para que active su usuario.",
+        //title: "Avise al administrador para que active su usuario.",
+        title: "Ya puede entrar desde el login con sus datos.",
 
         icon: "info",
       });
