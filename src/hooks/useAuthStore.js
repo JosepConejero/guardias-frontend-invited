@@ -176,7 +176,6 @@ export const useAuthStore = () => {
         })
       );
     } catch (error) {
-      console.log("Es el error del renew");
       localStorage.clear();
       dispatch(onLogout());
     }
