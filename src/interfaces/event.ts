@@ -10,7 +10,7 @@ export interface Event {
   id: string; //he de comprobar si es opcional o no
 }
 
-interface SimpleDate {
+export interface SimpleDate {
   day: number;
   month: number;
   year: number;
