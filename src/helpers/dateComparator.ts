@@ -6,12 +6,16 @@
 //*  RETURNS  2 IF IT'S A DAY FROM A LATER MONTH
 //***********************************************************
 
-export const dateCompare = (year, month, day) => {
-  const today = new Date();
+export const dateCompare = (
+  year: number,
+  month: number,
+  day: number
+): -2 | -1 | 0 | 1 | 2 | undefined => {
+  const today: Date = new Date();
 
-  const todayDay = today.getDate();
-  const todayMonth = today.getMonth();
-  const todayYear = today.getFullYear();
+  const todayDay: number = today.getDate();
+  const todayMonth: number = today.getMonth();
+  const todayYear: number = today.getFullYear();
 
   if (year > todayYear) return 2;
   if (year < todayYear) return -2;

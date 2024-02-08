@@ -1,8 +1,8 @@
 //A closure to increase a numeric value without repeating it after every rendering
 
 const counter = (function () {
-  let privateCounter = 0;
-  function changeBy(val) {
+  let privateCounter: number = 0;
+  function changeBy(val: number): void {
     privateCounter += val;
   }
 
@@ -11,14 +11,14 @@ const counter = (function () {
       changeBy(1);
     },
 
-    value() {
+    value(): number {
       return privateCounter;
     },
   };
 })();
 
-export const uniqueKey = () => {
-  const getRamdomInt = (max) => Math.floor(Math.random() * max);
+export const uniqueKey = (): string => {
+  const getRamdomInt = (max: number) => Math.floor(Math.random() * max);
 
   counter.increment();
   return `${new Date().getTime().toString()}-${getRamdomInt(
