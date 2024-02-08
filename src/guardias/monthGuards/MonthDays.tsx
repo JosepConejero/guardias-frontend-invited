@@ -9,7 +9,7 @@ import { DayModal } from "../modals/DayModal";
 import { useUiStore } from "../../hooks/useUiStore";
 import { useCalendarStore } from "../../hooks/useCalendarStore";
 import { getDayOfWeekText } from "../../helpers/dayOfWeek";
-import { BasicModal } from "../../guardias/modals/basicModal/BasicModal";
+import { BasicModal } from "../modals/basicModal/BasicModal";
 import { useGuardDayStore } from "../../hooks/useGuardDayStore";
 import { onDeactivateGuardDay } from "../../store/calendar/calendarSlice";
 
