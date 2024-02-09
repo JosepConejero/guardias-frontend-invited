@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export const LogoPage = () => {
+export const LogoPage = (): React.JSX.Element => {
   return (
     <>
       <div className="logo-container animate__animated animate__fadeIn animate__faster">

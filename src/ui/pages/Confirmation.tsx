@@ -1,7 +1,12 @@
 import { Grid, Typography, Button } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
+import { ConfirmationProps } from "../../interfaces";
 
-export function Confirmation({ question, open, handleClose }) {
+export function Confirmation({
+  question,
+  open,
+  handleClose,
+}: ConfirmationProps): React.JSX.Element {
   return (
     <div>
       <Dialog
