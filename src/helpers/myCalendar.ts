@@ -1,4 +1,4 @@
-import { SimpleDate } from "../interfaces/event";
+import { SimpleDate } from "../interfaces/eventGuardDay";
 
 export const monthNames: string[] = [
   "Enero",
