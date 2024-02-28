@@ -7,7 +7,7 @@ import { AppTheme } from "./theme";
 
 import "./styles.css";
 
-function AgendaTecnicosApp(): React.JSX.Element {
+function AgendaTecnicosApp(): JSX.Element {
   return (
     <Provider store={store}>
       <BrowserRouter>
