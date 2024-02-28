@@ -1,15 +1,33 @@
+import "@mui/material/styles/createPalette";
 import { createTheme } from "@mui/material";
 //import { createTheme } from "@mui/material/styles";
 import { red } from "@mui/material/colors";
 
 declare module "@mui/material/styles" {
-  /*   interface Theme {
-    palette: {
-      normalText: {
-        main: string;
-      };
+  interface PaletteColor {
+    normalText?: {
+      main?: string;
     };
-  } */
+    markedText?: {
+      main?: string;
+    };
+    /*     flcRelated?: {
+      main?: string;
+    }; */
+  }
+
+  interface SimplePaletteColorOptions {
+    normalText?: {
+      main?: string;
+    };
+    markedText?: {
+      main?: string;
+    };
+    /*     flcRelated?: {
+      main?: string;
+    }; */
+  }
+
   interface PaletteOptions {
     normalText?: {
       main?: string;
@@ -17,9 +35,9 @@ declare module "@mui/material/styles" {
     markedText?: {
       main?: string;
     };
-    flcRelated?: {
+    /*     flcRelated?: {
       main?: string;
-    };
+    }; */
   }
 
   interface Components {
@@ -51,7 +69,7 @@ export const purpleTheme = createTheme({
     markedText: {
       main: "#0040ff",
     },
-    flcRelated: {
+    info: {
       main: "#ff0000",
     },
   },
