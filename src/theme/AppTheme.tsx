@@ -8,7 +8,7 @@ interface CommonProps {
   children?: ReactNode;
 }
 
-export const AppTheme = ({ children }: CommonProps): React.JSX.Element => {
+export const AppTheme = ({ children }: CommonProps): JSX.Element => {
   return (
     <ThemeProvider theme={purpleTheme}>
       <CssBaseline />
