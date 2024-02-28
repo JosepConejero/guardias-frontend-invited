@@ -6,7 +6,7 @@ export function Confirmation({
   question,
   open,
   handleClose,
-}: ConfirmationProps): React.JSX.Element {
+}: ConfirmationProps): JSX.Element {
   return (
     <div>
       <Dialog
