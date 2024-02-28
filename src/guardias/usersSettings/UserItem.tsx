@@ -14,15 +14,16 @@ import { useUiStore } from "../../hooks/useUiStore";
 import { useAuthStore, useCalendarStore } from "../../hooks";
 import { Confirmation } from "../../ui/pages/Confirmation";
 import Swal from "sweetalert2";
+import { User } from "../../interfaces";
 
-export default function UserItem({ appUser }) {
-  const [open, setOpen] = useState(false);
+export default function UserItem({ appUser }: { appUser: User }): JSX.Element {
+  const [open, setOpen] = useState<boolean>(false);
   const { openAppUserModal } = useUiStore();
   const { startDeletingAppUser, setActiveAppUser } = useAppUsersStore();
   const { user } = useAuthStore();
   const { guardDays } = useCalendarStore();
 
-  const handleAppUserChange = () => {
+  const handleAppUserChange = (): void => {
     if (user.isDataModifier) {
       if (
         user.shortName === "JOSEP" ||
@@ -34,8 +35,8 @@ export default function UserItem({ appUser }) {
     }
   };
 
-  const isThisAppUserBeingUsed = (id) => {
-    let found = false;
+  const isThisAppUserBeingUsed = (id: string): boolean => {
+    let found: boolean = false;
     for (let i = 0; i < guardDays.length; i++) {
       if (guardDays[i].technicians.length > 0) {
         for (let j = 0; j < guardDays[i].technicians.length; j++) {
@@ -49,8 +50,8 @@ export default function UserItem({ appUser }) {
     return found;
   };
 
-  const onDeleteItem = () => {
-    if (!isThisAppUserBeingUsed(appUser.id)) {
+  const onDeleteItem = (): void => {
+    if (!isThisAppUserBeingUsed(appUser.id!)) {
       startDeletingAppUser(appUser);
     } else {
       Swal.fire({
@@ -61,11 +62,11 @@ export default function UserItem({ appUser }) {
     }
   };
 
-  const handleOpen = () => {
+  const handleOpen = (): void => {
     setOpen(true);
   };
 
-  const handleClose = (answer) => {
+  const handleClose = (answer: boolean): void => {
     if (answer) onDeleteItem();
     setOpen(false);
   };

@@ -12,21 +12,29 @@ import { getDayOfWeekText } from "../../helpers/dayOfWeek";
 import { BasicModal } from "../modals/basicModal/BasicModal";
 import { useGuardDayStore } from "../../hooks/useGuardDayStore";
 import { onDeactivateGuardDay } from "../../store/calendar/calendarSlice";
+import { RootState } from "../../store";
+import { SimpleDate } from "../../interfaces";
 
-export const MonthDays = ({ showedDays }) => {
+export const MonthDays = ({
+  showedDays,
+}: {
+  showedDays: SimpleDate[];
+}): JSX.Element => {
   const dispatch = useDispatch();
   const { isDayModalOpen, openDayModal, closeDayModal } = useUiStore();
   const { setActiveGuardDay, guardDayInformation } = useCalendarStore();
   const { deselectGuardDay } = useGuardDayStore();
 
-  const { daysInWeek } = useSelector((state) => state.month);
+  const { daysInWeek }: { daysInWeek: number } = useSelector(
+    (state: RootState) => state.month
+  );
 
-  const onDayClick = (day, month, year) => {
+  const onDayClick = (day: number, month: number, year: number): void => {
     setActiveGuardDay({ day, month, year });
     openDayModal();
   };
 
-  const handleCloseDayModal = () => {
+  const handleCloseDayModal = (): void => {
     dispatch(onDeactivateGuardDay());
     closeDayModal();
     deselectGuardDay();
@@ -44,7 +52,7 @@ export const MonthDays = ({ showedDays }) => {
           margin: "auto",
         }}
       >
-        {showedDays.map((date, index) => {
+        {showedDays.map((date: SimpleDate, index: number) => {
           if (daysInWeek === 6 && !isSunday(index)) {
             return (
               <Grid item key={index} sx={{ m: 1 / 2 }}>

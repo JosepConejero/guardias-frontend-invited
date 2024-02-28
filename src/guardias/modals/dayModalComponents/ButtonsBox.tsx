@@ -1,10 +1,16 @@
 import { Button, Grid } from "@mui/material";
 
+interface ButtonsBoxProps {
+  onCloseModal: () => void;
+  cancelDisabled?: boolean;
+  okDisabled?: boolean;
+}
+
 export const ButtonsBox = ({
   onCloseModal,
   cancelDisabled = false,
   okDisabled = false,
-}) => {
+}: ButtonsBoxProps): JSX.Element => {
   return (
     <Grid container direction="row" justifyContent="center">
       <Grid item>

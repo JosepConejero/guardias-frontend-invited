@@ -4,36 +4,45 @@ import calendarApi from "../api/calendarApi";
 import Swal from "sweetalert2";
 import {
   onDeleteAppUser,
+  onEmptyAppUsers,
   onLoadAppUsers,
   onSetActiveAppUser,
+  onSetDeletingAppUser,
   onSetInactiveAppUser,
   onUpdateAppUser,
-  onEmptyAppUsers,
-  onSetDeletingAppUser,
 } from "../store/appUser/appUserSlice";
 import { deletePassword } from "../helpers/deletePassword";
 import { useState } from "react";
+import { RootState } from "../store";
+import {
+  DayTechnician,
+  TechnicianIdObject,
+  TechnicianOut,
+  useAppUsersStoreReturnTypes,
+  User,
+  UserShortName,
+} from "../interfaces";
 
 export const useAppUsersStore = () => {
   const dispatch = useDispatch();
   const { appUsers, activeAppUser, isDeletingAppUser } = useSelector(
-    (state) => state.appUser
+    (state: RootState) => state.appUser
   );
-  const [isSaving, setIsSaving] = useState(false);
+  const [isSaving, setIsSaving] = useState<boolean>(false);
 
-  const getTechniciansShortNames = () => {
-    let techniciansShortNames = [];
+  const getTechniciansShortNames = (): string[] => {
+    let techniciansShortNames: string[] = [];
     techniciansShortNames = appUsers
-      .filter((technician) => technician.isTechnician)
-      .map((technician) => technician.shortName);
+      .filter((technician: User) => technician.isTechnician)
+      .map((technician: User) => technician.shortName);
     return techniciansShortNames;
   };
 
   const getTeachers = () => {
-    let teachers = [];
+    let teachers: UserShortName[] = [];
     teachers = appUsers
-      .filter((teacher) => teacher.isTechnician || teacher.isExternal)
-      .map(({ id, shortName }) => ({ id, shortName }));
+      .filter((teacher: User) => teacher.isTechnician || teacher.isExternal)
+      .map(({ id, shortName }: User) => ({ id, shortName }));
     return teachers;
   };
 
@@ -41,14 +50,18 @@ export const useAppUsersStore = () => {
 
   const techniciansShortNames = getTechniciansShortNames();
 
-  const technicianShortNameById = (id) => {
-    const found = appUsers?.find((technician) => technician.id === id);
+  const technicianShortNameById = (id: string): string => {
+    const found: User = appUsers?.find(
+      (technician: User) => technician.id === id
+    );
     return found?.shortName;
   };
 
-  const getTechniciansOutShortNames = (techniciansOut) => {
-    let techniciansOutShortNames = [];
-    techniciansOut.forEach((technician) => {
+  const getTechniciansOutShortNames = (
+    techniciansOut: TechnicianOut[]
+  ): string[] => {
+    let techniciansOutShortNames: string[] = [];
+    techniciansOut.forEach((technician: TechnicianOut) => {
       techniciansOutShortNames = [
         ...techniciansOutShortNames,
         technicianShortNameById(technician.technicianId),
@@ -57,17 +70,23 @@ export const useAppUsersStore = () => {
     return [...techniciansOutShortNames];
   };
 
-  const getTechniciansInShortNames = (allTechnicians, techniciansOut) => {
-    let techniciansIn = [];
+  /*   const getTechniciansInShortNames = (
+    allTechnicians: User[],
+    techniciansOut: TechnicianOut[]
+  ) => {
+    let techniciansIn: TechnicianIn[] = [];
     allTechnicians.forEach((technician) => {
       if (!techniciansOut.includes(technician)) {
         techniciansIn.push(technician);
       }
     });
     return [...techniciansIn];
-  };
+  }; */
 
-  const isIn = (teacherId, techniciansOut) => {
+  const isIn = (
+    teacherId: string,
+    techniciansOut: TechnicianIdObject[]
+  ): boolean => {
     let found = false;
     for (let i = 0; i < techniciansOut.length; i++) {
       if (techniciansOut[i].technicianId === teacherId) {
@@ -78,9 +97,11 @@ export const useAppUsersStore = () => {
     return found;
   };
 
-  const getTeachersIn = (techniciansOut) => {
-    let teachersIn = [];
-    teachers.forEach((teacher) => {
+  const getTeachersIn = (
+    techniciansOut: TechnicianIdObject[]
+  ): UserShortName[] => {
+    let teachersIn: UserShortName[] = [];
+    teachers.forEach((teacher: UserShortName) => {
       if (!isIn(teacher.id, techniciansOut)) {
         teachersIn.push(teacher);
       }
@@ -88,7 +109,7 @@ export const useAppUsersStore = () => {
     return [...teachersIn];
   };
 
-  const getTeacherById = (technicianId) => {
+  const getTeacherById = (technicianId: string): UserShortName | undefined => {
     for (let i = 0; i < teachers.length; i++) {
       if (teachers[i].id === technicianId) {
         return teachers[i];
@@ -96,53 +117,60 @@ export const useAppUsersStore = () => {
     }
   };
 
-  const technicianIdByShortName = (shortName) => {
-    const found = appUsers?.find(
-      (technician) => technician.shortName === shortName
+  const technicianIdByShortName = (shortName: string): string | undefined => {
+    const found: User = appUsers?.find(
+      (technician: User) => technician.shortName === shortName
     );
     return found?.id;
   };
 
-  const getTechniciansOutIdsByShortName = (techniciansOutShortNames) => {
-    return techniciansOutShortNames.map((technicianShortName) => ({
-      technicianId: technicianIdByShortName(technicianShortName),
+  const getTechniciansOutIdsByShortName = (
+    techniciansOutShortNames: string[]
+  ): TechnicianIdObject[] => {
+    return techniciansOutShortNames.map(
+      (technicianShortName: string): TechnicianIdObject => ({
+        technicianId: technicianIdByShortName(technicianShortName)!,
+      })
+    );
+  };
+
+  const getTechniciansInIdsByShortName = (
+    techniciansInShortNames: string[]
+  ): TechnicianIdObject[] => {
+    return techniciansInShortNames.map((technicianShortName: string) => ({
+      technicianId: technicianIdByShortName(technicianShortName)!,
     }));
   };
 
-  const getTechniciansInIdsByShortName = (techniciansInShortNames) => {
-    return techniciansInShortNames.map((technicianShortName) => ({
-      technicianId: technicianIdByShortName(technicianShortName),
-    }));
-  };
-
-  const emptyTeachersName = (teachers) => {
-    let emptyTeacher = false;
-    teachers.forEach((teacher) => {
+  const emptyTeachersName = (teachers: DayTechnician[] = []): boolean => {
+    let emptyTeacher: boolean = false;
+    teachers.forEach((teacher: DayTechnician) => {
       if (teacher.technicianId === null) emptyTeacher = true;
     });
     return emptyTeacher;
   };
 
-  const setActiveAppUser = (appUser) => {
+  const setActiveAppUser = (appUser: User): void => {
     dispatch(onSetActiveAppUser(appUser));
   };
 
-  const setInactiveAppUser = () => {
+  const setInactiveAppUser = (): void => {
     dispatch(onSetInactiveAppUser());
   };
 
-  const startLoadingAppUsers = async () => {
+  const startLoadingAppUsers = async (): Promise<void> => {
     try {
       const { data } = await calendarApi.get("/users");
       const newUsers = deletePassword(data.usuarios);
       dispatch(onLoadAppUsers(newUsers));
-    } catch (error) {
+    } catch (error: any) {
+      ///any
       console.log("Error cargando usuarios");
       console.log(error);
     }
   };
 
-  const startSavingAppUser = async (appUser) => {
+  const startSavingAppUser = async (appUser: User): Promise<void> => {
     try {
       setIsSaving(true);
       if (appUser.id) {
@@ -152,7 +180,7 @@ export const useAppUsersStore = () => {
         return;
       }
       setIsSaving(false);
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
       Swal.fire(
         "Error al actualizar un usuario",
@@ -162,13 +190,13 @@ export const useAppUsersStore = () => {
     }
   };
 
-  const startDeletingAppUser = async (appUser) => {
+  const startDeletingAppUser = async (appUser: User): Promise<void> => {
     try {
       dispatch(onSetDeletingAppUser(true));
       await calendarApi.delete(`/users/${appUser.id}`);
       dispatch(onDeleteAppUser(appUser));
       dispatch(onSetDeletingAppUser(false));
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
       Swal.fire(
         "Error al eliminar un usuario",
@@ -178,14 +206,16 @@ export const useAppUsersStore = () => {
     }
   };
 
-  const emptyAppUsers = () => {
+  const emptyAppUsers = (): void => {
     dispatch(onEmptyAppUsers());
   };
 
-  const getAppUserData = (id) => {
+  const getAppUserData = (id: string): User | undefined => {
     if (appUsers.length === 0) return;
-    return appUsers.find((appUser) => appUser.id === id);
+    return appUsers.find((appUser: User) => appUser.id === id);
   };
+
+  //console.log(activeAppUser);
 
   return {
     //properties
@@ -199,7 +229,6 @@ export const useAppUsersStore = () => {
     setActiveAppUser,
     setInactiveAppUser,
     getTechniciansOutShortNames,
-    getTechniciansInShortNames,
     technicianIdByShortName,
     getTechniciansOutIdsByShortName,
     getTechniciansInIdsByShortName,
@@ -212,5 +241,5 @@ export const useAppUsersStore = () => {
     emptyAppUsers,
     getAppUserData,
     technicianShortNameById,
-  };
+  } as useAppUsersStoreReturnTypes;
 };

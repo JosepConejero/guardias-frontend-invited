@@ -4,15 +4,24 @@ import MenuItem from "@mui/material/MenuItem";
 import { Typography } from "@mui/material";
 import { useState } from "react";
 import { useGuardDayStore } from "../../../hooks/useGuardDayStore";
+import { Course, EventGuardDay } from "../../../interfaces";
+
+interface CoursesMenuProps {
+  list: Course[];
+  initialValue: Course;
+  name: string;
+  index: number;
+  disabled: boolean;
+}
 
 export default function CoursesMenu({
   list = [],
   initialValue,
   index,
   disabled,
-}) {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+}: CoursesMenuProps): JSX.Element {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open: boolean = Boolean(anchorEl);
   const { guardDayOpened, updateOpenedGuardDay } = useGuardDayStore();
 
   const [courseName, setCourseName] = useState(
@@ -23,26 +32,35 @@ export default function CoursesMenu({
       : initialValue.title
   );
 
-  const handleClick = (event) => {
+  const handleClick = (event: any) => {
+    ///any
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = (event, course) => {
-    if (event.key !== "Escape") {
-      if (event.target.innerText !== "") {
-        setCourseName(course.title);
-        let newTechnicians = [...guardDayOpened.technicians];
-        newTechnicians[index] = {
-          ...newTechnicians[index],
-          courseId: course.id,
-          isInClientWorkplace: false,
-        };
-        updateOpenedGuardDay({
-          ...guardDayOpened,
-          technicians: [...newTechnicians],
-        });
+  const handleClose = (
+    event: any, ///any
+    /*     event: EventTarget & {
+      key: string;
+      target: EventTarget & { innerText: string };
+    }, */
+    course: Course | "backdropClick" | "escapeKeyDown"
+  ) => {
+    if (typeof course !== "string")
+      if (event.key !== "Escape") {
+        if (event.target.innerText !== "") {
+          setCourseName(course.title);
+          let newTechnicians = [...guardDayOpened!.technicians];
+          newTechnicians[index] = {
+            ...newTechnicians[index],
+            courseId: course.id!,
+            isInClientWorkplace: false,
+          };
+          updateOpenedGuardDay({
+            ...guardDayOpened,
+            technicians: [...newTechnicians],
+          } as EventGuardDay);
+        }
       }
-    }
 
     setAnchorEl(null);
   };
@@ -73,10 +91,10 @@ export default function CoursesMenu({
         open={open}
         onClose={handleClose}
       >
-        {list.map((course) => (
+        {list.map((course: Course) => (
           <MenuItem
             key={course.id}
-            technician={course.id}
+            //technician={course.id}
             onClick={(event) => handleClose(event, course)}
           >
             {course.title.toUpperCase()}

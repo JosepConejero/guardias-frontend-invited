@@ -10,8 +10,25 @@ import { useCoursesStore } from "../../../hooks/useCoursesStore";
 import { sortedTechnicians } from "../../../helpers/sortedTechnicians";
 import { sortedCourses } from "../../../helpers/sortedCourses";
 import { useAuthStore } from "../../../hooks";
+import {
+  Course,
+  DayTechnician,
+  EventGuardDay,
+  Technician,
+} from "../../../interfaces";
+import { RootState } from "../../../store";
 
-export const UsersGuardsBoxItem = ({ technician, index, onDeleteItem }) => {
+interface UsersGuardsBoxItemProps {
+  technician: Technician;
+  index: number;
+  onDeleteItem: (id: string) => void;
+}
+
+export const UsersGuardsBoxItem = ({
+  technician,
+  index,
+  onDeleteItem,
+}: UsersGuardsBoxItemProps): JSX.Element => {
   const { guardDayOpened, techniciansInGuardDay, updateOpenedGuardDay } =
     useGuardDayStore();
 
@@ -19,20 +36,24 @@ export const UsersGuardsBoxItem = ({ technician, index, onDeleteItem }) => {
   const { getCourseById } = useCoursesStore();
   const { user } = useAuthStore();
 
-  const { courses } = useSelector((state) => state.course);
+  const { courses }: { courses: Course[] } = useSelector(
+    (state: RootState) => state.course
+  );
 
   let initialTeacher = getTeacherById(
-    guardDayOpened.technicians[index].technicianId
+    guardDayOpened!.technicians[index].technicianId
   );
 
   const initialCourse = getCourseById(
     courses,
-    guardDayOpened.technicians[index].courseId
+    guardDayOpened!.technicians[index].courseId!
   );
 
-  const onLabelChange = (value, name) => {
+  const onLabelChange = <Type,>(value: Type, name: string) => {
     if (user.isDataModifier) {
-      let newTechnicians = [...guardDayOpened.technicians];
+      let newTechnicians: DayTechnician[] = guardDayOpened
+        ? [...guardDayOpened.technicians]
+        : [];
       newTechnicians[index] = {
         ...newTechnicians[index],
         [name]: value,
@@ -40,11 +61,11 @@ export const UsersGuardsBoxItem = ({ technician, index, onDeleteItem }) => {
       updateOpenedGuardDay({
         ...guardDayOpened,
         technicians: [...newTechnicians],
-      });
+      } as EventGuardDay);
     }
   };
 
-  const isValid = (value) => {
+  const isValid = (value: Course): boolean => {
     return (
       value !== null && value !== undefined && JSON.stringify(value) !== "{}"
     );
@@ -65,7 +86,7 @@ export const UsersGuardsBoxItem = ({ technician, index, onDeleteItem }) => {
     >
       <Grid item xs={12} md={2} sx={{ textAlign: "center" }}>
         <TeachersMenu
-          initialValue={initialTeacher}
+          initialValue={initialTeacher!}
           list={sortedTechnicians(techniciansInGuardDay)}
           name="técnico"
           index={index}
@@ -104,12 +125,14 @@ export const UsersGuardsBoxItem = ({ technician, index, onDeleteItem }) => {
             }}
           >
             <LabelButton
-              labelValue={guardDayOpened.technicians[index].isInClientWorkplace}
+              labelValue={
+                guardDayOpened!.technicians[index].isInClientWorkplace
+              }
               textOn="en cliente"
               textOff="en oficina"
               onLabelChange={onLabelChange}
               name="isInClientWorkplace"
-              technician={technician}
+              //technician={technician}
             />
           </Grid>
 

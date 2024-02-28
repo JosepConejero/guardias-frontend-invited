@@ -5,15 +5,16 @@ import { useGuardDayStore } from "../../../hooks/useGuardDayStore";
 import { UsersGuardsBoxItem } from "./UsersGuardsBoxItem";
 import { uniqueKey } from "../../../helpers/uniqueKey";
 import { useAuthStore } from "../../../hooks";
+import { EventGuardDay, Technician } from "../../../interfaces";
 
-const emptyTechnician = {
+const emptyTechnician: Technician = {
   technicianId: null,
   courseId: null,
   isInClientWorkplace: false,
   uniqueId: "",
 };
 
-export const UsersGuardsBox = () => {
+export const UsersGuardsBox = (): JSX.Element => {
   const {
     guardDayOpened,
     updateOpenedGuardDay,
@@ -21,19 +22,19 @@ export const UsersGuardsBox = () => {
   } = useGuardDayStore();
   const { user } = useAuthStore();
 
-  const onAddTechnician = () => {
-    if (guardDayOpened.technicians.length <= 5) {
+  const onAddTechnician = (): void => {
+    if (guardDayOpened!.technicians.length <= 5) {
       updateOpenedGuardDay({
         ...guardDayOpened,
         technicians: [
-          ...guardDayOpened.technicians,
+          ...guardDayOpened!.technicians,
           { ...emptyTechnician, uniqueId: uniqueKey() },
         ],
-      });
+      } as EventGuardDay);
     }
   };
 
-  const onDeleteItem = (uniqueId) => {
+  const onDeleteItem = (uniqueId: string): void => {
     deleteTechnicianOpenedGuardDay(uniqueId);
   };
 
@@ -74,14 +75,16 @@ export const UsersGuardsBox = () => {
           </Grid>
         </Grid>
       </Grid>
-      {guardDayOpened?.technicians.map((technician, index) => (
-        <UsersGuardsBoxItem
-          key={technician.uniqueId}
-          technician={technician}
-          index={index}
-          onDeleteItem={onDeleteItem}
-        />
-      ))}
+      {guardDayOpened?.technicians.map(
+        (technician: Technician, index: number) => (
+          <UsersGuardsBoxItem
+            key={technician.uniqueId}
+            technician={technician}
+            index={index}
+            onDeleteItem={onDeleteItem}
+          />
+        )
+      )}
     </Stack>
   );
 };

@@ -16,6 +16,49 @@ import {
   resetShowRestoreAllUsersButton,
   resetShowStatistics,
 } from "../store/month/monthSlice";
+import { UserWithUid } from "../interfaces";
+import { StatusType } from "../types";
+import { RootState } from "../store";
+import { DataType } from "../types/DataType";
+
+interface useAuthStoreReturnTypes {
+  errorMessage: string;
+  status: StatusType;
+  user: UserWithUid;
+  isChangingPassword: boolean;
+  isRestoringPassword: boolean;
+  startLogin: ({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
+  }) => Promise<void>;
+  startRegister: ({
+    name,
+    email,
+    password,
+  }: {
+    name: string;
+    email: string;
+    password: string;
+  }) => Promise<void>;
+  checkAuthToken: () => Promise<void | {
+    payload: string | undefined;
+    type: "auth/onLogout";
+  }>;
+  startLogout: () => void;
+  updatePassword: ({
+    email,
+    password,
+    password2,
+  }: {
+    email: string;
+    password: string;
+    password2: string;
+  }) => Promise<DataType | void>;
+  startRestoringPassword: ({ id }: { id: string }) => Promise<DataType | void>;
+}
 
 export const useAuthStore = () => {
   const {
@@ -24,39 +67,45 @@ export const useAuthStore = () => {
     errorMessage,
     isChangingPassword,
     isRestoringPassword,
-  } = useSelector((state) => state.auth);
+  } = useSelector((state: RootState) => state.auth);
   const { emptyCourses } = useCoursesStore();
   const { emptyAppUsers } = useAppUsersStore();
 
   const dispatch = useDispatch();
 
-  const startLogin = async ({ email, password }) => {
+  const startLogin = async ({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
+  }): Promise<void> => {
     dispatch(onChecking());
     try {
-      const { data } = await calendarApi.post("/auth", {
+      const { data }: { data: UserWithUid } = await calendarApi.post("/auth", {
         email,
         password,
       });
 
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("token-init-date", new Date().getTime());
+      const userInfoSended: UserWithUid = {
+        name: data.name,
+        uid: data.uid,
+        shortName: data.shortName,
+        email,
+        canFLC: data.canFLC,
+        canSeeStatistics: data.canSeeStatistics,
+        isActivated: data.isActivated,
+        isAdmin: data.isAdmin,
+        isDataModifier: data.isDataModifier,
+        isStillWorking: data.isStillWorking,
+        isTechnician: data.isTechnician,
+      };
+
+      localStorage.setItem("token", data.token!);
+      localStorage.setItem("token-init-date", new Date().getTime().toString());
       if (data.isStillWorking) {
         // if (data.isActivated) {
-        dispatch(
-          onLogin({
-            name: data.name,
-            uid: data.uid,
-            shortName: data.shortName,
-            email,
-            canFLC: data.canFLC,
-            canSeeStatistics: data.canSeeStatistics,
-            isActivated: data.isActivated,
-            isAdmin: data.isAdmin,
-            isDataModifier: data.isDataModifier,
-            isStillWorking: data.isStillWorking,
-            isTechnician: data.isTechnician,
-          })
-        );
+        dispatch(onLogin(userInfoSended));
         // } else {
         //   Swal.fire({
         //     title: "Su usuario todavía no está activado.",
@@ -81,17 +130,28 @@ export const useAuthStore = () => {
     }
   };
 
-  const startRegister = async ({ name, email, password }) => {
+  const startRegister = async ({
+    name,
+    email,
+    password,
+  }: {
+    name: string;
+    email: string;
+    password: string;
+  }): Promise<void> => {
     dispatch(onChecking());
 
     try {
-      const { data } = await calendarApi.post("/auth/new", {
-        name,
-        email,
-        password,
-      });
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("token-init-date", new Date().getTime());
+      const { data }: { data: UserWithUid } = await calendarApi.post(
+        "/auth/new",
+        {
+          name,
+          email,
+          password,
+        }
+      );
+      localStorage.setItem("token", data.token!);
+      localStorage.setItem("token-init-date", new Date().getTime().toString());
 
       Swal.fire({
         //title: "Avise al administrador para que active su usuario.",
@@ -100,7 +160,7 @@ export const useAuthStore = () => {
         icon: "info",
       });
       dispatch(onLogout());
-    } catch (error) {
+    } catch (error: any) {
       dispatch(
         onLogout(error.response.data?.msg || "Se ha producido un error")
       );
@@ -110,17 +170,26 @@ export const useAuthStore = () => {
     }
   };
 
-  const updatePassword = async ({ email, password, password2 }) => {
+  const updatePassword = async ({
+    email,
+    password,
+    password2,
+  }: {
+    email: string;
+    password: string;
+    password2: string;
+  }): Promise<DataType | void> => {
     try {
       dispatch(onSetChangingPassword(true));
-      const { data } = await calendarApi.patch("/auth/", {
+      const { data }: { data: DataType } = await calendarApi.patch("/auth/", {
         email,
         password,
         newPassword: password2,
       });
       dispatch(onSetChangingPassword(false));
       return data;
-    } catch (error) {
+    } catch (error: any) {
+      ///any
       console.log(error);
       Swal.fire({
         title: "Error al cambiar la contraseña",
@@ -133,13 +202,19 @@ export const useAuthStore = () => {
     }
   };
 
-  const startRestoringPassword = async ({ id }) => {
+  const startRestoringPassword = async ({
+    id,
+  }: {
+    id: string;
+  }): Promise<void | DataType> => {
     try {
       dispatch(onSetRestoringPassword(true));
-      const { data } = await calendarApi.patch(`/auth/${id}`);
+      const { data }: { data: DataType } = await calendarApi.patch(
+        `/auth/${id}`
+      );
       dispatch(onSetRestoringPassword(false));
       return data;
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
       Swal.fire({
         title: "Error al restaurar la contraseña",
@@ -152,37 +227,42 @@ export const useAuthStore = () => {
     }
   };
 
-  const checkAuthToken = async () => {
-    const token = localStorage.getItem("token");
+  const checkAuthToken = async (): Promise<void | {
+    payload: string | undefined;
+    type: "auth/onLogout";
+  }> => {
+    const token: string | null = localStorage.getItem("token");
     if (!token) {
       return dispatch(onLogout());
     }
     try {
-      const { data } = await calendarApi.get("auth/renew");
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("token-init-date", new Date().getTime());
-      dispatch(
-        onLogin({
-          name: data.name,
-          uid: data.uid,
-          email: data.email,
-          shortName: data.shortName,
-          canFLC: data.canFLC,
-          canSeeStatistics: data.canSeeStatistics,
-          isActivated: data.isActivated,
-          isAdmin: data.isAdmin,
-          isDataModifier: data.isDataModifier,
-          isStillWorking: data.isStillWorking,
-          isTechnician: data.isTechnician,
-        })
+      //type DataType = UserWithUid & { token: string };
+      const { data }: { data: UserWithUid } = await calendarApi.get(
+        "auth/renew"
       );
+      localStorage.setItem("token", data.token!);
+      localStorage.setItem("token-init-date", new Date().getTime().toString());
+      const userInfoSended: UserWithUid = {
+        name: data.name,
+        uid: data.uid,
+        email: data.email,
+        shortName: data.shortName,
+        canFLC: data.canFLC,
+        canSeeStatistics: data.canSeeStatistics,
+        isActivated: data.isActivated,
+        isAdmin: data.isAdmin,
+        isDataModifier: data.isDataModifier,
+        isStillWorking: data.isStillWorking,
+        isTechnician: data.isTechnician,
+      };
+      dispatch(onLogin(userInfoSended));
     } catch (error) {
       localStorage.clear();
       dispatch(onLogout());
     }
   };
 
-  const startLogout = () => {
+  const startLogout = (): void => {
     emptyCourses();
     emptyAppUsers();
 
@@ -206,5 +286,5 @@ export const useAuthStore = () => {
     startLogout,
     updatePassword,
     startRestoringPassword,
-  };
+  } as useAuthStoreReturnTypes;
 };

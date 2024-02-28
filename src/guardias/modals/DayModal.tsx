@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Grid, Stack } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useState, SyntheticEvent } from "react";
 import { useCalendarStore } from "../../hooks/useCalendarStore";
 
 import { CheckboxesBox } from "./dayModalComponents/CheckboxesBox";
@@ -14,8 +14,9 @@ import { DateBox } from "./dayModalComponents/DateBox";
 import { ButtonsBox } from "./dayModalComponents/ButtonsBox";
 import { SpinnerInModal } from "../customizedComponents";
 import { useAuthStore } from "../../hooks";
+import { EventGuardDay } from "../../interfaces";
 
-const emptyGuardDay = {
+const emptyGuardDay: EventGuardDay = {
   simpleDate: { year: 2999, month: 0, day: 0 },
   technicians: [],
   isHoliday: false,
@@ -26,7 +27,11 @@ const emptyGuardDay = {
   techniciansOut: [],
 };
 
-export const DayModal = ({ closeModal }) => {
+export const DayModal = ({
+  closeModal,
+}: {
+  closeModal: () => void;
+}): JSX.Element | undefined => {
   const { activeGuardDay, guardDayInformation, startSavingGuardDay, isSaving } =
     useCalendarStore();
   const { selectGuardDay } = useGuardDayStore();
@@ -34,7 +39,7 @@ export const DayModal = ({ closeModal }) => {
   const { getTeachersIn, emptyTeachersName } = useAppUsersStore();
   const { user } = useAuthStore();
 
-  let newFormValues = {};
+  let newFormValues: EventGuardDay = {} as EventGuardDay;
   if (activeGuardDay) {
     newFormValues = guardDayInformation(activeGuardDay);
 
@@ -52,20 +57,37 @@ export const DayModal = ({ closeModal }) => {
     newFormValues = emptyGuardDay;
   }
 
-  const [formValues, setFormValues] = useState(newFormValues);
+  const [, setFormValues] = useState<EventGuardDay>(newFormValues); //formValues
 
-  const onSubmit = async (event) => {
+  /*
+  interface SwalOptions {
+    title?: string;
+    text?: string;
+    target?: HTMLElement | undefined | string;
+    icon?: "success" | "error" | "warning" | "info" | "question";
+  }
+
+   const swalOptions: SwalOptions = {
+    title:
+      "Los nombres de los técnicos/formadores de guardia no pueden estar vacíos.",
+    text: "Por favor, modifica esto antes de guardar",
+    target: document.getElementById("modal-fondo")!,
+    icon: "error",
+  }; */
+
+  const onSubmit = async (event: SyntheticEvent): Promise<void> => {
     event.preventDefault();
-    if (!emptyTeachersName(guardDayOpened.technicians)) {
-      await startSavingGuardDay(guardDayOpened);
+    if (!emptyTeachersName(guardDayOpened!.technicians)) {
+      await startSavingGuardDay(guardDayOpened!);
 
       closeModal();
     } else {
+      //  Swal.fire(swalOptions);
       Swal.fire({
         title:
           "Los nombres de los técnicos/formadores de guardia no pueden estar vacíos.",
         text: "Por favor, modifica esto antes de guardar",
-        target: document.getElementById("modal-fondo"),
+        target: document.getElementById("modal-fondo")!,
         icon: "error",
       });
     }
@@ -73,7 +95,7 @@ export const DayModal = ({ closeModal }) => {
 
   useEffect(() => {
     if (activeGuardDay) {
-      const newFormValues = guardDayInformation(activeGuardDay);
+      const newFormValues: EventGuardDay = guardDayInformation(activeGuardDay);
 
       if (newFormValues) {
         setFormValues({ ...newFormValues });

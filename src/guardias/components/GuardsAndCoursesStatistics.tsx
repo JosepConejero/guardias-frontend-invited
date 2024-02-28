@@ -2,7 +2,7 @@ import { Divider, Grid, Typography } from "@mui/material";
 import { useStatisticsData } from "../../hooks/useStatisticsData";
 //import { useAuthStore } from "../../hooks";
 
-export const GuardsAndCoursesStatistics = () => {
+export const GuardsAndCoursesStatistics = (): JSX.Element => {
   const { guardsAndFlcsStatisticsSortedByShortName } = useStatisticsData();
   //const { user } = useAuthStore();
 

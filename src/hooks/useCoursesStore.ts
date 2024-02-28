@@ -12,33 +12,51 @@ import {
 import calendarApi from "../api/calendarApi";
 import Swal from "sweetalert2";
 import { useState } from "react";
+import { Course } from "../interfaces";
+import { RootState } from "../store";
+
+interface UseCoursesStoreReturnTypes {
+  courses: Course[];
+  activeCourse: Course;
+  isSaving: boolean;
+  isDeletingCourse: boolean;
+  setActiveCourse: (course: Course) => void;
+  setInactiveCourse: () => void;
+  startSavingCourse: (course: Course) => Promise<void>;
+  startLoadingCourses: () => Promise<void>;
+  startDeletingCourse: (course: Course) => Promise<void>;
+  getCourseById: (courses: Course[], courseId: string) => Course;
+  emptyCourses: () => void;
+  courseTitleById: (id: string) => string;
+}
 
 export const useCoursesStore = () => {
   const dispatch = useDispatch();
   const { courses, activeCourse, isDeletingCourse } = useSelector(
-    (state) => state.course
+    (state: RootState) => state.course
   );
-  const [isSaving, setIsSaving] = useState(false);
+  const [isSaving, setIsSaving] = useState<boolean>(false);
 
-  const setActiveCourse = (course) => {
+  const setActiveCourse = (course: Course): void => {
     dispatch(onSetActiveCourse(course));
   };
 
-  const setInactiveCourse = () => {
+  const setInactiveCourse = (): void => {
     dispatch(onSetInactiveCourse());
   };
 
-  const startLoadingCourses = async () => {
+  const startLoadingCourses = async (): Promise<void> => {
     try {
       const { data } = await calendarApi.get("/courses");
       dispatch(onLoadCourses(data.cursos));
-    } catch (error) {
+    } catch (error: any) {
+      ///any
       console.log("Error cargando cursos");
       console.log(error);
     }
   };
 
-  const startSavingCourse = async (course) => {
+  const startSavingCourse = async (course: Course): Promise<void> => {
     try {
       setIsSaving(true);
       if (course.id) {
@@ -50,7 +68,7 @@ export const useCoursesStore = () => {
       const { data } = await calendarApi.post("/courses", course);
       dispatch(onAddNewCourse({ ...course, id: data.curso.id }));
       setIsSaving(false);
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
       Swal.fire(
         "Error al guardar o actualizar un curso",
@@ -60,13 +78,13 @@ export const useCoursesStore = () => {
     }
   };
 
-  const startDeletingCourse = async (course) => {
+  const startDeletingCourse = async (course: Course): Promise<void> => {
     try {
       dispatch(onSetDeletingCourse(true));
       await calendarApi.delete(`/courses/${course.id}`);
       dispatch(onDeleteCourse(course));
       dispatch(onSetDeletingCourse(false));
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
       Swal.fire(
         "Error al eliminar un curso",
@@ -76,8 +94,8 @@ export const useCoursesStore = () => {
     }
   };
 
-  const getCourseById = (courses, courseId) => {
-    let course = {};
+  const getCourseById = (courses: Course[], courseId: string): Course => {
+    let course: Course = {} as Course;
     for (let i = 0; i < courses.length; i++) {
       if (courses[i].id === courseId) {
         course = { ...courses[i] };
@@ -86,8 +104,8 @@ export const useCoursesStore = () => {
     return course;
   };
 
-  const getCourseTitleById = (courses, courseId) => {
-    let course = {};
+  const getCourseTitleById = (courses: Course[], courseId: string) => {
+    let course = {} as Course;
     if (courses) {
       for (let i = 0; i < courses.length; i++) {
         if (courses[i].id === courseId) {
@@ -98,9 +116,10 @@ export const useCoursesStore = () => {
     return course?.title;
   };
 
-  const courseTitleById = (id) => getCourseTitleById(courses, id);
+  const courseTitleById = (id: string): string =>
+    getCourseTitleById(courses, id);
 
-  const emptyCourses = () => {
+  const emptyCourses = (): void => {
     dispatch(onEmptyCourses());
   };
 
@@ -119,5 +138,5 @@ export const useCoursesStore = () => {
     getCourseById,
     emptyCourses,
     courseTitleById,
-  };
+  } as UseCoursesStoreReturnTypes;
 };

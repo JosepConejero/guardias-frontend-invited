@@ -9,18 +9,22 @@ import { MonthDays } from "./MonthDays";
 import { useCalendarStore } from "../../hooks";
 import { useDispatch, useSelector } from "react-redux";
 import { onUpdateShowedDate } from "../../store/calendar/calendarSlice";
+import { RootState } from "../../store";
+import { SimpleDate } from "../../interfaces";
 
-export const MonthBox = () => {
-  const { showedDate } = useSelector((state) => state.calendar);
+export const MonthBox = (): JSX.Element => {
+  const { showedDate }: { showedDate: Date } = useSelector(
+    (state: RootState) => state.calendar
+  );
   const dispatch = useDispatch();
 
-  const [showedDays, setShowedDays] = useState(
+  const [showedDays, setShowedDays] = useState<SimpleDate[]>(
     officeDate(showedDate.getFullYear(), showedDate.getMonth())
   );
 
   const { setShowedMonth } = useCalendarStore();
 
-  const onPreviousMonth = () => {
+  const onPreviousMonth = (): void => {
     dispatch(
       onUpdateShowedDate(
         new Date(showedDate.getFullYear(), showedDate.getMonth() - 1)
@@ -31,7 +35,7 @@ export const MonthBox = () => {
     );
   };
 
-  const onNextMonth = () => {
+  const onNextMonth = (): void => {
     dispatch(
       onUpdateShowedDate(
         new Date(showedDate.getFullYear(), showedDate.getMonth() + 1)

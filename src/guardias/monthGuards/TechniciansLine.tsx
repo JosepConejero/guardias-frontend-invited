@@ -1,23 +1,30 @@
 import { Stack, Typography } from "@mui/material";
 import { useGuardDayInformation } from "../../hooks/useGuardDayInformation";
+import { DayCourse, EventGuardDay } from "../../interfaces";
+
+interface TechniciansLineProps {
+  offSet?: number;
+  backgroundColour?: string;
+  guardDayInformation: EventGuardDay;
+}
 
 export const TechniciansLine = ({
   offSet = 0,
   backgroundColour,
   guardDayInformation,
-}) => {
+}: TechniciansLineProps): JSX.Element => {
   const {
     guardTechnicians,
     isThereAFirstTechnician,
     isThereASecondTechnician,
   } = useGuardDayInformation(guardDayInformation);
 
-  let firstGuardTechnician = {};
-  let secondGuardTechnician = {};
+  let firstGuardTechnician: DayCourse = {} as DayCourse;
+  let secondGuardTechnician: DayCourse = {} as DayCourse;
 
-  const fontSizeIfDaysInWeek = 14;
+  const fontSizeIfDaysInWeek: number = 14;
 
-  let techniciansLine = <></>;
+  let techniciansLine: JSX.Element = <></>;
 
   if (isThereASecondTechnician) {
     [firstGuardTechnician, secondGuardTechnician] = guardTechnicians;

@@ -3,33 +3,34 @@ import { Button, Grid, Link, TextField, Typography } from "@mui/material";
 import { AuthLayout } from "../layout/AuthLayout";
 import { useAuthStore, useForm } from "../../hooks";
 import Swal from "sweetalert2";
-import { useEffect, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormValidations, InitialForm } from "../../types/FormTypes";
 
-const formFields = {
+const formFields: InitialForm = {
   name: "",
   email: "",
   password: "",
   password2: "",
 };
 
-const formValidations = {
-  email: [(value) => value.includes("@"), "El correo debe tener una @"],
+const formValidations: FormValidations = {
+  name: [(value: string) => value.length >= 1, "El nombre es obligatorio"],
+  email: [(value: string) => value.includes("@"), "El correo debe tener una @"],
   password: [
-    (value) => value.length >= 6,
+    (value: string) => value.length >= 6,
     "El password debe tener como mínimo 6 letras",
   ],
   password2: [
-    (value) => value.length >= 6,
+    (value: string) => value.length >= 6,
     "El password debe tener como mínimo 6 letras",
   ],
-  name: [(value) => value.length >= 1, "El nombre es obligatorio"],
 };
 
-export const RegisterPage = () => {
-  const [formSubmitted, setFormSubmitted] = useState(false);
+export const RegisterPage = (): JSX.Element => {
+  const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
   const { status, startRegister, errorMessage } = useAuthStore();
 
-  const isCheckingAuthentication = useMemo(
+  const isCheckingAuthentication: boolean = useMemo(
     () => status === "checking",
     [status]
   );
@@ -47,7 +48,7 @@ export const RegisterPage = () => {
     password2Valid,
   } = useForm(formFields, formValidations);
 
-  const onSubmit = (event) => {
+  const onSubmit = (event: FormEvent) => {
     event.preventDefault();
     setFormSubmitted(true);
     if (password !== password2) {

@@ -10,10 +10,12 @@ import { useAuthStore, useCalendarStore } from "../../hooks";
 import { BasicModal } from "../modals/basicModal/BasicModal";
 import { useSelector } from "react-redux";
 import { Spinner } from "../customizedComponents";
+import { Course } from "../../interfaces";
+import { RootState } from "../../store";
 
-export const CoursesSettings = () => {
+export const CoursesSettings = (): JSX.Element => {
   const { openCourseModal, closeCourseModal } = useUiStore();
-  const { isCourseModalOpen } = useSelector((state) => state.ui);
+  const { isCourseModalOpen } = useSelector((state: RootState) => state.ui);
   const { courses, startLoadingCourses, isDeletingCourse } = useCoursesStore();
   const { user } = useAuthStore();
   const { guardDays, startLoadingGuardDays } = useCalendarStore();
@@ -123,9 +125,9 @@ export const CoursesSettings = () => {
         <Grid item>
           <Stack>
             {courses.map(
-              (course) =>
+              (course: Course) =>
                 course.title !== "SIN CURSO" && (
-                  <ListItemCourses key={course.id} course={course} />
+                  <ListItemCourses key={course.id!} course={course} />
                 )
             )}
           </Stack>
@@ -133,7 +135,7 @@ export const CoursesSettings = () => {
       </Grid>
 
       <BasicModal isOpen={isCourseModalOpen} closeModal={closeCourseModal}>
-        <CourseNameModal closeModal={closeCourseModal} />
+        <CourseNameModal />
       </BasicModal>
     </>
   );

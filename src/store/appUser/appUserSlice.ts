@@ -1,48 +1,65 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { User } from "../../interfaces";
+import { RootState } from "../store";
+
+interface AppUserSliceInitialState {
+  isLoadingAppUsers: boolean;
+  appUsers: User[];
+  activeAppUser: null | User;
+  isDeletingAppUser: boolean;
+}
+
+const initialState: AppUserSliceInitialState = {
+  isLoadingAppUsers: true,
+  appUsers: [],
+  activeAppUser: null,
+  isDeletingAppUser: false,
+};
 
 export const appUserSlice = createSlice({
   name: "appUser",
-  initialState: {
-    isLoadingAppUsers: true,
-    appUsers: [],
-    activeAppUser: null,
-    isDeletingAppUser: false,
-  },
+  initialState,
   reducers: {
-    onSetActiveAppUser: (state, { payload }) => {
+    onSetActiveAppUser: (state: RootState, { payload }: { payload: User }) => {
       state.activeAppUser = payload;
     },
-    onSetInactiveAppUser: (state) => {
+    onSetInactiveAppUser: (state: RootState) => {
       state.activeAppUser = null;
     },
-    onUpdateAppUser: (state, { payload }) => {
-      state.appUsers = state.appUsers.map((appUser) => {
+    onUpdateAppUser: (state: RootState, { payload }: { payload: User }) => {
+      state.appUsers = state.appUsers.map((appUser: User) => {
         if (appUser.id === payload.id) {
           return payload;
         }
         return appUser;
       });
     },
-    onLoadAppUsers: (state, { payload = [] }) => {
+    onLoadAppUsers: (
+      state: RootState,
+      { payload = [] }: { payload: User[] }
+    ) => {
       state.isLoadingAppUsers = false;
-      payload.forEach((appUser) => {
-        const exists = state.appUsers.some(
-          (dbAppUser) => dbAppUser.id === appUser.id
+      payload.forEach((appUser: User) => {
+        const exists: boolean = state.appUsers.some(
+          (dbAppUser: User) => dbAppUser.id === appUser.id
         );
         if (!exists) {
           state.appUsers.push(appUser);
         }
       });
     },
-    onDeleteAppUser: (state, { payload }) => {
+    onDeleteAppUser: (state: RootState, { payload }: { payload: User }) => {
       state.appUsers = state.appUsers.filter(
-        (appUser) => appUser.id !== payload.id
+        (appUser: User) => appUser.id !== payload.id
       );
     },
-    onSetDeletingAppUser: (state, { payload }) => {
+    onSetDeletingAppUser: (
+      state: RootState,
+      { payload }: { payload: boolean }
+    ) => {
       state.isDeletingAppUser = payload;
     },
-    onEmptyAppUsers: (state) => {
+    onEmptyAppUsers: (state: RootState) => {
       state.appUsers = [];
     },
   },

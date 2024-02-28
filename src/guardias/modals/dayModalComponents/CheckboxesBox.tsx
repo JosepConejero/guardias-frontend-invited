@@ -10,30 +10,45 @@ import {
 import { useCheckboxes } from "../../../hooks/useCheckboxes";
 import { useGuardDayStore } from "../../../hooks/useGuardDayStore";
 import { useAuthStore } from "../../../hooks";
+import { EventGuardDay } from "../../../interfaces";
 
-export const CheckboxesBox = () => {
+export const CheckboxesBox = (): JSX.Element => {
   const { guardDayOpened, updateOpenedGuardDay } = useGuardDayStore();
   const { user } = useAuthStore();
 
   const {
     checkedCheckbox: isHolidayChecked,
     onHandleClick: onHandleClickIsHoliday,
-  } = useCheckboxes(guardDayOpened.isHoliday);
+  } = useCheckboxes(guardDayOpened!.isHoliday);
   const {
     checkedCheckbox: isThereOffice2hChecked,
     onHandleClick: onHandleClickIsThereOffice2h,
-  } = useCheckboxes(guardDayOpened.isThereOffice2h);
+  } = useCheckboxes(guardDayOpened!.isThereOffice2h);
   const {
     checkedCheckbox: isThereExtraMeetingChecked,
     onHandleClick: onHandleClickIsThereExtraMeeting,
-  } = useCheckboxes(guardDayOpened.isThereExtraMeeting);
+  } = useCheckboxes(guardDayOpened!.isThereExtraMeeting);
 
-  const onCheckboxChangeFormValues = ({ target }) => {
-    updateOpenedGuardDay({ ...guardDayOpened, [target.name]: target.checked });
+  const onCheckboxChangeFormValues = ({
+    target,
+  }: {
+    target: HTMLInputElement;
+  }) => {
+    updateOpenedGuardDay({
+      ...guardDayOpened,
+      [target.name]: target.checked,
+    } as EventGuardDay);
   };
 
-  const onInputChange = ({ target }) => {
-    updateOpenedGuardDay({ ...guardDayOpened, [target.name]: target.value });
+  const onInputChange = ({
+    target,
+  }: {
+    target: EventTarget & (HTMLInputElement | HTMLTextAreaElement);
+  }) => {
+    updateOpenedGuardDay({
+      ...guardDayOpened,
+      [target.name]: target.value,
+    } as EventGuardDay);
   };
 
   return (
@@ -114,7 +129,7 @@ export const CheckboxesBox = () => {
             placeholder="Indique el tipo de reunión"
             name="extraMeetingText"
             fullWidth
-            value={guardDayOpened.extraMeetingText}
+            value={guardDayOpened!.extraMeetingText}
             onChange={onInputChange}
             size="medium"
           />
@@ -131,7 +146,7 @@ export const CheckboxesBox = () => {
           placeholder="Anote algo aquí"
           fullWidth
           name="note"
-          value={guardDayOpened.note}
+          value={guardDayOpened!.note}
           onChange={onInputChange}
           size="small"
           disabled={!user.isDataModifier}

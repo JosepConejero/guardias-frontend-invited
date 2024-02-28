@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import { SettingsPage } from "../guardias/pages/SettingsPage";
 import { Spinner } from "../guardias/customizedComponents/Spinner";
 
-export const AppRouter = () => {
+export const AppRouter = (): JSX.Element => {
   const { status, checkAuthToken } = useAuthStore();
 
   useEffect(() => {

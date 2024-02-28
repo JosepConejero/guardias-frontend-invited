@@ -1,28 +1,53 @@
+//import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
+import { SimpleDate, EventGuardDay } from "../../interfaces";
+import { ShowedMonthType } from "../../types";
+import { RootState } from "../store";
 
-export const calendarSlice = createSlice({
+interface CalendarInitialState {
+  isLoadingGuardDays: boolean;
+  guardDays: EventGuardDay[];
+  activeGuardDay: null | SimpleDate;
+  showedMonth: null | ShowedMonthType;
+  showedDate: Date;
+}
+
+const initialState: CalendarInitialState = {
+  isLoadingGuardDays: true,
+  guardDays: [],
+  activeGuardDay: null,
+  showedMonth: null,
+  showedDate: new Date(),
+};
+
+//cambiar este any
+export const calendarSlice: any = createSlice({
+  ///any
   name: "calendar",
-  initialState: {
-    isLoadingGuardDays: true,
-    guardDays: [],
-    activeGuardDay: null,
-    showedMonth: null,
-    showedDate: new Date(),
-  },
+  initialState,
   reducers: {
-    onSetActiveGuardDay: (state, { payload }) => {
+    onSetActiveGuardDay: (
+      state: RootState,
+      { payload }: { payload: EventGuardDay }
+    ) => {
       state.activeGuardDay = payload;
     },
 
-    onDeactivateGuardDay: (state) => {
+    onDeactivateGuardDay: (state: RootState) => {
       state.activeGuardDay = null;
     },
-    onAddNewGuardDay: (state, { payload }) => {
+    onAddNewGuardDay: (
+      state: RootState,
+      { payload }: { payload: EventGuardDay }
+    ) => {
       state.guardDays.push(payload);
       state.activeGuardDay = null;
     },
-    onUpdateGuardDay: (state, { payload }) => {
-      state.guardDays = state.guardDays.map((guardDay) => {
+    onUpdateGuardDay: (
+      state: RootState,
+      { payload }: { payload: EventGuardDay }
+    ) => {
+      state.guardDays = state.guardDays.map((guardDay: EventGuardDay) => {
         if (guardDay.id === payload.id) {
           return payload;
         }
@@ -30,25 +55,36 @@ export const calendarSlice = createSlice({
       });
       state.activeGuardDay = null;
     },
-    onLoadGuardDays: (state, { payload = [] }) => {
+    onLoadGuardDays: (
+      state: RootState,
+      { payload = [] }: { payload: EventGuardDay[] }
+    ) => {
       state.isLoadingGuardDays = false;
-      payload.forEach((guardDay) => {
-        const exists = state.guardDays.some(
-          (dbGuardDay) => dbGuardDay.id === guardDay.id
+      payload.forEach((guardDay: EventGuardDay) => {
+        const exists: boolean = state.guardDays.some(
+          (dbGuardDay: EventGuardDay) => dbGuardDay.id === guardDay.id
         );
         if (!exists) {
           state.guardDays.push(guardDay);
         }
       });
     },
-    onLogoutCalendar: (state) => {
+    onLogoutCalendar: (state: RootState) => {
       state.isLoadingGuardDays = true;
       state.guardDays = [];
     },
-    onSetShowedMonth: (state, { payload }) => {
+    //payload es de tipo: ShowedMonthType
+    onSetShowedMonth: (
+      state: RootState,
+      //{ payload }: { payload: PayloadAction<ShowedMonthType> }
+      { payload }: { payload: ShowedMonthType }
+    ) => {
       state.showedMonth = payload;
     },
-    onUpdateShowedDate: (state, { payload }) => {
+    onUpdateShowedDate: (
+      state: RootState,
+      { payload }: { payload: ShowedMonthType }
+    ) => {
       state.showedDate = payload;
     },
   },

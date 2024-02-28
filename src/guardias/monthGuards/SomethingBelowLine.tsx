@@ -1,7 +1,10 @@
 import { Grid, Typography } from "@mui/material";
 import { useGuardDayInformation } from "../../hooks/useGuardDayInformation";
+import { EventGuardDay } from "../../interfaces";
 
-export const SomethingBelowLine = ({ guardDayInformation }) => {
+export const SomethingBelowLine: React.FC<{
+  guardDayInformation: EventGuardDay;
+}> = ({ guardDayInformation }) => {
   const {
     isThereMoreInformation,
     isSomeExternal,
@@ -10,8 +13,8 @@ export const SomethingBelowLine = ({ guardDayInformation }) => {
     isThereExtraMeeting,
   } = useGuardDayInformation(guardDayInformation);
 
-  const fontSizeIfDaysInWeek = 13;
-  const pxIfDaysInWeek = 7 / 8;
+  const fontSizeIfDaysInWeek: number = 13;
+  const pxIfDaysInWeek: number = 7 / 8;
 
   return (
     <>
@@ -92,7 +95,8 @@ export const SomethingBelowLine = ({ guardDayInformation }) => {
           <Typography
             sx={{
               borderRadius: "3px",
-              bgcolor: "flcRelated.main",
+              //bgcolor: "flcRelated.main",
+              bgcolor: "info.main",
               color: "white",
               px: pxIfDaysInWeek,
               fontWeight: "bold",

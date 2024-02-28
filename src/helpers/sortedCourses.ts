@@ -8,7 +8,7 @@ export const sortedCourses = (courses: Course[]) => {
     (course: Course): boolean => course.title === "SIN CURSO"
   );
 
-  let sinCursoCourse; //este
+  let sinCursoCourse: Course[] = [];
   if (sinCursoIndex !== undefined && sinCursoIndex !== null)
     sinCursoCourse = newCourses.splice(sinCursoIndex, 1);
 
@@ -42,33 +42,26 @@ export const sortedCourses = (courses: Course[]) => {
 
   if (!!flcFrequentCourses) {
     flcFrequentCourses.sort(compareItems);
-    //result.push(flcFrequentCourses);
-    result.concat(flcFrequentCourses);
+    result = result.concat(flcFrequentCourses);
   }
 
   if (!!noFlcFrequentCourses) {
     noFlcFrequentCourses.sort(compareItems);
-    //result.push(noFlcFrequentCourses);
-    result.concat(noFlcFrequentCourses);
+    result = result.concat(noFlcFrequentCourses);
   }
 
   if (!!flcNoFrequentCourses) {
     flcNoFrequentCourses.sort(compareItems);
-    //result.push(flcNoFrequentCourses);
-    result.concat(flcNoFrequentCourses);
+    result = result.concat(flcNoFrequentCourses);
   }
   if (!!noFlcNoFrequentCourses) {
     noFlcNoFrequentCourses.sort(compareItems);
-    //result.push(noFlcNoFrequentCourses);
-    result.concat(noFlcNoFrequentCourses);
+    result = result.concat(noFlcNoFrequentCourses);
   }
 
   if (!!sinCursoCourse) {
     !!sinCursoIndex && result.unshift(sinCursoCourse[0]);
   }
 
-  //  result.unshift(sinCursoCourse[0]);
-
-  //return result.flat();
   return result;
 };

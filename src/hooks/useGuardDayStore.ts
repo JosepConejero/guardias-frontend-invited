@@ -6,49 +6,55 @@ import {
   onLoadTechniciansInGuardDay,
   onDeleteTechnicianOpenedGuardDay,
 } from "../store/guardDay/guardDaySlice";
+import { RootState } from "../store";
+import {
+  EventGuardDay,
+  UserShortName,
+  UseGuardDayStoreReturnTypes,
+} from "../interfaces";
 
 export const useGuardDayStore = () => {
   const dispatch = useDispatch();
   const {
     guardDayOpened,
-    techniciansGuardDay,
+    //techniciansGuardDay,
     techniciansInGuardDay,
-    techniciansOutGuardDay,
-    coursesGuardDay,
-  } = useSelector((state) => state.guardDay);
+    //techniciansOutGuardDay,
+    //coursesGuardDay,
+  } = useSelector((state: RootState) => state.guardDay);
 
-  const selectGuardDay = (payload) => {
+  const selectGuardDay = (payload: EventGuardDay): void => {
     dispatch(onSelectGuardDay(payload));
   };
 
-  const deselectGuardDay = () => {
+  const deselectGuardDay = (): void => {
     dispatch(onDeselectGuardDay());
   };
 
-  const updateOpenedGuardDay = (payload) => {
+  const updateOpenedGuardDay = (payload: EventGuardDay): void => {
     dispatch(onUpdateOpenedGuardDay(payload));
   };
 
-  const loadTechniciansInGuardDay = (payload) => {
+  const loadTechniciansInGuardDay = (payload: UserShortName[]): void => {
     dispatch(onLoadTechniciansInGuardDay(payload));
   };
 
-  const deleteTechnicianOpenedGuardDay = (payload) => {
+  const deleteTechnicianOpenedGuardDay = (payload: string): void => {
     dispatch(onDeleteTechnicianOpenedGuardDay(payload));
   };
 
   return {
     // properties
     guardDayOpened,
-    techniciansGuardDay,
+    //  techniciansGuardDay,
     techniciansInGuardDay,
-    techniciansOutGuardDay,
-    coursesGuardDay,
+    //  techniciansOutGuardDay,
+    //coursesGuardDay,
     // methods
     selectGuardDay,
     deselectGuardDay,
     updateOpenedGuardDay,
     loadTechniciansInGuardDay,
     deleteTechnicianOpenedGuardDay,
-  };
+  } as UseGuardDayStoreReturnTypes;
 };

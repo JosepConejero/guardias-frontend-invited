@@ -3,15 +3,22 @@ import { Typography } from "@mui/material";
 import "./TechnicianName.css";
 import { useState } from "react";
 
+interface TechnicianNameProps {
+  name: string;
+  isOut: boolean;
+  updateTechniciansList: (name: string) => void;
+  disabled: boolean;
+}
+
 export const TechnicianName = ({
   name,
   isOut,
   updateTechniciansList,
   disabled,
-}) => {
-  const [classSelected, setClassSelected] = useState(isOut);
+}: TechnicianNameProps): JSX.Element => {
+  const [classSelected, setClassSelected] = useState<boolean>(isOut);
 
-  const handleClick = () => {
+  const handleClick = (): void => {
     if (!disabled) {
       updateTechniciansList(name);
       setClassSelected((prevState) => !prevState);

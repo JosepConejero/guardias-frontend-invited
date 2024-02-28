@@ -1,9 +1,15 @@
 import { useState } from "react";
 
-export const useCheckboxes = (initialValue) => {
-  const [checkedCheckbox, setCheckedCheckbox] = useState(initialValue);
+interface UseCheckBoxesReturnTypes {
+  checkedCheckbox: boolean;
+  setCheckedCheckbox: () => void;
+  onHandleClick: () => void;
+}
 
-  const onHandleClick = () => {
+export const useCheckboxes = (initialValue: boolean) => {
+  const [checkedCheckbox, setCheckedCheckbox] = useState<boolean>(initialValue);
+
+  const onHandleClick = (): void => {
     setCheckedCheckbox(!checkedCheckbox);
   };
 
@@ -11,5 +17,5 @@ export const useCheckboxes = (initialValue) => {
     checkedCheckbox,
     setCheckedCheckbox,
     onHandleClick,
-  };
+  } as UseCheckBoxesReturnTypes;
 };

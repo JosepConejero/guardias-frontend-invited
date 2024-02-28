@@ -14,14 +14,15 @@ import { TechniciansOutStatistics } from "../components/TechniciansOutStatistics
 import { GuardsAndCoursesStatistics } from "../components/GuardsAndCoursesStatistics";
 import { MonthBox } from "../monthGuards/MonthBox";
 import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
-export const GuardiasPage = () => {
+export const GuardiasPage = (): JSX.Element => {
   const { startLoadingGuardDays } = useCalendarStore();
   const { startLoadingAppUsers } = useAppUsersStore();
   const { startLoadingCourses } = useCoursesStore();
 
-  const { showStatistics } = useSelector((state) => state.month);
-  const { daysInWeek } = useSelector((state) => state.month);
+  const { showStatistics } = useSelector((state: RootState) => state.month);
+  const { daysInWeek } = useSelector((state: RootState) => state.month);
 
   useEffect(() => {
     startLoadingAppUsers();

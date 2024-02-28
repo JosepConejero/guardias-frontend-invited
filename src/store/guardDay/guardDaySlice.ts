@@ -1,31 +1,52 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { DayTechnician, EventGuardDay, UserShortName } from "../../interfaces";
+import { RootState } from "../store";
+
+interface GuardDayInitialState {
+  guardDayOpened: EventGuardDay | null;
+  techniciansInGuardDay: UserShortName[];
+  //coursesGuardDay: [],
+}
+
+const initialState: GuardDayInitialState = {
+  guardDayOpened: null,
+  techniciansInGuardDay: [],
+};
 
 export const guardDaySlice = createSlice({
   name: "guardDay",
-  initialState: {
-    guardDayOpened: null,
-    techniciansInGuardDay: [],
-    coursesGuardDay: [],
-  },
+  initialState,
   reducers: {
-    onSelectGuardDay: (state, { payload }) => {
+    onSelectGuardDay: (
+      state: RootState,
+      { payload }: { payload: EventGuardDay }
+    ) => {
       state.guardDayOpened = payload;
     },
-    onDeselectGuardDay: (state) => {
+    onDeselectGuardDay: (state: RootState) => {
       state.guardDayOpened = null;
       state.techniciansInGuardDay = [];
-      state.coursesGuardDay = [];
+      //state.coursesGuardDay = [];
     },
-    onUpdateOpenedGuardDay: (state, { payload }) => {
+    onUpdateOpenedGuardDay: (
+      state: RootState,
+      { payload }: { payload: EventGuardDay }
+    ) => {
       state.guardDayOpened = payload;
     },
-    onLoadTechniciansInGuardDay: (state, { payload }) => {
+    onLoadTechniciansInGuardDay: (
+      state: RootState,
+      { payload }: { payload: UserShortName[] }
+    ) => {
       state.techniciansInGuardDay = payload;
     },
-    onDeleteTechnicianOpenedGuardDay: (state, { payload }) => {
+    onDeleteTechnicianOpenedGuardDay: (
+      state: RootState,
+      { payload }: { payload: string }
+    ) => {
       state.guardDayOpened.technicians =
         state.guardDayOpened.technicians.filter(
-          (technician) => technician.uniqueId !== payload
+          (technician: DayTechnician) => technician.uniqueId !== payload
         );
     },
   },

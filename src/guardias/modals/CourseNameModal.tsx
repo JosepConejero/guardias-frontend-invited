@@ -8,26 +8,27 @@ import {
 } from "@mui/material";
 import { useUiStore } from "../../hooks/useUiStore";
 
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useCoursesStore } from "../../hooks/useCoursesStore";
 import { ButtonsBox } from "./dayModalComponents/ButtonsBox";
 import Swal from "sweetalert2";
 import { useCheckboxes } from "../../hooks";
 import { SpinnerInModal } from "../customizedComponents";
+import { Course } from "../../interfaces";
 
-const emptyCourse = {
+const emptyCourse: Course = {
   title: "",
   flc: true,
   frequent: false,
 };
 
-export const CourseNameModal = () => {
+export const CourseNameModal = (): JSX.Element => {
   const { closeCourseModal } = useUiStore();
   const { startSavingCourse, activeCourse, setInactiveCourse, isSaving } =
     useCoursesStore();
 
-  const [formValues, setFormValues] = useState(emptyCourse);
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [formValues, setFormValues] = useState<Course>(emptyCourse);
+  const [, setFormSubmitted] = useState<boolean>(false); //formSubmitted
 
   const { onHandleClick: onHandleClickFlc } = useCheckboxes(formValues.flc);
 
@@ -35,15 +36,24 @@ export const CourseNameModal = () => {
     formValues.frequent
   );
 
-  const onInputChange = ({ target }) => {
-    setFormValues({ ...formValues, [target.name]: target.value });
+  const onInputChange = ({
+    target,
+  }: {
+    target: EventTarget & (HTMLInputElement | HTMLTextAreaElement);
+  }) => {
+    //:KeyboardEvent
+    setFormValues({ ...formValues, [target.name]: target?.value });
   };
 
-  const onCheckboxChangeFormValues = ({ target }) => {
+  const onCheckboxChangeFormValues = ({
+    target,
+  }: {
+    target: HTMLInputElement;
+  }) => {
     setFormValues({ ...formValues, [target.name]: target.checked });
   };
 
-  const onSubmit = async (event) => {
+  const onSubmit = async (event: FormEvent): Promise<void> => {
     event.preventDefault();
     setFormSubmitted(true);
     if (formValues.title !== "") {
@@ -54,7 +64,7 @@ export const CourseNameModal = () => {
       Swal.fire({
         title: "El nombre del curso no puede estar vacío.",
         text: "Por favor, modifica esto antes de guardar",
-        target: document.getElementById("modal-fondo"),
+        target: document.getElementById("modal-fondo")!,
         icon: "error",
       });
     }

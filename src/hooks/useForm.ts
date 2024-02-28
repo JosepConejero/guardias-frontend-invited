@@ -1,9 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useMemo, useState } from "react";
+import { ChangeEvent, useEffect, useMemo, useState } from "react";
+import {
+  FormValidations,
+  InitialForm,
+  UseFormReturnValues,
+} from "../types/FormTypes";
 
-export const useForm = (initialForm = {}, formValidations = {}) => {
-  const [formState, setFormState] = useState(initialForm);
-  const [formValidation, setFormValidation] = useState({});
+interface FormCheckedValues {
+  [n: string]: null | string;
+}
+
+export const useForm = (
+  initialForm: InitialForm = {} as InitialForm,
+  formValidations: FormValidations = {} as FormValidations
+): UseFormReturnValues => {
+  const [formState, setFormState] = useState<InitialForm>(initialForm);
+  const [formValidation, setFormValidation] = useState<FormCheckedValues>(
+    {} as FormCheckedValues
+  );
 
   useEffect(() => {
     createValidators();
@@ -13,7 +27,7 @@ export const useForm = (initialForm = {}, formValidations = {}) => {
     setFormState(initialForm);
   }, [initialForm]);
 
-  const isFormValid = useMemo(() => {
+  const isFormValid: boolean = useMemo(() => {
     for (const formValue of Object.keys(formValidation)) {
       if (formValidation[formValue] !== null) return false;
     }
@@ -21,20 +35,21 @@ export const useForm = (initialForm = {}, formValidations = {}) => {
     return true;
   }, [formValidation]);
 
-  const onInputChange = ({ target }) => {
-    const { name, value } = target;
+  //const onInputChange = ({target}): void => {
+  const onInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    const { name, value } = event.target;
     setFormState({
       ...formState,
       [name]: value,
     });
   };
 
-  const onResetForm = () => {
+  const onResetForm = (): void => {
     setFormState(initialForm);
   };
 
-  const createValidators = () => {
-    const formCheckedValues = {};
+  const createValidators = (): void => {
+    const formCheckedValues: FormCheckedValues = {};
 
     for (const formField of Object.keys(formValidations)) {
       const [fn, errorMessage] = formValidations[formField];

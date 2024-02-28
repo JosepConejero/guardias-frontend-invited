@@ -14,7 +14,7 @@ import {
 import { useAuthStore } from "../../hooks";
 import { Link } from "@mui/material";
 
-export const Navbar = () => {
+export const Navbar = (): JSX.Element => {
   const { startLogout, user } = useAuthStore();
 
   return (

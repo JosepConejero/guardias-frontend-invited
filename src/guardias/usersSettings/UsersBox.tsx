@@ -5,8 +5,9 @@ import UserItem from "./UserItem";
 import { useAppUsersStore } from "../../hooks/useAppUsersStore";
 import { useEffect } from "react";
 import { useCalendarStore } from "../../hooks";
+import { User } from "../../interfaces";
 
-export default function UsersBox() {
+export default function UsersBox(): JSX.Element {
   const { appUsers, startLoadingAppUsers } = useAppUsersStore();
   const { guardDays, startLoadingGuardDays } = useCalendarStore();
 
@@ -21,7 +22,7 @@ export default function UsersBox() {
 
       <Grid>
         <Stack>
-          {appUsers.map((appUser) => (
+          {appUsers.map((appUser: User) => (
             <UserItem key={appUser.id} appUser={appUser} />
           ))}
         </Stack>

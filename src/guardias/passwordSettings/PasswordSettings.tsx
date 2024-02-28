@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Button, Grid, IconButton, TextField } from "@mui/material";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useAppUsersStore, useAuthStore, useForm } from "../../hooks";
 import Swal from "sweetalert2";
 import GroupsIcon from "@mui/icons-material/Groups";
@@ -8,30 +8,34 @@ import { useDispatch, useSelector } from "react-redux";
 import { switchShowRestoreAllUsersButton } from "../../store/month/monthSlice";
 import { Confirmation } from "../../ui/pages/Confirmation";
 import { Spinner } from "../customizedComponents";
+import { RootState } from "../../store";
+import { User } from "../../interfaces";
+import { DataType } from "../../types/DataType";
+import { FormValidations, InitialForm } from "../../types/FormTypes";
 
-const formFields = {
+const formFields: InitialForm = {
   password0: "",
   password: "",
   password2: "",
 };
 
-const formValidations = {
+const formValidations: FormValidations = {
   password0: [
-    (value) => value.length >= 6,
+    (value: string) => value.length >= 6,
     "El password debe tener como mínimo 6 letras",
   ],
   password: [
-    (value) => value.length >= 6,
+    (value: string) => value.length >= 6,
     "El password debe tener como mínimo 6 letras",
   ],
   password2: [
-    (value) => value.length >= 6,
+    (value: string) => value.length >= 6,
     "El password debe tener como mínimo 6 letras",
   ],
 };
 
-export const PasswordSettings = () => {
-  const [formSubmitted, setFormSubmitted] = useState(false);
+export const PasswordSettings = (): JSX.Element => {
+  const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
   const {
     updatePassword,
     startRestoringPassword,
@@ -51,9 +55,11 @@ export const PasswordSettings = () => {
     onResetForm,
   } = useForm(formFields, formValidations);
   const { appUsers, startLoadingAppUsers } = useAppUsersStore();
-  const { showRestoreAllUsersButton } = useSelector((state) => state.month);
-  const [open, setOpen] = useState(false);
-  const [userId, setUserId] = useState(null);
+  const { showRestoreAllUsersButton } = useSelector(
+    (state: RootState) => state.month
+  );
+  const [open, setOpen] = useState<boolean>(false);
+  const [userId, setUserId] = useState<string | null>(null);
 
   const dispatch = useDispatch();
 
@@ -61,7 +67,7 @@ export const PasswordSettings = () => {
     dispatch(switchShowRestoreAllUsersButton());
   };
 
-  const onSubmit = async (event) => {
+  const onSubmit = async (event: FormEvent) => {
     event.preventDefault();
     setFormSubmitted(true);
     try {
@@ -76,22 +82,24 @@ export const PasswordSettings = () => {
       if (!isFormValid) {
         return;
       }
-      const data = await updatePassword({
+      const data: DataType | void = await updatePassword({
         email: user.email,
         password: password0,
         password2: password,
       });
-      if (!data.ok) {
-        Swal.fire({
-          title: "Error al cambiar la contraseña",
-          text: data.msg,
-          icon: "error",
-        });
-      } else {
-        Swal.fire({
-          title: data.msg,
-          icon: "info",
-        });
+      if (!!data) {
+        if (!data.ok) {
+          Swal.fire({
+            title: "Error al cambiar la contraseña",
+            text: data.msg,
+            icon: "error",
+          });
+        } else {
+          Swal.fire({
+            title: data.msg,
+            icon: "info",
+          });
+        }
       }
       onResetForm();
     } catch (error) {
@@ -105,27 +113,27 @@ export const PasswordSettings = () => {
     setFormSubmitted(false);
   };
 
-  const restorePassword = async (id) => {
+  const restorePassword = async (id: string) => {
     setFormSubmitted(false);
 
     try {
-      const data = await startRestoringPassword({
-        id,
-      });
-
-      if (!data.ok) {
-        Swal.fire({
-          title: "Error al restaurar la contraseña",
-          text: data.msg,
-          icon: "error",
-        });
-      } else {
-        Swal.fire({
-          title: "Contraseña restaurada correctamente",
-          text: "Se recomienda cambiar la contraseña",
-          icon: "info",
-        });
+      const data = await startRestoringPassword({ id });
+      if (!!data) {
+        if (!data.ok) {
+          Swal.fire({
+            title: "Error al restaurar la contraseña",
+            text: data.msg,
+            icon: "error",
+          });
+        } else {
+          Swal.fire({
+            title: "Contraseña restaurada correctamente",
+            text: "Se recomienda cambiar la contraseña",
+            icon: "info",
+          });
+        }
       }
+
       onResetForm();
     } catch (error) {
       Swal.fire({
@@ -136,12 +144,12 @@ export const PasswordSettings = () => {
     }
   };
 
-  const handleOpen = (id) => {
+  const handleOpen = (id: string) => {
     setOpen(true);
     setUserId(id);
   };
 
-  const handleClose = (answer) => {
+  const handleClose = (answer: boolean) => {
     if (answer) {
       if (userId) {
         restorePassword(userId);
@@ -255,11 +263,11 @@ export const PasswordSettings = () => {
               <Grid container direction="column" alignItems="center">
                 {user.isDataModifier &&
                   showRestoreAllUsersButton &&
-                  appUsers.map((thisUser) => (
+                  appUsers.map((thisUser: User) => (
                     <Grid key={thisUser.id} item xs={12}>
                       <Button
                         variant="outlined"
-                        onClick={() => handleOpen(thisUser.id)}
+                        onClick={() => handleOpen(thisUser.id!)}
                         sx={{
                           fontSize: "12px",
                           width: "200px",

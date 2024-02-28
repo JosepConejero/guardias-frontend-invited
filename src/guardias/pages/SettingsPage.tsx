@@ -4,10 +4,17 @@ import { UsersSettings } from "../usersSettings";
 import { CoursesSettings } from "../coursesSettings";
 
 import "../../styles.css";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { PasswordSettings } from "../passwordSettings/PasswordSettings";
 
-function TabPanel(props) {
+interface TabPanelProps {
+  children: ReactNode;
+  value: number;
+  index: number;
+  //...other: string[];
+}
+
+function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
 
   return (
@@ -23,17 +30,18 @@ function TabPanel(props) {
   );
 }
 
-function a11yProps(index) {
+function a11yProps(index: number) {
   return {
     id: `simple-tab-${index}`,
     "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
-export const SettingsPage = () => {
-  const [value, setValue] = useState(0);
+export const SettingsPage = (): JSX.Element => {
+  const [value, setValue] = useState<number>(0);
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (event: any, newValue: number) => {
+    ///any
     setValue(newValue);
   };
 

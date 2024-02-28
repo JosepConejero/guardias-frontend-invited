@@ -1,10 +1,32 @@
 import { extractItemByProperty } from "../helpers/extractItemByProperty";
+import { Course, DayCourse, EventGuardDay, User } from "../interfaces";
 import { useAppUsersStore } from "./useAppUsersStore";
 import { useCoursesStore } from "./useCoursesStore";
 
-export const useGuardDayInformation = (guardDayInformation) => {
-  const { courses } = useCoursesStore();
-  const { appUsers } = useAppUsersStore();
+type useGuardDayInformationReturnTypes = {
+  guardTechnicians: DayCourse[];
+  isHoliday: boolean;
+  isThereOffice2h: boolean;
+  isThereMoreInformation: boolean;
+  isSomeExternal: boolean;
+  isSomebodyWithFLC: boolean;
+  isThereAFirstTechnician: boolean;
+  isThereASecondTechnician: boolean;
+  courseList: DayCourse[];
+  isOneLine: boolean;
+  isOneLineAndBottom: boolean;
+  isTwoLines: boolean;
+  isTwoLinesAndBottom: boolean;
+  isThreeLines: boolean;
+  isThreeLinesAndBottom: boolean;
+  isThereSomeCourse: boolean;
+  isThereSomethingBelow: boolean;
+  isThereExtraMeeting: boolean;
+};
+
+export const useGuardDayInformation = (guardDayInformation: EventGuardDay) => {
+  const { courses }: { courses: Course[] } = useCoursesStore();
+  const { appUsers }: { appUsers: User[] } = useAppUsersStore();
 
   const isHoliday = !!guardDayInformation && guardDayInformation.isHoliday;
   const isThereOffice2h =
@@ -16,14 +38,14 @@ export const useGuardDayInformation = (guardDayInformation) => {
   const isThereExtraMeeting =
     !!guardDayInformation && guardDayInformation.isThereExtraMeeting;
 
-  let guardTechnicians = [];
+  let guardTechnicians: DayCourse[] = [];
   let isSomeExternal = false;
   let isSomebodyWithFLC = false;
   let isThereSomeCourse = false;
-  let courseList = [];
+  let courseList: DayCourse[] = [];
 
   guardDayInformation?.technicians.forEach((technician) => {
-    let newGuardTechnician = {};
+    let newGuardTechnician: DayCourse = {} as DayCourse;
     const { shortName, isExternal } = extractItemByProperty(
       appUsers,
       "id",
@@ -59,7 +81,7 @@ export const useGuardDayInformation = (guardDayInformation) => {
     guardTechnicians = [...guardTechnicians, { ...newGuardTechnician }];
   });
 
-  guardTechnicians.forEach((technician) => {
+  guardTechnicians.forEach((technician: DayCourse) => {
     if (technician.isThereCourse)
       courseList = [...courseList, { ...technician }];
   });
@@ -126,5 +148,5 @@ export const useGuardDayInformation = (guardDayInformation) => {
     isThereSomeCourse,
     isThereSomethingBelow,
     isThereExtraMeeting,
-  };
+  } as useGuardDayInformationReturnTypes;
 };

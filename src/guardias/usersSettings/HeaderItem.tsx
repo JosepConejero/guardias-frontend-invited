@@ -1,6 +1,6 @@
 import { Grid, Tooltip, Typography } from "@mui/material";
 
-export const HeaderItem = () => {
+export const HeaderItem = (): JSX.Element => {
   return (
     <Grid
       container

@@ -1,29 +1,38 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "../store";
+
+interface UiSliceInitialState {
+  isDayModalOpen: boolean;
+  isCourseModalOpen: boolean;
+  isAppUsersModalOpen: boolean;
+}
+
+const initialState: UiSliceInitialState = {
+  isDayModalOpen: false,
+  isCourseModalOpen: false,
+  isAppUsersModalOpen: false,
+};
 
 export const uiSlice = createSlice({
   name: "ui",
-  initialState: {
-    isDayModalOpen: false,
-    isCourseModalOpen: false,
-    isAppUsersModalOpen: false,
-  },
+  initialState,
   reducers: {
-    onOpenDayModal: (state) => {
+    onOpenDayModal: (state: RootState) => {
       state.isDayModalOpen = true;
     },
-    onCloseDayModal: (state) => {
+    onCloseDayModal: (state: RootState) => {
       state.isDayModalOpen = false;
     },
-    onOpenCourseModal: (state) => {
+    onOpenCourseModal: (state: RootState) => {
       state.isCourseModalOpen = true;
     },
-    onCloseCourseModal: (state) => {
+    onCloseCourseModal: (state: RootState) => {
       state.isCourseModalOpen = false;
     },
-    onOpenAppUsersModal: (state) => {
+    onOpenAppUsersModal: (state: RootState) => {
       state.isAppUsersModalOpen = true;
     },
-    onCloseAppUsersModal: (state) => {
+    onCloseAppUsersModal: (state: RootState) => {
       state.isAppUsersModalOpen = false;
     },
   },

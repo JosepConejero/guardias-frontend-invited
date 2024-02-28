@@ -5,21 +5,33 @@ import "../../styles.css";
 
 import { AuthLayout } from "../layout/AuthLayout";
 import { useAuthStore, useForm } from "../../hooks";
-import { useEffect, useMemo } from "react";
+import { SyntheticEvent, useEffect, useMemo } from "react";
 import Swal from "sweetalert2";
+import { InitialForm } from "../../types/FormTypes";
 
-const formFields = {
+const formFields: InitialForm = {
   email: "",
   password: "",
 };
 
-export const LoginPage = () => {
+export const LoginPage = (): JSX.Element => {
   const { status, startLogin, errorMessage } = useAuthStore();
-  const isAuthenticating = useMemo(() => status === "checking", [status]);
+  const isAuthenticating: boolean = useMemo(
+    () => status === "checking",
+    [status]
+  );
 
-  const { email, password, onInputChange } = useForm(formFields);
+  const {
+    email,
+    password,
+    onInputChange,
+  } /* : {
+    email: string;
+    password: string;
+    onInputChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  } */ = useForm(formFields); ///any
 
-  const onSubmit = (event) => {
+  const onSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
     startLogin({ email, password });
   };

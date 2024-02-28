@@ -1,30 +1,39 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "../store";
+
+interface MontSliceInitialState {
+  daysInWeek: 5 | 6;
+  showStatistics: boolean;
+  showRestoreAllUsersButton: boolean;
+}
+
+const initialState: MontSliceInitialState = {
+  daysInWeek: 5,
+  showStatistics: false,
+  showRestoreAllUsersButton: false,
+};
 
 export const monthSlice = createSlice({
   name: "month",
-  initialState: {
-    daysInWeek: 5,
-    showStatistics: false,
-    showRestoreAllUsersButton: false,
-  },
+  initialState,
   reducers: {
-    switchDaysInWeek: (state) => {
+    switchDaysInWeek: (state: RootState) => {
       if (state.daysInWeek === 5) {
         state.daysInWeek = 6;
       } else {
         state.daysInWeek = 5;
       }
     },
-    switchShowStatistics: (state) => {
+    switchShowStatistics: (state: RootState) => {
       state.showStatistics = !state.showStatistics;
     },
-    resetShowStatistics: (state) => {
+    resetShowStatistics: (state: RootState) => {
       state.showStatistics = false;
     },
-    switchShowRestoreAllUsersButton: (state) => {
+    switchShowRestoreAllUsersButton: (state: RootState) => {
       state.showRestoreAllUsersButton = !state.showRestoreAllUsersButton;
     },
-    resetShowRestoreAllUsersButton: (state) => {
+    resetShowRestoreAllUsersButton: (state: RootState) => {
       state.showRestoreAllUsersButton = false;
     },
   },

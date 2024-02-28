@@ -1,12 +1,17 @@
 import { Stack, Typography } from "@mui/material";
 import { useGuardDayInformation } from "../../hooks/useGuardDayInformation";
+import { EventGuardDay } from "../../interfaces";
 
-export const CoursesLine = ({ guardDayInformation }) => {
+export const CoursesLine = ({
+  guardDayInformation,
+}: {
+  guardDayInformation: EventGuardDay;
+}): JSX.Element => {
   const { courseList } = useGuardDayInformation(guardDayInformation);
 
-  const fontSizeIfDaysInWeek = 14;
+  const fontSizeIfDaysInWeek: number = 14;
 
-  let coursesLine = <></>;
+  let coursesLine: JSX.Element = <></>;
 
   if (courseList.length === 1) {
     coursesLine = (

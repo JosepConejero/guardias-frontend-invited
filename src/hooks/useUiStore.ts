@@ -7,32 +7,45 @@ import {
   onOpenAppUsersModal,
   onCloseAppUsersModal,
 } from "../store/ui/uiSlice";
+import { RootState } from "../store";
+
+interface UseUiStoreReturnTypes {
+  isDayModalOpen: boolean;
+  isCourseModalOpen: boolean;
+  isAppUsersModalOpen: boolean;
+  openDayModal: () => void;
+  closeDayModal: () => void;
+  openCourseModal: () => void;
+  closeCourseModal: () => void;
+  openAppUserModal: () => void;
+  closeAppUserModal: () => void;
+}
 
 export const useUiStore = () => {
   const dispatch = useDispatch();
 
   const { isDayModalOpen, isCourseModalOpen, isAppUsersModalOpen } =
-    useSelector((state) => state.ui);
+    useSelector((state: RootState) => state.ui);
 
-  const openDayModal = () => {
+  const openDayModal = (): void => {
     dispatch(onOpenDayModal());
   };
 
-  const closeDayModal = () => {
+  const closeDayModal = (): void => {
     dispatch(onCloseDayModal());
   };
-  const openCourseModal = () => {
+  const openCourseModal = (): void => {
     dispatch(onOpenCourseModal());
   };
 
-  const closeCourseModal = () => {
+  const closeCourseModal = (): void => {
     dispatch(onCloseCourseModal());
   };
-  const openAppUserModal = () => {
+  const openAppUserModal = (): void => {
     dispatch(onOpenAppUsersModal());
   };
 
-  const closeAppUserModal = () => {
+  const closeAppUserModal = (): void => {
     dispatch(onCloseAppUsersModal());
   };
 
@@ -41,7 +54,6 @@ export const useUiStore = () => {
     isDayModalOpen,
     isCourseModalOpen,
     isAppUsersModalOpen,
-
     //methods
     openDayModal,
     closeDayModal,
@@ -49,5 +61,5 @@ export const useUiStore = () => {
     closeCourseModal,
     openAppUserModal,
     closeAppUserModal,
-  };
+  } as UseUiStoreReturnTypes;
 };

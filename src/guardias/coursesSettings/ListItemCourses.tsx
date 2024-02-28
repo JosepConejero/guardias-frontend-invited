@@ -7,22 +7,23 @@ import { useAuthStore, useCalendarStore } from "../../hooks";
 import { Confirmation } from "../../ui/pages/Confirmation";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import { CourseProps } from "../../interfaces";
 
-export const ListItemCourses = ({ course }) => {
-  const [open, setOpen] = useState(false);
+export const ListItemCourses = ({ course }: CourseProps): JSX.Element => {
+  const [open, setOpen] = useState<boolean>(false);
   const { openCourseModal } = useUiStore();
   const { startDeletingCourse, setActiveCourse } = useCoursesStore();
   const { user } = useAuthStore();
   const { guardDays } = useCalendarStore();
 
-  const handleCourseChange = () => {
+  const handleCourseChange = (): void => {
     if (user.isDataModifier) {
       setActiveCourse(course);
       openCourseModal();
     }
   };
 
-  const isThisCourseBeingUsed = (id) => {
+  const isThisCourseBeingUsed = (id: string): boolean => {
     let found = false;
     for (let i = 0; i < guardDays.length; i++) {
       if (guardDays[i].technicians.length > 0) {
@@ -37,8 +38,8 @@ export const ListItemCourses = ({ course }) => {
     return found;
   };
 
-  const onDeleteItem = () => {
-    if (!isThisCourseBeingUsed(course.id)) {
+  const onDeleteItem = (): void => {
+    if (!isThisCourseBeingUsed(course.id!)) {
       startDeletingCourse(course);
     } else {
       Swal.fire({
@@ -49,11 +50,11 @@ export const ListItemCourses = ({ course }) => {
     }
   };
 
-  const handleOpen = () => {
+  const handleOpen = (): void => {
     setOpen(true);
   };
 
-  const handleClose = (answer) => {
+  const handleClose = (answer: boolean): void => {
     if (answer) onDeleteItem();
     setOpen(false);
   };

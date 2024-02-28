@@ -5,17 +5,25 @@ import { TechniciansLine } from "./TechniciansLine";
 import { CoursesLine } from "./CoursesLine";
 import { SomethingBelowLine } from "./SomethingBelowLine";
 import { dateCompare } from "../../helpers/dateComparator";
+import { EventGuardDay, SimpleDate } from "../../interfaces";
+
+interface DayProps {
+  date: SimpleDate;
+  dayOfWeekText: string;
+  onDayClick: (day: number, month: number, year: number) => void;
+  guardDayInformation: EventGuardDay;
+}
 
 export const Day = ({
   date: { day, month, year },
   dayOfWeekText,
   onDayClick,
   guardDayInformation,
-}) => {
-  let backgroundColour,
-    backgroundColourHeader,
-    borderColourBox,
-    borderColourCard;
+}: DayProps): JSX.Element => {
+  let backgroundColour: string,
+    backgroundColourHeader: string,
+    borderColourBox: string,
+    borderColourCard: string;
 
   switch (dateCompare(year, month, day)) {
     case 0:
@@ -38,6 +46,7 @@ export const Day = ({
       break;
     case 1:
       borderColourCard = "grey";
+      borderColourBox = "grey";
       backgroundColourHeader = "lightgrey";
       backgroundColour = "white";
       break;
@@ -59,7 +68,7 @@ export const Day = ({
     isThreeLinesAndBottom,
   } = useGuardDayInformation(guardDayInformation);
 
-  const handleDayClick = () => onDayClick(day, month, year);
+  const handleDayClick = (): void => onDayClick(day, month, year);
 
   return (
     <>

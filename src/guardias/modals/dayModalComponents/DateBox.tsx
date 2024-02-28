@@ -1,13 +1,18 @@
 import { Grid, Typography } from "@mui/material";
 import { dayOfWeekByYearMonthDay, monthNames } from "../../../helpers";
 import { useGuardDayStore } from "../../../hooks/useGuardDayStore";
+import { EventGuardDay, SimpleDate } from "../../../interfaces";
 
-export const DateBox = () => {
-  const {
-    guardDayOpened: {
-      simpleDate: { year, month, day },
-    },
-  } = useGuardDayStore();
+export const DateBox = (): JSX.Element => {
+  // const {
+  //   guardDayOpened: {
+  //     simpleDate: { year, month, day },
+  //   },
+  // } = useGuardDayStore();
+
+  const { guardDayOpened }: { guardDayOpened: EventGuardDay | null } =
+    useGuardDayStore();
+  const { year, month, day }: SimpleDate = guardDayOpened!.simpleDate;
   return (
     <Grid item>
       <Typography

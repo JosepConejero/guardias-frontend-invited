@@ -7,14 +7,15 @@ import {
   Typography,
 } from "@mui/material";
 import { useUiStore } from "../../hooks/useUiStore";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useAppUsersStore } from "../../hooks/useAppUsersStore";
 import { SpinnerInModal } from "../customizedComponents";
 import { useCheckboxes } from "../../hooks";
 import Swal from "sweetalert2";
 import { ButtonsBox } from "./dayModalComponents/ButtonsBox";
+import { User } from "../../interfaces";
 
-const emptyAppUser = {
+const emptyAppUser: User = {
   name: "",
   shortName: "",
   email: "",
@@ -29,15 +30,20 @@ const emptyAppUser = {
   isStillWorking: false,
 };
 
-export const AppUserNameModal = () => {
+export const AppUserNameModal = (): JSX.Element => {
+  console.log("ha entrado aquí");
   const { closeAppUserModal } = useUiStore();
   const { startSavingAppUser, activeAppUser, setInactiveAppUser, isSaving } =
     useAppUsersStore();
 
-  const [formValues, setFormValues] = useState(emptyAppUser);
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [formValues, setFormValues] = useState<User>(emptyAppUser);
+  const [, setFormSubmitted] = useState<boolean>(false); //formSubmitted
 
-  const onInputChange = ({ target }) => {
+  const onInputChange = ({
+    target,
+  }: {
+    target: EventTarget & (HTMLInputElement | HTMLTextAreaElement);
+  }) => {
     setFormValues({ ...formValues, [target.name]: target.value });
   };
 
@@ -73,11 +79,15 @@ export const AppUserNameModal = () => {
     formValues.isStillWorking
   );
 
-  const onCheckboxChangeFormValues = ({ target }) => {
+  const onCheckboxChangeFormValues = ({
+    target,
+  }: {
+    target: HTMLInputElement;
+  }) => {
     setFormValues({ ...formValues, [target.name]: target.checked });
   };
 
-  const onSubmit = async (event) => {
+  const onSubmit = async (event: FormEvent): Promise<void> => {
     event.preventDefault();
     setFormSubmitted(true);
     if (
@@ -93,7 +103,7 @@ export const AppUserNameModal = () => {
         title:
           "Ni el nombre ni el nombre corto ni el email pueden estar vacíos.",
         text: "Por favor, modifica esto antes de guardar",
-        target: document.getElementById("modal-fondo"),
+        target: document.getElementById("modal-fondo")!,
         icon: "error",
       });
     }
@@ -108,7 +118,7 @@ export const AppUserNameModal = () => {
     }
   }, [activeAppUser]);
 
-  const onCloseModal = () => {
+  const onCloseModal = (): void => {
     setInactiveAppUser();
     closeAppUserModal();
   };

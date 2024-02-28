@@ -11,17 +11,30 @@ import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRound
 import CalendarViewMonthIcon from "@mui/icons-material/CalendarViewMonth";
 import CalendarViewWeekIcon from "@mui/icons-material/CalendarViewWeek";
 import AssessmentIcon from "@mui/icons-material/Assessment";
+import { RootState } from "../../store";
 
-export const MonthControls = ({ onNextMonth, onPreviousMonth, showedDate }) => {
-  const { daysInWeek } = useSelector((state) => state.month);
+interface MonthControlsProps {
+  onNextMonth: () => void;
+  onPreviousMonth: () => void;
+  showedDate: Date;
+}
+
+export const MonthControls = ({
+  onNextMonth,
+  onPreviousMonth,
+  showedDate,
+}: MonthControlsProps): JSX.Element => {
+  const { daysInWeek }: { daysInWeek: number } = useSelector(
+    (state: RootState) => state.month
+  );
 
   const dispatch = useDispatch();
 
-  const onClickFiveOrSevenDays = () => {
+  const onClickFiveOrSevenDays = (): void => {
     dispatch(switchDaysInWeek());
   };
 
-  const onShowStatistics = () => {
+  const onShowStatistics = (): void => {
     dispatch(switchShowStatistics());
   };
 

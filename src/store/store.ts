@@ -7,7 +7,9 @@ import { courseSlice } from "./course/courseSlice";
 import { appUserSlice } from "./appUser/appUserSlice";
 import { guardDaySlice } from "./guardDay/guardDaySlice";
 
-export const store = configureStore({
+//cambiar este any
+export const store: any = configureStore({
+  ///any
   reducer: {
     auth: authSlice.reducer,
     month: monthSlice.reducer,
@@ -22,3 +24,5 @@ export const store = configureStore({
       serializableCheck: false,
     }),
 });
+
+export type RootState = ReturnType<typeof store.getState>;

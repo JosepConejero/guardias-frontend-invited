@@ -5,36 +5,40 @@ import { useAppUsersStore } from "../../../hooks/useAppUsersStore";
 import { useState } from "react";
 import { useGuardDayStore } from "../../../hooks/useGuardDayStore";
 import { useAuthStore } from "../../../hooks";
+import { EventGuardDay, TechnicianOut } from "../../../interfaces";
+import { UserWithUid } from "../../../interfaces/user";
 
-export const UserTechniciansBox = () => {
+export const UserTechniciansBox = (): JSX.Element => {
   const { guardDayOpened, updateOpenedGuardDay } = useGuardDayStore();
   const {
     techniciansShortNames,
     getTechniciansOutIdsByShortName,
     getTechniciansOutShortNames,
   } = useAppUsersStore();
-  const { user } = useAuthStore();
+  const { user }: { user: UserWithUid } = useAuthStore();
 
-  let techniciansOut = [...guardDayOpened.techniciansOut];
-  const [techniciansOutShortNames, setTechniciansOutShortNames] = useState(
-    getTechniciansOutShortNames(techniciansOut)
-  );
-  let newTechniciansOutShortNames = [...techniciansOutShortNames];
+  let techniciansOut: TechnicianOut[] = guardDayOpened
+    ? [...guardDayOpened.techniciansOut]
+    : [];
+  const [techniciansOutShortNames, setTechniciansOutShortNames] = useState<
+    string[]
+  >(getTechniciansOutShortNames(techniciansOut));
+  let newTechniciansOutShortNames: string[] = [...techniciansOutShortNames];
 
-  const updateTechniciansList = (technicianShortName) => {
+  const updateTechniciansList = (technicianShortName: string): void => {
     if (
       techniciansOutShortNames.some(
-        (technician) => technician === technicianShortName
+        (technician: string) => technician === technicianShortName
       )
     ) {
       newTechniciansOutShortNames = [
         ...newTechniciansOutShortNames.filter(
-          (technician) => technician !== technicianShortName
+          (technician: string) => technician !== technicianShortName
         ),
       ];
-      setTechniciansOutShortNames((techniciansOutShortNames) =>
+      setTechniciansOutShortNames((techniciansOutShortNames: string[]) =>
         techniciansOutShortNames.filter(
-          (technician) => technician !== technicianShortName
+          (technician: string) => technician !== technicianShortName
         )
       );
     } else {
@@ -42,7 +46,7 @@ export const UserTechniciansBox = () => {
         ...newTechniciansOutShortNames,
         technicianShortName,
       ];
-      setTechniciansOutShortNames((techniciansOutShortNames) => [
+      setTechniciansOutShortNames((techniciansOutShortNames: string[]) => [
         ...techniciansOutShortNames,
         technicianShortName,
       ]);
@@ -53,12 +57,14 @@ export const UserTechniciansBox = () => {
       techniciansOut: [
         ...getTechniciansOutIdsByShortName(newTechniciansOutShortNames),
       ],
-    });
+    } as EventGuardDay);
   };
 
-  const isInTechniciansOutShortNames = (technicianShortName) => {
+  const isInTechniciansOutShortNames = (
+    technicianShortName: string
+  ): boolean => {
     return techniciansOutShortNames.some(
-      (shortName) => shortName === technicianShortName
+      (shortName: string) => shortName === technicianShortName
     );
   };
 
@@ -75,7 +81,7 @@ export const UserTechniciansBox = () => {
         >
           Técnicos que están
         </Typography>
-        {techniciansShortNames.map((technicianShortName) => (
+        {techniciansShortNames.map((technicianShortName: string) => (
           <TechnicianName
             key={technicianShortName}
             name={technicianShortName}

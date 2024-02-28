@@ -1,51 +1,71 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { Course } from "../../interfaces";
+import { RootState } from "../store";
+
+interface CourseSliceInitialState {
+  isLoadingCourses: boolean;
+  courses: Course[];
+  activeCourse: null | Course;
+  isDeletingCourse: boolean;
+}
+
+const initialState: CourseSliceInitialState = {
+  isLoadingCourses: true,
+  courses: [],
+  activeCourse: null,
+  isDeletingCourse: false,
+};
 
 export const courseSlice = createSlice({
   name: "course",
-  initialState: {
-    isLoadingCourses: true,
-    courses: [],
-    activeCourse: null,
-    isDeletingCourse: false,
-  },
+  initialState,
   reducers: {
-    onSetActiveCourse: (state, { payload }) => {
+    onSetActiveCourse: (
+      state: RootState,
+      { payload }: PayloadAction<Course>
+    ) => {
       state.activeCourse = payload;
     },
-    onSetInactiveCourse: (state) => {
+    onSetInactiveCourse: (state: RootState) => {
       state.activeCourse = null;
     },
-    onAddNewCourse: (state, { payload }) => {
+    onAddNewCourse: (state: RootState, { payload }: PayloadAction<Course>) => {
       state.courses.push(payload);
     },
-    onUpdateCourse: (state, { payload }) => {
-      state.courses = state.courses.map((course) => {
+    onUpdateCourse: (state: RootState, { payload }: PayloadAction<Course>) => {
+      state.courses = state.courses.map((course: Course) => {
         if (course.id === payload.id) {
           return payload;
         }
         return course;
       });
     },
-    onLoadCourses: (state, { payload = [] }) => {
+    onLoadCourses: (
+      state: RootState,
+      { payload = [] }: { payload: Course[] }
+    ) => {
       state.isLoadingCourses = false;
-      payload.forEach((course) => {
-        const exists = state.courses.some(
-          (dbCourse) => dbCourse.id === course.id
+      payload.forEach((course: Course) => {
+        const exists: boolean = state.courses.some(
+          (dbCourse: Course) => dbCourse.id === course.id
         );
         if (!exists) {
           state.courses.push(course);
         }
       });
     },
-    onDeleteCourse: (state, { payload }) => {
+    onDeleteCourse: (state: RootState, { payload }: PayloadAction<Course>) => {
       state.courses = state.courses.filter(
-        (course) => course.id !== payload.id
+        (course: Course) => course.id !== payload.id
       );
     },
-    onSetDeletingCourse: (state, { payload }) => {
+    onSetDeletingCourse: (
+      state: RootState,
+      { payload }: PayloadAction<boolean>
+    ) => {
       state.isDeletingCourse = payload;
     },
-    onEmptyCourses: (state) => {
+    onEmptyCourses: (state: RootState) => {
       state.courses = [];
     },
   },

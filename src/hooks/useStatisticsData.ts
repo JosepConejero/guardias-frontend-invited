@@ -4,17 +4,54 @@ import { useAppUsersStore } from "./useAppUsersStore";
 import { useCalendarStore } from "./useCalendarStore";
 import { useCoursesStore } from "./useCoursesStore";
 import { officeDate } from "../helpers";
+import { RootState } from "../store";
+import {
+  EventGuardDay,
+  SimpleDate,
+  TechnicianStatistics,
+  DayTechnician,
+} from "../interfaces";
+import { ShowedMonthType } from "../types";
+
+export type TechniciansOutNameDaysType = {
+  name: string;
+  days: number | string;
+};
+
+export type FiveDayScopeType = {
+  week: number[];
+  techniciansOut: TechniciansOutNameDaysType[];
+};
+
+export type TechniciansDaysType = {
+  [key: string]: number[];
+};
+
+export type TechniciansDaysNumberType = {
+  [key: string]: number;
+};
+
+export interface UseStatisticsDataReturnTypes {
+  guardsAndFlcsStatisticsSortedByShortName: TechnicianStatistics[];
+  guardsAndFlcsStatisticsSortedByTotalGuards: TechnicianStatistics[];
+  guardsAndFlcsStatisticsSortedByTotalFlcs: TechnicianStatistics[];
+  absencesStatistics: FiveDayScopeType[];
+  isThereSomeTechnicianOut: (dayData: FiveDayScopeType[]) => boolean;
+}
 
 export const useStatisticsData = () => {
-  const { showedDate } = useSelector((state) => state.calendar);
+  const { showedDate } = useSelector((state: RootState) => state.calendar);
 
   const { guardDays, showedMonth } = useCalendarStore();
   const { courseTitleById } = useCoursesStore();
   const { technicianShortNameById } = useAppUsersStore();
 
-  const isInResult = (technicians, technicianId) => {
+  const isInResult = (
+    technicians: TechnicianStatistics[],
+    technicianId: string
+  ): number => {
     let isIncluded = -1;
-    technicians.forEach((technician, index) => {
+    technicians.forEach((technician: TechnicianStatistics, index: number) => {
       if (technician.technicianId === technicianId) {
         isIncluded = index;
       }
@@ -22,15 +59,18 @@ export const useStatisticsData = () => {
     return isIncluded;
   };
 
-  const getGuardsAndFlcsData = (guardDays, showedMonth) => {
-    let result = [];
+  const getGuardsAndFlcsData = (
+    guardDays: EventGuardDay[],
+    showedMonth: ShowedMonthType
+  ): TechnicianStatistics[] => {
+    let result: TechnicianStatistics[] = [];
 
-    guardDays?.forEach((guardDay) => {
+    guardDays?.forEach((guardDay: EventGuardDay) => {
       if (
         guardDay.simpleDate.month === showedMonth.month &&
         guardDay.simpleDate.year === showedMonth.year
       ) {
-        guardDay.technicians?.forEach((technician) => {
+        guardDay.technicians?.forEach((technician: DayTechnician) => {
           if (JSON.stringify(result) === "[]") {
             result.push({
               technicianId: technician.technicianId,
@@ -92,12 +132,16 @@ export const useStatisticsData = () => {
     "totalFlcs"
   );
 
-  const techniciansInTechniciansOut = ({ day, month, year }) => {
-    let result = [];
-    let found = false;
-    let index = 0;
+  const techniciansInTechniciansOut = ({
+    day,
+    month,
+    year,
+  }: SimpleDate): TechniciansDaysNumberType => {
+    let result: TechniciansDaysNumberType = {};
+    let found: boolean = false;
+    let index: number = 0;
 
-    let techniciansOutDays = {};
+    let techniciansOutDays: TechniciansDaysNumberType = {};
     while (found === false && index < guardDays.length) {
       if (
         guardDays[index].simpleDate.day === day &&
@@ -119,14 +163,15 @@ export const useStatisticsData = () => {
   };
 
   const getAbsencesData = () => {
-    const showedDays = officeDate(
+    const showedDays: SimpleDate[] = officeDate(
       showedDate.getFullYear(),
       showedDate.getMonth()
     );
-    let dayData = [];
-    let monthScopes = [];
-    let weekScope = [];
-    let monthScopesTogether = [];
+
+    let dayData: FiveDayScopeType[] = [];
+    let monthScopes: SimpleDate[][] = [];
+    let weekScope: SimpleDate[] = [];
+    let monthScopesTogether: SimpleDate[] = [];
 
     // 0-4    5   6
     // 7-11   12  13
@@ -135,7 +180,7 @@ export const useStatisticsData = () => {
     // 28-32  33  34
     // 35-39  40  41
 
-    showedDays.forEach((day, index) => {
+    showedDays.forEach((day: SimpleDate, index: number) => {
       if ([6, 13, 20, 27, 34, 41].includes(index)) {
         monthScopes.push(weekScope);
         weekScope = [];
@@ -146,31 +191,36 @@ export const useStatisticsData = () => {
       }
     });
 
-    let techniciansDays = {};
-    let week = [];
+    let techniciansDays: TechniciansDaysType = {};
+    let week: number[] = [];
 
-    monthScopesTogether?.forEach((dayScope, index) => {
+    monthScopesTogether?.forEach((dayScope: SimpleDate, index: number) => {
       const technicians = techniciansInTechniciansOut(dayScope);
       week.push(dayScope.day);
 
-      Object.entries(technicians).forEach(([key, value]) => {
-        if (!techniciansDays[key]) {
-          techniciansDays[key] = [];
+      Object.entries(technicians).forEach(
+        ([key, value]: [key: string, value: number]) => {
+          if (!techniciansDays[key]) {
+            techniciansDays[key] = [];
+          }
+          techniciansDays[key] = [...techniciansDays[key], value];
         }
-        techniciansDays[key] = [...techniciansDays[key], value];
-      });
+      );
 
       if ([4, 9, 14, 19, 24, 29].includes(index)) {
-        let techniciansOut = [];
-        let techniciansOutItem = {};
-        Object.entries(techniciansDays).forEach(([key, value]) => {
-          techniciansOutItem.name = key;
-          techniciansOutItem.days = value.join(", ");
-          techniciansOut.push(techniciansOutItem);
-          techniciansOutItem = {};
-        });
+        let techniciansOut: TechniciansOutNameDaysType[] = [];
+        let techniciansOutItem: TechniciansOutNameDaysType =
+          {} as TechniciansOutNameDaysType;
+        Object.entries(techniciansDays).forEach(
+          ([key, value]: [key: string, value: number[]]) => {
+            techniciansOutItem.name = key;
+            techniciansOutItem.days = value.join(", ");
+            techniciansOut.push(techniciansOutItem);
+            techniciansOutItem = {} as TechniciansOutNameDaysType;
+          }
+        );
 
-        let fiveDaysScope = {};
+        let fiveDaysScope: FiveDayScopeType = {} as FiveDayScopeType;
         fiveDaysScope.week = week;
         week = [];
         fiveDaysScope.techniciansOut = techniciansOut;
@@ -185,8 +235,9 @@ export const useStatisticsData = () => {
 
   const absencesStatistics = getAbsencesData();
 
-  const isThereSomeTechnicianOut = (dayData) => {
-    let found = false;
+  // const isThereSomeTechnicianOut = (dayData: EventGuardDay[]): boolean => {
+  const isThereSomeTechnicianOut = (dayData: FiveDayScopeType[]): boolean => {
+    let found: boolean = false;
     if (dayData.length === 0) return found;
     for (let i = 0; i < dayData.length; i++) {
       if (dayData[i].techniciansOut.length > 0) found = true;
@@ -200,5 +251,5 @@ export const useStatisticsData = () => {
     guardsAndFlcsStatisticsSortedByTotalFlcs,
     absencesStatistics,
     isThereSomeTechnicianOut,
-  };
+  } as UseStatisticsDataReturnTypes;
 };

@@ -2,7 +2,7 @@ import { Divider, Grid, Typography } from "@mui/material";
 import { useStatisticsData } from "../../hooks/useStatisticsData";
 import { uniqueKey } from "../../helpers/uniqueKey";
 
-export const TechniciansOutStatistics = () => {
+export const TechniciansOutStatistics = (): JSX.Element => {
   const { absencesStatistics, isThereSomeTechnicianOut } = useStatisticsData();
 
   return (

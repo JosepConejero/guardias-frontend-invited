@@ -8,37 +8,61 @@ import {
 } from "../store/calendar/calendarSlice";
 import calendarApi from "../api/calendarApi";
 import { useState } from "react";
+import { EventGuardDay, SimpleDate } from "../interfaces";
+import { ShowedMonthType } from "../types";
+import { RootState } from "../store";
+
+interface useCalendarStoreReturnTypes {
+  activeGuardDay: SimpleDate;
+  guardDays: EventGuardDay[];
+  guardDayInformation: ({ day, month, year }: SimpleDate) => EventGuardDay;
+  hasGuardDayClicked: boolean;
+  isSaving: boolean;
+  showedMonth: ShowedMonthType;
+  setActiveGuardDay: (calendarGuardDay: SimpleDate) => void;
+  startSavingGuardDay: (calendarGuardDay: EventGuardDay) => Promise<void>;
+  startLoadingGuardDays: () => Promise<void>;
+  setShowedMonth: (date: ShowedMonthType) => void;
+}
 
 export const useCalendarStore = () => {
   const dispatch = useDispatch();
   const { guardDays, activeGuardDay, showedMonth } = useSelector(
-    (state) => state.calendar
+    (state: RootState) => state.calendar
   );
-  const [isSaving, setIsSaving] = useState(false);
+  const [isSaving, setIsSaving] = useState<boolean>(false);
 
-  const setShowedMonth = (date) => {
+  const setShowedMonth = (date: ShowedMonthType): void => {
     dispatch(onSetShowedMonth(date));
   };
 
-  const setActiveGuardDay = (calendarGuardDay) => {
+  const setActiveGuardDay = (calendarGuardDay: SimpleDate): void => {
     dispatch(onSetActiveGuardDay(calendarGuardDay));
   };
 
-  const guardDayInformation = ({ day, month, year }) => {
-    const found = guardDays.find(
+  const guardDayInformation = ({
+    day,
+    month,
+    year,
+  }: SimpleDate): EventGuardDay => {
+    const found: EventGuardDay = guardDays.find(
       ({
         simpleDate: {
           year: guardDayYear,
           month: guardDayMonth,
           day: guardDayDay,
         },
+      }: {
+        simpleDate: SimpleDate;
       }) =>
         guardDayYear === year && guardDayMonth === month && guardDayDay === day
     );
     return found;
   };
 
-  const startSavingGuardDay = async (calendarGuardDay) => {
+  const startSavingGuardDay = async (
+    calendarGuardDay: EventGuardDay
+  ): Promise<void> => {
     try {
       setIsSaving(true);
       if (calendarGuardDay.id) {
@@ -62,7 +86,7 @@ export const useCalendarStore = () => {
     }
   };
 
-  const startLoadingGuardDays = async () => {
+  const startLoadingGuardDays = async (): Promise<void> => {
     try {
       const { data } = await calendarApi.get("/events");
       dispatch(onLoadGuardDays(data.eventos));
@@ -85,5 +109,5 @@ export const useCalendarStore = () => {
     startSavingGuardDay,
     startLoadingGuardDays,
     setShowedMonth,
-  };
+  } as useCalendarStoreReturnTypes;
 };

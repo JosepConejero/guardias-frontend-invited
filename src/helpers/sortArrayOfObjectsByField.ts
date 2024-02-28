@@ -1,17 +1,16 @@
-export const sortArrayOfObjectsByProperty = (
-  arrayOfObjects: any[],
-  property: string
+export const sortArrayOfObjectsByProperty = <Type, Key extends keyof Type>(
+  arrayOfObjects: Type[],
+  property: Key
 ) => {
-  const newArrayOfObjects: any[] = [...arrayOfObjects];
+  const newArrayOfObjects: Type[] = [...arrayOfObjects];
 
   const compareItems = (
-    elementOfArray1: any,
-    elementOfArray2: any
+    elementOfArray1: Type,
+    elementOfArray2: Type
   ): -1 | 1 | 0 => {
-    if (elementOfArray1[`${property}`] < elementOfArray2[`${property}`])
-      return -1;
-    if (elementOfArray1[`${property}`] > elementOfArray2[`${property}`])
-      return 1;
+    //String(property) o bien: property o bien: `${property}`
+    if (elementOfArray1[property] < elementOfArray2[property]) return -1;
+    if (elementOfArray1[property] > elementOfArray2[property]) return 1;
     return 0;
   };
 

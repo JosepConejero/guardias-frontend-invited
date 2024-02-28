@@ -1,6 +1,6 @@
 import { CircularProgress, Grid, Typography } from "@mui/material";
 
-export const SpinnerInModal = ({ text }) => {
+export const SpinnerInModal = ({ text }: { text: string }): JSX.Element => {
   return (
     <Grid
       container
