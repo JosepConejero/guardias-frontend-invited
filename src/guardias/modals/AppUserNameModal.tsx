@@ -31,7 +31,6 @@ const emptyAppUser: User = {
 };
 
 export const AppUserNameModal = (): JSX.Element => {
-  console.log("ha entrado aquí");
   const { closeAppUserModal } = useUiStore();
   const { startSavingAppUser, activeAppUser, setInactiveAppUser, isSaving } =
     useAppUsersStore();
