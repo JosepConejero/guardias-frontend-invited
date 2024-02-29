@@ -31,7 +31,7 @@ export const DayModal = ({
   closeModal,
 }: {
   closeModal: () => void;
-}): JSX.Element | undefined => {
+}): JSX.Element => {
   const { activeGuardDay, guardDayInformation, startSavingGuardDay, isSaving } =
     useCalendarStore();
   const { selectGuardDay } = useGuardDayStore();
@@ -129,69 +129,68 @@ export const DayModal = ({
     }
   }, [guardDayOpened?.techniciansOut]);
 
-  if (!guardDayOpened) return;
+  if (!guardDayOpened) return <></>;
 
   return (
     <>
-      {isSaving ? (
-        <SpinnerInModal text="Grabando..." />
-      ) : (
-        <>
+      isSaving ? (
+      <SpinnerInModal text="Grabando..." />) : (
+      <>
+        <Grid
+          id="dialog-guard-day"
+          sx={{
+            width: { xs: "390px", md: "900px" },
+          }}
+        >
           <Grid
-            id="dialog-guard-day"
             sx={{
-              width: { xs: "390px", md: "900px" },
+              my: 1,
+              mx: { md: 0.5 },
             }}
           >
-            <Grid
-              sx={{
-                my: 1,
-                mx: { md: 0.5 },
-              }}
+            <form
+              aria-label="submit-form"
+              onSubmit={onSubmit}
+              className="animate__animated animate__fadeIn animate__faster"
             >
-              <form
-                aria-label="submit-form"
-                onSubmit={onSubmit}
-                className="animate__animated animate__fadeIn animate__faster"
-              >
+              <Stack>
+                <DateBox />
+
                 <Stack>
-                  <DateBox />
-
-                  <Stack>
-                    <Grid container>
-                      <Grid
-                        item
-                        xs={12}
-                        md={9}
-                        p={1}
-                        sx={{
-                          width: { md: "700px" },
-                        }}
-                      >
-                        <UsersGuardsBox />
-                      </Grid>
-
-                      <Grid item xs={12} md={3} p={1}>
-                        <UserTechniciansBox />
-                      </Grid>
+                  <Grid container>
+                    <Grid
+                      item
+                      xs={12}
+                      md={9}
+                      p={1}
+                      sx={{
+                        width: { md: "700px" },
+                      }}
+                    >
+                      <UsersGuardsBox />
                     </Grid>
 
-                    <Grid p={1}>
-                      <CheckboxesBox />
+                    <Grid item xs={12} md={3} p={1}>
+                      <UserTechniciansBox />
                     </Grid>
-                  </Stack>
+                  </Grid>
 
-                  <ButtonsBox
-                    onCloseModal={closeModal}
-                    cancelDisabled={false}
-                    okDisabled={!user.isDataModifier}
-                  />
+                  <Grid p={1}>
+                    <CheckboxesBox />
+                  </Grid>
                 </Stack>
-              </form>
-            </Grid>
+
+                <ButtonsBox
+                  onCloseModal={closeModal}
+                  cancelDisabled={false}
+                  okDisabled={!user.isDataModifier}
+                />
+              </Stack>
+            </form>
           </Grid>
-        </>
-      )}
+        </Grid>
+      </>
+      )
     </>
   );
 };
