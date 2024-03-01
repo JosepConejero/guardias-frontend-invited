@@ -133,64 +133,65 @@ export const DayModal = ({
 
   return (
     <>
-      isSaving ? (
-      <SpinnerInModal text="Grabando..." />) : (
-      <>
-        <Grid
-          id="dialog-guard-day"
-          sx={{
-            width: { xs: "390px", md: "900px" },
-          }}
-        >
+      {isSaving ? (
+        <SpinnerInModal text="Grabando..." />
+      ) : (
+        <>
           <Grid
+            id="dialog-guard-day"
             sx={{
-              my: 1,
-              mx: { md: 0.5 },
+              width: { xs: "390px", md: "900px" },
             }}
           >
-            <form
-              aria-label="submit-form"
-              onSubmit={onSubmit}
-              className="animate__animated animate__fadeIn animate__faster"
+            <Grid
+              sx={{
+                my: 1,
+                mx: { md: 0.5 },
+              }}
             >
-              <Stack>
-                <DateBox />
-
+              <form
+                aria-label="submit-form"
+                onSubmit={onSubmit}
+                className="animate__animated animate__fadeIn animate__faster"
+              >
                 <Stack>
-                  <Grid container>
-                    <Grid
-                      item
-                      xs={12}
-                      md={9}
-                      p={1}
-                      sx={{
-                        width: { md: "700px" },
-                      }}
-                    >
-                      <UsersGuardsBox />
+                  <DateBox />
+
+                  <Stack>
+                    <Grid container>
+                      <Grid
+                        item
+                        xs={12}
+                        md={9}
+                        p={1}
+                        sx={{
+                          width: { md: "700px" },
+                        }}
+                      >
+                        <UsersGuardsBox />
+                      </Grid>
+
+                      <Grid item xs={12} md={3} p={1}>
+                        <UserTechniciansBox />
+                      </Grid>
                     </Grid>
 
-                    <Grid item xs={12} md={3} p={1}>
-                      <UserTechniciansBox />
+                    <Grid p={1}>
+                      <CheckboxesBox />
                     </Grid>
-                  </Grid>
+                  </Stack>
 
-                  <Grid p={1}>
-                    <CheckboxesBox />
-                  </Grid>
+                  <ButtonsBox
+                    onCloseModal={closeModal}
+                    cancelDisabled={false}
+                    okDisabled={!user.isDataModifier}
+                  />
                 </Stack>
-
-                <ButtonsBox
-                  onCloseModal={closeModal}
-                  cancelDisabled={false}
-                  okDisabled={!user.isDataModifier}
-                />
-              </Stack>
-            </form>
+              </form>
+            </Grid>
           </Grid>
-        </Grid>
-      </>
-      )
+        </>
+      )}
     </>
   );
 };
