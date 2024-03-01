@@ -31,7 +31,7 @@ export const DayModal = ({
   closeModal,
 }: {
   closeModal: () => void;
-}): JSX.Element | undefined => {
+}): JSX.Element => {
   const { activeGuardDay, guardDayInformation, startSavingGuardDay, isSaving } =
     useCalendarStore();
   const { selectGuardDay } = useGuardDayStore();
@@ -129,7 +129,7 @@ export const DayModal = ({
     }
   }, [guardDayOpened?.techniciansOut]);
 
-  if (!guardDayOpened) return;
+  if (!guardDayOpened) return <></>;
 
   return (
     <>

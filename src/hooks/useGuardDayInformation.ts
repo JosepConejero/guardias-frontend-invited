@@ -54,7 +54,7 @@ export const useGuardDayInformation = (guardDayInformation: EventGuardDay) => {
     const { title: courseTitle, flc: isFLC } = extractItemByProperty(
       courses,
       "id",
-      technician.courseId
+      technician.courseId!
     );
 
     if (isExternal) isSomeExternal = true;
