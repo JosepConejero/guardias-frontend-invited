@@ -38,18 +38,18 @@ describe("Given a dateCompare function", () => {
   });
 
   describe("When it's called with todayYear and todayMonth and nextDay", () => {
-    test("Then it returns 2", () => {
+    test("Then it returns 1", () => {
       expect(dateCompare(todayYear, todayMonth, nextDay)).toBe(1);
     });
   });
   describe("When it's called with todayYear and todayMonth and previousDay", () => {
-    test("Then it returns -2", () => {
+    test("Then it returns -1", () => {
       expect(dateCompare(todayYear, todayMonth, previousDay)).toBe(-1);
     });
   });
 
   describe("When it's called with todayYear and todayMonth and todayDay", () => {
-    test("Then it returns -2", () => {
+    test("Then it returns 0", () => {
       expect(dateCompare(todayYear, todayMonth, todayDay)).toBe(0);
     });
   });
