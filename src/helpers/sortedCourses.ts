@@ -1,6 +1,7 @@
 import { Course } from "../interfaces/course";
 
 export const sortedCourses = (courses: Course[]) => {
+  if (courses.length === 0) return [];
   let newCourses: Course[] = [...courses];
   let result: Course[] = [];
 
