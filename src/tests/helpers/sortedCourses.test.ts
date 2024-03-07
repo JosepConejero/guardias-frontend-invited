@@ -63,6 +63,27 @@ const oneCourse = [
   },
 ];
 
+/* const threeCoursesWithTheSameTitle = [
+  {
+    title: "course 1",
+    frequent: false,
+    flc: false,
+    id: "id1",
+  },
+  {
+    title: "course 1",
+    frequent: false,
+    flc: false,
+    id: "id2",
+  },
+  {
+    title: "course 1",
+    frequent: false,
+    flc: false,
+    id: "id3",
+  },
+]; */
+
 describe("Given a sortedCourses function", () => {
   describe("When it's called with an array of courses 'fourCourses'", () => {
     test("Then it doesn't return an unordered array of 'fourCourses'", () => {
@@ -82,4 +103,11 @@ describe("Given a sortedCourses function", () => {
       expect(sortedCourses(oneCourse)).toStrictEqual(oneCourse);
     });
   });
+  /*  describe("When it's called with three courses with the same title", () => {
+    test("It returns the same array", () => {
+      expect(sortedCourses(threeCoursesWithTheSameTitle)).toStrictEqual(
+        threeCoursesWithTheSameTitle
+      );
+    });
+  }); */
 });

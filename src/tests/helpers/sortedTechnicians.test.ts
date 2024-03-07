@@ -45,6 +45,21 @@ const oneTechnician = [
   },
 ];
 
+const threeTechnicianswithTheSameShortName = [
+  {
+    shortName: "technician 1",
+    id: "id 1",
+  },
+  {
+    shortName: "technician 1",
+    id: "id 2",
+  },
+  {
+    shortName: "technician 1",
+    id: "id 3",
+  },
+];
+
 describe("Given a sortedTechnicians function", () => {
   describe("When it's called with an array of technicians 'fourTechnicians'", () => {
     test("Then it doesn't return an unordered array of 'fourTechnicians'", () => {
@@ -66,6 +81,13 @@ describe("Given a sortedTechnicians function", () => {
   describe("When it's called with one single technician", () => {
     test("Then it returns the same technician", () => {
       expect(sortedTechnicians(oneTechnician)).toStrictEqual(oneTechnician);
+    });
+  });
+  describe("When it's called with two technicians with the same shortName", () => {
+    test("Then it returns the same array", () => {
+      expect(
+        sortedTechnicians(threeTechnicianswithTheSameShortName)
+      ).toStrictEqual(threeTechnicianswithTheSameShortName);
     });
   });
 });
