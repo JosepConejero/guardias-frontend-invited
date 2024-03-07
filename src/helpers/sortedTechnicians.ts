@@ -3,6 +3,7 @@ import { UserShortName } from "../interfaces/user";
 export const sortedTechnicians = (
   technicians: UserShortName[]
 ): UserShortName[] => {
+  if (technicians.length === 0) return [];
   let newTechnicians: UserShortName[] = [...technicians];
 
   let externoIndex: number | -1 = newTechnicians.findIndex(

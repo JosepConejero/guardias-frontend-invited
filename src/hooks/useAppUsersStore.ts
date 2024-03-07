@@ -25,6 +25,7 @@ import {
 
 export const useAppUsersStore = () => {
   const dispatch = useDispatch();
+
   const { appUsers, activeAppUser, isDeletingAppUser } = useSelector(
     (state: RootState) => state.appUser
   );
