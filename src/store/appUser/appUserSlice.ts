@@ -74,3 +74,7 @@ export const {
   onSetDeletingAppUser,
   onEmptyAppUsers,
 } = appUserSlice.actions;
+
+export const selectCount = (state: RootState) => state.appUser.value;
+
+export default appUserSlice.reducer;
