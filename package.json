@@ -67,7 +67,8 @@
       "!src/test/**/*.tsx",
       "!src/**/index.ts",
       "!src/interfaces/**/*.ts",
-      "!src/types/**/*.ts"
+      "!src/types/**/*.ts",
+      "!src/fixtures/**/*.ts"
     ]
   }
 }
