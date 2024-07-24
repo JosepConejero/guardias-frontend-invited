@@ -5,8 +5,11 @@
 
 .logo-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-weight: bolder;
+  color: rgb(85, 85, 85);
   height: 100vh;
 }
 
