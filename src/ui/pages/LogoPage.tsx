@@ -7,6 +7,7 @@ export const LogoPage = (): JSX.Element => {
         <Link to="/login">
           <img src="/assets/logo.png" alt="logo de MPE"></img>
         </Link>
+        <p>Pulsa en el logo para empezar</p>
       </div>
     </>
   );
