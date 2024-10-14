@@ -1,13 +1,14 @@
-/* export const initialState = {
+import { AuthSliceInitialState } from "../../interfaces/slicesInterfaces";
+
+export const initialState: AuthSliceInitialState = {
   status: "checking",
-  uid: null,
-  email: null,
-  displayName: null,
-  photoURL: null,
-  errorMessage: null,
+  user: {},
+  errorMessage: undefined,
+  isChangingPassword: false,
+  isRestoringPassword: false,
 };
 
-export const authenticatedState = {
+/*export const authenticatedState = {
   status: "authenticated",
   uid: "123ABC",
   email: "demo@google.com",

@@ -1,16 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { StatusType } from "../../types/StatusType";
-import { User, UserWithUid } from "../../interfaces";
+import { UserWithUid } from "../../interfaces";
 import { RootState } from "../store";
-
-interface AuthSliceInitialState {
-  status: StatusType;
-  user: User | {};
-  errorMessage: string | undefined;
-  isChangingPassword: boolean;
-  isRestoringPassword: boolean;
-}
+import { AuthSliceInitialState } from "../../interfaces/slicesInterfaces";
 
 const initialState: AuthSliceInitialState = {
   status: "checking",
